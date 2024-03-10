@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "forgedb": "github:tryforge/forgedb#dev",
+    "forgescript": "github:tryforge/forgescript#dev"
+  }
+}
