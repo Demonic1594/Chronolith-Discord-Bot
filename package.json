@@ -1,0 +1,27 @@
+{
+   "name":"Chronolith-Discord-Bot",
+   "version":"0.0.1",
+   "description":"Currently a WIP.",
+   "main":"index.js",
+   "scripts":{
+      "start":"node index.js"
+   },
+   "repository":{
+      "type":"git",
+      "url":"git+https://github.com/RyuxKurenai/Chronolith-Discord-Bot.git"
+   },
+   "keywords":[
+      "Chronolith-Discord-Bot",
+      "Chronolith"
+   ],
+   "author":"Demonic7463",
+   "license":"Apache-2.0",
+   "dependencies": {
+    "@tryforge/forge.api": "^0.1.1",
+    "@tryforge/forge.canvas": "^0.2.1",
+    "@tryforge/forge.db": "^1.1.1",
+    "@tryforge/forgescript": "^1.4.0",
+    "dotenv": "^16.4.5",
+    "forge-music": "^0.0.1-fixklZClzibqwixa"
+  }
+}
