@@ -10,10 +10,10 @@ const client = new ForgeClient({
     "extensions": [
         new ForgeDB(),
         new ForgeAPI({
-            port: 1594,
+            port: 1594,     // Consider changing the port number for your use.
             authorization: [
                 "test1",
-                "test2"
+                "test2"     // If you do use this and want anauthorization header, you can add or reduce to how much you want. However consider changing this if you copy thiis repo as a template.
             ]
         }),
         new ForgeCanvas(),
@@ -42,7 +42,7 @@ const client = new ForgeClient({
         "AutoModerationConfiguration",
         "AutoModerationExecution"
     ],     // Privileged Intents, needs these intents enabled in https://discord.com/developers/applications. Regardless enable them to fit your needs or remove them otherwise. (doesnt really impact it that much if you keep them)
-    "useInviteSystem": true,
+    "useInviteSystem": true,     // Set thevalue to false ifyou dont need to use the invite system.
     "prefixes": [
         "%",
         "'",
