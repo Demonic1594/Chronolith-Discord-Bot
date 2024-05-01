@@ -1,0 +1,9 @@
+# dotenv environment variable files
+.env
+
+# Dependency directories
+node_modules/
+
+# Miscellaneous
+forge.db
+package-lock.json
