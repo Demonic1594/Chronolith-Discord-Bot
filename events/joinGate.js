@@ -72,7 +72,7 @@ $jsonLoad[js;$get[rawjs]]
                 ;false]
             ]
             $if[$env[cfg;joingate;action]==lockdown;
-                $lockAll[$guildID]
+                $lockAll[$guildID;Raid detection;automatic;0]
             ]
         ]
 

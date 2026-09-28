@@ -426,7 +426,13 @@ def lint_code(code, sigs, custom, enums, label=""):
                     line_no, col,
                     fix=f"Remove {n_provided - max_args} trailing arg(s) or escape semicolons in text"))
 
-            if not has_rest and n_nonempty < required:
+            # Skip warning for known-safe empty-arg patterns:
+            # $let[x;] — empty value (sets to empty string, verified legal)
+            # $replace[text;match;] — empty replacement (deletes the match)
+            # $default[value;] — empty fallback (returns empty)
+            # $return[] — empty return (stops execution)
+            EMPTY_SAFE = {"let", "replace", "default", "return", "if"}
+            if fname_lower not in EMPTY_SAFE and not has_rest and n_nonempty < required:
                 missing = [p["name"] for idx, p in enumerate(sig["params"][:required])
                           if idx >= len(args) or not args[idx].strip()]
                 findings.append(Finding("warn", "arg-count",
@@ -728,14 +734,26 @@ def build_deps(custom, sigs, root):
 
 # ── Explain Mode ───────────────────────────────────────────────────────────
 
-def explain(fn_name, sigs, enums):
+def explain(fn_name, sigs, enums, custom):
     fn_name = fn_name.lstrip("$").lower()
     sig = sigs.get(fn_name)
 
     print(f"{C.BOLD}┌─ ${sig['name'] if sig else fn_name}{C.RESET} " + "─" * 44)
 
     if not sig:
-        print(f"│ {C.RED}Not found in knowledge base{C.RESET}")
+        # Check custom functions
+        custom_fn = custom.get(fn_name)
+        if custom_fn:
+            print(f"│ {C.CYAN}Custom function{C.RESET} defined in {C.DIM}{custom_fn['file']}{C.RESET}")
+            print(f"│ {C.DIM}Parameters ({custom_fn['required']} required):{C.RESET}")
+            code = custom_fn.get('code', '')
+            if code:
+                # Show first few lines of the code
+                for line in code.strip().split('\n')[:5]:
+                    print(f"│   {C.DIM}{line.strip()}{C.RESET}")
+            print(f"{C.BOLD}└{C.RESET}" + "─" * 50)
+            return
+        print(f"│ {C.RED}Not found in knowledge base or custom functions{C.RESET}")
         print(f"{C.BOLD}└{C.RESET}" + "─" * 50)
         return
 
@@ -882,7 +900,7 @@ def main():
     if "--explain" in sys.argv:
         idx = sys.argv.index("--explain")
         if idx + 1 < len(sys.argv):
-            explain(sys.argv[idx + 1], sigs, enums)
+            explain(sys.argv[idx + 1], sigs, enums, custom)
             return 0
 
     if "--deps" in sys.argv:

@@ -146,6 +146,13 @@ $let[rest;$get[rest] $env[w]]
 ]"""
 
 
+PUNISH_ALIASES = {
+    "mute": ["timeout"],
+    "unmute": ["untimeout"],
+    "removewarning": ["removewarnings", "deletewarning", "deletewarnings", "delwarn", "delwarns"],
+}
+
+
 def multi_punish_cmd(name, action, aliases, desc, duration_required=False, duration_optional=False):
     aliases = list(aliases)
     if name in PUNISH_ALIASES:
