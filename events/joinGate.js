@@ -26,7 +26,7 @@ module.exports = {
             $#sendDM[$userID;
                 $author[Welcome to $guildName[$guildID];$userAvatar[$botID;64;png]]
                 $description[Press the button below to verify and unlock the server.]
-                $color[7C3AED]
+                $color[5865F2]
                 $footer[Chronolith • Verification]
                 $addActionRow
                 $addButton[verify-$guildID-$userID;Verify;Success]
@@ -65,9 +65,9 @@ $jsonLoad[js;$get[rawjs]]
                 $sendMessage[$get[ch];
                     $author[Anti-raid;$userAvatar[$botID;64;png]]
                     $title[⚠ Possible raid detected]
-                    $color[EF4444]
+                    $color[DA373C]
                     $description[$math[$get[cnt]+1] members joined within $get[window] seconds.]
-                    $footer[Chronolith • Join throttle]
+                    $footer[Chronolith]
                     $timestamp
                 ;false]
             ]
@@ -80,13 +80,13 @@ $jsonLoad[js;$get[rawjs]]
         $if[$get[lch]!=;
             $sendMessage[$get[lch];
                 $author[➕ $userTag[$userID];$userAvatar[$userID;64;png]]
-                $color[22C55E]
+                $color[248046]
                 $thumbnail[$userAvatar[$userID;256;png]]
                 $description[<@$userID> — member **#$guildMemberCount[$guildID]**
 -# ID: $userID]
                 $addField[Account created;$discordTimestamp[$userCreatedAt[$userID];RelativeTime]$if[$math[($getTimestamp-$userCreatedAt[$userID])/86400000]<7;
 ⚠️ **new account**];true]
-                $footer[Chronolith • Members]
+                $footer[Chronolith]
             ;false]
         ]
     `

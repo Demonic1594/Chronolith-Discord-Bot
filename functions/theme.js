@@ -1,15 +1,21 @@
 /*
- * Chronolith engine — visual identity.
+ * Chronolith engine — visual identity v2.
  *
- * One palette everywhere (commands embed these hexes inline; events read
- * them through $theme so the generator stays out of runtime paths):
+ * Design language: "dark crystal" — deep colors, clean typography,
+ * consistent iconography, no visual noise. Every embed shares:
+ *   - Author header with the relevant user's avatar + action context
+ *   - Description as the primary content (blockquoted reasons)
+ *   - Inline fields for metadata (compact, scannable)
+ *   - Footer with "Chronolith" branding
+ *   - Timestamps on all logged actions
  *
- *   primary  7C3AED  violet   — brand, info, help, config
- *   danger   EF4444  red      — bans, kicks, lockdown, alerts
- *   warn     F59E0B  amber    — warnings, automod notices
- *   success  22C55E  green    — success confirmations, joins
- *   mute     9B59B6  purple   — mutes, quarantine
- *   muted    64748B  slate    — utility output (snipe, avatars)
+ * Palette:
+ *   primary  5865F2  blurple  — brand, info, neutral actions
+ *   danger   DA373C  red      — bans, kicks, hardbans, lockdown, nuke
+ *   warning  F0B232  amber    — warnings, automod triggers
+ *   success  248046  green    — success confirmations, unbans, joins
+ *   mute     9B59B6  purple   — mutes, timeouts, quarantine
+ *   subtle   4E5058  slate    — utility, notes, case detail views
  */
 
 module.exports = [
@@ -18,25 +24,73 @@ module.exports = [
         params: ["role"],
         code: `
             $if[$env[role]==danger;
-                $return[EF4444]
+                $return[DA373C]
             ]
-            $if[$env[role]==warn;
-                $return[F59E0B]
+            $if[$env[role]==warning;
+                $return[F0B232]
             ]
             $if[$env[role]==success;
-                $return[22C55E]
+                $return[248046]
             ]
             $if[$env[role]==mute;
                 $return[9B59B6]
             ]
-            $if[$env[role]==muted;
-                $return[64748B]
+            $if[$env[role]==subtle;
+                $return[4E5058]
             ]
-            $return[7C3AED]
+            $return[5865F2]
         `
     },
     {
-        // Title marker per action — the visual grammar of the modlog.
+        name: "actionColor",
+        params: ["action"],
+        code: `
+            $if[$env[action]==ban;
+                $return[DA373C]
+            ]
+            $if[$env[action]==softban;
+                $return[DA373C]
+            ]
+            $if[$env[action]==hardban;
+                $return[DA373C]
+            ]
+            $if[$env[action]==kick;
+                $return[DA373C]
+            ]
+            $if[$env[action]==nuke;
+                $return[DA373C]
+            ]
+            $if[$env[action]==gate;
+                $return[DA373C]
+            ]
+            $if[$env[action]==warn;
+                $return[F0B232]
+            ]
+            $if[$env[action]==automod;
+                $return[F0B232]
+            ]
+            $if[$env[action]==raid;
+                $return[F0B232]
+            ]
+            $if[$env[action]==mute;
+                $return[9B59B6]
+            ]
+            $if[$env[action]==unmute;
+                $return[9B59B6]
+            ]
+            $if[$env[action]==quarantine;
+                $return[9B59B6]
+            ]
+            $if[$env[action]==unquarantine;
+                $return[9B59B6]
+            ]
+            $if[$env[action]==unban;
+                $return[248046]
+            ]
+            $return[5865F2]
+        `
+    },
+    {
         name: "actionEmoji",
         params: ["action"],
         code: `
@@ -44,28 +98,25 @@ module.exports = [
                 $return[⚠️ Warning]
             ]
             $if[$env[action]==mute;
-                $return[🔇 Muted]
+                $return[🔇 Timeout]
             ]
             $if[$env[action]==unmute;
-                $return[🔊 Unmuted]
+                $return[🔊 Timeout Lifted]
             ]
             $if[$env[action]==kick;
-                $return[👟 Kicked]
+                $return[👢 Kicked]
             ]
             $if[$env[action]==ban;
                 $return[🔨 Banned]
             ]
             $if[$env[action]==softban;
-                $return[🧹 Softbanned]
+                $return[🧹 Softban]
+            ]
+            $if[$env[action]==hardban;
+                $return[⏳ Timed Ban]
             ]
             $if[$env[action]==unban;
                 $return[🕊️ Unbanned]
-            ]
-            $if[$env[action]==tempban;
-                $return[⏳ Tempbanned]
-            ]
-            $if[$env[action]==hardban;
-                $return[⏳ Hardbanned]
             ]
             $if[$env[action]==quarantine;
                 $return[🧪 Quarantined]
@@ -83,10 +134,16 @@ module.exports = [
                 $return[☢️ Anti-nuke]
             ]
             $if[$env[action]==gate;
-                $return[🚪 Join gate]
+                $return[🚪 Join Gate]
             ]
             $if[$env[action]==raid;
-                $return[🌊 Raid alert]
+                $return[🌊 Raid Alert]
+            ]
+            $if[$env[action]==lock;
+                $return[🔒 Lockdown]
+            ]
+            $if[$env[action]==tempban;
+                $return[⏳ Timed Ban]
             ]
             $return[📌 Case]
         `

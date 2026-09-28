@@ -9,11 +9,11 @@ module.exports = {
         $if[$get[lch]!=;
             $sendMessage[$get[lch];
                 $author[✖ $userTag[$authorID];$userAvatar[$authorID;64;png]]
-                $color[64748B]
+                $color[4E5058]
                 $description[$if[$#messageContent[$channelID;$messageID]==;*(empty or uncached)*;$#messageContent[$channelID;$messageID]]]
                 $addField[Channel;<#$channelID>;true]
                 $addField[Jump;-# deleted messages have no jump link;true]
-                $footer[Chronolith • Messages]
+                $footer[Chronolith]
             ;false]
         ]
     `

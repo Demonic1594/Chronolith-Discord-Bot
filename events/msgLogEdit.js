@@ -8,7 +8,7 @@ module.exports = {
         $if[$get[lch]!=;
             $sendMessage[$get[lch];
                 $author[✎ $userTag[$authorID];$userAvatar[$authorID;64;png]]
-                $color[64748B]
+                $color[4E5058]
                 $description[**Before**
 > $if[$#oldMessage[content]==;*(empty)*;$#oldMessage[content]]
 
@@ -16,7 +16,7 @@ module.exports = {
 > $if[$#newMessage[content]==;*(empty)*;$#newMessage[content]]]
                 $addField[Channel;<#$channelID>;true]
                 $addField[Jump;-# $hyperlink[message;$messageLink[$channelID;$messageID]];true]
-                $footer[Chronolith • Messages]
+                $footer[Chronolith]
             ;false]
         ]
     `

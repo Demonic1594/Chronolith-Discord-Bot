@@ -83,33 +83,49 @@ def _fix_seps(code):
 
 
 def _postfix(body):
+    """Fix comma separators in $and/$or, negate top-level value-returning
+    calls, and negate jsonSet/jsonLoad to prevent true/false output leaks.
+    Bare bracket lines are PRESERVED (they're $if closing brackets)."""
     body = _fix_seps(body)
-    # top-level jsonSet/jsonLoad leak "true"/empty into output — negate them
+    
+    NEGATE = {
+        "$jsonSet", "$jsonLoad", "$setGuildVar", "$arrayPush", "$arraySplice",
+        "$arrayLoad", "$arrayMap", "$arrayFilter", "$arrayForEach", "$arraySlice",
+        "$setChannelSlowmode", "$ban", "$unban", "$kick", "$timeout",
+        "$memberAddRoles", "$memberRemoveRoles", "$memberSetNickname",
+        "$createChannel", "$deleteMessage", "$clearMessages", "$clearUserMessages",
+        "$addChannelPerms", "$removeChannelPerms", "$deleteChannelPerms",
+        "$deleteAllMessageReactions", "$sendDM", "$jsonDelete",
+        "$lockChan", "$unlockChan", "$lockAll", "$unlockAll",
+        "$tempbanSweep", "$lockSweep",
+    }
+    
     out = []
     for ln in body.split("\n"):
         st = ln.lstrip()
-        if st.startswith(("$jsonSet[", "$jsonLoad[")) and not st.startswith("$!"):
-            ln = ln[: len(ln) - len(st)] + st.replace("$", "$!", 1)
+        indent = ln[:len(ln) - len(st)]
+        if not st:
+            out.append(ln)
+            continue
+        if not st.startswith("$!") and not st.startswith("$#"):
+            for fn in NEGATE:
+                if st.startswith(fn + "["):
+                    # Only skip if this fn is embedded inside another call's ARGUMENT
+                    # (i.e., there's meaningful code before it on the same line)
+                    before = st[:st.index(fn)]
+                    if before.strip() == "":
+                        # Standalone statement — safe to negate
+                        ln = indent + "$!" + st
+                    elif not any(x in before for x in (
+                        "$let[", "$return[", "$description[", "$addField[",
+                        "$author[", "$title[", "$footer[", "$color[",
+                        "$interactionReply[", "$sendMessage[", "$thumbnail[",
+                        "$image[", "$if[",
+                    )):
+                        ln = indent + "$!" + st
+                    break
         out.append(ln)
     return "\n".join(out)
-
-
-def cmd(folder, name, aliases, desc, prefix, slash, options=None, gate="mod"):
-    CMDS.append(dict(folder=folder, name=name, aliases=aliases, desc=desc,
-                     prefix=_postfix(prefix), slash=_postfix(slash) if slash else slash,
-                     options=options or [], gate=gate))
-
-
-# ---------------------------------------------------------------- punishments
-# Multi-target template per the command plan: targets are leading
-# mention/username/ID tokens; an optional duration token (ban/mute) and the
-# reason are parsed order-independently afterwards.
-
-PUNISH_ALIASES = {
-    "mute": ["timeout"],
-    "unmute": ["untimeout"],
-    "removewarning": ["removewarnings", "deletewarning", "deletewarnings", "delwarn", "delwarns"],
-}
 
 
 def duration_scan_block():
@@ -145,13 +161,14 @@ $onlyIf[$env[tj;ids]!=;No valid target found. Mention a user, or type a username
     pfx += f"""
 $let[r;$punishMulti[{name};$guildID;$authorID;$env[tj;ids];$get[dur];{reason_expr}]]
 $jsonLoad[rj;$get[r]]
-$author[$actionEmoji[{name}];$userAvatar[$botID;64;png]]
+$author[$actionEmoji[{name}];$userAvatar[$botID;32;png]]
 $color[$actionColor[{name}]]
-$description[**$env[tj;ids]**]
-$addField[Done;`$env[rj;ok]`;true]
-$addField[Skipped;`$env[rj;fail]`;true]
+$description[<@$env[tj;ids]>]
+$addField[Applied;$env[rj;ok];true]
+$addField[Skipped;$env[rj;fail];true]
 $addField[Reason;$if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]];false]
-$footer[Chronolith • Moderation]"""
+$footer[Chronolith]
+$timestamp"""
     slx = f"""$let[t;$resolveTargets[$guildID;$option[targets];$channelID;$messageID]]
 $jsonLoad[tj;$get[t]]
 $onlyIf[$env[tj;ids]!=;$ephemeral No valid target found.]"""
@@ -160,13 +177,14 @@ $onlyIf[$env[tj;ids]!=;$ephemeral No valid target found.]"""
     slx += f"""
 $let[r;$punishMulti[{name};$guildID;$authorID;$env[tj;ids];$option[duration];$if[$option[reason]==;No reason provided;$option[reason]]]]
 $interactionReply[
-$author[$actionEmoji[{name}];$userAvatar[$botID;64;png]]
+$author[$actionEmoji[{name}];$userAvatar[$botID;32;png]]
 $color[$actionColor[{name}]]
-$description[**$env[tj;ids]**]
-$addField[Done;`$env[rj;ok]`;true]
-$addField[Skipped;`$env[rj;fail]`;true]
+$description[<@$env[tj;ids]>]
+$addField[Applied;$env[rj;ok];true]
+$addField[Skipped;$env[rj;fail];true]
 $addField[Reason;$if[$option[reason]==;No reason provided;$option[reason]];false]
-$footer[Chronolith • Moderation]
+$footer[Chronolith]
+$timestamp
 ]"""
     opts = [{"type": 3, "name": "targets", "description": "Mentions/usernames/IDs (space separated)", "required": True}]
     if duration_optional or duration_required:
@@ -190,12 +208,15 @@ $if[$checkContains[$get[r];⛔]==true;
 $author[Chronolith;$userAvatar[$botID;64;png]]
 $description[$get[r]]
 ;
-$author[$actionEmoji[warn];$userAvatar[$get[target];64;png]]
-$description[**$userTag[$get[target]]**
+$author[$actionEmoji[warn];$userAvatar[$get[target];32;png]]
+$description[<@$get[target]> — $userTag[$get[target]]
+
 > $if[$message[1;999]==;No reason provided;$message[1;999]]]
-$addField[Case;-# #$get[r];true]
+$addField[Case;#$get[r];true]
+$addField[Total;$warnCount[$guildID;$get[target]];true]
 ]
-$footer[Chronolith • Moderation]""",
+$footer[Chronolith]
+$timestamp""",
     """$let[r;$punish[warn;$guildID;$authorID;$option[user];;$option[reason]]]
 $interactionReply[
 $color[$actionColor[warn]]
@@ -454,9 +475,10 @@ $letSum[n;1]
 ]
 ]
 $if[$get[n]>0;
-$description[🔓 `$get[n]` channel(s) unlocked.
+$description[**$get[n]** channel(s) unlocked
+
 > $get[reason]]
-$color[22C55E]
+$color[248046]
 ;
 $description[🔓 No channels were locked.]
 $color[64748B]
@@ -508,8 +530,8 @@ $let[ch;$env[rcfg;reports]]
 $onlyIf[$get[ch]!=;Reports are not configured here (mods: %setreportchannel).]
 $let[id;$reportNew[$guildID;$authorID;$get[target];$message[1;999]]]
 $sendMessage[$get[ch];
-$author[🚩 Report #$get[id] • $userTag[$authorID];$userAvatar[$authorID;64;png]]
-$color[EF4444]
+$author[Report #$get[id];$userAvatar[$authorID;32;png]]
+$color[DA373C]
 $description[> $message[1;999]]
 $addField[Reported user;<@$get[target]>
 -# $get[target];true]
@@ -531,8 +553,8 @@ $stop
 ]
 $let[id;$reportNew[$guildID;$authorID;$option[user];$option[reason]]]
 $sendMessage[$get[ch];
-$author[🚩 Report #$get[id] • $userTag[$authorID];$userAvatar[$authorID;64;png]]
-$color[EF4444]
+$author[Report #$get[id];$userAvatar[$authorID;32;png]]
+$color[DA373C]
 $description[> $option[reason]]
 $addField[Reported user;<@$option[user]>
 -# $option[user];true]
@@ -1150,19 +1172,19 @@ $interactionReply[$if[$get[c]==;Tickets disabled.;✅ Tickets will open under <#
 
 # ---------------------------------------------------------------- core / info
 cmd("core", "help", [], "Command guide (button-paginated)",
-    """$author[Chronolith — moderation suite;$userAvatar[$botID;64;png]]
+    """$author[Chronolith;$userAvatar[$botID;32;png]]
 $description[$helpPage[0]]
-$color[7C3AED]
-$thumbnail[$userAvatar[$botID;256;png]]
+$color[5865F2]
+$thumbnail[$userAvatar[$botID;128;png]]
 $footer[Chronolith • Page 1 of $helpPages]
 $addActionRow
 $addButton[help--1-$authorID;◀;Primary]
 $addButton[help-1-$authorID;▶;Primary]""",
     """$interactionReply[
-$author[Chronolith — moderation suite;$userAvatar[$botID;64;png]]
+$author[Chronolith;$userAvatar[$botID;32;png]]
 $description[$helpPage[0]]
-$color[7C3AED]
-$thumbnail[$userAvatar[$botID;256;png]]
+$color[5865F2]
+$thumbnail[$userAvatar[$botID;128;png]]
 $footer[Chronolith • Page 1 of $helpPages]
 $addActionRow
 $addButton[help--1-$authorID;◀;Primary]
@@ -1170,28 +1192,26 @@ $addButton[help-1-$authorID;▶;Primary]
 ]""", gate="open")
 
 cmd("core", "ping", [], "Latency and stats",
-    """$author[Chronolith;$userAvatar[$botID;64;png]]
-$title[🏓 Pong]
-$color[22C55E]
-$addField[API latency;$ping ms;true]
-$addField[Uptime;$parseMS[$uptime];true]
-$addField[Guilds;$guildCount;true]
+    """$author[Chronolith;$userAvatar[$botID;32;png]]
+$color[5865F2]
+$description[**Gateway** $ping ms
+**Uptime** $parseMS[$uptime]
+**Servers** $guildCount]
 $footer[Chronolith]""",
     """$interactionReply[
-$author[Chronolith;$userAvatar[$botID;64;png]]
-$title[🏓 Pong]
-$color[22C55E]
-$addField[API latency;$ping ms;true]
-$addField[Uptime;$parseMS[$uptime];true]
-$addField[Guilds;$guildCount;true]
+$author[Chronolith;$userAvatar[$botID;32;png]]
+$color[5865F2]
+$description[**Gateway** $ping ms
+**Uptime** $parseMS[$uptime]
+**Servers** $guildCount]
 $footer[Chronolith]
 ]""", gate="open")
 
 cmd("info", "userinfo", ["whois"], "User profile and mod-relevant stats",
     """$let[target;$if[$message[0]!=;$findUser[$message[0]];$authorID]]
-$author[$userTag[$get[target]];$userAvatar[$get[target];64;png]]
-$color[7C3AED]
-$thumbnail[$userAvatar[$get[target];256;png]]
+$author[$userTag[$get[target]];$userAvatar[$get[target];32;png]]
+$color[5865F2]
+$thumbnail[$userAvatar[$get[target];128;png]]
 $description[-# $get[target]]
 $addField[Created;$discordTimestamp[$userCreatedAt[$get[target]];RelativeTime];true]
 $if[$memberExists[$guildID;$get[target]]==true;
@@ -1205,9 +1225,9 @@ $image[$userBanner[$get[target];1024;png]]
 $footer[Chronolith]""",
     """$let[target;$default[$option[user];$authorID]]
 $interactionReply[
-$author[$userTag[$get[target]];$userAvatar[$get[target];64;png]]
-$color[7C3AED]
-$thumbnail[$userAvatar[$get[target];256;png]]
+$author[$userTag[$get[target]];$userAvatar[$get[target];32;png]]
+$color[5865F2]
+$thumbnail[$userAvatar[$get[target];128;png]]
 $description[-# $get[target]]
 $addField[Created;$discordTimestamp[$userCreatedAt[$get[target]];RelativeTime];true]
 $if[$memberExists[$guildID;$get[target]]==true;
@@ -1640,15 +1660,11 @@ $footer[Chronolith]
 ]""")
 
 cmd("info", "stats", ["about"], "Bot statistics",
-    """$author[Chronolith;$userAvatar[$botID;64;png]]
-$color[7C3AED]
-$addField[Uptime;$parseMS[$uptime];true]
-$addField[Ping;$ping ms;true]
-$addField[Guilds;$guildCount;true]
-$addField[Users;$userCount;true]
-$addField[Memory;$round[$ram] MB;true]
-$addField[Node;$nodeVersion;true]
-$footer[Chronolith • ForgeScript]""",
+    """$author[Chronolith;$userAvatar[$botID;32;png]]
+$color[5865F2]
+$description[**Gateway** $ping ms · $guildCount servers · $userCount users
+**Runtime** $parseMS[$uptime] · $round[$ram] MB · Node $nodeVersion]
+$footer[Chronolith]""",
     """$interactionReply[
 $author[Chronolith;$userAvatar[$botID;64;png]]
 $color[7C3AED]
@@ -1722,8 +1738,8 @@ $addField[Timeouts;$if[$get[ol]==;*none*;$get[ol]];false]
 $addField[Lockdowns;$if[$get[ll]==;*none*;$get[ll]];false]
 $color[7C3AED]
 ]
-$author[Active timed moderations;$userAvatar[$botID;64;png]]
-$footer[Chronolith • All entries survive restarts]""",
+$author[Active Moderations;$userAvatar[$botID;32;png]]
+$footer[Chronolith]""",
     """$let[all;$timedList[$guildID]]
 $ephemeral
 $interactionReply[
@@ -1935,11 +1951,12 @@ cmd("notes", "addnote", ["setnote"], "Add a staff note to a user",
 $onlyIf[$get[target]!=;Could not resolve that user.]
 $onlyIf[$message[1;999]!=;Note content is required.]
 $let[n;$addNote[$guildID;$get[target];$authorID;$message[1;999]]]
-$author[📝 Note #$get[n];$userAvatar[$get[target];64;png]]
-$description[**$userTag[$get[target]]**
+$author[Note #$get[n];$userAvatar[$get[target];32;png]]
+$color[5865F2]
+$description[<@$get[target]> — $userTag[$get[target]]
+
 > $message[1;999]]
-$color[7C3AED]
-$footer[Chronolith • Notes]""",
+$footer[Chronolith]""",
     """$let[n;$addNote[$guildID;$option[user];$authorID;$option[content]]]
 $interactionReply[
 $author[📝 Note #$get[n];$userAvatar[$botID;64;png]]

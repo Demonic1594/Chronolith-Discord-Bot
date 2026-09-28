@@ -7,12 +7,12 @@ module.exports = {
         $if[$get[lch]!=;
             $sendMessage[$get[lch];
                 $author[➖ $userTag[$userID];$userAvatar[$userID;64;png]]
-                $color[EF4444]
+                $color[DA373C]
                 $thumbnail[$userAvatar[$userID;256;png]]
                 $description[<@$userID>
 -# ID: $userID]
                 $addField[Joined;$if[$#memberJoinedAt[$guildID;$userID]==;*unknown*;$discordTimestamp[$#memberJoinedAt[$guildID;$userID];RelativeTime]];true]
-                $footer[Chronolith • Members]
+                $footer[Chronolith]
             ;false]
         ]
     `

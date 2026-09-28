@@ -54,9 +54,9 @@ module.exports = {
                 $let[page;0]
             ]
             $interactionUpdate[
-                $author[Chronolith;$userAvatar[$botID;64;png]]
+                $author[Chronolith;$userAvatar[$botID;32;png]]
                 $description[$helpPage[$get[page]]]
-                $color[7C3AED]
+                $color[5865F2]
                 $footer[Chronolith • Page $math[$get[page]+1] of $helpPages]
                 $addActionRow
                 $addButton[help-$math[$get[page]-1]-$get[owner];◀;Primary]
