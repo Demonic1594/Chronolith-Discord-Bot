@@ -18,7 +18,7 @@ $onlyIf[$isMod[$guildID;$authorID]==true;$ephemeral ⛔ You need moderator permi
 $let[r;$default[$option[role];]]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $!jsonSet[cfg;verify;role;$get[r]]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[$if[$get[r]==;Verification disabled.;✅ Verification enabled.]
 $footer[Chronolith • Security]]
     `

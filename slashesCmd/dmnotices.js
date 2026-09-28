@@ -17,7 +17,7 @@ $onlyIf[$guildID!=;$ephemeral Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;$ephemeral ⛔ You need moderator permissions.]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $!jsonSet[cfg;dmnotices;$option[state]]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[$ephemeral DM notices updated.]
     `
 };

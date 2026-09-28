@@ -52,8 +52,9 @@ CMDS = []
 
 
 def _fix_seps(code):
-    """Commas inside $and[...]/$or[...] bodies are literal text to the
-    condition parser — separators must be semicolons."""
+    """Commas at TOP-LEVEL (depth 0 relative to the $and/$or body) are condition
+    separators and must become semicolons. Commas inside NESTED function calls
+    (depth > 0) are argument separators and must be preserved."""
     for fname in ("$and", "$or"):
         idx = 0
         while True:
@@ -61,23 +62,24 @@ def _fix_seps(code):
             if j < 0:
                 break
             depth = 0
-            k = j + len(fname)
-            start = k
+            k = j + len(fname)  # position of the opening [
+            start = k  # start of the body content
+            nest = 0  # nesting depth INSIDE the body
             while k < len(code):
                 c = code[k]
                 if c == "\\":
                     k += 2
                     continue
                 if c == "[":
-                    depth += 1
+                    nest += 1
                 elif c == "]":
-                    depth -= 1
-                    if depth == 0:
-                        break
+                    nest -= 1
+                    if nest <= 0:
+                        break  # closing the $and/$or itself
+                elif c == "," and nest == 0:
+                    # Top-level comma inside $and/$or → replace with ;
+                    code = code[:k] + ";" + code[k+1:]
                 k += 1
-            body = code[start+1:k]
-            if "," in body:
-                code = code[:start+1] + body.replace(",", ";") + code[k:]
             idx = k + 1
     return code
 
@@ -115,14 +117,14 @@ def _postfix(body):
                     before = st[:st.index(fn)]
                     if before.strip() == "":
                         # Standalone statement — safe to negate
-                        ln = indent + "$!" + st
+                        ln = indent + st.replace("$", "$!", 1)
                     elif not any(x in before for x in (
                         "$let[", "$return[", "$description[", "$addField[",
                         "$author[", "$title[", "$footer[", "$color[",
                         "$interactionReply[", "$sendMessage[", "$thumbnail[",
                         "$image[", "$if[",
                     )):
-                        ln = indent + "$!" + st
+                        ln = indent + st.replace("$", "$!", 1)
                     break
         out.append(ln)
     return "\n".join(out)
@@ -153,10 +155,16 @@ PUNISH_ALIASES = {
 }
 
 
+def cmd(folder, name, aliases, desc, prefix, slash, options=None, gate="mod"):
+    CMDS.append(dict(folder=folder, name=name, aliases=aliases, desc=desc,
+                     prefix=_postfix(prefix), slash=_postfix(slash) if slash else slash,
+                     options=options or [], gate=gate))
+
+
 def multi_punish_cmd(name, action, aliases, desc, duration_required=False, duration_optional=False):
     aliases = list(aliases)
     if name in PUNISH_ALIASES:
-        aliases += PUNISH_ALIASES[name]
+        aliases = list(dict.fromkeys(aliases + PUNISH_ALIASES[name]))  # dedupe preserving order
     reason_expr = "$if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]"
     pfx = f"""$let[t;$resolveTargets[$guildID;$message;$channelID;$messageID]]
 $jsonLoad[tj;$get[t]]
@@ -400,7 +408,7 @@ $let[chs;$channelID]
 ]
 $let[until;0]
 $if[$get[dur]!=;
-$let[until;$math[$getTimestamp+$parseMS[$get[dur]]]]
+$let[until;$math[$getTimestamp+$durationToMs[$get[dur]]]]
 ]
 $let[n;0]
 $if[$get[server]==1;
@@ -664,7 +672,7 @@ $color[64748B]
 purge_pfx = """$onlyIf[$hasPerms[$guildID;$botID;ManageMessages]==true;⛔ I am missing the Manage Messages permission.]
 $let[arg1;$if[$message[0]!=;$message[0];all]]
 $let[mode;$if[$checkCondition[$get[arg1] + 0 >= 0]==true;all;$toLowerCase[$get[arg1]]]]
-$onlyIf[$or[$get[mode]==all,$or[$get[mode]==bot,$or[$get[mode]==contains,$or[$get[mode]==embeds,$or[$get[mode]==files,$or[$get[mode]==images,$or[$get[mode]==links,$or[$get[mode]==mentions,$or[$get[mode]==pings,$or[$get[mode]==human,$get[mode]==reactions]]]]]]]]]]]==true;Usage: purge [all|bot|contains|embeds|emoji|files|images|links|mentions|human|reactions] [search=100] [...]]
+$onlyIf[$or[$get[mode]==all,$or[$get[mode]==bot,$or[$get[mode]==contains,$or[$get[mode]==embeds,$or[$get[mode]==emoji,$or[$get[mode]==files,$or[$get[mode]==images,$or[$get[mode]==links,$or[$get[mode]==mentions,$or[$get[mode]==pings,$or[$get[mode]==human,$get[mode]==reactions]]]]]]]]]]]==true;Usage: purge [all|bot|contains|embeds|emoji|files|images|links|mentions|human|reactions] [search=100] [...]]
 $let[search;$if[$checkCondition[$get[arg1] + 0 >= 0]==true;$get[arg1];100]]
 $let[extra;$trim[$message[1;999]]]
 $let[scan;$scanMessages[$channelID;$if[$get[search]>500;500;$get[search]]]]
@@ -764,7 +772,7 @@ cmd("channel", "purge", ["clean"], "Purge messages with filters (pinned are igno
 
 cmd("channel", "cleanup", [], "Purge the bot's own messages (pinned included)",
     """$onlyIf[$hasPerms[$guildID;$botID;ManageMessages]==true;⛔ I am missing the Manage Messages permission.]
-$let[scan;$scanMessages[$channelID;$if[$message[0]>500;500;$if[$message[0]!=;$message[0];100]]]]
+$let[scan;$scanMessages[$channelID;$if[$checkCondition[$if[$message[0]!=;$message[0];100] + 0 > 500]==true;500;$if[$message[0]!=;$message[0];100]]]]
 $onlyIf[$checkContains[$get[scan];[;1]==true;Scan failed — cannot read this channel's history.]
 $!jsonLoad[found;$get[scan]]
 $let[ids;]
@@ -1166,13 +1174,13 @@ Tickets disabled.;
 $let[c;""" + CH_STRIP + """]
 $onlyIf[$get[c]!=;Usage: tickets <#category|off>]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$jsonSet[cfg;tickets;$get[c]]
+$jsonSet[cfg;tickets;"$get[c]"]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 ✅ Tickets will open under <#$get[c]>.
 ]""",
     """$let[c;$default[$option[channel];]]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$jsonSet[cfg;tickets;$get[c]]
+$jsonSet[cfg;tickets;"$get[c]"]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[$if[$get[c]==;Tickets disabled.;✅ Tickets will open under <#$get[c]>.]]""",
     [{"type": 7, "name": "channel", "description": "Category channel (omit to disable)", "required": False}])

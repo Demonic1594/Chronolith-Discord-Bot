@@ -24,7 +24,14 @@ module.exports = [
             $jsonSet[e;by;"$env[by]"]
             $setGuildVar[lkd_$env[channel];$jsonStringify[e];$env[guild]]
             $let[all;$getGuildVar[lkd_all;$env[guild];]]
-            $if[$arrayIncludes[$arrayLoad[idx;,;$get[all]];$env[channel]]!=true;
+            $let[idxcheck;0]
+$arrayLoad[idx;,;$get[all]]
+$arrayForEach[idx;ix;
+$if[$env[ix]==$env[channel];
+$let[idxcheck;1]
+]
+]
+$if[$get[idxcheck]==0;
                 $if[$get[all]!=;
                     $setGuildVar[lkd_all;$get[all],$env[channel];$env[guild]];
                     $setGuildVar[lkd_all;$env[channel];$env[guild]]

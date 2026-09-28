@@ -25,20 +25,13 @@ module.exports = {
         $onlyIf[$isMod[$guildID;$authorID]!=true;]
         $let[content;$#messageContent[$channelID;$messageID]]
         $onlyIf[$get[content]!=;]
-        $let[firstword;$advancedTextSplit[$get[content]; ;0]]
-        $arrayLoad[cmds;,;warn,warnings,delwarn,clearwarns,mute,unmute,timeout,kick,ban,softban,unban,tempban,massban,setnick,quarantine,unquarantine,role,purge,clear,slowmode,lock,unlock,lockdown,unlockdown,case,cases,history,reason,modlog,automod,wordadd,worddel,words,linkwl,joingate,antinuke,verify,config,quicksetup,modrole,muterole,warnset,autorole,logs,tickets,help,ping,userinfo,whois,serverinfo,guildinfo,roleinfo,avatar,pfp,banner,inrole,stats,about,snipe,editsnipe,report,ticket,eval]
-        $let[invokes;$or[$startsWith[$get[firstword];c!];$or[$startsWith[$get[firstword];c?];$startsWith[$get[firstword];%]]]
-        $if[$get[invokes]==true;
-            $let[cmd;$advancedTextSplit[$advancedTextSplit[$advancedTextSplit[$get[firstword];c!;1];c?;1];%;1]]]
-            $onlyIf[$arrayIncludes[cmds;$get[cmd]]!=true;]
-        ]
 
         $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
         $let[low;$toLowerCase[$get[content]]]
         $let[vio;]
 
         $if[$env[cfg;automod;invites]==true;
-            $if[$or[$checkContains[$get[low];discord.gg/];$or[$checkContains[$get[low];discord.com/invite];$checkContains[$get[low];dsc.gg]]]==true;
+            $if[$or[$or[$checkContains[$get[low];discord.gg/],$checkContains[$get[low];discordapp.com/invite]];$or[$checkContains[$get[low];discord.com/invite];$checkContains[$get[low];dsc.gg]]]==true;
                 $let[vio;Invite links]
             ]
         ]
@@ -56,6 +49,9 @@ module.exports = {
             $if[$env[cfg;automod;links]==true;
                 $if[$checkContains[$get[low];http]==true;
                     $arrayLoad[wlc;,;$env[cfg;automod;linkwl]]
+                    $if[$env[cfg;automod;linkwl]==;
+                        $let[vio;Links are not allowed]
+                    ;
                     $let[allowed;0]
                     $arrayForEach[wlc;d;
                         $if[$checkContains[$get[low];//$env[d]]==true;
@@ -68,6 +64,7 @@ module.exports = {
                 ]
             ]
         ]
+    ]
 
         $if[$get[vio]==;
             $if[$env[cfg;automod;mentionLimit]!=;

@@ -63,7 +63,7 @@ for (const [file, def] of fnDefs) {
         failures.push(`function-body functions/${file} → $${def.name}: ${e.message}`);
     }
 }
-ok += fnDefs.length;
+
 
 // event handlers + prefix commands via the commands manager
 for (const dir of ["events", "prefixesCmd"]) {

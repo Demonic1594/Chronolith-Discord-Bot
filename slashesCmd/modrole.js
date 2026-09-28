@@ -19,21 +19,21 @@ $onlyIf[$isMod[$guildID;$authorID]==true;$ephemeral ⛔ You need moderator permi
 $let[r;$option[role]]
 $let[mode;$option[mode]]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$arrayLoad[rs;,;$env[cfg;modroles]]
+$!arrayLoad[rs;,;$env[cfg;modroles]]
 $if[$get[mode]==add;
 $if[$arrayIncludes[rs;$get[r]]!=true;
-$arrayPush[rs;$get[r]]
+$!arrayPush[rs;$get[r]]
 $!jsonSet[cfg;modroles;$arrayJoin[rs;,]]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[$description[✅ <@&$get[r]> is now a mod role.]];
 $interactionReply[Already a mod role.]
 ];
 $let[i;$arrayIndexOf[rs;$get[r]]]
 $if[$get[i]==-1;
 $interactionReply[Not a mod role.];
-$arraySplice[rs;$get[i];1]
+$!arraySplice[rs;$get[i];1]
 $!jsonSet[cfg;modroles;$arrayJoin[rs;,]]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[$description[✅ <@&$get[r]> removed from mod roles.]]
 ]
 ]

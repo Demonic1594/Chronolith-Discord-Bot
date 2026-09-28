@@ -24,7 +24,7 @@ $!jsonSet[cfg;warns;duration;1h]
 $!jsonSet[cfg;antinuke;on;true]
 $!jsonSet[cfg;antinuke;threshold;3]
 $!jsonSet[cfg;antinuke;action;ban]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[
 $author[Chronolith • Quick setup;$userAvatar[$botID;64;png]]
 $description[Defaults applied — modlog now this channel, automod + escalation + anti-nuke ON.]

@@ -23,7 +23,7 @@ $!jsonSet[cfg;joingate;minAgeDays;$option[minagedays]]
 $!jsonSet[cfg;joingate;joins;$option[joins]]
 $!jsonSet[cfg;joingate;window;$option[window]]
 $!jsonSet[cfg;joingate;action;$if[$option[action]!=;$option[action];alert]]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[$description[🚪 Join gate configured.]]
     `
 };

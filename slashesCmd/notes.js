@@ -21,8 +21,8 @@ $ephemeral
 $interactionReply[No notes on record for that user.]
 $stop
 ]
-$arrayLoad[ns;,;$get[ns]]
-$arrayMap[ns;n;$jsonLoad[one;$noteGet[$guildID;$env[n]]]$return[-# **#$env[n]** · <@$env[one;by]> · $discordTimestamp[$env[one;ts];RelativeTime]
+$!arrayLoad[ns;,;$get[ns]]
+$!arrayMap[ns;n;$jsonLoad[one;$noteGet[$guildID;$env[n]]]$return[-# **#$env[n]** · <@$env[one;by]> · $discordTimestamp[$env[one;ts];RelativeTime]
 > $env[one;c]];out]
 $interactionReply[
 $author[Notes • $userTag[$option[user]];$userAvatar[$option[user];64;png]]

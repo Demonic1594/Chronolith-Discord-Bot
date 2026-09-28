@@ -55,7 +55,7 @@ module.exports = [
             $jsonLoad[pcfg;$getGuildVar[cfg;$env[guild];{}]]
             $if[$env[pcfg;protected;users]!=;
                 $arrayLoad[pus;,;$env[pcfg;protected;users]]
-                $if[$arrayIncludes[pus;$env[target]]==true;
+                $if[$arraySome[pus;p;$checkCondition[$env[p]==$env[target]]]==true;
                     $return[that user is protected in this server]
                 ]
             ]
@@ -63,7 +63,7 @@ module.exports = [
                 $arrayLoad[prs;,;$env[pcfg;protected;roles]]
                 $arrayLoad[trs;,;$memberRoles[$env[guild];$env[target];,]]
                 $arrayForEach[prs;r;
-                    $if[$arrayIncludes[trs;$env[r]]==true;
+                    $if[$arraySome[trs;pr;$checkCondition[$env[pr]==$env[r]]]==true;
                         $return[that member holds a protected role]
                     ]
                 ]
@@ -127,8 +127,8 @@ module.exports = [
                     $let[count;$warnCount[$env[guild];$env[target]]]
                 ]
                 $case[mute;
-                    $let[dur2ms;$if[$parseMS[$env[duration]]>2592000000;2592000000;$parseMS[$env[duration]]]]
-                    $let[dur2;$if[$parseMS[$env[duration]]>2592000000;2592000000;$env[duration]]]
+                    $let[dur2ms;$durationToMs[$env[duration]]]
+                    $let[dur2;$if[$math[$get[dur2ms]>2592000000]==true;2592000000;$env[duration]]]
                     $jsonLoad[td;$getGuildVar[timedouts;$env[guild];{}]]
                     $jsonSet[td;$env[target];$math[$getTimestamp+$get[dur2ms]]]
                     $setGuildVar[timedouts;$jsonStringify[td];$env[guild]]
@@ -157,8 +157,8 @@ module.exports = [
                     $let[n;$newCase[$env[guild];ban;$env[target];$env[mod];;$get[reason2]]]
                 ]
                 $case[hardban;
-                    $ban[$env[guild];$env[target];$env[reason2] — expires $discordTimestamp[$math[$getTimestamp+$parseMS[$env[duration]]];RelativeTime]]
-                    $setGuildVar[tb_$env[target];$math[$getTimestamp+$parseMS[$env[duration]]];$env[guild]]
+                    $ban[$env[guild];$env[target];$env[reason2] — expires $discordTimestamp[$math[$getTimestamp+$durationToMs[$env[duration]]];RelativeTime]]
+                    $setGuildVar[tb_$env[target];$math[$getTimestamp+$durationToMs[$env[duration]]];$env[guild]]
                     $let[tball;$getGuildVar[tb_all;$env[guild];]]
                     $if[$get[tball]!=;
                         $setGuildVar[tb_all;$get[tball],$env[target];$env[guild]];

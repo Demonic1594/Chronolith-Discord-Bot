@@ -9,14 +9,10 @@ module.exports = {
     code: `
 $nomention
 $onlyIf[$guildID!=;Server only.]
-$author[Chronolith;$userAvatar[$botID;64;png]]
-$color[7C3AED]
-$addField[Uptime;$parseMS[$uptime];true]
-$addField[Ping;$ping ms;true]
-$addField[Guilds;$guildCount;true]
-$addField[Users;$userCount;true]
-$addField[Memory;$round[$ram] MB;true]
-$addField[Node;$nodeVersion;true]
-$footer[Chronolith • ForgeScript]
+$author[Chronolith;$userAvatar[$botID;32;png]]
+$color[5865F2]
+$description[**Gateway** $ping ms · $guildCount servers · $userCount users
+**Runtime** $parseMS[$uptime] · $round[$ram] MB · Node $nodeVersion]
+$footer[Chronolith]
     `
 };

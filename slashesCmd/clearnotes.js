@@ -15,11 +15,11 @@ module.exports = {
     code: `
 $onlyIf[$guildID!=;$ephemeral Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;$ephemeral ⛔ You need moderator permissions.]
-$arrayLoad[nt;,;$option[users]]
+$!arrayLoad[nt;,;$option[users]]
 $let[cleared;0]
-$arrayForEach[nt;u;
-$arrayLoad[ns;,;$userNotes[$guildID;$env[u]]]
-$arrayForEach[ns;n;
+$!arrayForEach[nt;u;
+$!arrayLoad[ns;,;$userNotes[$guildID;$env[u]]]
+$!arrayForEach[ns;n;
 $noteDel[$guildID;$env[n]]
 $letSum[cleared;1]
 ]

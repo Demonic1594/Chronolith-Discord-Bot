@@ -18,7 +18,7 @@ $onlyIf[$isMod[$guildID;$authorID]==true;$ephemeral ⛔ You need moderator permi
 $let[r;$default[$option[role];]]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $!jsonSet[cfg;autorole;$get[r]]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[$if[$get[r]==;Autorole disabled.;✅ Autorole set to <@&$get[r]>.]]
     `
 };

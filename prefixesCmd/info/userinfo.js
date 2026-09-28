@@ -10,9 +10,9 @@ module.exports = {
 $nomention
 $onlyIf[$guildID!=;Server only.]
 $let[target;$if[$message[0]!=;$findUser[$message[0]];$authorID]]
-$author[$userTag[$get[target]];$userAvatar[$get[target];64;png]]
-$color[7C3AED]
-$thumbnail[$userAvatar[$get[target];256;png]]
+$author[$userTag[$get[target]];$userAvatar[$get[target];32;png]]
+$color[5865F2]
+$thumbnail[$userAvatar[$get[target];128;png]]
 $description[-# $get[target]]
 $addField[Created;$discordTimestamp[$userCreatedAt[$get[target]];RelativeTime];true]
 $if[$memberExists[$guildID;$get[target]]==true;

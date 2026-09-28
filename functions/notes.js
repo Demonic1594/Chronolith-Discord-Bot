@@ -70,7 +70,7 @@ module.exports = [
             ]
             $jsonLoad[c;$get[nt]]
             $jsonSet[c;c;$env[content]]
-            $jsonSet[c;eb;$env[by]]
+            $jsonSet[c;eb;"$env[by]"]
             $jsonSet[c;ets;$getTimestamp]
             $setGuildVar[note_$env[n];$jsonStringify[c];$env[guild]]
             $return[1]

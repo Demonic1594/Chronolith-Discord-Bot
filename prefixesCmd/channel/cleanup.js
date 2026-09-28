@@ -11,13 +11,13 @@ $onlyIf[$guildID!=;Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;⛔ You need moderator permissions.]
 $cooldown[$authorID-cleanup;3s;]
 $onlyIf[$hasPerms[$guildID;$botID;ManageMessages]==true;⛔ I am missing the Manage Messages permission.]
-$let[scan;$scanMessages[$channelID;$if[$message[0]>500;500;$if[$message[0]!=;$message[0];100]]]]
+$let[scan;$scanMessages[$channelID;$if[$checkCondition[$if[$message[0]!=;$message[0];100] + 0 > 500]==true;500;$if[$message[0]!=;$message[0];100]]]]
 $onlyIf[$checkContains[$get[scan];[;1]==true;Scan failed — cannot read this channel's history.]
 $!jsonLoad[found;$get[scan]]
 $let[ids;]
 $let[count;0]
-$arrayForEach[found;m;
-$if[$and[$env[m;a]==$botID;$math[$arrayLength[$arrayLoad[cur;;;$get[ids]]]]<100]==true;
+$!arrayForEach[found;m;
+$if[$and[$env[m;a]==$botID,$math[$arrayLength[$arrayLoad[cur;,;$get[ids]]]]<100]==true;
 $let[ids;$get[ids]$if[$get[ids]!=;,]$env[m;i]]
 $letSum[count;1]
 ]

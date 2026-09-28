@@ -12,8 +12,8 @@ $onlyIf[$isMod[$guildID;$authorID]==true;⛔ You need moderator permissions.]
 $cooldown[$authorID-unban;3s;]
 $onlyIf[$message[0]!=;Provide one or more user IDs.]
 $let[ok;0]
-$arrayLoad[ids; ;$message]
-$arrayForEach[ids;u;
+$!arrayLoad[ids; ;$message]
+$!arrayForEach[ids;u;
 $if[$env[u]!=;
 $let[r;$punish[unban;$guildID;$authorID;$env[u];;Unban]]
 $if[$checkContains[$get[r];⛔]!=true;

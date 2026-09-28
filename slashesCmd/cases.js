@@ -17,13 +17,13 @@ $onlyIf[$guildID!=;$ephemeral Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;$ephemeral ⛔ You need moderator permissions.]
 $let[uc;$userCases[$guildID;$option[user]]]
 $onlyIf[$get[uc]!=;No cases on record for that user.]
-$arrayLoad[cs;,;$get[uc]]
+$!arrayLoad[cs;,;$get[uc]]
 $if[$arrayLength[cs]==0;
 $ephemeral
 $interactionReply[No cases on record for that user.]
 $stop
 ]
-$arrayMap[cs;k;$jsonLoad[one;$getGuildVar[case_$env[k];$guildID;{}]]$return[-# **#$env[k]** $actionEmoji[$env[one;t]] · $env[one;r]];out]
+$!arrayMap[cs;k;$jsonLoad[one;$getGuildVar[case_$env[k];$guildID;{}]]$return[-# **#$env[k]** $actionEmoji[$env[one;t]] · $env[one;r]];out]
 $interactionReply[
 $author[History • $userTag[$option[user]];$userAvatar[$option[user];64;png]]
 $color[7C3AED]

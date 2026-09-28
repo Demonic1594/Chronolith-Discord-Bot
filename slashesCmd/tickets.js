@@ -17,8 +17,8 @@ $onlyIf[$guildID!=;$ephemeral Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;$ephemeral ⛔ You need moderator permissions.]
 $let[c;$default[$option[channel];]]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$!jsonSet[cfg;tickets;$get[c]]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!jsonSet[cfg;tickets;"$get[c]"]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[$if[$get[c]==;Tickets disabled.;✅ Tickets will open under <#$get[c]>.]]
     `
 };

@@ -18,11 +18,14 @@ $if[$checkContains[$get[r];⛔]==true;
 $author[Chronolith;$userAvatar[$botID;64;png]]
 $description[$get[r]]
 ;
-$author[$actionEmoji[warn];$userAvatar[$get[target];64;png]]
-$description[**$userTag[$get[target]]**
+$author[$actionEmoji[warn];$userAvatar[$get[target];32;png]]
+$description[<@$get[target]> — $userTag[$get[target]]
+
 > $if[$message[1;999]==;No reason provided;$message[1;999]]]
-$addField[Case;-# #$get[r];true]
+$addField[Case;#$get[r];true]
+$addField[Total;$warnCount[$guildID;$get[target]];true]
 ]
-$footer[Chronolith • Moderation]
+$footer[Chronolith]
+$timestamp
     `
 };

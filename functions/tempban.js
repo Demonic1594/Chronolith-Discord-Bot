@@ -14,7 +14,7 @@ module.exports = [
         name: "tempban",
         params: ["guild", "mod", "target", "duration", "reason"],
         code: `
-            $let[until;$math[$getTimestamp+$parseMS[$env[duration]]]]
+            $let[until;$math[$getTimestamp+$durationToMs[$env[duration]]]]
             $ban[$env[guild];$env[target];$env[reason] — expires $discordTimestamp[$get[until];RelativeTime]]
             $setGuildVar[tb_$env[target];$get[until];$env[guild]]
             $let[all;$getGuildVar[tb_all;$env[guild];]]

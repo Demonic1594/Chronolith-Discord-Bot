@@ -18,12 +18,13 @@ $let[dur;]
 $let[rest;$env[tj;reason]]
 $let[r;$punishMulti[ban;$guildID;$authorID;$env[tj;ids];$get[dur];$if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]]]
 $!jsonLoad[rj;$get[r]]
-$author[$actionEmoji[ban];$userAvatar[$botID;64;png]]
+$author[$actionEmoji[ban];$userAvatar[$botID;32;png]]
 $color[$actionColor[ban]]
-$description[**$env[tj;ids]**]
-$addField[Done;\`$env[rj;ok]\`;true]
-$addField[Skipped;\`$env[rj;fail]\`;true]
+$description[<@$env[tj;ids]>]
+$addField[Applied;$env[rj;ok];true]
+$addField[Skipped;$env[rj;fail];true]
 $addField[Reason;$if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]];false]
-$footer[Chronolith • Moderation]
+$footer[Chronolith]
+$timestamp
     `
 };

@@ -19,7 +19,7 @@ $let[c;$default[$option[channel];]]
 $onlyIf[$get[c]!=;$ephemeral Provide a channel.]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $!jsonSet[cfg;reports;$trim[$get[c]]]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[
 $author[Chronolith • Reports;$userAvatar[$botID;64;png]]
 $description[Report channel set to <#$get[c]>.]

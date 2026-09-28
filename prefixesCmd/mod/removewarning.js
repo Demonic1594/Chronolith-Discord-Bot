@@ -16,8 +16,8 @@ $onlyIf[$get[target]!=;Could not resolve that user.]
 $let[uc;$userCases[$guildID;$get[target]]]
 $onlyIf[$get[uc]!=;No cases on record for that user.]
 $let[removed;0]
-$arrayLoad[wids; ;$message[1;999]]
-$arrayForEach[wids;w;
+$!arrayLoad[wids; ;$message[1;999]]
+$!arrayForEach[wids;w;
 $let[d;$caseRemove[$guildID;$env[w]]]
 $if[$get[d]==1;
 $letSum[removed;1]

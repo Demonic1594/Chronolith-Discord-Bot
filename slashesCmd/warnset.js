@@ -21,7 +21,7 @@ $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $!jsonSet[cfg;warns;threshold;$option[threshold]]
 $!jsonSet[cfg;warns;action;$option[action]]
 $!jsonSet[cfg;warns;duration;$if[$option[duration]!=;$option[duration];1h]]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[$description[⚠️ Escalation configured.]]
     `
 };

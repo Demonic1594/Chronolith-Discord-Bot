@@ -17,11 +17,11 @@ $interactionReply[Tickets are not configured here.]
 $stop
 ]
 $let[tch;$createChannel[$guildID;ticket-$username[$authorID];GuildText;;$env[cfg;tickets]]]
-$removeChannelPerms[$get[tch];$guildID;ViewChannel]
-$addChannelPerms[$get[tch];$authorID;+ViewChannel;+SendMessages]
+$!removeChannelPerms[$get[tch];$guildID;ViewChannel]
+$!addChannelPerms[$get[tch];$authorID;+ViewChannel;+SendMessages]
 $if[$env[cfg;modroles]!=;
-$arrayLoad[mrs;,;$env[cfg;modroles]]
-$arrayForEach[mrs;mr;$addChannelPerms[$get[tch];$env[mr];+ViewChannel;+SendMessages]]
+$!arrayLoad[mrs;,;$env[cfg;modroles]]
+$!arrayForEach[mrs;mr;$addChannelPerms[$get[tch];$env[mr];+ViewChannel;+SendMessages]]
 ]
 $sendMessage[$get[tch];
 $title[Ticket for $userTag[$authorID]]

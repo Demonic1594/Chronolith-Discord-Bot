@@ -13,13 +13,13 @@ $cooldown[$authorID-autorole;3s;]
 $if[$message[0]==off;
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $!jsonSet[cfg;autorole;]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 Autorole disabled.;
 $let[r;$replace[$replace[$message[0];<@&;];>;]]
 $onlyIf[$get[r]!=;Usage: autorole <role|off>]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $!jsonSet[cfg;autorole;$get[r]]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 ✅ Autorole set to <@&$get[r]>.
 ]
     `

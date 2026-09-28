@@ -24,21 +24,21 @@ $stop
 ]
 $onlyIf[$get[d]!=;$ephemeral Provide the domain.]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$arrayLoad[ds;,;$env[cfg;automod;linkwl]]
+$!arrayLoad[ds;,;$env[cfg;automod;linkwl]]
 $if[$get[mode]==add;
 $if[$arrayIncludes[ds;$get[d]]!=true;
-$arrayPush[ds;$get[d]]
+$!arrayPush[ds;$get[d]]
 $!jsonSet[cfg;automod;linkwl;$arrayJoin[ds;,]]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[$description[✅ Domain whitelisted.]];
 $interactionReply[Already whitelisted.]
 ];
 $let[i;$arrayIndexOf[ds;$get[d]]]
 $if[$get[i]==-1;
 $interactionReply[Not on the list.];
-$arraySplice[ds;$get[i];1]
+$!arraySplice[ds;$get[i];1]
 $!jsonSet[cfg;automod;linkwl;$arrayJoin[ds;,]]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[$description[✅ Domain removed.]]
 ]
 ]

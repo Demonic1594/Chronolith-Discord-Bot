@@ -19,7 +19,7 @@ $onlyIf[$isMod[$guildID;$authorID]==true;$ephemeral ⛔ You need moderator permi
 $let[c;$default[$option[channel];]]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $!jsonSet[cfg;logs;$option[kind];$get[c]]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[$description[📋 $option[kind] log updated.]]
     `
 };

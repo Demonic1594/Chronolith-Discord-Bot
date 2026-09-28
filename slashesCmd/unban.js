@@ -17,8 +17,8 @@ module.exports = {
 $onlyIf[$guildID!=;$ephemeral Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;$ephemeral ⛔ You need moderator permissions.]
 $let[ok;0]
-$arrayLoad[ids; ;$option[ids]]
-$arrayForEach[ids;u;
+$!arrayLoad[ids; ;$option[ids]]
+$!arrayForEach[ids;u;
 $if[$env[u]!=;
 $let[r;$punish[unban;$guildID;$authorID;$env[u];;$if[$option[reason]==;No reason provided;$option[reason]]]]
 $if[$checkContains[$get[r];⛔]!=true;

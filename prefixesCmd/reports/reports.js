@@ -31,21 +31,21 @@ $addField[Resolution note;$env[r;note];false]
 $footer[Chronolith • Reports]
 $stop
 ]
-$onlyIf[$or[$get[q]==open;$or[$get[q]==claimed;$or[$get[q]==resolved;$or[$get[q]==dismissed;$get[q]==all]]]]==true;Usage: reports \\[open|claimed|resolved|dismissed|all\\] or reports <id>]
+$onlyIf[$or[$get[q]==open,$or[$get[q]==claimed,$or[$get[q]==resolved,$or[$get[q]==dismissed,$get[q]==all]]]]==true;Usage: reports \\[open|claimed|resolved|dismissed|all\\] or reports <id>]
 $let[allr;$reportAll[$guildID]]
 $onlyIf[$get[allr]!=;No reports on record.]
-$arrayLoad[rids;,;$get[allr]]
-$arrayLoad[lines;]
-$arrayForEach[rids;id;
+$!arrayLoad[rids;,;$get[allr]]
+$!arrayLoad[lines;]
+$!arrayForEach[rids;id;
 $let[raw;$reportGet[$guildID;$env[id]]]
 $!jsonLoad[r;$get[raw]]
-$if[$or[$get[q]==all;$env[r;st]==$get[q]]==true;
-$arrayPush[lines;-# **$env[id]** · $toUpperCase[$env[r;st]] · <@$env[r;tgt]> · $env[r;rsn]]
+$if[$or[$get[q]==all,$env[r;st]==$get[q]]==true;
+$!arrayPush[lines;-# **$env[id]** · $toUpperCase[$env[r;st]] · <@$env[r;tgt]> · $env[r;rsn]]
 ]
 ]
 $onlyIf[$arrayLength[lines]>0;No $get[q] reports.]
 $if[$arrayLength[lines]>10;
-$arraySlice[lines;lines;$math[$arrayLength[lines]-10];$arrayLength[lines]]]
+$!arraySlice[lines;lines;$math[$arrayLength[lines]-10];$arrayLength[lines]]]
 $author[Reports • $get[q];$userAvatar[$botID;64;png]]
 $color[7C3AED]
 $description[$arrayJoin[lines;

@@ -17,8 +17,8 @@ module.exports = {
 $onlyIf[$guildID!=;$ephemeral Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;$ephemeral ⛔ You need moderator permissions.]
 $let[removed;0]
-$arrayLoad[wids; ;$option[ids]]
-$arrayForEach[wids;w;
+$!arrayLoad[wids; ;$option[ids]]
+$!arrayForEach[wids;w;
 $let[d;$caseRemove[$guildID;$env[w]]]
 $if[$get[d]==1;
 $letSum[removed;1]

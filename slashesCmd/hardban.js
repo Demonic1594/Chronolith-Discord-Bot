@@ -23,13 +23,14 @@ $onlyIf[$env[tj;ids]!=;$ephemeral No valid target found.]
 $onlyIf[$option[duration]!=;$ephemeral A duration is required.]
 $let[r;$punishMulti[hardban;$guildID;$authorID;$env[tj;ids];$option[duration];$if[$option[reason]==;No reason provided;$option[reason]]]]
 $interactionReply[
-$author[$actionEmoji[hardban];$userAvatar[$botID;64;png]]
+$author[$actionEmoji[hardban];$userAvatar[$botID;32;png]]
 $color[$actionColor[hardban]]
-$description[**$env[tj;ids]**]
-$addField[Done;\`$env[rj;ok]\`;true]
-$addField[Skipped;\`$env[rj;fail]\`;true]
+$description[<@$env[tj;ids]>]
+$addField[Applied;$env[rj;ok];true]
+$addField[Skipped;$env[rj;fail];true]
 $addField[Reason;$if[$option[reason]==;No reason provided;$option[reason]];false]
-$footer[Chronolith • Moderation]
+$footer[Chronolith]
+$timestamp
 ]
     `
 };

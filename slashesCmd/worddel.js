@@ -17,13 +17,13 @@ $onlyIf[$guildID!=;$ephemeral Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;$ephemeral ⛔ You need moderator permissions.]
 $let[w;$toLowerCase[$option[word]]]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$arrayLoad[ws;,;$env[cfg;automod;words]]
+$!arrayLoad[ws;,;$env[cfg;automod;words]]
 $let[i;$arrayIndexOf[ws;$get[w]]]
 $if[$get[i]==-1;
 $interactionReply[That word is not on the list.];
-$arraySplice[ws;$get[i];1]
+$!arraySplice[ws;$get[i];1]
 $!jsonSet[cfg;automod;words;$arrayJoin[ws;,]]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[$description[🛡️ Word removed ($arrayLength[ws] left).]]
 ]
     `

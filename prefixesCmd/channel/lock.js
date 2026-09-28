@@ -16,16 +16,16 @@ $let[dur;]
 $let[reason;]
 $let[server;0]
 $let[chs;]
-$arrayLoad[toks; ;$message]
-$arrayForEach[toks;w;
+$!arrayLoad[toks; ;$message]
+$!arrayForEach[toks;w;
 $let[cls;reason]
 $if[$toLowerCase[$env[w]]==server;
 $let[cls;server]
 ]
-$if[$and[$isNumber[$replace[$replace[$replace[$replace[$replace[$env[w];s;];m;];h;];d;];w;]]==true;$isNumber[$env[w]]!=true]==true;
+$if[$and[$isNumber[$replace[$replace[$replace[$replace[$replace[$env[w];s;];m;];h;];d;];w;]]==true,$isNumber[$env[w]]!=true]==true;
 $let[cls;dur]
 ]
-$if[$and[$or[$startsWith[$env[w];<#]==true;$isNumber[$env[w]]==true]==true;$get[cls]==reason]==true;
+$if[$and[$or[$startsWith[$env[w];<#]==true,$isNumber[$env[w]]==true]==true,$get[cls]==reason]==true;
 $let[cls;ch]
 ]
 $if[$get[cls]==dur;
@@ -49,16 +49,16 @@ $let[chs;$channelID]
 ]
 $let[until;0]
 $if[$get[dur]!=;
-$let[until;$math[$getTimestamp+$parseMS[$get[dur]]]]
+$let[until;$math[$getTimestamp+$durationToMs[$get[dur]]]]
 ]
 $let[n;0]
 $if[$get[server]==1;
 $let[n;$lockAll[$guildID;$if[$trim[$get[reason]]==;no reason;$trim[$get[reason]]];$authorID;$get[until]]]
 ;
-$arrayLoad[cl;,;$get[chs]]
-$arrayForEach[cl;c;
-$if[$and[$channelExists[$env[c]]==true;$get[server]==0]==true;
-$lockChan[$guildID;$env[c];$if[$trim[$get[reason]]==;no reason;$trim[$get[reason]]];$authorID;$get[until]]
+$!arrayLoad[cl;,;$get[chs]]
+$!arrayForEach[cl;c;
+$if[$and[$channelExists[$env[c]]==true,$get[server]==0]==true;
+$!lockChan[$guildID;$env[c];$if[$trim[$get[reason]]==;no reason;$trim[$get[reason]]];$authorID;$get[until]]
 $letSum[n;1]
 ]
 ]

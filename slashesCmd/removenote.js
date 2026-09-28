@@ -16,8 +16,8 @@ module.exports = {
 $onlyIf[$guildID!=;$ephemeral Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;$ephemeral ⛔ You need moderator permissions.]
 $let[removed;0]
-$arrayLoad[nids; ;$option[ids]]
-$arrayForEach[nids;n;
+$!arrayLoad[nids; ;$option[ids]]
+$!arrayForEach[nids;n;
 $let[d;$noteDel[$guildID;$env[n]]]
 $if[$get[d]==1;
 $letSum[removed;1]

@@ -5,7 +5,9 @@ module.exports = {
         $let[lch;$logChannel[$guildID;serverlogs]]
         $if[$get[lch]!=;
             $sendMessage[$get[lch];
-
+                $title[Role created]
+                $color[248046]
+                $timestamp
             ;false]
         ]
     `

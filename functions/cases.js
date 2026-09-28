@@ -88,14 +88,17 @@ module.exports = [
         code: `
             $arrayLoad[cs;,;$getGuildVar[ulist_$env[user];$env[guild];]]
             $let[rm;0]
+            $arrayLoad[keep;]
             $arrayForEach[cs;k;
                 $jsonLoad[one;$getGuildVar[case_$env[k];$env[guild];{}]]
                 $if[$env[one;t]==warn;
                     $setGuildVar[case_$env[k];;$env[guild]]
                     $letSum[rm;1]
+                ;
+                    $arrayPush[keep;$env[k]]
                 ]
             ]
-            $setGuildVar[ulist_$env[user];;$env[guild]]
+            $setGuildVar[ulist_$env[user];$arrayJoin[keep;,];$env[guild]]
             $return[$get[rm]]
         `
     },

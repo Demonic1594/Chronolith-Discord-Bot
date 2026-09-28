@@ -17,7 +17,7 @@ module.exports = {
 $onlyIf[$guildID!=;$ephemeral Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;$ephemeral ⛔ You need moderator permissions.]
 $let[s;$option[seconds]]
-$onlyIf[$and[$get[s]>=0;$get[s]<=21600]==true;$ephemeral Pick 0-21600 seconds.]
+$onlyIf[$and[$get[s]>=0,$get[s]<=21600]==true;$ephemeral Pick 0-21600 seconds.]
 $let[r;$setChannelSlowmode[$default[$option[channel];$channelID];$get[s]]]
 $interactionReply[$description[🐢 Slowmode updated to $get[s]s.]]
     `

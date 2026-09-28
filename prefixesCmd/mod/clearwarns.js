@@ -14,8 +14,8 @@ $let[t;$resolveTargets[$guildID;$message;$channelID;$messageID]]
 $!jsonLoad[tj;$get[t]]
 $onlyIf[$env[tj;ids]!=;No valid target found.]
 $let[cleared;0]
-$arrayLoad[ct;,;$env[tj;ids]]
-$arrayForEach[ct;u;
+$!arrayLoad[ct;,;$env[tj;ids]]
+$!arrayForEach[ct;u;
 $let[c;$warnsRemove[$guildID;$env[u]]]
 $letSum[cleared;$get[c]]
 ]

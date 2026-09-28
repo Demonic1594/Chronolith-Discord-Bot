@@ -24,7 +24,7 @@ $if[$get[state]==on;
 $!jsonSet[cfg;antinuke;threshold;$if[$option[threshold]==0;;$if[$option[threshold]!=;$option[threshold];3]]]
 $!jsonSet[cfg;antinuke;action;$if[$option[action]!=;$option[action];ban]]
 ]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[
 $description[🛡️ Anti-nuke **$get[state]**.]
 $color[EF4444]

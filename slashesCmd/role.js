@@ -19,9 +19,9 @@ $onlyIf[$guildID!=;$ephemeral Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;$ephemeral ⛔ You need moderator permissions.]
 $let[r;$option[role]]
 $if[$option[mode]==add;
-$memberAddRoles[$guildID;$option[user];$get[r]]
+$!memberAddRoles[$guildID;$option[user];$get[r]]
 $interactionReply[$description[✅ Added <@&$get[r]> to <@$option[user]>.]];
-$memberRemoveRoles[$guildID;$option[user];$get[r]]
+$!memberRemoveRoles[$guildID;$option[user];$get[r]]
 $interactionReply[$description[✅ Removed <@&$get[r]> from <@$option[user]>.]]
 ]
 $footer[Chronolith]

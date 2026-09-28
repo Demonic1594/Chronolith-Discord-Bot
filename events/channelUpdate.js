@@ -5,7 +5,9 @@ module.exports = {
         $let[lch;$logChannel[$guildID;serverlogs]]
         $if[$get[lch]!=;
             $sendMessage[$get[lch];
-
+                $title[Channel updated]
+                $color[5865F2]
+                $timestamp
             ;false]
         ]
     `

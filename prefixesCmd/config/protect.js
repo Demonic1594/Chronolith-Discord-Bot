@@ -20,33 +20,33 @@ $color[7C3AED]
 $footer[Chronolith • %protect role|user add|remove <target>];
 $let[kind;$toLowerCase[$message[0]]]
 $let[act;$toLowerCase[$message[1]]]
-$onlyIf[$and[$or[$get[kind]==role;$get[kind]==user]==true;$or[$get[act]==add;$get[act]==remove]==true]==true;Usage: protect <role|user> <add|remove> <target>]
+$onlyIf[$and[$or[$get[kind]==role,$get[kind]==user]==true,$or[$get[act]==add,$get[act]==remove]==true]==true;Usage: protect <role|user> <add|remove> <target>]
 $let[tgt;$if[$get[kind]==role;$replace[$replace[$replace[$message[2];<@&;];!;];>;];$findUser[$message[2]]]]
 $onlyIf[$get[tgt]!=;Provide the target.]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$arrayLoad[pl;,;$if[$get[kind]==role;$env[cfg;protected;roles];$env[cfg;protected;users]]]
+$!arrayLoad[pl;,;$if[$get[kind]==role;$env[cfg;protected;roles];$env[cfg;protected;users]]]
 $if[$get[act]==add;
 $if[$arrayIncludes[pl;$get[tgt]]!=true;
-$arrayPush[pl;$get[tgt]]
+$!arrayPush[pl;$get[tgt]]
 $if[$get[kind]==role;
 $!jsonSet[cfg;protected;roles;$arrayJoin[pl;,]]
 ;
 $!jsonSet[cfg;protected;users;$arrayJoin[pl;,]]
 ]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $description[✅ Protected $get[kind] added.];
 $description[Already protected.]
 ];
 $let[i;$arrayIndexOf[pl;$get[tgt]]]
 $if[$get[i]==-1;
 $description[Not on the protection list.];
-$arraySplice[pl;$get[i];1]
+$!arraySplice[pl;$get[i];1]
 $if[$get[kind]==role;
 $!jsonSet[cfg;protected;roles;$arrayJoin[pl;,]]
 ;
 $!jsonSet[cfg;protected;users;$arrayJoin[pl;,]]
 ]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $description[✅ Removed from protection.]
 ]
 ]

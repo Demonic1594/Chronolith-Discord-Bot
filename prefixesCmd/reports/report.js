@@ -16,8 +16,8 @@ $let[ch;$env[rcfg;reports]]
 $onlyIf[$get[ch]!=;Reports are not configured here (mods: %setreportchannel).]
 $let[id;$reportNew[$guildID;$authorID;$get[target];$message[1;999]]]
 $sendMessage[$get[ch];
-$author[🚩 Report #$get[id] • $userTag[$authorID];$userAvatar[$authorID;64;png]]
-$color[EF4444]
+$author[Report #$get[id];$userAvatar[$authorID;32;png]]
+$color[DA373C]
 $description[> $message[1;999]]
 $addField[Reported user;<@$get[target]>
 -# $get[target];true]

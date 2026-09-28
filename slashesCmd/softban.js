@@ -21,13 +21,14 @@ $!jsonLoad[tj;$get[t]]
 $onlyIf[$env[tj;ids]!=;$ephemeral No valid target found.]
 $let[r;$punishMulti[softban;$guildID;$authorID;$env[tj;ids];$option[duration];$if[$option[reason]==;No reason provided;$option[reason]]]]
 $interactionReply[
-$author[$actionEmoji[softban];$userAvatar[$botID;64;png]]
+$author[$actionEmoji[softban];$userAvatar[$botID;32;png]]
 $color[$actionColor[softban]]
-$description[**$env[tj;ids]**]
-$addField[Done;\`$env[rj;ok]\`;true]
-$addField[Skipped;\`$env[rj;fail]\`;true]
+$description[<@$env[tj;ids]>]
+$addField[Applied;$env[rj;ok];true]
+$addField[Skipped;$env[rj;fail];true]
 $addField[Reason;$if[$option[reason]==;No reason provided;$option[reason]];false]
-$footer[Chronolith • Moderation]
+$footer[Chronolith]
+$timestamp
 ]
     `
 };

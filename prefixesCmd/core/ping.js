@@ -8,12 +8,11 @@ module.exports = {
     code: `
 $nomention
 $onlyIf[$guildID!=;Server only.]
-$author[Chronolith;$userAvatar[$botID;64;png]]
-$title[🏓 Pong]
-$color[22C55E]
-$addField[API latency;$ping ms;true]
-$addField[Uptime;$parseMS[$uptime];true]
-$addField[Guilds;$guildCount;true]
+$author[Chronolith;$userAvatar[$botID;32;png]]
+$color[5865F2]
+$description[**Gateway** $ping ms
+**Uptime** $parseMS[$uptime]
+**Servers** $guildCount]
 $footer[Chronolith]
     `
 };

@@ -18,7 +18,7 @@ module.exports = [
         name: "scanMessages",
         params: ["channel", "limit"],
         code: `
-            $return[$djsEval[(async () => { const ch = ctx.client.channels.cache.get("$env[channel]")\\; if (!ch) return "[]"\\; const ms = await ch.messages.fetch({ limit: Math.min($env[limit], 100) })\\; return JSON.stringify(ms.map(m => ({ i: m.id, a: m.author.id, c: (m.content || ""), b: m.author.bot, p: m.pinned, e: m.embeds.length, t: m.attachments.size, n: m.mentions.users.size + m.mentions.roles.size })))\\; })()]]
+            $return[$djsEval[(async () => { const ch = ctx.client.channels.cache.get("$env[channel]")\\; if (!ch) return "[]"\\; const ms = await ch.messages.fetch({ limit: Math.min(parseInt(String($env[limit]).replace(/[^0-9]/g,"")) || 100, 100) })\\; return JSON.stringify(ms.map(m => ({ i: m.id, a: m.author.id, c: (m.content || ""), b: m.author.bot, p: m.pinned, e: m.embeds.length, t: m.attachments.size, n: m.mentions.users.size + m.mentions.roles.size })))\\; })()]]
         `
     }
 ];

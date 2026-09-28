@@ -34,7 +34,7 @@ $!jsonSet[cfg;automod;spam;$if[$get[val]==on;true;false]]
 $!jsonSet[cfg;automod;spamN;5]
 $!jsonSet[cfg;automod;spamS;5]
 ]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[
 $description[🛡️ Automod module **$get[m]** is now **$get[val]**.]
 $color[F59E0B]

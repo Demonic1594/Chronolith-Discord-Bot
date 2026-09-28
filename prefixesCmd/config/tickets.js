@@ -13,13 +13,13 @@ $cooldown[$authorID-tickets;3s;]
 $if[$message[0]==off;
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $!jsonSet[cfg;tickets;]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 Tickets disabled.;
 $let[c;$replace[$replace[$message[0];<#;];>;]]
 $onlyIf[$get[c]!=;Usage: tickets <#category|off>]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$!jsonSet[cfg;tickets;$get[c]]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!jsonSet[cfg;tickets;"$get[c]"]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 ✅ Tickets will open under <#$get[c]>.
 ]
     `
