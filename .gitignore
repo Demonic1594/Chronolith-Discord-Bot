@@ -4,6 +4,14 @@
 # Dependency directories
 node_modules/
 
-# Miscellaneous
+# Runtime databases created by ForgeDB
 forge.db
-package-lock.json
+*.sqlite
+*.sqlite3
+data/
+
+# Runtime logs and test artifacts
+*.log
+actor.log
+testsynth.log
+chronolith.log

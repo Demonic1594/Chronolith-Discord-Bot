@@ -1,123 +1,77 @@
 const { ForgeClient } = require("@tryforge/forgescript");
 const { ForgeDB } = require("@tryforge/forge.db");
-const { ForgeAPI } = require("@tryforge/forge.api");
-const { ForgeCanvas } = require("@tryforge/forge.canvas");
-const { ForgeMusic } = require("forge-music");
-require('dotenv').config();
+require("dotenv").config();
 
-// Client initialization
-const client = new ForgeClient({
-    "extensions": [
-        new ForgeDB(),
-        new ForgeAPI({
-            port: 1594,     // Consider changing the port number for your use.
-            authorization: [
-                "test1",
-                "test2"     // If you do use this and want anauthorization header, you can add or reduce to how much you want. However consider changing this if you copy thiis repo as a template.
-            ]
-        }),
-        new ForgeCanvas(),
-        new ForgeMusic({
-            soundsFolder: `${process.cwd()}/sounds`
-        })
-    ],     // Extensions for the bot, such as ForgeDB for the DataBase, ForgeMusic for the Music functions for this bot.
-    "intents": [
-        "Guilds",
-        "GuildMembers",
-        "GuildModeration",
-        "GuildEmojisAndStickers",
-        "GuildIntegrations",
-        "GuildWebhooks",
-        "GuildInvites",
-        "GuildVoiceStates",
-        "GuildPresences",
-        "GuildMessages",
-        "GuildMessageReactions",
-        "GuildMessageTyping",
-        "DirectMessages",
-        "DirectMessageReactions",
-        "DirectMessageTyping",
-        "MessageContent",
-        "GuildScheduledEvents",
-        "AutoModerationConfiguration",
-        "AutoModerationExecution"
-    ],     // Privileged Intents, needs these intents enabled in https://discord.com/developers/applications. Regardless enable them to fit your needs or remove them otherwise. (doesnt really impact it that much if you keep them)
-    "useInviteSystem": true,     // Set thevalue to false ifyou dont need to use the invite system.
-    "prefixes": [
-        "%",
-        "'",
-        "`",
-        "c!",
-        "c?"
-    ],     // These are all prefixes that you can use on bot.
-    "events": [
-        "autoModerationActionExecution",
-        "channelCreate",
-        "channelDelete",
-        "channelPinsUpdate",
-        "channelUpdate",
-        "debug",
-        "emojiCreate",
-        "emojiDelete",
-        "emojiUpdate",
-        "error",
-        "guildAuditLogEntryCreate",
-        "guildAvailable",
-        "guildBanAdd",
-        "guildBanRemove",
-        "guildCreate",
-        "guildDelete",
-        "guildMemberAdd",
-        "guildMemberAvailable",
-        "guildMemberRemove",
-        "guildMemberUpdate",
-        "guildScheduledEventCreate",
-        "guildScheduledEventDelete",
-        "guildScheduledEventUpdate",
-        "guildScheduledEventUserAdd",
-        "guildScheduledEventUserRemove",
-        "guildUnavailable",
-        "guildUpdate",
-        "interactionCreate",
-        "inviteCreate",
-        "inviteDelete",
-        "messageCreate",
-        "messageDelete",
-        "messageDeleteBulk",
-        "messageReactionAdd",
-        "messageReactionRemove",
-        "messageReactionRemoveAll",
-        "messageReactionRemoveEmoji",
-        "messageUpdate",
-        "presenceUpdate",
-        "ready",
-        "roleCreate",
-        "roleDelete",
-        "roleUpdate",
-        "shardDisconnect",
-        "shardError",
-        "shardReady",
-        "shardReconnecting",
-        "shardResume",
-        "stageInstanceCreate",
-        "stageInstanceDelete",
-        "stageInstanceUpdate",
-        "stickerCreate",
-        "stickerDelete",
-        "stickerUpdate",
-        "threadCreate",
-        "threadDelete",
-        "threadMemberUpdate",
-        "threadUpdate",
-        "typingStart",
-        "userUpdate",
-        "voiceStateUpdate"
-    ]     // All events that the bot will act on.
+// Survival hardening: transient storage/driver errors (SQLITE_IOERR and
+// friends on this host) surface as unhandled rejections deep inside typeorm.
+// Log them; never let one take the bot down.
+process.on("unhandledRejection", (err) => {
+    console.error("[survived] unhandledRejection:", err && err.code ? err.code : err);
+});
+process.on("uncaughtException", (err) => {
+    console.error("[survived] uncaughtException:", err && err.code ? err.code : err);
 });
 
-// Loads up all the commands.
-client.commands.load("prefixesCmd");
-client.applicationCommands.load("slashesCmd");
+/*
+ * Chronolith — moderation bot for Discord, built on ForgeScript.
+ *
+ * Structure:
+ *   functions/    shared engines (permission gates, punishment pipeline,
+ *                 case system, snipe cache) — "thin commands, fat functions"
+ *   events/       event handlers (automod, snipe capture, join gate, logs,
+ *                 component router) — these are command files whose `type`
+ *                 is the event they bind to, loaded through commands.load()
+ *   prefixesCmd/  prefix commands (mirrors of the slash set)
+ *   slashesCmd/   slash commands (mirrors of the prefix set)
+ *
+ * All persistent state lives in ForgeDB guild variables, namespaced per
+ * guild — the bot is fully multi-guild safe.
+ */
 
-const token = process.env.BOT_TOKEN;
-client.login(token);
+const client = new ForgeClient({
+    extensions: [
+        // better-sqlite3 is the default: typeorm's plain "sqlite" driver would
+        // require the sqlite3 native package. Override via DB_TYPE in .env.
+        new ForgeDB({ type: process.env.DB_TYPE || "better-sqlite3" })
+    ],
+    intents: [
+        // Privileged: must ALSO be enabled in the Discord developer portal.
+        "GuildMembers",
+        "MessageContent",
+        // Standard.
+        "Guilds",
+        "GuildModeration",
+        "GuildMessages",
+        "GuildInvites",
+        "GuildWebhooks",
+        "AutoModerationConfiguration",
+        "AutoModerationExecution"
+    ],
+    prefixes: ["c!", "c?", "%"],
+    events: [
+        "clientReady",
+        "messageCreate",
+        "messageDelete",
+        "messageUpdate",
+        "interactionCreate",
+        "guildMemberAdd",
+        "guildMemberRemove",
+        "guildMemberUpdate",
+        "guildBanAdd",
+        "guildBanRemove",
+        "guildAuditLogEntryCreate",
+        "channelCreate",
+        "channelDelete",
+        "channelUpdate",
+        "roleCreate",
+        "roleDelete",
+        "roleUpdate"
+    ]
+});
+
+client.functions.load("functions");
+client.commands.load("events");          // event handlers are command files (type = event name)
+client.commands.load("prefixesCmd");     // prefix commands
+client.applicationCommands.load("slashesCmd"); // slash commands
+
+client.login(process.env.BOT_TOKEN);
