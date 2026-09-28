@@ -35,17 +35,17 @@ module.exports = [
                 $return[the server owner cannot be moderated]
             ]
             $if[$or[$env[action]==kick;$or[$env[action]==ban;$or[$env[action]==softban;$env[action]==tempban]]]==true;
-                $if[$and[$hasPerms[$env[guild];$botID;Administrator]!=true,$hasPerms[$env[guild];$botID;KickMembers]!=true]==true;
+                $if[$and[$hasPerms[$env[guild];$botID;Administrator]!=true;$hasPerms[$env[guild];$botID;KickMembers]!=true]==true;
                     $return[I am missing the Kick Members permission]
                 ]
             ]
             $if[$or[$env[action]==ban;$or[$env[action]==softban;$env[action]==tempban]]==true;
-                $if[$and[$hasPerms[$env[guild];$botID;Administrator]!=true,$hasPerms[$env[guild];$botID;BanMembers]!=true]==true;
+                $if[$and[$hasPerms[$env[guild];$botID;Administrator]!=true;$hasPerms[$env[guild];$botID;BanMembers]!=true]==true;
                     $return[I am missing the Ban Members permission]
                 ]
             ]
             $if[$or[$env[action]==mute;$or[$env[action]==unmute;$or[$env[action]==quarantine;$env[action]==unquarantine]]]==true;
-                $if[$and[$hasPerms[$env[guild];$botID;Administrator]!=true,$hasPerms[$env[guild];$botID;ModerateMembers]!=true]==true;
+                $if[$and[$hasPerms[$env[guild];$botID;Administrator]!=true;$hasPerms[$env[guild];$botID;ModerateMembers]!=true]==true;
                     $return[I am missing the Timeout Members permission]
                 ]
             ]
@@ -178,7 +178,7 @@ module.exports = [
                     $if[$get[tball]!=;
                         $arrayLoad[tbids;,;$get[tball]]
                         $arrayMap[tbids;u;
-                            $if[$and[$env[u]!=$env[target],$math[$getGuildVar[tb_$env[u];$env[guild];0]-$getTimestamp]>0]==true;
+                            $if[$and[$env[u]!=$env[target];$math[$getGuildVar[tb_$env[u];$env[guild];0]-$getTimestamp]>0]==true;
                                 $return[$env[u]]
                             ]
                         ;tbids]
