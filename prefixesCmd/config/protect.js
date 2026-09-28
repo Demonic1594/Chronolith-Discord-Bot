@@ -24,16 +24,15 @@ $onlyIf[$and[$or[$get[kind]==role;$get[kind]==user]==true;$or[$get[act]==add;$ge
 $let[tgt;$if[$get[kind]==role;$replace[$replace[$replace[$message[2];<@&;];!;];>;];$findUser[$message[2]]]]
 $onlyIf[$get[tgt]!=;Provide the target.]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$let[k1;protected]
-$let[k2;roles]
-$if[$get[kind]==user;
-$let[k2;users]
-]
-$arrayLoad[pl;,;$env[cfg;$get[k1];$get[k2]]]
+$arrayLoad[pl;,;$if[$get[kind]==role;$env[cfg;protected;roles];$env[cfg;protected;users]]]
 $if[$get[act]==add;
 $if[$arrayIncludes[pl;$get[tgt]]!=true;
 $arrayPush[pl;$get[tgt]]
-$!jsonSet[cfg;$get[k1];$get[k2];$arrayJoin[pl;,]]
+$if[$get[kind]==role;
+$!jsonSet[cfg;protected;roles;$arrayJoin[pl;,]]
+;
+$!jsonSet[cfg;protected;users;$arrayJoin[pl;,]]
+]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $description[✅ Protected $get[kind] added.];
 $description[Already protected.]
@@ -42,7 +41,11 @@ $let[i;$arrayIndexOf[pl;$get[tgt]]]
 $if[$get[i]==-1;
 $description[Not on the protection list.];
 $arraySplice[pl;$get[i];1]
-$!jsonSet[cfg;$get[k1];$get[k2];$arrayJoin[pl;,]]
+$if[$get[kind]==role;
+$!jsonSet[cfg;protected;roles;$arrayJoin[pl;,]]
+;
+$!jsonSet[cfg;protected;users;$arrayJoin[pl;,]]
+]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $description[✅ Removed from protection.]
 ]

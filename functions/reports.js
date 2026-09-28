@@ -22,8 +22,8 @@ module.exports = [
             $let[id;$math[$getGuildVar[reportCount;$env[guild];0] + 1]]
             $setGuildVar[reportCount;$get[id];$env[guild]]
             $jsonLoad[r;{}]
-            $jsonSet[r;rep;$env[reporter]]
-            $jsonSet[r;tgt;$env[target]]
+            $jsonSet[r;rep;"$env[reporter]"]
+            $jsonSet[r;tgt;"$env[target]"]
             $jsonSet[r;rsn;$env[reason]]
             $jsonSet[r;st;open]
             $jsonSet[r;ts;$getTimestamp]
@@ -62,10 +62,10 @@ module.exports = [
             $let[cur;$env[r;st]]
             $let[next;$env[status]]
             $let[valid;0]
-            $if[$and[$get[cur]==open,$get[next]==claimed]==true;
+            $if[$and[$get[cur]==open;$get[next]==claimed]==true;
                 $let[valid;1]
             ]
-            $if[$and[$or[$get[cur]==open,$get[cur]==claimed]==true,$or[$get[next]==resolved,$get[next]==dismissed]==true]==true;
+            $if[$and[$or[$get[cur]==open;$get[cur]==claimed]==true;$or[$get[next]==resolved;$get[next]==dismissed]==true]==true;
                 $let[valid;1]
             ]
             $if[$get[valid]==0;
@@ -73,9 +73,9 @@ module.exports = [
             ]
             $jsonSet[r;st;$get[next]]
             $if[$get[next]==claimed;
-                $jsonSet[r;claimed;$env[by]]
+                $jsonSet[r;claimed;"$env[by]"]
             ]
-            $jsonSet[r;closedBy;$env[by]]
+            $jsonSet[r;closedBy;"$env[by]"]
             $jsonSet[r;closedTs;$getTimestamp]
             $if[$env[note]!=;
                 $jsonSet[r;note;$env[note]]

@@ -21,16 +21,16 @@ module.exports = [
             $setGuildVar[caseCount;$get[n];$env[guild]]
             $jsonLoad[c;{}]
             $jsonSet[c;t;$env[type]]
-            $jsonSet[c;u;$env[target]]
-            $jsonSet[c;m;$env[mod]]
+            $jsonSet[c;u;"$env[target]"]
+            $jsonSet[c;m;"$env[mod]"]
             $jsonSet[c;d;$env[duration]]
             $jsonSet[c;r;$env[reason]]
             $jsonSet[c;ts;$getTimestamp]
             $setGuildVar[case_$get[n];$jsonStringify[c];$env[guild]]
-            $let[msraw;$getGuildVar[mstats;$env[guild];{}]]
+            $let[msraw;$getGuildVar[ms_$env[mod];$env[guild];{}]]
             $jsonLoad[ms;$get[msraw]]
-            $jsonSet[ms;$env[mod];$env[type];$math[$default[$env[ms;$env[mod];$env[type]];0] + 1]]
-            $setGuildVar[mstats;$jsonStringify[ms];$env[guild]]
+            $jsonSet[ms;$env[type];$math[$default[$env[ms;$env[type]];0] + 1]]
+            $setGuildVar[ms_$env[mod];$jsonStringify[ms];$env[guild]]
             $let[prev;$getGuildVar[ulist_$env[target];$env[guild];]]
             $if[$get[prev]!=;
                 $setGuildVar[ulist_$env[target];$get[prev],$get[n];$env[guild]];
@@ -112,8 +112,7 @@ module.exports = [
         name: "modStats",
         params: ["guild", "user"],
         code: `
-            $jsonLoad[ms;$getGuildVar[mstats;$env[guild];{}]]
-            $return[$jsonStringify[$env[ms;$env[user]]]]
+            $return[$getGuildVar[ms_$env[user];$env[guild];{}]]
         `
     }
 ];

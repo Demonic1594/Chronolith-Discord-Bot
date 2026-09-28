@@ -11,8 +11,11 @@ module.exports = {
         $onlyIf[$guildID!=;]
         $onlyIf[$isBot[$authorID]!=true;]
         $let[raw;$getGuildVar[esnipe_$channelID;$guildID;]]
-$onlyIf[$get[raw]!=;]
-$!jsonLoad[s;$get[raw]]
+$if[$get[raw]==;
+$arrayLoad[s]
+;
+$jsonLoad[s;$get[raw]]
+]
         $!jsonLoad[entry;{}]
         $!jsonSet[entry;a;$authorID]
         $!jsonSet[entry;before;$oldMessage[content]]

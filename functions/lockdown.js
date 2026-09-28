@@ -1,109 +1,108 @@
 /*
- * Chronolith engine — lockdown v3 (per the command plan).
+ * Chronolith engine — lockdown, flat registry edition.
  *
- * Registry: guild var `lockdowns` = JSON object keyed by channel ID:
- *   { "chID": { r: reason, u: untilMs (0 = indefinite), by: modID } }
+ * Registry (proven-safe shapes):
+ *   `lkd_<ch>`  → JSON {r: reason, u: untilMs(0=indef), by: mod} — literal keys
+ *   `lkd_all`   → CSV of locked channel ids
  *
- * $lockChan[guild;channel;reason;by]     — deny @everyone SendMessages + register
- * $unlockChan[guild;channel;by]          — restore ONLY if registered; 1 = unlocked, 0 = wasn't locked
- * $lockAll[guild;reason;by]              — locks every text/announcement channel; returns count
- * $unlockAll[guild;by]                   — unlocks every REGISTERED channel; returns count
- * $lockSweep[guild]                      — unlocks channels whose `until` has passed
- *
- * The @everyone role id equals the guild id. Locks are stored so they
- * survive restarts; the ready-interval sweeps expired durations.
+ * $lockChan[guild;channel;reason;by;until]   → deny + register
+ * $unlockChan[guild;channel]                 → 1 unlocked / 0 wasn't locked
+ * $lockAll[guild;reason;by;until]            → count locked
+ * $unlockAll[guild]                          → count unlocked
+ * $lockSweep[guild]                          → auto-unlock expired, count
  */
 
 module.exports = [
     {
         name: "lockChan",
-        params: ["guild", "channel", "reason", "by"],
+        params: ["guild", "channel", "reason", "by", "until"],
         code: `
             $removeChannelPerms[$env[channel];$env[guild];SendMessages]
-            $jsonLoad[lr;$getGuildVar[lockdowns;$env[guild];{}]]
             $jsonLoad[e;{}]
             $jsonSet[e;r;$env[reason]]
-            $jsonSet[e;u;0]
-            $jsonSet[e;by;$env[by]]
-            $jsonSet[lr;$env[channel];$jsonStringify[e]]
-            $setGuildVar[lockdowns;$jsonStringify[lr];$env[guild]]
+            $jsonSet[e;u;$env[until]]
+            $jsonSet[e;by;"$env[by]"]
+            $setGuildVar[lkd_$env[channel];$jsonStringify[e];$env[guild]]
+            $let[all;$getGuildVar[lkd_all;$env[guild];]]
+            $if[$arrayIncludes[$arrayLoad[idx;,;$get[all]];$env[channel]]!=true;
+                $if[$get[all]!=;
+                    $setGuildVar[lkd_all;$get[all],$env[channel];$env[guild]];
+                    $setGuildVar[lkd_all;$env[channel];$env[guild]]
+                ]
+            ]
             $return[1]
         `
     },
     {
         name: "unlockChan",
-        params: ["guild", "channel", "by"],
+        params: ["guild", "channel"],
         code: `
-            $jsonLoad[lr;$getGuildVar[lockdowns;$env[guild];{}]]
-            $if[$env[lr;$env[channel]]==;
+            $let[raw;$getGuildVar[lkd_$env[channel];$env[guild];]]
+            $if[$get[raw]==;
                 $return[0]
             ]
             $deleteChannelPerms[$env[channel];$env[guild];SendMessages]
-            $jsonDelete[lr;$env[channel]]
-            $setGuildVar[lockdowns;$jsonStringify[lr];$env[guild]]
+            $setGuildVar[lkd_$env[channel];;$env[guild]]
+            $arrayLoad[idx;,;$getGuildVar[lkd_all;$env[guild];]]
+            $let[i;$arrayIndexOf[idx;$env[channel]]]
+            $if[$get[i]!=-1;
+                $arraySplice[idx;$get[i];1]
+                $setGuildVar[lkd_all;$arrayJoin[idx;,];$env[guild]]
+            ]
             $return[1]
         `
     },
     {
         name: "lockAll",
-        params: ["guild", "reason", "by"],
+        params: ["guild", "reason", "by", "until"],
         code: `
             $let[n;0]
             $arrayLoad[chs;,;$guildChannelIDs[$env[guild];,]]
             $arrayForEach[chs;c;
                 $if[$env[c]!=;
-                    $if[$or[$channelType[$env[c]]==GuildText,$channelType[$env[c]]==GuildNews]==true;
-                        $removeChannelPerms[$env[c];$env[guild];SendMessages]
-                        $let[n;$math[$get[n]+1]]
+                    $if[$or[$channelType[$env[c]]==GuildText;$channelType[$env[c]]==GuildNews]==true;
+                        $lockChan[$env[guild];$env[c];$env[reason];$env[by];$env[until]]
+                        $letSum[n;1]
                     ]
                 ]
             ]
-            $jsonLoad[lr;$getGuildVar[lockdowns;$env[guild];{}]]
-            $arrayForEach[chs;c2;
-                $if[$or[$channelType[$env[c2]]==GuildText,$channelType[$env[c2]]==GuildNews]==true;
-                    $jsonLoad[e;{}]
-                    $jsonSet[e;r;$env[reason]]
-                    $jsonSet[e;u;0]
-                    $jsonSet[e;by;$env[by]]
-                    $jsonSet[lr;$env[c2];$jsonStringify[e]]
-                ]
-            ]
-            $setGuildVar[lockdowns;$jsonStringify[lr];$env[guild]]
             $return[$get[n]]
         `
     },
     {
         name: "unlockAll",
-        params: ["guild", "by"],
+        params: ["guild"],
         code: `
-            $jsonLoad[lr;$getGuildVar[lockdowns;$env[guild];{}]]
+            $let[all;$getGuildVar[lkd_all;$env[guild];]]
+            $if[$get[all]==;
+                $return[0]
+            ]
+            $arrayLoad[idx;,;$get[all]]
             $let[n;0]
-            $arrayForEach[lr;c;
-                $deleteChannelPerms[$env[c];$env[guild];SendMessages]
-                $jsonDelete[lr;$env[c]]
+            $arrayForEach[idx;c;
+                $unlockChan[$env[guild];$env[c]]
                 $letSum[n;1]
             ]
-            $setGuildVar[lockdowns;$jsonStringify[lr];$env[guild]]
             $return[$get[n]]
         `
     },
     {
-        // Auto-unlock everything whose duration elapsed. Called every 60s.
         name: "lockSweep",
         params: ["guild"],
         code: `
-            $jsonLoad[lr;$getGuildVar[lockdowns;$env[guild];{}]]
-            $let[now;$getTimestamp]
+            $let[all;$getGuildVar[lkd_all;$env[guild];]]
+            $if[$get[all]==;
+                $return[0]
+            ]
+            $arrayLoad[idx;,;$get[all]]
             $let[n;0]
-            $arrayForEach[lr;c;
-                $if[$and[$env[lr;$env[c];u]!=0,$math[$env[lr;$env[c];u]-$get[now]]<=0]==true;
-                    $deleteChannelPerms[$env[c];$env[guild];SendMessages]
-                    $jsonDelete[lr;$env[c]]
+            $arrayForEach[idx;c;
+                $let[raw;$getGuildVar[lkd_$env[c];$env[guild];{}]]
+                $jsonLoad[e;$get[raw]]
+                $if[$and[$env[e;u]!=0;$math[$env[e;u]-$getTimestamp]<=0]==true;
+                    $unlockChan[$env[guild];$env[c]]
                     $letSum[n;1]
                 ]
-            ]
-            $if[$get[n]>0;
-                $setGuildVar[lockdowns;$jsonStringify[lr];$env[guild]]
             ]
             $return[$get[n]]
         `

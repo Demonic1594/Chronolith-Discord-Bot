@@ -11,25 +11,24 @@ $nomention
 $onlyIf[$guildID!=;Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;⛔ You need moderator permissions.]
 $cooldown[$authorID-mute;3s;]
-$nomention
-$onlyIf[$guildID!=;Server only.]
-$onlyIf[$isMod[$guildID;$authorID]==true;⛔ You need moderator permissions.]
-$cooldown[$authorID-mute;3s;]
 $let[t;$resolveTargets[$guildID;$message;$channelID;$messageID]]
 $!jsonLoad[tj;$get[t]]
 $onlyIf[$env[tj;ids]!=;No valid target found. Mention a user, or type a username/ID.]
 $let[dur;]
 $let[rest;]
+$if[$env[tj;reason]!=;
 $arrayLoad[rt; ;$env[tj;reason]]
 $arrayForEach[rt;w;
 $if[$get[dur]==;
-$if[$and[$charCount[$env[w]]>=2;$checkContains[smhd;$cropText[$env[w];$charCount[$env[w]];$charCount[$env[w]]]]==true;$checkCondition[$cropText[$env[w];1;$math[$charCount[$env[w]]-1]] + 0 >= 0]]==true;
+$if[$isNumber[$replace[$replace[$replace[$replace[$replace[$env[w];s;];m;];h;];d;];w;]]==true;
 $let[dur;$env[w]]
 ;
 $let[rest;$get[rest] $env[w]]
 ]
 ]
 ]
+]
+$onlyIf[$get[dur]!=;A duration is required: mute <targets> <duration> [reason]]
 $let[r;$punishMulti[mute;$guildID;$authorID;$env[tj;ids];$get[dur];$if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]]]
 $!jsonLoad[rj;$get[r]]
 $author[$actionEmoji[mute];$userAvatar[$botID;64;png]]

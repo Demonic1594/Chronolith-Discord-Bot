@@ -121,7 +121,7 @@ module.exports = {
 
         $if[$get[vio]!=;
             $#deleteMessage[$channelID;$messageID]
-            $let[n;$newCase[automod;$guildID;$authorID;$botID;;Automod trigger: $get[vio]]]
+            $let[n;$newCase[$guildID;automod;$authorID;$botID;;Automod trigger: $get[vio]]]
             $modlogPost[$guildID;$get[n];automod;$authorID;$botID;;Automod trigger: $get[vio] (message deleted)]
             $sendMessage[$channelID;
                 $author[Automod;$userAvatar[$botID;64;png]]

@@ -64,6 +64,9 @@ module.exports = [
             $if[$env[action]==tempban;
                 $return[⏳ Tempbanned]
             ]
+            $if[$env[action]==hardban;
+                $return[⏳ Hardbanned]
+            ]
             $if[$env[action]==quarantine;
                 $return[🧪 Quarantined]
             ]

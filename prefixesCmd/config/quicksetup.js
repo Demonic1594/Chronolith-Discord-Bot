@@ -11,7 +11,7 @@ $onlyIf[$guildID!=;Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;⛔ You need moderator permissions.]
 $cooldown[$authorID-quicksetup;3s;]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$!jsonSet[cfg;modlog;$channelID]
+$!jsonSet[cfg;modlog;"$channelID"]
 $if[$env[cfg;automod;words]==;
 $!jsonSet[cfg;automod;words;]
 ]

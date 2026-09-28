@@ -18,7 +18,7 @@ Usage: modlog [recent|user|action|set] [...]
 $if[$get[mode]==set;
 $let[c;$if[$message[1]==off;;$replace[$replace[$message[1];<#;];>;] ]]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$!jsonSet[cfg;modlog;$get[c]]
+$!jsonSet[cfg;modlog;$trim[$get[c]]]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $description[$if[$get[c]==;Modlog channel disabled.;Modlog channel set to <#$get[c]>.]]
 $color[7C3AED]

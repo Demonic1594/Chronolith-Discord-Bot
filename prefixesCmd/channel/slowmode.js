@@ -12,7 +12,7 @@ $onlyIf[$isMod[$guildID;$authorID]==true;⛔ You need moderator permissions.]
 $cooldown[$authorID-slowmode;3s;]
 $let[s;$if[$message[0]==off;0;$message[0]]]
 $onlyIf[$and[$get[s]>=0;$get[s]<=21600]==true;Usage: slowmode <seconds|off>]
-$setChannelSlowmode[$channelID;$get[s]]
+$let[r;$setChannelSlowmode[$channelID;$get[s]]]
 $description[🐢 Slowmode in <#$channelID> set to $get[s]s.]
     `
 };

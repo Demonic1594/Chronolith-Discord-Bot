@@ -116,13 +116,15 @@ def duration_scan_block():
     """Order-independent duration extraction from the parsed reason tokens."""
     return """$let[dur;]
 $let[rest;]
+$if[$env[tj;reason]!=;
 $arrayLoad[rt; ;$env[tj;reason]]
 $arrayForEach[rt;w;
 $if[$get[dur]==;
-$if[$and[$charCount[$env[w]]>=2,$checkContains[smhd;$cropText[$env[w];$charCount[$env[w]];$charCount[$env[w]]]]==true,$checkCondition[$cropText[$env[w];1;$math[$charCount[$env[w]]-1]] + 0 >= 0]]==true;
+$if[$isNumber[$replace[$replace[$replace[$replace[$replace[$env[w];s;];m;];h;];d;];w;]]==true;
 $let[dur;$env[w]]
 ;
 $let[rest;$get[rest] $env[w]]
+]
 ]
 ]
 ]"""
@@ -133,15 +135,11 @@ def multi_punish_cmd(name, action, aliases, desc, duration_required=False, durat
     if name in PUNISH_ALIASES:
         aliases += PUNISH_ALIASES[name]
     reason_expr = "$if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]"
-    pfx = f"""$nomention
-$onlyIf[$guildID!=;Server only.]
-$onlyIf[$isMod[$guildID;$authorID]==true;⛔ You need moderator permissions.]
-$cooldown[$authorID-{name};3s;]
-$let[t;$resolveTargets[$guildID;$message;$channelID;$messageID]]
+    pfx = f"""$let[t;$resolveTargets[$guildID;$message;$channelID;$messageID]]
 $jsonLoad[tj;$get[t]]
 $onlyIf[$env[tj;ids]!=;No valid target found. Mention a user, or type a username/ID.]"""
     if duration_required:
-        pfx += "\n" + duration_scan_block()
+        pfx += "\n" + duration_scan_block() + "\n$onlyIf[$get[dur]!=;A duration is required: " + name + " <targets> <duration> [reason]]"
     else:
         pfx += "\n$let[dur;]\n$let[rest;$env[tj;reason]]"
     pfx += f"""
@@ -308,11 +306,11 @@ $footer[Chronolith • Moderation]
 cmd("channel", "slowmode", [], "Set channel slowmode (seconds, or off)",
     """$let[s;$if[$message[0]==off;0;$message[0]]]
 $onlyIf[$and[$get[s]>=0,$get[s]<=21600]==true;Usage: slowmode <seconds|off>]
-$setChannelSlowmode[$channelID;$get[s]]
+$let[r;$setChannelSlowmode[$channelID;$get[s]]]
 $description[🐢 Slowmode in <#$channelID> set to $get[s]s.]""",
     """$let[s;$option[seconds]]
 $onlyIf[$and[$get[s]>=0,$get[s]<=21600]==true;$ephemeral Pick 0-21600 seconds.]
-$setChannelSlowmode[$default[$option[channel];$channelID];$get[s]]
+$let[r;$setChannelSlowmode[$default[$option[channel];$channelID];$get[s]]]
 $interactionReply[$description[🐢 Slowmode updated to $get[s]s.]]""",
     [{"type": 4, "name": "seconds", "description": "0 to disable", "required": True},
      {"type": 7, "name": "channel", "description": "Channel (default: here)", "required": False}])
@@ -337,53 +335,61 @@ UNLOCK_SPEC = dict(
     ])
 
 lock_pfx = """$onlyIf[$hasPerms[$guildID;$botID;ManageChannels]==true;⛔ I am missing the Manage Channels permission.]
-$let[raw;$message]
 $let[dur;]
 $let[reason;]
 $let[server;false]
 $let[chs;]
-$arrayLoad[toks; ;$get[raw]]
+$arrayLoad[toks; ;$message]
 $arrayForEach[toks;w;
-$if[$get[dur]==;
-$if[$and[$charCount[$env[w]]>=2,$checkContains[smhd;$cropText[$env[w];$charCount[$env[w]];$charCount[$env[w]]]]==true,$checkCondition[$cropText[$env[w];1;$math[$charCount[$env[w]]-1]] + 0 >= 0]]==true;
-$let[dur;$env[w]]
-;
+$let[cls;reason]
 $if[$toLowerCase[$env[w]]==server;
+$let[cls;server]
+]
+$if[$and[$isNumber[$replace[$replace[$replace[$replace[$replace[$env[w];s;];m;];h;];d;];w;]]==true,$isNumber[$env[w]]!=true]==true;
+$let[cls;dur]
+]
+$if[$and[$or[$startsWith[$env[w];<#]==true,$isNumber[$env[w]]==true]==true,$get[cls]==reason]==true;
+$let[cls;ch]
+]
+$if[$get[cls]==dur;
+$let[dur;$env[w]]
+$let[cls;done]
+]
+$if[$get[cls]==server;
 $let[server;true]
-;
-$if[$startsWith[$env[w];<#];
-$let[chs;$get[chs]$replace[$replace[$env[w];<#;];>;]],
-$if[$checkCondition[$env[w] + 0 >= 0]==true;
-$let[chs;$get[chs]$if[$get[chs]!=;,]$env[w]]
-;
+$let[cls;done]
+]
+$if[$get[cls]==ch;
+$let[chs;$get[chs]$if[$get[chs]!=;,]$replace[$replace[$env[w];<#;];>;]]
+$let[cls;done]
+]
+$if[$get[cls]==reason;
 $let[reason;$get[reason] $env[w]]
-]
-]
-]
-]
-;
-$let[reason;$get[reason] $env[w]]
-]
 ]
 ]
 $if[$get[chs]==;
 $let[chs;$channelID]
 ]
-$if[$get[server]==true;
-$let[n;$lockAll[$guildID;$if[$trim[$get[reason]]==;no reason;$trim[$get[reason]]];$authorID]]
-$description[🔒 $get[n] channel(s) locked server-wide.$if[$get[dur]!=; Auto-unlock in **$get[dur]**.]
-> $if[$trim[$get[reason]]==;no reason;$trim[$get[reason]]]];
-$arrayLoad[cl;,;$get[chs]]
+$let[until;0]
+$if[$get[dur]!=;
+$let[until;$math[$getTimestamp+$parseMS[$get[dur]]]]
+]
 $let[n;0]
+$if[$get[server]==true;
+$let[n;$lockAll[$guildID;$if[$trim[$get[reason]]==;no reason;$trim[$get[reason]]];$authorID;$get[until]]]
+;
+$arrayLoad[cl;,;$get[chs]]
 $arrayForEach[cl;c;
-$if[$channelExists[$get[c]]==true;
-$lockChan[$guildID;$get[c];$if[$trim[$get[reason]]==;no reason;$trim[$get[reason]]];$authorID]
+$if[$and[$channelExists[$get[c]]==true,$get[server]==false]==true;
+$lockChan[$guildID;$get[c];$if[$trim[$get[reason]]==;no reason;$trim[$get[reason]]];$authorID;$get[until]]
 $letSum[n;1]
 ]
 ]
-$description[🔒 `$get[n]` channel(s) locked.$if[$get[dur]!=; Auto-unlock in **$get[dur]**.]
-> $if[$trim[$get[reason]]==;no reason;$trim[$get[reason]]]]
 ]
+$let[casen;$newCase[$guildID;lock;$botID;$authorID;$if[$get[dur]!=;$get[dur];];Locked $get[n] channel(s): $if[$trim[$get[reason]]==;no reason;$trim[$get[reason]]]]]
+$let[ml;$modlogPost[$guildID;$get[casen];lock;$botID;$authorID;$if[$get[dur]!=;$get[dur];];Lockdown of $get[n] channel(s)]]
+$description[Locked `$get[n]` channel(s)$if[$get[dur]!=;, auto-unlock in $get[dur]].
+> $if[$trim[$get[reason]]==;no reason;$trim[$get[reason]]]]
 $color[EF4444]
 $footer[Chronolith • Lockdown]"""
 
@@ -396,19 +402,10 @@ def lock_bodies(which):
 def build_lock():
     from types import SimpleNamespace
     c = dict(LOCK_SPEC)
-    pfx = lock_pfx
-    # duration side-effect: if set, schedule auto-unlock per channel after the lock
-    pfx += """
-$if[$get[dur]!=;
-$jsonLoad[lr;$getGuildVar[lockdowns;$guildID;{}]]
-$arrayForEach[lr;ch;
-$jsonSet[lr;$env[ch];u;$math[$getTimestamp+$parseMS[$get[dur]]]]
-]
-$setGuildVar[lockdowns;$jsonStringify[lr];$guildID]
-]"""
+    pfx = lock_pfx  # durations are baked into lockChan/lockAll by the engine
     slx = """$onlyIf[$hasPerms[$guildID;$botID;ManageChannels]==true;⛔ I am missing the Manage Channels permission.]
 $let[tg;$default[$option[targets];here]]
-$let[rc;$lockAll[$guildID;$if[$option[reason]==;no reason;$option[reason]];$authorID]]
+$let[rc;$lockAll[$guildID;$if[$option[reason]==;no reason;$option[reason]];$authorID;0]]
 $ephemeral
 $interactionReply[
 $description[🔒 `$get[rc]` channel(s) locked server-wide.$if[$option[duration]!=; Auto-unlock in **$option[duration]**.]]
@@ -420,6 +417,8 @@ $footer[Chronolith • Lockdown]
     return c
 
 lock_cmd = build_lock()
+lock_cmd["prefix"] = _postfix(lock_cmd["prefix"])
+lock_cmd["slash"] = _postfix(lock_cmd["slash"])
 CMDS.append(lock_cmd)
 
 unlock_pfx = """$onlyIf[$hasPerms[$guildID;$botID;ManageChannels]==true;⛔ I am missing the Manage Channels permission.]
@@ -444,11 +443,11 @@ $let[chs;$channelID]
 ]
 $let[n;0]
 $if[$get[server]==true;
-$let[n;$unlockAll[$guildID;$authorID]]
+$let[n;$unlockAll[$guildID]]
 ;
 $arrayLoad[cl;,;$get[chs]]
 $arrayForEach[cl;c;
-$let[u;$unlockChan[$guildID;$get[c];$authorID]]
+$let[u;$unlockChan[$guildID;$get[c]]]
 $if[$get[u]==1;
 $letSum[n;1]
 ]
@@ -464,7 +463,7 @@ $color[64748B]
 ]
 $footer[Chronolith • Lockdown]"""
 unlock_slx = """$onlyIf[$hasPerms[$guildID;$botID;ManageChannels]==true;⛔ I am missing the Manage Channels permission.]
-$let[n;$unlockAll[$guildID;$authorID]]
+$let[n;$unlockAll[$guildID]]
 $interactionReply[
 $description[🔓 `$get[n]` channel(s) unlocked.]
 $color[22C55E]
@@ -472,7 +471,7 @@ $footer[Chronolith • Lockdown]
 ]"""
 CMDS.append(dict(folder="channel", name="unlock", aliases=["unlockdown"],
                  desc="Unlock channels (or every locked channel with 'server')",
-                 prefix=unlock_pfx, slash=unlock_slx, options=UNLOCK_SPEC["options"], gate="mod"))
+                 prefix=_postfix(unlock_pfx), slash=_postfix(unlock_slx), options=UNLOCK_SPEC["options"], gate="mod"))
 
 # =====================================================================
 # ---------------------------------------------------------------- cases
@@ -481,7 +480,7 @@ cmd("reports", "setreportchannel", ["reportchannel"], "Set the channel where use
     """$let[c;$if[$message[0]!=;$replace[$replace[$message[0];<#;];>;];$channelID]]
 $onlyIf[$get[c]!=;Usage: setreportchannel <#channel|ID>]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$!jsonSet[cfg;reports;$get[c]]
+$!jsonSet[cfg;reports;$trim[$get[c]]]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $author[Chronolith • Reports;$userAvatar[$botID;64;png]]
 $description[Report channel set to <#$get[c]>.]
@@ -490,7 +489,7 @@ $footer[Chronolith]""",
     """$let[c;$default[$option[channel];]]
 $onlyIf[$get[c]!=;$ephemeral Provide a channel.]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$!jsonSet[cfg;reports;$get[c]]
+$!jsonSet[cfg;reports;$trim[$get[c]]]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[
 $author[Chronolith • Reports;$userAvatar[$botID;64;png]]
@@ -504,7 +503,8 @@ cmd("reports", "report", [], "Report a user to the moderators (reason required)"
     """$let[target;$findUser[$message[0]]]
 $onlyIf[$get[target]!=;Usage: report <user> <reason>]
 $onlyIf[$message[1;999]!=;A reason is required.]
-$let[ch;$logChannel[$guildID;reports]]
+$jsonLoad[rcfg;$getGuildVar[cfg;$guildID;{}]]
+$let[ch;$env[rcfg;reports]]
 $onlyIf[$get[ch]!=;Reports are not configured here (mods: %setreportchannel).]
 $let[id;$reportNew[$guildID;$authorID;$get[target];$message[1;999]]]
 $sendMessage[$get[ch];
@@ -522,7 +522,8 @@ $footer[Chronolith • Reports • %claim $get[id] to take it]
 $description[✅ Report **#$get[id]** filed.]
 $deleteIn[10s]""",
     """$onlyIf[$option[reason]!=;$ephemeral A reason is required.]
-$let[ch;$logChannel[$guildID;reports]]
+$jsonLoad[rcfg;$getGuildVar[cfg;$guildID;{}]]
+$let[ch;$env[rcfg;reports]]
 $if[$get[ch]==;
 $ephemeral
 $interactionReply[Reports are not configured here.]
@@ -565,7 +566,7 @@ $addField[Resolution note;$env[r;note];false]
 $footer[Chronolith • Reports]
 $stop
 ]
-$onlyIf[$or[$get[q]==open,$or[$get[q]==claimed,$or[$get[q]==resolved,$or[$get[q]==dismissed,$get[q]==all]]]]==true;Usage: reports [open|claimed|resolved|dismissed|all] or reports <id>]
+$onlyIf[$or[$get[q]==open,$or[$get[q]==claimed,$or[$get[q]==resolved,$or[$get[q]==dismissed,$get[q]==all]]]]==true;Usage: reports \[open|claimed|resolved|dismissed|all\] or reports <id>]
 $let[allr;$reportAll[$guildID]]
 $onlyIf[$get[allr]!=;No reports on record.]
 $arrayLoad[rids;,;$get[allr]]
@@ -638,6 +639,7 @@ $onlyIf[$or[$get[mode]==all,$or[$get[mode]==bot,$or[$get[mode]==contains,$or[$ge
 $let[search;$if[$checkCondition[$get[arg1] + 0 >= 0]==true;$get[arg1];100]]
 $let[extra;$trim[$message[1;999]]]
 $let[scan;$scanMessages[$channelID;$if[$get[search]>500;500;$get[search]]]]
+$onlyIf[$checkContains[$get[scan];[;1]==true;Scan failed — cannot read this channel's history.]
 $!jsonLoad[found;$get[scan]]
 $let[ids;]
 $let[count;0]
@@ -734,6 +736,7 @@ cmd("channel", "purge", ["clean"], "Purge messages with filters (pinned are igno
 cmd("channel", "cleanup", [], "Purge the bot's own messages (pinned included)",
     """$onlyIf[$hasPerms[$guildID;$botID;ManageMessages]==true;⛔ I am missing the Manage Messages permission.]
 $let[scan;$scanMessages[$channelID;$if[$message[0]>500;500;$if[$message[0]!=;$message[0];100]]]]
+$onlyIf[$checkContains[$get[scan];[;1]==true;Scan failed — cannot read this channel's history.]
 $!jsonLoad[found;$get[scan]]
 $let[ids;]
 $let[count;0]
@@ -1593,7 +1596,7 @@ $interactionReply[$description[✅ Domain removed.]]
 
 cmd("config", "quicksetup", [], "Apply sane defaults in one command",
     """$jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$jsonSet[cfg;modlog;$channelID]
+$jsonSet[cfg;modlog;"$channelID"]
 $if[$env[cfg;automod;words]==;
 $jsonSet[cfg;automod;words;]
 ]
@@ -1617,7 +1620,7 @@ $addField[Escalation;3 warns → 1h mute;true]
 $addField[Anti-nuke;ON — 3 actions/20s → ban;true]
 $footer[Chronolith • Fine-tune with %config commands]""",
     """$jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$jsonSet[cfg;modlog;$channelID]
+$jsonSet[cfg;modlog;"$channelID"]
 $jsonSet[cfg;automod;invites;true]
 $jsonSet[cfg;automod;spam;true]
 $jsonSet[cfg;automod;spamN;5]
@@ -1744,16 +1747,15 @@ $onlyIf[$and[$or[$get[kind]==role,$get[kind]==user]==true,$or[$get[act]==add,$ge
 $let[tgt;$if[$get[kind]==role;$replace[$replace[$replace[$message[2];<@&;];!;];>;];$findUser[$message[2]]]]
 $onlyIf[$get[tgt]!=;Provide the target.]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$let[k1;protected]
-$let[k2;roles]
-$if[$get[kind]==user;
-$let[k2;users]
-]
-$arrayLoad[pl;,;$env[cfg;$get[k1];$get[k2]]]
+$arrayLoad[pl;,;$if[$get[kind]==role;$env[cfg;protected;roles];$env[cfg;protected;users]]]
 $if[$get[act]==add;
 $if[$arrayIncludes[pl;$get[tgt]]!=true;
 $arrayPush[pl;$get[tgt]]
-$!jsonSet[cfg;$get[k1];$get[k2];$arrayJoin[pl;,]]
+$if[$get[kind]==role;
+$!jsonSet[cfg;protected;roles;$arrayJoin[pl;,]]
+;
+$!jsonSet[cfg;protected;users;$arrayJoin[pl;,]]
+]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $description[✅ Protected $get[kind] added.];
 $description[Already protected.]
@@ -1762,7 +1764,11 @@ $let[i;$arrayIndexOf[pl;$get[tgt]]]
 $if[$get[i]==-1;
 $description[Not on the protection list.];
 $arraySplice[pl;$get[i];1]
-$!jsonSet[cfg;$get[k1];$get[k2];$arrayJoin[pl;,]]
+$if[$get[kind]==role;
+$!jsonSet[cfg;protected;roles;$arrayJoin[pl;,]]
+;
+$!jsonSet[cfg;protected;users;$arrayJoin[pl;,]]
+]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $description[✅ Removed from protection.]
 ]
@@ -1855,7 +1861,7 @@ Usage: modlog [recent|user|action|set] [...]
 $if[$get[mode]==set;
 $let[c;$if[$message[1]==off;;""" + CH_STRIP.replace("$message[0]", "$message[1]") + """ ]]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$!jsonSet[cfg;modlog;$get[c]]
+$!jsonSet[cfg;modlog;$trim[$get[c]]]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $description[$if[$get[c]==;Modlog channel disabled.;Modlog channel set to <#$get[c]>.]]
 $color[7C3AED]

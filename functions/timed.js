@@ -1,14 +1,10 @@
 /*
- * Chronolith engine — active timed moderations (Phase 1 #1 + #11).
+ * Chronolith engine — active timed moderations (flat registries).
  *
- * Reads the persistent registries (all restart-safe, swept every 60s):
- *   `tempbans`  → JSON array [{u, until}]   (hardbans / timed bans)
- *   `timedouts` → JSON {uid: until}          (timeouts we applied)
- *   `lockdowns` → JSON {ch: {r, u, by}}      (u = 0 for indefinite)
+ * Reads: tb_all/tb_<uid> (hardbans), timedouts {uid:until} (scalar values,
+ * single-dynamic key — proven shape), lkd_all/lkd_<ch> (lockdowns).
  *
- * $timedList[guild] → "bansCSV~~outsCSV~~locksCSV" where each CSV holds
- *   "id:untilMs" entries (unexpired only). Indefinite locks use until=0.
- * Rendering happens in the command layer.
+ * $timedList[guild] → "bansCSV~~outsCSV~~locksCSV" with "id:until" entries.
  */
 
 module.exports = [
@@ -16,14 +12,16 @@ module.exports = [
         name: "timedList",
         params: ["guild"],
         code: `
-            $let[now;$getTimestamp]
             $let[bans;]
-            $let[rawtb;$getGuildVar[tempbans;$env[guild];]]
-            $if[$get[rawtb]!=;
-                $jsonLoad[tb;$get[rawtb]]
-                $arrayForEach[tb;e;
-                    $if[$math[$env[e;until]-$get[now]]>0;
-                        $let[bans;$get[bans]$if[$get[bans]!=;,]$env[e;u]:$env[e;until]]
+            $let[allb;$getGuildVar[tb_all;$env[guild];]]
+            $if[$get[allb]!=;
+                $arrayLoad[bu;,;$get[allb]]
+                $arrayForEach[bu;u;
+                    $if[$env[u]!=;
+                        $let[until;$getGuildVar[tb_$env[u];$env[guild];0]]
+                        $if[$math[$get[until]-$getTimestamp]>0;
+                            $let[bans;$get[bans]$if[$get[bans]!=;,]$env[u]:$get[until]]
+                        ]
                     ]
                 ]
             ]
@@ -31,16 +29,26 @@ module.exports = [
             $let[rawtd;$getGuildVar[timedouts;$env[guild];]]
             $if[$get[rawtd]!=;
                 $jsonLoad[td;$get[rawtd]]
-                $arrayForEach[td;k;
-                    $if[$math[$env[td;$env[k]]-$get[now]]>0;
-                        $let[outs;$get[outs]$if[$get[outs]!=;,]$env[k]:$env[td;$env[k]]]
+                $arrayLoad[tkeys;,;$jsonEntries[td]]
+                $arrayForEach[tkeys;k;
+                    $let[uid;$env[k;0]]
+                    $let[until;$env[k;1]]
+                    $if[$math[$get[until]-$getTimestamp]>0;
+                        $let[outs;$get[outs]$if[$get[outs]!=;,]$get[uid]:$get[until]]
                     ]
                 ]
             ]
             $let[locks;]
-            $jsonLoad[ld;$getGuildVar[lockdowns;$env[guild];{}]]
-            $arrayForEach[ld;c;
-                $let[locks;$get[locks]$if[$get[locks]!=;,]$env[c]:$env[ld;$env[c];u]]
+            $let[alll;$getGuildVar[lkd_all;$env[guild];]]
+            $if[$get[alll]!=;
+                $arrayLoad[li;,;$get[alll]]
+                $arrayForEach[li;c;
+                    $if[$env[c]!=;
+                        $let[raw;$getGuildVar[lkd_$env[c];$env[guild];{}]]
+                        $jsonLoad[e;$get[raw]]
+                        $let[locks;$get[locks]$if[$get[locks]!=;,]$env[c]:$env[e;u]]
+                    ]
+                ]
             ]
             $return[$get[bans]~~$get[outs]~~$get[locks]]
         `

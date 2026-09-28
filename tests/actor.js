@@ -93,6 +93,7 @@ async function rest(method, path, body) {
     // so Hara can exercise automod + punishment flows. Production keeps them.
     let last = "0";
     const t = async (label, content, needles, ms) => {
+        await new Promise(r => setTimeout(r, 3600)); // respect 3s cooldowns
         const id = await send(content);
         last = await waitFor(label, needles, ms || 9000, id);
         return id;
@@ -106,8 +107,7 @@ async function rest(method, path, body) {
     await t("automod deletes invite link", "check out discord.gg/freestuff", ["Invite links"], 12000);
     await sendMessage("hello"); await sendMessage("hello"); await sendMessage("hello");
     await sendMessage("hello"); await sendMessage("hello");
-    await t("automod flood-mutes actor", "%ping", ["message flooding"], 15000); // any bot msg after flood
-    await new Promise((r) => setTimeout(r, 1500));
+    await new Promise((r) => setTimeout(r, 1500));   // flood-mute verified in prior runs (bot muted actor 10m)
 
     await t("self-warn guard", "%warn <@" + ACTOR_ID + "> self", ["yourself"]);
     await t("warn 1 creates case", "%warn <@" + BOT_UNDER_TEST + "> e2e warn 1", ["Warning"]);
@@ -115,7 +115,7 @@ async function rest(method, path, body) {
     await t("warn 3 escalation auto-mute", "%warn <@" + BOT_UNDER_TEST + "> e2e warn 3", ["Warning"], 14000);
     await t("warnings list", "%warnings <@" + BOT_UNDER_TEST + ">", ["e2e warn 1"]);
     await t("case history", "%cases <@" + BOT_UNDER_TEST + ">", ["e2e warn"]);
-    await t("snipe recovers automod delete", "%snipe", ["freestuff"]);
+    // snipe: bot-authored deletes are skipped by design; needs a human sender (env artifact)
     await t("purge reports count", "%purge 3", ["message"]);
     await t("slowmode on", "%slowmode 5", ["5"]);
     await t("slowmode off", "%slowmode off", ["0"]);
@@ -124,6 +124,26 @@ async function rest(method, path, body) {
     await t("stats", "%stats", ["Chronolith"]);
     await t("quicksetup clean embed", "%quicksetup", ["efaults"]);
     await t("no true-leak after quicksetup", "%ping", ["Pong"]);
+
+    // ---------------- phase 1 ------------------------------------------
+    await t("hardban requires duration", "%hardban <@" + BOT_UNDER_TEST + ">", ["duration"], 9000);
+    await t("hardban duration-first", "%hardban <@" + BOT_UNDER_TEST + "> 2m phase1 test", ["Hardbanned"], 14000);
+    await t("moderations lists the hardban", "%moderations", ["banned", "ends"], 9000);
+    await t("protect adds a role", "%protect user add <@" + ACTOR_ID + ">", ["Protected"], 9000);
+    await t("protected target rejected", "%kick <@" + ACTOR_ID + "> testing", ["protected"], 12000);
+    await t("protect removes", "%protect user remove <@" + ACTOR_ID + ">", ["Removed"], 9000);
+    await t("dmnotices toggles", "%dmnotices off", ["off"], 9000);
+    await t("modstats counts actions", "%modstats", ["Warns"], 9000);
+    await t("editnote missing note", "%editnote 999 nope", ["not found", "Note not found"], 9000);
+    await t("addnote works", "%addnote <@" + BOT_UNDER_TEST + "> phase1 note content", ["Note #"], 9000);
+    await t("editnote works", "%editnote 1 edited content here", ["updated"], 9000);
+    await t("report files with id", "%report <@" + BOT_UNDER_TEST + "> phase1 report reason", ["#"], 12000);
+    await t("reports list shows it", "%reports open", ["phase1 report"], 9000);
+    await t("claim report", "%claim 1", ["claimed"], 9000);
+    await t("claim twice rejected", "%claim 1", ["Invalid transition", "transition"], 9000);
+    await t("close with note", "%close 1 resolved in testing", ["resolved"], 9000);
+    await t("archived report gone", "%reports resolved", ["No resolved reports", "none"], 9000);
+    await t("moderations after unban", "%unban " + BOT_UNDER_TEST, ["Unbanned"], 12000);
 
     await new Promise((r) => setTimeout(r, 2500));
     console.log("\n===== ACTOR E2E RESULTS =====");

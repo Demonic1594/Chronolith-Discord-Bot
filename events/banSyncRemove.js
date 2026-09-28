@@ -13,7 +13,7 @@ module.exports = {
             $if[$get[reason]==;
                 $let[reason;No reason provided (manual unban)]
             ]
-            $let[n;$newCase[unban;$guildID;$get[target];$get[executor];;$get[reason]]]
+            $let[n;$newCase[$guildID;unban;$get[target];$get[executor];;$get[reason]]]
             $modlogPost[$guildID;$get[n];unban;$get[target];$get[executor];;$get[reason]]
         ]
     `

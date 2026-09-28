@@ -11,10 +11,6 @@ $nomention
 $onlyIf[$guildID!=;Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;⛔ You need moderator permissions.]
 $cooldown[$authorID-unmute;3s;]
-$nomention
-$onlyIf[$guildID!=;Server only.]
-$onlyIf[$isMod[$guildID;$authorID]==true;⛔ You need moderator permissions.]
-$cooldown[$authorID-unmute;3s;]
 $let[t;$resolveTargets[$guildID;$message;$channelID;$messageID]]
 $!jsonLoad[tj;$get[t]]
 $onlyIf[$env[tj;ids]!=;No valid target found. Mention a user, or type a username/ID.]

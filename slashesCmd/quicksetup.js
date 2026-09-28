@@ -13,7 +13,7 @@ module.exports = {
 $onlyIf[$guildID!=;$ephemeral Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;$ephemeral ⛔ You need moderator permissions.]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$!jsonSet[cfg;modlog;$channelID]
+$!jsonSet[cfg;modlog;"$channelID"]
 $!jsonSet[cfg;automod;invites;true]
 $!jsonSet[cfg;automod;spam;true]
 $!jsonSet[cfg;automod;spamN;5]

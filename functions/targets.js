@@ -48,8 +48,8 @@ module.exports = [
                 ]
             ]
             $jsonLoad[res;{}]
-            $jsonSet[res;ids;$get[ids]]
-            $jsonSet[res;reason;$trim[$get[reason]]]
+            $jsonSet[res;ids;"$get[ids]"]
+            $jsonSet[res;reason;"$trim[$get[reason]]"]
             $return[$jsonStringify[res]]
         `
     }

@@ -37,7 +37,7 @@ module.exports = {
             $let[ageDays;$math[($getTimestamp-$userCreatedAt[$userID])/86400000]]
             $if[$get[ageDays]<$env[cfg;joingate;minAgeDays];
                 $kick[$guildID;$userID;Join gate: account younger than $env[cfg;joingate;minAgeDays] days]
-                $let[n;$newCase[gate;$guildID;$userID;$botID;;Account age $math[$get[ageDays]*24]h below minimum]]
+                $let[n;$newCase[$guildID;gate;$userID;$botID;;Account age $math[$get[ageDays]*24]h below minimum]]
                 $modlogPost[$guildID;$get[n];gate;$userID;$botID;;Join gate kick — account too new]
             ]
         ]
@@ -46,8 +46,11 @@ module.exports = {
         $let[window;$if[$env[cfg;joingate;window]!=;$env[cfg;joingate;window];60]]
         $let[maxj;$if[$env[cfg;joingate;joins]!=;$env[cfg;joingate;joins];8]]
         $let[rawjs;$getGuildVar[joins_$guildID;$guildID;]]
-$onlyIf[$get[rawjs]!=;]
-$!jsonLoad[js;$get[rawjs]]
+$if[$get[rawjs]==;
+$arrayLoad[js]
+;
+$jsonLoad[js;$get[rawjs]]
+]
         $arrayMap[js;j;
             $if[$math[$get[now]-$env[j]]<$math[$get[window]*1000];
                 $return[$env[j]]

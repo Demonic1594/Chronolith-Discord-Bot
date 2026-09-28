@@ -17,7 +17,7 @@ module.exports = {
 $onlyIf[$guildID!=;$ephemeral Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;$ephemeral ⛔ You need moderator permissions.]
 $onlyIf[$hasPerms[$guildID;$botID;ManageChannels]==true;⛔ I am missing the Manage Channels permission.]
-$let[n;$unlockAll[$guildID;$authorID]]
+$let[n;$unlockAll[$guildID]]
 $interactionReply[
 $description[🔓 \`$get[n]\` channel(s) unlocked.]
 $color[22C55E]

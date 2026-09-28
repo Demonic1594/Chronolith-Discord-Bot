@@ -31,7 +31,7 @@ $addField[Resolution note;$env[r;note];false]
 $footer[Chronolith • Reports]
 $stop
 ]
-$onlyIf[$or[$get[q]==open;$or[$get[q]==claimed;$or[$get[q]==resolved;$or[$get[q]==dismissed;$get[q]==all]]]]==true;Usage: reports [open|claimed|resolved|dismissed|all] or reports <id>]
+$onlyIf[$or[$get[q]==open;$or[$get[q]==claimed;$or[$get[q]==resolved;$or[$get[q]==dismissed;$get[q]==all]]]]==true;Usage: reports \\[open|claimed|resolved|dismissed|all\\] or reports <id>]
 $let[allr;$reportAll[$guildID]]
 $onlyIf[$get[allr]!=;No reports on record.]
 $arrayLoad[rids;,;$get[allr]]

@@ -49,7 +49,7 @@ module.exports = [
                     $return[I am missing the Timeout Members permission]
                 ]
             ]
-            $if[$or[$env[action]==unban,$env[action]==note]==true;
+            $if[$or[$env[action]==unban;$env[action]==note]==true;
                 $return[ok]
             ]
             $jsonLoad[pcfg;$getGuildVar[cfg;$env[guild];{}]]
@@ -121,7 +121,7 @@ module.exports = [
 
             $switch[$env[action];
                 $case[warn;
-                    $let[n;$newCase[warn;$env[guild];$env[target];$env[mod];;$get[reason2]]]
+                    $let[n;$newCase[$env[guild];warn;$env[target];$env[mod];;$get[reason2]]]
                     $let[count;$warnCount[$env[guild];$env[target]]]
                 ]
                 $case[mute;
@@ -134,7 +134,7 @@ module.exports = [
                         $memberAddRoles[$env[guild];$env[target];$env[cfg;muterole]];
                         $timeout[$env[guild];$env[target];$get[dur2];$get[reason2]]
                     ]
-                    $let[n;$newCase[mute;$env[guild];$env[target];$env[mod];$env[duration];$get[reason2]]]
+                    $let[n;$newCase[$env[guild];mute;$env[target];$env[mod];$env[duration];$get[reason2]]]
                 ]
                 $case[unmute;
                     $jsonLoad[td2;$getGuildVar[timedouts;$env[guild];{}]]
@@ -144,56 +144,56 @@ module.exports = [
                         $memberRemoveRoles[$env[guild];$env[target];$env[cfg;muterole]]
                     ]
                     $timeout[$env[guild];$env[target];;$get[reason2]]
-                    $let[n;$newCase[unmute;$env[guild];$env[target];$env[mod];;$get[reason2]]]
+                    $let[n;$newCase[$env[guild];unmute;$env[target];$env[mod];;$get[reason2]]]
                 ]
                 $case[kick;
                     $kick[$env[guild];$env[target];$get[reason2]]
-                    $let[n;$newCase[kick;$env[guild];$env[target];$env[mod];;$get[reason2]]]
+                    $let[n;$newCase[$env[guild];kick;$env[target];$env[mod];;$get[reason2]]]
                 ]
                 $case[ban;
                     $ban[$env[guild];$env[target];$get[reason2]]
-                    $let[n;$newCase[ban;$env[guild];$env[target];$env[mod];;$get[reason2]]]
+                    $let[n;$newCase[$env[guild];ban;$env[target];$env[mod];;$get[reason2]]]
                 ]
                 $case[hardban;
                     $ban[$env[guild];$env[target];$env[reason2] — expires $discordTimestamp[$math[$getTimestamp+$parseMS[$env[duration]]];RelativeTime]]
-                    $jsonLoad[tb;$getGuildVar[tempbans;$env[guild];{}]]
-                    $jsonLoad[e;{}]
-                    $jsonSet[e;u;$env[target]]
-                    $jsonSet[e;until;$math[$getTimestamp+$parseMS[$env[duration]]]]
-                    $arrayPush[tb;$jsonStringify[e]]
-                    $setGuildVar[tempbans;$jsonStringify[tb];$env[guild]]
+                    $setGuildVar[tb_$env[target];$math[$getTimestamp+$parseMS[$env[duration]]];$env[guild]]
+                    $let[tball;$getGuildVar[tb_all;$env[guild];]]
+                    $if[$get[tball]!=;
+                        $setGuildVar[tb_all;$get[tball],$env[target];$env[guild]];
+                        $setGuildVar[tb_all;$env[target];$env[guild]]
+                    ]
                     $let[n;$newCase[$env[guild];hardban;$env[target];$env[mod];$env[duration];$env[reason2]]]
                 ]
                 $case[softban;
                     $ban[$env[guild];$env[target];$get[reason2];86400]
                     $unban[$env[guild];$env[target];Softban cleanup]
-                    $let[n;$newCase[softban;$env[guild];$env[target];$env[mod];;$get[reason2]]]
+                    $let[n;$newCase[$env[guild];softban;$env[target];$env[mod];;$get[reason2]]]
                 ]
                 $case[unban;
-                    $unban[$env[guild];$env[target];$get[reason2]]
-                    $let[n;$newCase[unban;$env[guild];$env[target];$env[mod];;$get[reason2]]]
+                    $#unban[$env[guild];$env[target];$get[reason2]]
+                    $let[n;$newCase[$env[guild];unban;$env[target];$env[mod];;$get[reason2]]]
                 ]
                 $case[note;
-                    $let[n;$newCase[note;$env[guild];$env[target];$env[mod];;$get[reason2]]]
+                    $let[n;$newCase[$env[guild];note;$env[target];$env[mod];;$get[reason2]]]
                 ]
                 $case[quarantine;
                     $if[$env[cfg;qrole]!=;
                         $memberAddRoles[$env[guild];$env[target];$env[cfg;qrole]]
                     ]
                     $timeout[$env[guild];$env[target];2592000000;$get[reason2] (quarantine)]
-                    $let[n;$newCase[quarantine;$env[guild];$env[target];$env[mod];;$get[reason2]]]
+                    $let[n;$newCase[$env[guild];quarantine;$env[target];$env[mod];;$get[reason2]]]
                 ]
                 $case[unquarantine;
                     $if[$env[cfg;qrole]!=;
                         $memberRemoveRoles[$env[guild];$env[target];$env[cfg;qrole]]
                     ]
                     $timeout[$env[guild];$env[target];;$get[reason2]]
-                    $let[n;$newCase[unquarantine;$env[guild];$env[target];$env[mod];;$get[reason2]]]
+                    $let[n;$newCase[$env[guild];unquarantine;$env[target];$env[mod];;$get[reason2]]]
                 ]
             ]
 
             $modlogPost[$env[guild];$get[n];$env[action];$env[target];$env[mod];$env[duration];$get[reason2]]
-            $if[$and[$env[cfg;dmnotices]!=false,$env[action]!=unban]==true;
+            $if[$and[$env[cfg;dmnotices]!=false;$env[action]!=unban]==true;
                 $dmNotify[$env[target];$env[guild];$env[action];$env[duration];$get[n];$get[reason2]]
             ]
 
