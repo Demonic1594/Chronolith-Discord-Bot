@@ -337,7 +337,7 @@ UNLOCK_SPEC = dict(
 lock_pfx = """$onlyIf[$hasPerms[$guildID;$botID;ManageChannels]==true;⛔ I am missing the Manage Channels permission.]
 $let[dur;]
 $let[reason;]
-$let[server;false]
+$let[server;0]
 $let[chs;]
 $arrayLoad[toks; ;$message]
 $arrayForEach[toks;w;
@@ -356,7 +356,7 @@ $let[dur;$env[w]]
 $let[cls;done]
 ]
 $if[$get[cls]==server;
-$let[server;true]
+$let[server;1]
 $let[cls;done]
 ]
 $if[$get[cls]==ch;
@@ -375,13 +375,13 @@ $if[$get[dur]!=;
 $let[until;$math[$getTimestamp+$parseMS[$get[dur]]]]
 ]
 $let[n;0]
-$if[$get[server]==true;
+$if[$get[server]==1;
 $let[n;$lockAll[$guildID;$if[$trim[$get[reason]]==;no reason;$trim[$get[reason]]];$authorID;$get[until]]]
 ;
 $arrayLoad[cl;,;$get[chs]]
 $arrayForEach[cl;c;
-$if[$and[$channelExists[$get[c]]==true,$get[server]==false]==true;
-$lockChan[$guildID;$get[c];$if[$trim[$get[reason]]==;no reason;$trim[$get[reason]]];$authorID;$get[until]]
+$if[$and[$channelExists[$env[c]]==true,$get[server]==0]==true;
+$lockChan[$guildID;$env[c];$if[$trim[$get[reason]]==;no reason;$trim[$get[reason]]];$authorID;$get[until]]
 $letSum[n;1]
 ]
 ]
@@ -423,12 +423,12 @@ CMDS.append(lock_cmd)
 
 unlock_pfx = """$onlyIf[$hasPerms[$guildID;$botID;ManageChannels]==true;⛔ I am missing the Manage Channels permission.]
 $let[reason;$if[$message==;no reason;$message]]
-$let[server;false]
+$let[server;0]
 $let[chs;]
 $arrayLoad[toks; ;$message]
 $arrayForEach[toks;w;
 $if[$toLowerCase[$env[w]]==server;
-$let[server;true]
+$let[server;1]
 ;
 $if[$startsWith[$env[w];<#];
 $let[chs;$get[chs]$replace[$replace[$env[w];<#;];>;]],
@@ -442,7 +442,7 @@ $if[$get[chs]==;
 $let[chs;$channelID]
 ]
 $let[n;0]
-$if[$get[server]==true;
+$if[$get[server]==1;
 $let[n;$unlockAll[$guildID]]
 ;
 $arrayLoad[cl;,;$get[chs]]

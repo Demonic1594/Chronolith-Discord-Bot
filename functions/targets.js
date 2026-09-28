@@ -41,7 +41,13 @@ module.exports = [
             ]
             $if[$get[ids]==;
                 $if[$env[msgid]!=;
-                    $let[ref;$#messageReferenceID[$env[channel];$env[msgid]]]
+                    $let[ref;$djsEval[
+                        const ch = ctx.client.channels.cache.get("$env[channel]")\;
+                        if (!ch) return ""\;
+                        const msg = ch.messages.cache.get("$env[msgid]")\;
+                        if (!msg || !msg.reference) return ""\;
+                        return msg.reference.messageId || ""\;
+                    ]]
                     $if[$get[ref]!=;
                         $let[ids;$#getMessage[$env[channel];$get[ref];authorID]]
                     ]
