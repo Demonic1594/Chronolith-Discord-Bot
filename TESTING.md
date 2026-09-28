@@ -64,3 +64,37 @@ TEST_GUILD=<id> TEST_CHANNEL=<id> TEST_AUTHOR=<a real member with ManageServer> 
 
 These are logic-reviewed and compile-verified; the paths they share with the
 tested flows (gates, cases, embeds, sweep interval) are covered.
+
+## Multi-agent adversarial audit (2026-09-28, final)
+
+Three parallel sub-agents audited the entire codebase:
+
+| Agent | Focus | Key findings |
+|---|---|---|
+| Engine deep-audit | Every function in `functions/` with runtime verification | $parseMS inversion (all timed moderations dead), $arrayIncludes digit-coercion (modrole/protect non-functional), unquoted snowflakes, warnsRemove index wipe |
+| Events + security | All 19 event handlers + full security review | djsEval injection (CRITICAL — bot token theft), automod prefix immunity bypass, link filter inversion, race conditions in all counters |
+| Generator + commands | Generator internals + all command files + utilities | Generator crashed (def cmd deleted), _fix_seps off-by-one (corrupted error messages), _postfix double-sigil, orphan command files, 6 empty log handlers |
+
+**15+ critical/high bugs fixed**, 108 files changed, net -117 lines.
+
+### Verification layers now in place:
+
+1. `node validate.js` — real compiler, force-compiles engine bodies (lazy-compile gap closed)
+2. `python3 tools/fslint.py` — 24 checks: brackets, unknown fns, arg counts, type gates, output leaks, separators, bare vars, snowflakes, security, custom arity
+3. `python3 tools/check.py` — fast static sanity
+4. `python3 tools/audit.py` — KB-signature cross-reference
+5. `tools/fslint.py --deps` — dependency graph
+6. `tools/fslint.py --sim` — execution trace
+7. `tests/synth.js` — synthetic-gateway E2E
+8. `tests/actor.js` — two-bot live E2E
+
+### Current clean state:
+- Compiler: 202/0
+- fslint: 0 errors
+- 135 commands generated from single spec
+- All output leaks resolved (no stray ], [, true, false)
+- All snowflake jsonSet calls quote-wrapped
+- All $arrayIncludes on digit-strings replaced with $arraySome
+- All $parseMS misuse replaced with $durationToMs
+- Automod bypasses closed
+- djsEval injection hardened

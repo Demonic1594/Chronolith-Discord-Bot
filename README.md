@@ -127,12 +127,24 @@ functions/        the engines ("thin commands, fat functions")
   lockdown.js     channel/server lock + unlock-what-was-locked
   snipe.js        snipe cache reader
   help.js         help pages (shared by prefix/slash/paginator)
-events/           automod filter, snipe capture, join gate + autorole + raid throttle,
-                  leave/ban/channel/role logs, button router, ready banner
+  duration.js     $durationToMs: "10m" → 600000 (the $parseMS gap-filler)
+  reports.js      report lifecycle: create → claim → resolve/dismiss → archive
+  notes.js        staff notes with add/edit/remove/clear
+  targets.js      $resolveTargets: mention/username/ID/reply parsing
+  scan.js         $scanMessages: history scanner for filtered purges
+  massban.js      $massBan: multi-target ban driver
+  timed.js        $timedList: active moderation reader
+  antinuke.js     $anCheck: destructive-action watcher
+  tempban.js      $tempban + $tempbanSweep: scheduled bans
+  theme.js        color palette + action emoji mapping
+events/           automod filter (6 modules), snipe capture, join gate + autorole +
+                  raid throttle, verification, message/channel/role logs, ban sync,
+                  anti-nuke audit watcher, button router, ready sweeper
 prefixesCmd/      prefix commands (generated from one spec: tools/gen_commands.py)
 slashesCmd/       slash mirrors (same spec — the two can never drift)
-tools/            gen_commands.py (command spec → files), check.py (fast sanity check)
+tools/            gen_commands.py, check.py, audit.py, fslint.py (24-check analyzer)
 validate.js       compiles EVERY file through the real ForgeScript compiler, no login
+tests/            synth.js (synthetic gateway), actor.js (two-bot E2E driver)
 ```
 
 Design decisions worth knowing:
@@ -148,8 +160,12 @@ Design decisions worth knowing:
 
 ```bash
 node validate.js              # compile-check all commands/events/functions (no token needed)
+python3 tools/fslint.py       # 24-check static analyzer (brackets, types, security, leaks)
 python3 tools/check.py        # fast bracket + function-name sanity check
 python3 tools/gen_commands.py # regenerate command files after editing the spec
+python3 tools/fslint.py --deps       # custom-function dependency graph
+python3 tools/fslint.py --explain '$fn'  # KB lookup for any function
+python3 tools/fslint.py --sim '$code'    # trace execution order
 ```
 
 ## License
