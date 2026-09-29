@@ -15,7 +15,7 @@ $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $!jsonSet[cfg;dmnotices;$if[$toLowerCase[$message[0]]==on;true;false]]
 $!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $description[DM notices **$toLowerCase[$message[0]]**.]
-$color[7C3AED]
-$footer[Chronolith]
+$color[5865F2]
+$footer[Chronolith • Configuration]
     `
 };

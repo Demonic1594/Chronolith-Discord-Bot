@@ -21,7 +21,7 @@ $onlyIf[$get[r]==1;$ephemeral Report not found.]
 $onlyIf[$get[r]!=-1;$ephemeral Invalid transition.]
 $interactionReply[
 $description[✅ Report #$option[id] marked **resolved**.]
-$color[22C55E]
+$color[248046]
 ]
     `
 };

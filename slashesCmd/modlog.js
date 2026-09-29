@@ -17,7 +17,7 @@ $interactionReply[
 $author[Chronolith • Modlog;$userAvatar[$botID;64;png]]
 $description[Use the prefix command for log views, or:
 -# %modlog recent \\| %modlog user <target> \\| %modlog action <type> \\| %modlog set <#channel|off>]
-$color[7C3AED]
+$color[5865F2]
 ]
     `
 };

@@ -13,6 +13,6 @@ $author[Chronolith;$userAvatar[$botID;32;png]]
 $color[5865F2]
 $description[**Gateway** $ping ms · $guildCount servers · $userCount users
 **Runtime** $parseMS[$uptime] · $round[$ram] MB · Node $nodeVersion]
-$footer[Chronolith]
+$footer[Chronolith • Utility]
     `
 };

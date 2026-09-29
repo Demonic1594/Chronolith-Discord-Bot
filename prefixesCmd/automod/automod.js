@@ -32,7 +32,7 @@ $!jsonSet[cfg;automod;spamS;5]
 ]
 $!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $description[🛡️ Automod module **$get[mod2]** is now **$get[val]**.]
-$color[F59E0B]
+$color[F0B232]
 $footer[Chronolith • Automod]
     `
 };

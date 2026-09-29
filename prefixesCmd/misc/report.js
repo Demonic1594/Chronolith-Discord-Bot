@@ -15,7 +15,7 @@ $let[ch;$modlogChannel[$guildID]]
 $onlyIf[$get[ch]!=;Reporting is not configured here (mods: set a modlog channel first).]
 $sendMessage[$get[ch];
 $author[🚩 Report • $userTag[$authorID];$userAvatar[$authorID;64;png]]
-$color[EF4444]
+$color[DA373C]
 $description[> $message[1;999]]
 $addField[Reported user;<@$get[target]>
 -# $get[target];true]

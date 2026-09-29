@@ -17,7 +17,7 @@ $let[target;$default[$option[user];$authorID]]
 $interactionReply[
 $description[$userTag[$get[target]]'s banner]
 $image[$userBanner[$get[target];1024;png]]
-$footer[Chronolith]
+$footer[Chronolith • Utility]
 ]
     `
 };

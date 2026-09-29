@@ -20,6 +20,6 @@ $color[5865F2]
 $description[<@$get[target]> — $userTag[$get[target]]
 
 > $message[1;999]]
-$footer[Chronolith]
+$footer[Chronolith • Notes]
     `
 };

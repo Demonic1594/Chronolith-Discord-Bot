@@ -22,6 +22,6 @@ $description[✅ Added <@&$get[r]> to <@$get[target]>.];
 $!memberRemoveRoles[$guildID;$get[target];$get[r]]
 $description[✅ Removed <@&$get[r]> from <@$get[target]>.]
 ]
-$footer[Chronolith]
+$footer[Chronolith • Moderation]
     `
 };

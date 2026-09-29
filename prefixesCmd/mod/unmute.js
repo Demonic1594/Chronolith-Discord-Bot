@@ -20,11 +20,12 @@ $let[r;$punishMulti[unmute;$guildID;$authorID;$env[tj;ids];$get[dur];$if[$trim[$
 $!jsonLoad[rj;$get[r]]
 $author[$actionEmoji[unmute];$userAvatar[$botID;32;png]]
 $color[$actionColor[unmute]]
-$description[<@$env[tj;ids]>]
+$description[<@$env[tj;ids]>
+> $if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]
+]
 $addField[Applied;$env[rj;ok];true]
 $addField[Skipped;$env[rj;fail];true]
-$addField[Reason;$if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]];false]
-$footer[Chronolith]
+$footer[Chronolith • Moderation]
 $timestamp
     `
 };

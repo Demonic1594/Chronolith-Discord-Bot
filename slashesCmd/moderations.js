@@ -17,7 +17,7 @@ $ephemeral
 $interactionReply[
 $author[Active timed moderations;$userAvatar[$botID;64;png]]
 $description[$get[all]]
-$color[7C3AED]
+$color[5865F2]
 ]
     `
 };

@@ -14,7 +14,8 @@ module.exports = {
                 $description[<@$userID>
 -# ID: $userID]
                 $addField[Joined;$if[$get[ja]==;*unknown*;$discordTimestamp[$get[ja];RelativeTime]];true]
-                $footer[Chronolith]
+                $footer[Chronolith • Members]
+                    $timestamp
             ;false]
         ]
     `

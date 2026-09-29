@@ -19,7 +19,8 @@ module.exports = {
 > $if[$get[newc]==;*(empty)*;$get[newc]]]
                 $addField[Channel;<#$channelID>;true]
                 $addField[Jump;-# $hyperlink[message;$messageLink[$channelID;$messageID]];true]
-                $footer[Chronolith]
+                $footer[Chronolith • Message Logs]
+                    $timestamp
             ;false]
         ]
     `

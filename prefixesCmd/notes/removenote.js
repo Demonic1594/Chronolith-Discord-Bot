@@ -21,7 +21,7 @@ $letSum[removed;1]
 ]
 $onlyIf[$get[removed]>0;None of those note IDs exist.]
 $description[🗑️ Removed \`$get[removed]\` note(s).]
-$color[22C55E]
+$color[248046]
 $footer[Chronolith • Notes]
     `
 };

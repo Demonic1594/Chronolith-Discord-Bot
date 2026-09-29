@@ -18,7 +18,7 @@ $!jsonSet[cfg;reports;"$trim[$get[c]]"]
 $!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $author[Chronolith • Reports;$userAvatar[$botID;64;png]]
 $description[Report channel set to <#$get[c]>.]
-$color[7C3AED]
-$footer[Chronolith]
+$color[5865F2]
+$footer[Chronolith • Reports]
     `
 };

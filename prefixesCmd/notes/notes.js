@@ -19,7 +19,7 @@ $!arrayLoad[out;]
 $!arrayMap[ns;n;$jsonLoad[one;$noteGet[$guildID;$env[n]]]$return[-# **#$env[n]** · <@$env[one;by]> · $discordTimestamp[$env[one;ts];RelativeTime]
 > $env[one;c]];out]
 $author[Notes • $userTag[$get[target]];$userAvatar[$get[target];64;png]]
-$color[7C3AED]
+$color[5865F2]
 $thumbnail[$userAvatar[$get[target];256;png]]
 $description[$arrayJoin[out;
 ]]

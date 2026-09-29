@@ -19,7 +19,7 @@ $!arrayLoad[cs;,;$get[uc]]
 $!arrayLoad[out;]
 $!arrayMap[cs;k;$jsonLoad[one;$getGuildVar[case_$env[k];$guildID;{}]]$return[-# **#$env[k]** $actionEmoji[$env[one;t]] · $env[one;r]];out]
 $author[History • $userTag[$get[target]];$userAvatar[$get[target];64;png]]
-$color[7C3AED]
+$color[5865F2]
 $thumbnail[$userAvatar[$get[target];256;png]]
 $description[$arrayJoin[out;
 ]]

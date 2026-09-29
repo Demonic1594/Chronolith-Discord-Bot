@@ -108,8 +108,9 @@ module.exports = {
                     $sendMessage[$channelID;
                         $author[Automod;$userAvatar[$botID;64;png]]
                         $description[<@$authorID> muted 10m — **message flooding**.]
-                        $color[F59E0B]
+                        $color[F0B232]
                         $footer[Chronolith • Automod]
+                            $timestamp
                     ;false]
                     $deleteIn[8s]
                     $stop
@@ -124,8 +125,9 @@ module.exports = {
             $sendMessage[$channelID;
                 $author[Automod;$userAvatar[$botID;64;png]]
                 $description[<@$authorID> message removed — **$get[vio]**.]
-                $color[F59E0B]
+                $color[F0B232]
                 $footer[Chronolith • Automod]
+                    $timestamp
             ;false]
             $deleteIn[5s]
         ]

@@ -21,7 +21,7 @@ $let[d;$noteEdit[$guildID;$option[id];$authorID;$option[content]]]
 $onlyIf[$get[d]==1;$ephemeral Note not found.]
 $interactionReply[
 $description[✏️ Note #$option[id] updated.]
-$color[22C55E]
+$color[248046]
 $footer[Chronolith • Notes]
 ]
     `

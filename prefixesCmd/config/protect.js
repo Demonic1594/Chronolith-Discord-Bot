@@ -49,7 +49,7 @@ $author[Protection;$userAvatar[$botID;64;png]]
 $description[Protected members cannot be moderated in this server — enabled by default, applies alongside owner protection and role hierarchy.]
 $addField[Protected roles;$if[$env[cfg;protected;roles]==;*none*;<@&$replace[$env[cfg;protected;roles];,;>, <@&>]>];true]
 $addField[Protected users;$if[$env[cfg;protected;users]==;*none*;<@$replace[$env[cfg;protected;users];,;>, <@>]>];true]
-$color[7C3AED]
+$color[5865F2]
 $footer[Chronolith • %protect role|user add|remove <target>]
 ]
     `

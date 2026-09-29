@@ -27,7 +27,7 @@ $if[$userBanner[$get[target]]!=;
 $image[$userBanner[$get[target];1024;png]]
 ]
 ]
-$footer[Chronolith]
+$footer[Chronolith • Utility]
 ]
     `
 };

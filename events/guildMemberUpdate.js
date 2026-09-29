@@ -12,7 +12,7 @@ module.exports = {
             $if[$get[lch]!=;
                 $sendMessage[$get[lch];
                     $title[✎ Nickname changed]
-                    $color[64748B]
+                    $color[4E5058]
                     $description[<@$userID>: **$if[$get[on]==;*(none)*;$get[on]]** → **$if[$get[nn]==;*(none)*;$get[nn]]**]
                     $footer[Chronolith • Server]
                     $timestamp

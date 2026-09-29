@@ -18,7 +18,7 @@ $onlyIf[$isMod[$guildID;$authorID]==true;$ephemeral ⛔ You need moderator permi
 $let[c;$warnsRemove[$guildID;$option[users]]]
 $interactionReply[
 $description[🧼 Cleared \`$get[c]\` warning(s).]
-$color[22C55E]
+$color[248046]
 $footer[Chronolith • Moderation]
 ]
     `

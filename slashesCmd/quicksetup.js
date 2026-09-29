@@ -28,8 +28,8 @@ $!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[
 $author[Chronolith • Quick setup;$userAvatar[$botID;64;png]]
 $description[Defaults applied — modlog now this channel, automod + escalation + anti-nuke ON.]
-$color[22C55E]
-$footer[Chronolith]
+$color[248046]
+$footer[Chronolith • Configuration]
 ]
     `
 };

@@ -15,7 +15,8 @@ module.exports = {
                 $description[$if[$get[content]==;*(empty or uncached)*;$get[content]]]
                 $addField[Channel;<#$channelID>;true]
                 $addField[Jump;-# deleted messages have no jump link;true]
-                $footer[Chronolith]
+                $footer[Chronolith • Message Logs]
+                    $timestamp
             ;false]
         ]
     `

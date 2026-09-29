@@ -25,7 +25,7 @@ $letSum[removed;1]
 ]
 $onlyIf[$get[removed]>0;None of those case IDs exist for that user.]
 $description[🗑️ Removed \`$get[removed]\` warning(s) from <@$get[target]>.]
-$color[22C55E]
+$color[248046]
 $footer[Chronolith • Moderation]
     `
 };

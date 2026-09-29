@@ -24,11 +24,12 @@ $!jsonLoad[rj;$get[r]]
 $interactionReply[
 $author[$actionEmoji[unmute];$userAvatar[$botID;32;png]]
 $color[$actionColor[unmute]]
-$description[<@$env[tj;ids]>]
+$description[<@$env[tj;ids]>
+> $if[$option[reason]==;No reason provided;$option[reason]]
+]
 $addField[Applied;$env[rj;ok];true]
 $addField[Skipped;$env[rj;fail];true]
-$addField[Reason;$if[$option[reason]==;No reason provided;$option[reason]];false]
-$footer[Chronolith]
+$footer[Chronolith • Moderation]
 $timestamp
 ]
     `

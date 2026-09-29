@@ -48,13 +48,13 @@ $let[ll;$get[ll]🔒 <#$get[cid]> — locked$if[$get[until]!=0;, ends $discordTi
 ]
 $if[$and[$get[bl]==;$and[$get[ol]==;$get[ll]==]]==true;
 $description[No active timed moderations.]
-$color[64748B];
+$color[4E5058];
 $addField[Hardbans / timed bans;$if[$get[bl]==;*none*;$get[bl]];false]
 $addField[Timeouts;$if[$get[ol]==;*none*;$get[ol]];false]
 $addField[Lockdowns;$if[$get[ll]==;*none*;$get[ll]];false]
-$color[7C3AED]
+$color[5865F2]
 ]
 $author[Active Moderations;$userAvatar[$botID;32;png]]
-$footer[Chronolith]
+$footer[Chronolith • Moderation]
     `
 };

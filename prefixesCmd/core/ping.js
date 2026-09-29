@@ -13,6 +13,6 @@ $color[5865F2]
 $description[**Gateway** $ping ms
 **Uptime** $parseMS[$uptime]
 **Servers** $guildCount]
-$footer[Chronolith]
+$footer[Chronolith • Utility]
     `
 };

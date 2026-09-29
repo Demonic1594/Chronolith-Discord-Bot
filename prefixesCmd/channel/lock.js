@@ -67,7 +67,7 @@ $let[casen;$newCase[$guildID;lock;$botID;$authorID;$if[$get[dur]!=;$get[dur];];L
 $let[ml;$modlogPost[$guildID;$get[casen];lock;$botID;$authorID;$if[$get[dur]!=;$get[dur];];Lockdown of $get[n] channel(s)]]
 $description[Locked \`$get[n]\` channel(s)$if[$get[dur]!=;, auto-unlock in $get[dur]].
 > $if[$trim[$get[reason]]==;no reason;$trim[$get[reason]]]]
-$color[EF4444]
+$color[DA373C]
 $footer[Chronolith • Lockdown]
     `
 };

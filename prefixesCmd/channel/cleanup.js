@@ -28,6 +28,6 @@ $let[del;$deleteMessage[$channelID;$get[ids]]]
 🧹 Nothing to clean.
 ]
 $footer[Chronolith • Cleanup]
-$color[7C3AED]
+$color[5865F2]
     `
 };

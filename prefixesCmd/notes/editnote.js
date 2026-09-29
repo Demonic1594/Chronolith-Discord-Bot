@@ -15,7 +15,7 @@ $onlyIf[$message[1;999]!=;Provide the new content.]
 $let[d;$noteEdit[$guildID;$message[0];$authorID;$message[1;999]]]
 $onlyIf[$get[d]==1;Note not found.]
 $description[✏️ Note #$message[0] updated — original author preserved, your edit recorded.]
-$color[22C55E]
+$color[248046]
 $footer[Chronolith • Notes]
     `
 };

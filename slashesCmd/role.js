@@ -24,6 +24,6 @@ $interactionReply[$description[✅ Added <@&$get[r]> to <@$option[user]>.]];
 $!memberRemoveRoles[$guildID;$option[user];$get[r]]
 $interactionReply[$description[✅ Removed <@&$get[r]> from <@$option[user]>.]]
 ]
-$footer[Chronolith]
+$footer[Chronolith • Moderation]
     `
 };

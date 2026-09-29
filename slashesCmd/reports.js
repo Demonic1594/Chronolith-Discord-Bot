@@ -15,7 +15,7 @@ $onlyIf[$isMod[$guildID;$authorID]==true;$ephemeral ⛔ You need moderator permi
 $ephemeral
 $interactionReply[
 $description[Use the prefix command: %reports \\[open|claimed|resolved|dismissed|all|<id>\\]]
-$color[7C3AED]
+$color[5865F2]
 ]
     `
 };

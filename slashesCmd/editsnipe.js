@@ -26,7 +26,7 @@ $interactionReply[
 $description[**Before:** $env[e;before]
 **After:** $env[e;after]]
 $addField[Author;<@$env[e;a]>;true]
-$color[95A5A6]
+$color[4E5058]
 ]
     `
 };

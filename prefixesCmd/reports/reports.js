@@ -20,7 +20,7 @@ $let[raw;$reportGet[$guildID;$get[q]]]
 $onlyIf[$get[raw]!=;Report not found.]
 $!jsonLoad[r;$get[raw]]
 $author[🚩 Report #$get[q] • $toUpperCase[$env[r;st]];$userAvatar[$botID;64;png]]
-$color[$if[$env[r;st]==open;F59E0B;$if[$env[r;st]==claimed;7C3AED;22C55E]]]
+$color[$if[$env[r;st]==open;F0B232;$if[$env[r;st]==claimed;5865F2;248046]]]
 $description[> $env[r;rsn]]
 $addField[Reported user;<@$env[r;tgt]>;true]
 $addField[Reporter;<@$env[r;rep]>;true]
@@ -50,7 +50,7 @@ $stop
 $if[$arrayLength[lines]>10;
 $!arraySlice[lines;lines;$math[$arrayLength[lines]-10];$arrayLength[lines]]]
 $author[Reports • $get[q];$userAvatar[$botID;64;png]]
-$color[7C3AED]
+$color[5865F2]
 $description[$arrayJoin[lines;
 ]]
 $footer[Chronolith • newest 10 shown]

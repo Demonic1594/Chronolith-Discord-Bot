@@ -20,7 +20,7 @@ $let[c;$warnsRemove[$guildID;$env[u]]]
 $letSum[cleared;$get[c]]
 ]
 $description[🧼 Cleared \`$get[cleared]\` warning(s).]
-$color[22C55E]
+$color[248046]
 $footer[Chronolith • Moderation]
     `
 };

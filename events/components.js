@@ -30,8 +30,9 @@ module.exports = {
             $ephemeral
             $interactionReply[
                 $description[You are verified — welcome to **$guildName[$get[vg]]**.]
-                $color[22C55E]
+                $color[248046]
                 $footer[Chronolith • Verification]
+                    $timestamp
             ]
             $stop
         ]
@@ -76,9 +77,10 @@ module.exports = {
             $interactionUpdate[
                 $author[Ticket;$userAvatar[$botID;64;png]]
                 $title[Ticket closed]
-                $color[EF4444]
+                $color[DA373C]
                 $description[Closed by <@$authorID>. The channel is now read-only — a moderator may delete it after review.]
                 $footer[Chronolith • Tickets]
+                    $timestamp
             ]
         ]
     `

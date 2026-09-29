@@ -28,7 +28,7 @@ $letSum[cleared;1]
 ]
 $interactionReply[
 $description[🧼 Cleared \`$get[cleared]\` note(s).]
-$color[22C55E]
+$color[248046]
 $footer[Chronolith • Notes]
 ]
     `

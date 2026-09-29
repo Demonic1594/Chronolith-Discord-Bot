@@ -15,7 +15,7 @@ $onlyIf[$message[0]!=;Usage: archivereport <id>]
 $let[r;$reportArchive[$guildID;$message[0]]]
 $onlyIf[$get[r]==1;Report not found.]
 $description[📦 Report #$message[0] archived (record deleted).]
-$color[64748B]
+$color[4E5058]
 $footer[Chronolith • Reports]
     `
 };

@@ -29,6 +29,7 @@ module.exports = {
                 $description[Press the button below to verify and unlock the server.]
                 $color[5865F2]
                 $footer[Chronolith • Verification]
+                    $timestamp
                 $addActionRow
                 $addButton[verify-$guildID-$userID;Verify;Success]
             ];]
@@ -68,7 +69,7 @@ $jsonLoad[js;$get[rawjs]]
                     $title[⚠ Possible raid detected]
                     $color[DA373C]
                     $description[$math[$get[cnt]+1] members joined within $get[window] seconds.]
-                    $footer[Chronolith]
+                    $footer[Chronolith • Verification]
                     $timestamp
                 ;false]
             ]
@@ -87,7 +88,8 @@ $jsonLoad[js;$get[rawjs]]
 -# ID: $userID]
                 $addField[Account created;$discordTimestamp[$userCreatedAt[$userID];RelativeTime]$if[$math[($getTimestamp-$userCreatedAt[$userID])/86400000]<7;
 ⚠️ **new account**];true]
-                $footer[Chronolith]
+                $footer[Chronolith • Verification]
+                    $timestamp
             ;false]
         ]
     `

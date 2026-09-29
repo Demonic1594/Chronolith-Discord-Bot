@@ -19,7 +19,7 @@ $let[r;$reportArchive[$guildID;$option[id]]]
 $onlyIf[$get[r]==1;$ephemeral Report not found.]
 $interactionReply[
 $description[📦 Report #$option[id] archived.]
-$color[64748B]
+$color[4E5058]
 ]
     `
 };

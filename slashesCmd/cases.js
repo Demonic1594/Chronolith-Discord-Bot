@@ -28,7 +28,7 @@ $!arrayLoad[out;]
 $!arrayMap[cs;k;$jsonLoad[one;$getGuildVar[case_$env[k];$guildID;{}]]$return[-# **#$env[k]** $actionEmoji[$env[one;t]] · $env[one;r]];out]
 $interactionReply[
 $author[History • $userTag[$option[user]];$userAvatar[$option[user];64;png]]
-$color[7C3AED]
+$color[5865F2]
 $description[$arrayJoin[out;
 ]]
 $footer[Chronolith • $arrayLength[cs] case(s)]

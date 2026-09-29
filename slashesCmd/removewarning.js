@@ -27,7 +27,7 @@ $letSum[removed;1]
 $onlyIf[$get[removed]>0;$ephemeral None of those case IDs exist for that user.]
 $interactionReply[
 $description[🗑️ Removed \`$get[removed]\` warning(s) from <@$option[user]>.]
-$color[22C55E]
+$color[248046]
 $footer[Chronolith • Moderation]
 ]
     `

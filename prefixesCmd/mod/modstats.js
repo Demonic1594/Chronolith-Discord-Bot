@@ -15,7 +15,7 @@ $onlyIf[$get[m]!=;Could not resolve that user.]
 $let[raw;$modStats[$guildID;$get[m]]]
 $if[$get[raw]==;
 $description[<@$get[m]> has no recorded moderation actions yet.]
-$color[64748B];
+$color[4E5058];
 $!jsonLoad[st;$get[raw]]
 $author[Mod stats • $userTag[$get[m]];$userAvatar[$get[m];64;png]]
 $thumbnail[$userAvatar[$get[m];256;png]]
@@ -26,7 +26,7 @@ $addField[Bans;\`$default[$env[st;ban];0]\`;true]
 $addField[Hardbans;\`$default[$env[st;hardban];0]\`;true]
 $addField[Mutes;\`$default[$env[st;mute];0]\`;true]
 $addField[Softbans;\`$default[$env[st;softban];0]\`;true]
-$color[7C3AED]
+$color[5865F2]
 $footer[Chronolith • Stats]
 ]
     `

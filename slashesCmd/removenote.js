@@ -26,7 +26,7 @@ $letSum[removed;1]
 $onlyIf[$get[removed]>0;$ephemeral None of those note IDs exist.]
 $interactionReply[
 $description[🗑️ Removed \`$get[removed]\` note(s).]
-$color[22C55E]
+$color[248046]
 $footer[Chronolith • Notes]
 ]
     `

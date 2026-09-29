@@ -21,7 +21,7 @@ $interactionReply[
 $author[📝 Note #$get[n];$userAvatar[$botID;64;png]]
 $description[**$userTag[$option[user]]**
 > $option[content]]
-$color[7C3AED]
+$color[5865F2]
 $footer[Chronolith • Notes]
 ]
     `

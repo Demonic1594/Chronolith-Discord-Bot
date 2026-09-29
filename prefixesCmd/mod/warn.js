@@ -25,7 +25,7 @@ $description[<@$get[target]> — $userTag[$get[target]]
 $addField[Case;#$get[r];true]
 $addField[Total;$warnCount[$guildID;$get[target]];true]
 ]
-$footer[Chronolith]
+$footer[Chronolith • Moderation]
 $timestamp
     `
 };

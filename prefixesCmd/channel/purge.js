@@ -99,6 +99,6 @@ $let[del;$deleteMessage[$channelID;$replace[$get[ids];,;]]]
 ]
 ]
 $footer[Chronolith • Purge]
-$color[7C3AED]
+$color[5865F2]
     `
 };

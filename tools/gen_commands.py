@@ -155,9 +155,27 @@ PUNISH_ALIASES = {
 }
 
 
+FOLDER_MODULE = {
+    "mod": "Moderation", "config": "Configuration", "channel": "Channels",
+    "cases": "Modlog", "modlog": "Modlog", "notes": "Notes",
+    "reports": "Reports", "automod": "Automod", "misc": "Utility",
+    "info": "Utility", "core": "Utility",
+}
+
+
+def _fix_footers(body, folder):
+    """Every embed footer carries its module: Chronolith • <Module>."""
+    module = FOLDER_MODULE.get(folder)
+    if not module:
+        return body
+    return body.replace("$footer[Chronolith]",
+                        f"$footer[Chronolith • {module}]")
+
+
 def cmd(folder, name, aliases, desc, prefix, slash, options=None, gate="mod"):
     CMDS.append(dict(folder=folder, name=name, aliases=aliases, desc=desc,
-                     prefix=_postfix(prefix), slash=_postfix(slash) if slash else slash,
+                     prefix=_fix_footers(_postfix(prefix), folder),
+                     slash=_fix_footers(_postfix(slash), folder) if slash else slash,
                      options=options or [], gate=gate))
 
 
@@ -178,10 +196,11 @@ $let[r;$punishMulti[{name};$guildID;$authorID;$env[tj;ids];$get[dur];{reason_exp
 $jsonLoad[rj;$get[r]]
 $author[$actionEmoji[{name}];$userAvatar[$botID;32;png]]
 $color[$actionColor[{name}]]
-$description[<@$env[tj;ids]>]
+$description[<@$env[tj;ids]>
+> $if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]
+]
 $addField[Applied;$env[rj;ok];true]
 $addField[Skipped;$env[rj;fail];true]
-$addField[Reason;$if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]];false]
 $footer[Chronolith]
 $timestamp"""
     slx = f"""$let[t;$resolveTargets[$guildID;$option[targets];$channelID;$messageID]]
@@ -195,10 +214,11 @@ $jsonLoad[rj;$get[r]]
 $interactionReply[
 $author[$actionEmoji[{name}];$userAvatar[$botID;32;png]]
 $color[$actionColor[{name}]]
-$description[<@$env[tj;ids]>]
+$description[<@$env[tj;ids]>
+> $if[$option[reason]==;No reason provided;$option[reason]]
+]
 $addField[Applied;$env[rj;ok];true]
 $addField[Skipped;$env[rj;fail];true]
-$addField[Reason;$if[$option[reason]==;No reason provided;$option[reason]];false]
 $footer[Chronolith]
 $timestamp
 ]"""
@@ -264,7 +284,7 @@ $letSum[removed;1]
 ]
 $onlyIf[$get[removed]>0;None of those case IDs exist for that user.]
 $description[🗑️ Removed `$get[removed]` warning(s) from <@$get[target]>.]
-$color[22C55E]
+$color[248046]
 $footer[Chronolith • Moderation]"""
 rmw_slash = """$let[removed;0]
 $arrayLoad[wids; ;$option[ids]]
@@ -277,7 +297,7 @@ $letSum[removed;1]
 $onlyIf[$get[removed]>0;$ephemeral None of those case IDs exist for that user.]
 $interactionReply[
 $description[🗑️ Removed `$get[removed]` warning(s) from <@$option[user]>.]
-$color[22C55E]
+$color[248046]
 $footer[Chronolith • Moderation]
 ]"""
 cmd("mod", "removewarning", ["removewarnings", "deletewarning", "deletewarnings", "delwarn", "delwarns"],
@@ -296,12 +316,12 @@ $let[c;$warnsRemove[$guildID;$env[u]]]
 $letSum[cleared;$get[c]]
 ]
 $description[🧼 Cleared `$get[cleared]` warning(s).]
-$color[22C55E]
+$color[248046]
 $footer[Chronolith • Moderation]""",
     """$let[c;$warnsRemove[$guildID;$option[users]]]
 $interactionReply[
 $description[🧼 Cleared `$get[c]` warning(s).]
-$color[22C55E]
+$color[248046]
 $footer[Chronolith • Moderation]
 ]""",
     [{"type": 3, "name": "users", "description": "Mentions/usernames/IDs", "required": True}])
@@ -427,7 +447,7 @@ $let[casen;$newCase[$guildID;lock;$botID;$authorID;$if[$get[dur]!=;$get[dur];];L
 $let[ml;$modlogPost[$guildID;$get[casen];lock;$botID;$authorID;$if[$get[dur]!=;$get[dur];];Lockdown of $get[n] channel(s)]]
 $description[Locked `$get[n]` channel(s)$if[$get[dur]!=;, auto-unlock in $get[dur]].
 > $if[$trim[$get[reason]]==;no reason;$trim[$get[reason]]]]
-$color[EF4444]
+$color[DA373C]
 $footer[Chronolith • Lockdown]"""
 
 def lock_bodies(which):
@@ -445,7 +465,7 @@ $let[rc;$lockAll[$guildID;$if[$option[reason]==;no reason;$option[reason]];$auth
 $ephemeral
 $interactionReply[
 $description[🔒 `$get[rc]` channel(s) locked server-wide.$if[$option[duration]!=; Auto-unlock in **$option[duration]**.]]
-$color[EF4444]
+$color[DA373C]
 $footer[Chronolith • Lockdown]
 ]"""
     c["prefix"] = pfx
@@ -496,14 +516,14 @@ $description[**$get[n]** channel(s) unlocked
 $color[248046]
 ;
 $description[🔓 No channels were locked.]
-$color[64748B]
+$color[4E5058]
 ]
 $footer[Chronolith • Lockdown]"""
 unlock_slx = """$onlyIf[$hasPerms[$guildID;$botID;ManageChannels]==true;⛔ I am missing the Manage Channels permission.]
 $let[n;$unlockAll[$guildID]]
 $interactionReply[
 $description[🔓 `$get[n]` channel(s) unlocked.]
-$color[22C55E]
+$color[248046]
 $footer[Chronolith • Lockdown]
 ]"""
 CMDS.append(dict(folder="channel", name="unlock", aliases=["unlockdown"],
@@ -521,7 +541,7 @@ $!jsonSet[cfg;reports;"$trim[$get[c]]"]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $author[Chronolith • Reports;$userAvatar[$botID;64;png]]
 $description[Report channel set to <#$get[c]>.]
-$color[7C3AED]
+$color[5865F2]
 $footer[Chronolith]""",
     """$let[c;$default[$option[channel];]]
 $onlyIf[$get[c]!=;$ephemeral Provide a channel.]
@@ -531,7 +551,7 @@ $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[
 $author[Chronolith • Reports;$userAvatar[$botID;64;png]]
 $description[Report channel set to <#$get[c]>.]
-$color[7C3AED]
+$color[5865F2]
 $footer[Chronolith]
 ]""",
     [{"type": 7, "name": "channel", "description": "Report inbox channel", "required": True}])
@@ -592,7 +612,7 @@ $let[raw;$reportGet[$guildID;$get[q]]]
 $onlyIf[$get[raw]!=;Report not found.]
 $!jsonLoad[r;$get[raw]]
 $author[🚩 Report #$get[q] • $toUpperCase[$env[r;st]];$userAvatar[$botID;64;png]]
-$color[$if[$env[r;st]==open;F59E0B;$if[$env[r;st]==claimed;7C3AED;22C55E]]]
+$color[$if[$env[r;st]==open;F0B232;$if[$env[r;st]==claimed;5865F2;248046]]]
 $description[> $env[r;rsn]]
 $addField[Reported user;<@$env[r;tgt]>;true]
 $addField[Reporter;<@$env[r;rep]>;true]
@@ -622,30 +642,30 @@ $stop
 $if[$arrayLength[lines]>10;
 $arraySlice[lines;lines;$math[$arrayLength[lines]-10];$arrayLength[lines]]]
 $author[Reports • $get[q];$userAvatar[$botID;64;png]]
-$color[7C3AED]
+$color[5865F2]
 $description[$arrayJoin[lines;
 ]]
 $footer[Chronolith • newest 10 shown]""",
     """$ephemeral
 $interactionReply[
 $description[Use the prefix command: %reports \[open|claimed|resolved|dismissed|all|<id>\]]
-$color[7C3AED]
+$color[5865F2]
 ]""")
 
 def lifecycle_cmd(name, status, desc, note_optional=True):
-    pfx = """$onlyIf[$message[0]!=;Usage: """ + name + """ <id>""" + (" [note]" if note_optional else "") + """]
+    pfx = """$onlyIf[$message[0]!=;Usage: """ + name + """ <id>""" + (" \\[note\\]" if note_optional else "") + """]
 $let[r;$reportUpdate[$guildID;$message[0];""" + status + """;$authorID;$message[1;999]]]
 $onlyIf[$get[r]==1;Report not found.]
 $onlyIf[$get[r]!=-1;Invalid transition for that report.]
 $description[✅ Report #$message[0] marked **""" + status + """**.]
-$color[22C55E]
+$color[248046]
 $footer[Chronolith • Reports]"""
     slx = """$let[r;$reportUpdate[$guildID;$option[id];""" + status + """;$authorID;$option[note]]]
 $onlyIf[$get[r]==1;$ephemeral Report not found.]
 $onlyIf[$get[r]!=-1;$ephemeral Invalid transition.]
 $interactionReply[
 $description[✅ Report #$option[id] marked **""" + status + """**.]
-$color[22C55E]
+$color[248046]
 ]"""
     opts = [{"type": 4, "name": "id", "description": "Report ID", "required": True}]
     if note_optional:
@@ -661,13 +681,13 @@ cmd("reports", "archivereport", ["rarchive"], "Delete a report record entirely",
 $let[r;$reportArchive[$guildID;$message[0]]]
 $onlyIf[$get[r]==1;Report not found.]
 $description[📦 Report #$message[0] archived (record deleted).]
-$color[64748B]
+$color[4E5058]
 $footer[Chronolith • Reports]""",
     """$let[r;$reportArchive[$guildID;$option[id]]]
 $onlyIf[$get[r]==1;$ephemeral Report not found.]
 $interactionReply[
 $description[📦 Report #$option[id] archived.]
-$color[64748B]
+$color[4E5058]
 ]""",
     [{"type": 4, "name": "id", "description": "Report ID", "required": True}])
 
@@ -760,7 +780,7 @@ $let[del;$deleteMessage[$channelID;$replace[$get[ids];,;]]]
 ]
 ]
 $footer[Chronolith • Purge]
-$color[7C3AED]"""
+$color[5865F2]"""
 
 purge_slash = """$onlyIf[$hasPerms[$guildID;$botID;ManageMessages]==true;$ephemeral I am missing the Manage Messages permission.]
 $let[scan;$scanMessages[$channelID;$if[$option[search]>500;500;$option[search]]]]
@@ -792,7 +812,7 @@ $let[del;$deleteMessage[$channelID;$get[ids]]]
 🧹 Nothing to clean.
 ]
 $footer[Chronolith • Cleanup]
-$color[7C3AED]""",
+$color[5865F2]""",
     """$let[scan;$scanMessages[$channelID;$default[$option[search];100]]]
 $!jsonLoad[found;$get[scan]]
 $interactionReply[$ephemeral 🧹 Cleanup queued.]""",
@@ -837,7 +857,7 @@ $arrayLoad[cs;,;$get[uc]]
 $arrayLoad[out;]
 $arrayMap[cs;k;$jsonLoad[one;$getGuildVar[case_$env[k];$guildID;{}]]$return[-# **#$env[k]** $actionEmoji[$env[one;t]] · $env[one;r]];out]
 $author[History • $userTag[$get[target]];$userAvatar[$get[target];64;png]]
-$color[7C3AED]
+$color[5865F2]
 $thumbnail[$userAvatar[$get[target];256;png]]
 $description[$arrayJoin[out;
 ]]
@@ -855,7 +875,7 @@ $arrayLoad[out;]
 $arrayMap[cs;k;$jsonLoad[one;$getGuildVar[case_$env[k];$guildID;{}]]$return[-# **#$env[k]** $actionEmoji[$env[one;t]] · $env[one;r]];out]
 $interactionReply[
 $author[History • $userTag[$option[user]];$userAvatar[$option[user];64;png]]
-$color[7C3AED]
+$color[5865F2]
 $description[$arrayJoin[out;
 ]]
 $footer[Chronolith • $arrayLength[cs] case(s)]
@@ -905,7 +925,7 @@ $jsonSet[cfg;automod;spamS;5]
 ]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $description[🛡️ Automod module **$get[mod2]** is now **$get[val]**.]
-$color[F59E0B]
+$color[F0B232]
 $footer[Chronolith • Automod]""",
     """$let[m;$option[module]]
 $let[val;$option[state]]
@@ -928,7 +948,7 @@ $jsonSet[cfg;automod;spamS;5]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[
 $description[🛡️ Automod module **$get[m]** is now **$get[val]**.]
-$color[F59E0B]
+$color[F0B232]
 $footer[Chronolith • Automod]
 ]""",
     [{"type": 3, "name": "module", "description": "invites, links, mentions, caps or spam", "required": True},
@@ -1021,7 +1041,7 @@ $interactionReply[$description[🚪 Join gate configured.]]""",
 cmd("config", "config", ["settings"], "Show Chronolith settings for this server",
     """$jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $author[Chronolith • Settings;$userAvatar[$botID;64;png]]
-$color[7C3AED]
+$color[5865F2]
 $addField[Modlog;$if[$env[cfg;modlog]==;*not set*;<#$env[cfg;modlog]>];true]
 $addField[Mod roles;$if[$env[cfg;modroles]==;*ManageServer by default*;<@&$replace[$env[cfg;modroles];,;>, <@&>]>];true]
 $addField[Muterole;$if[$env[cfg;muterole]==;*timeouts*;<@&$env[cfg;muterole]>];true]
@@ -1037,7 +1057,7 @@ $footer[Chronolith • %quicksetup applies sane defaults]""",
 $ephemeral
 $interactionReply[
 $author[Chronolith • Settings;$userAvatar[$botID;64;png]]
-$color[7C3AED]
+$color[5865F2]
 $addField[Modlog;$if[$env[cfg;modlog]==;*not set*;<#$env[cfg;modlog]>];true]
 $addField[Mod roles;$if[$env[cfg;modroles]==;*ManageServer by default*;<@&$replace[$env[cfg;modroles];,;>, <@&>]>];true]
 $addField[Warn escalation;$if[$env[cfg;warns;threshold]==;*off*;$env[cfg;warns;threshold] warns → $env[cfg;warns;action]];true]
@@ -1329,7 +1349,7 @@ $jsonLoad[e;$get[e]]
 $description[$if[$env[e;c]==;*(empty message)*;$env[e;c]]]
 $addField[Author;<@$env[e;a]>;true]
 $addField[Deleted;$discordTimestamp[$env[e;t];RelativeTime];true]
-$color[95A5A6]""",
+$color[4E5058]""",
     """$let[i;$default[$option[index];0]]
 $let[e;$snipeGet[$guildID;$channelID;snipe;$get[i]]]
 $if[$get[e]==;
@@ -1342,7 +1362,7 @@ $interactionReply[
 $description[$if[$env[e;c]==;*(empty message)*;$env[e;c]]]
 $addField[Author;<@$env[e;a]>;true]
 $addField[Deleted;$discordTimestamp[$env[e;t];RelativeTime];true]
-$color[95A5A6]
+$color[4E5058]
 ]""",
     [{"type": 4, "name": "index", "description": "0 = newest (default)", "required": False}])
 
@@ -1354,7 +1374,7 @@ $jsonLoad[e;$get[e]]
 $description[**Before:** $env[e;before]
 **After:** $env[e;after]]
 $addField[Author;<@$env[e;a]>;true]
-$color[95A5A6]""",
+$color[4E5058]""",
     """$let[e;$snipeGet[$guildID;$channelID;esnipe;$default[$option[index];0]]]
 $if[$get[e]==;
 $ephemeral
@@ -1366,7 +1386,7 @@ $interactionReply[
 $description[**Before:** $env[e;before]
 **After:** $env[e;after]]
 $addField[Author;<@$env[e;a]>;true]
-$color[95A5A6]
+$color[4E5058]
 ]""",
     [{"type": 4, "name": "index", "description": "0 = newest (default)", "required": False}])
 
@@ -1384,7 +1404,7 @@ $sendMessage[$get[tch];
 $title[Ticket for $userTag[$authorID]]
 $description[Explain your issue here. A moderator will respond.
 When resolved, press Close — the channel locks for review.]
-$color[2ECC71]
+$color[248046]
 $footer[Opened from <#$channelID>]
 $addActionRow
 $addButton[tkclose-$authorID;Close;Danger]
@@ -1407,7 +1427,7 @@ $sendMessage[$get[tch];
 $title[Ticket for $userTag[$authorID]]
 $description[Explain your issue here. A moderator will respond.
 When resolved, press Close — the channel locks for review.]
-$color[2ECC71]
+$color[248046]
 $addActionRow
 $addButton[tkclose-$authorID;Close;Danger]
 ;false]
@@ -1488,13 +1508,13 @@ cmd("mod", "massban", [], "Ban many users by ID at once",
     """$onlyIf[$message[0]!=;Usage: massban <id> <id> ...]
 $let[done;$massBan[$guildID;$authorID;$message]]
 $description[⛔ Banned **$get[done]** user(s).]
-$color[EF4444]
+$color[DA373C]
 $footer[Chronolith]""",
     """$onlyIf[$option[ids]!=;$ephemeral Provide space-separated user IDs.]
 $let[done;$massBan[$guildID;$authorID;$option[ids]]]
 $interactionReply[
 $description[⛔ Banned **$get[done]** user(s).]
-$color[EF4444]
+$color[DA373C]
 $footer[Chronolith]
 ]""",
     [{"type": 3, "name": "ids", "description": "Space-separated user IDs", "required": True}])
@@ -1535,7 +1555,7 @@ $jsonSet[cfg;antinuke;action;$if[$message[2]!=;$message[2];ban]]
 ]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $description[🛡️ Anti-nuke **$toLowerCase[$message[0]]**$if[$toLowerCase[$message[0]]==on; — $if[$message[1]!=;$message[1];3] dangerous actions in 20s → $if[$message[2]!=;$message[2];ban]]. Whitelist: mods.]
-$color[EF4444]
+$color[DA373C]
 $footer[Chronolith • Security]""",
     """$let[state;$option[state]]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
@@ -1547,7 +1567,7 @@ $jsonSet[cfg;antinuke;action;$if[$option[action]!=;$option[action];ban]]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[
 $description[🛡️ Anti-nuke **$get[state]**.]
-$color[EF4444]
+$color[DA373C]
 $footer[Chronolith • Security]
 ]""",
     [{"type": 3, "name": "state", "description": "on or off", "required": True},
@@ -1655,7 +1675,7 @@ $jsonSet[cfg;antinuke;action;ban]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $author[Chronolith • Quick setup;$userAvatar[$botID;64;png]]
 $description[Defaults applied to **this channel** and the server:]
-$color[22C55E]
+$color[248046]
 $addField[Modlog;<#$channelID>;true]
 $addField[Automod;invite blocking + flood ratelimit (5 msgs/5s);true]
 $addField[Escalation;3 warns → 1h mute;true]
@@ -1677,7 +1697,7 @@ $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[
 $author[Chronolith • Quick setup;$userAvatar[$botID;64;png]]
 $description[Defaults applied — modlog now this channel, automod + escalation + anti-nuke ON.]
-$color[22C55E]
+$color[248046]
 $footer[Chronolith]
 ]""")
 
@@ -1689,7 +1709,7 @@ $description[**Gateway** $ping ms · $guildCount servers · $userCount users
 $footer[Chronolith]""",
     """$interactionReply[
 $author[Chronolith;$userAvatar[$botID;64;png]]
-$color[7C3AED]
+$color[5865F2]
 $addField[Uptime;$parseMS[$uptime];true]
 $addField[Ping;$ping ms;true]
 $addField[Guilds;$guildCount;true]
@@ -1754,11 +1774,11 @@ $let[ll;$get[ll]🔒 <#$get[cid]> — locked$if[$get[until]!=0;, ends $discordTi
 ]
 $if[$and[$get[bl]==,$and[$get[ol]==,$get[ll]==]]==true;
 $description[No active timed moderations.]
-$color[64748B];
+$color[4E5058];
 $addField[Hardbans / timed bans;$if[$get[bl]==;*none*;$get[bl]];false]
 $addField[Timeouts;$if[$get[ol]==;*none*;$get[ol]];false]
 $addField[Lockdowns;$if[$get[ll]==;*none*;$get[ll]];false]
-$color[7C3AED]
+$color[5865F2]
 ]
 $author[Active Moderations;$userAvatar[$botID;32;png]]
 $footer[Chronolith]""",
@@ -1767,7 +1787,7 @@ $ephemeral
 $interactionReply[
 $author[Active timed moderations;$userAvatar[$botID;64;png]]
 $description[$get[all]]
-$color[7C3AED]
+$color[5865F2]
 ]""")
 
 cmd("config", "protect", [], "Configure protected roles/users (cannot be moderated here)",
@@ -1810,13 +1830,13 @@ $author[Protection;$userAvatar[$botID;64;png]]
 $description[Protected members cannot be moderated in this server — enabled by default, applies alongside owner protection and role hierarchy.]
 $addField[Protected roles;$if[$env[cfg;protected;roles]==;*none*;<@&$replace[$env[cfg;protected;roles];,;>, <@&>]>];true]
 $addField[Protected users;$if[$env[cfg;protected;users]==;*none*;<@$replace[$env[cfg;protected;users];,;>, <@>]>];true]
-$color[7C3AED]
+$color[5865F2]
 $footer[Chronolith • %protect role|user add|remove <target>]
 ]""",
     """$ephemeral
 $interactionReply[
 $description[Use the prefix command: %protect <role|user> <add|remove> <target>]
-$color[7C3AED]
+$color[5865F2]
 ]""")
 
 cmd("config", "dmnotices", [], "Toggle DM notices for moderation actions (failed DMs never fail the action)",
@@ -1825,7 +1845,7 @@ $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $!jsonSet[cfg;dmnotices;$if[$toLowerCase[$message[0]]==on;true;false]]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $description[DM notices **$toLowerCase[$message[0]]**.]
-$color[7C3AED]
+$color[5865F2]
 $footer[Chronolith]""",
     """$jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $!jsonSet[cfg;dmnotices;$option[state]]
@@ -1839,14 +1859,14 @@ $onlyIf[$message[1;999]!=;Provide the new content.]
 $let[d;$noteEdit[$guildID;$message[0];$authorID;$message[1;999]]]
 $onlyIf[$get[d]==1;Note not found.]
 $description[✏️ Note #$message[0] updated — original author preserved, your edit recorded.]
-$color[22C55E]
+$color[248046]
 $footer[Chronolith • Notes]""",
     """$onlyIf[$option[content]!=;$ephemeral Provide the new content.]
 $let[d;$noteEdit[$guildID;$option[id];$authorID;$option[content]]]
 $onlyIf[$get[d]==1;$ephemeral Note not found.]
 $interactionReply[
 $description[✏️ Note #$option[id] updated.]
-$color[22C55E]
+$color[248046]
 $footer[Chronolith • Notes]
 ]""",
     [{"type": 4, "name": "id", "description": "Note ID", "required": True},
@@ -1858,7 +1878,7 @@ $onlyIf[$get[m]!=;Could not resolve that user.]
 $let[raw;$modStats[$guildID;$get[m]]]
 $if[$get[raw]==;
 $description[<@$get[m]> has no recorded moderation actions yet.]
-$color[64748B];
+$color[4E5058];
 $!jsonLoad[st;$get[raw]]
 $author[Mod stats • $userTag[$get[m]];$userAvatar[$get[m];64;png]]
 $thumbnail[$userAvatar[$get[m];256;png]]
@@ -1869,7 +1889,7 @@ $addField[Bans;`$default[$env[st;ban];0]`;true]
 $addField[Hardbans;`$default[$env[st;hardban];0]`;true]
 $addField[Mutes;`$default[$env[st;mute];0]`;true]
 $addField[Softbans;`$default[$env[st;softban];0]`;true]
-$color[7C3AED]
+$color[5865F2]
 $footer[Chronolith • Stats]
 ]""",
     """$let[m;$default[$option[user];$authorID]]
@@ -1886,7 +1906,7 @@ $addField[Warns;`$default[$env[st;warn];0]`;true]
 $addField[Kicks;`$default[$env[st;kick];0]`;true]
 $addField[Bans;`$default[$env[st;ban];0]`;true]
 $addField[Mutes;`$default[$env[st;mute];0]`;true]
-$color[7C3AED]
+$color[5865F2]
 ]""",
     [{"type": 6, "name": "user", "description": "Moderator (default: you)", "required": False}])
 
@@ -1912,14 +1932,14 @@ $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $!jsonSet[cfg;modlog;$trim[$get[c]]]
 $!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $description[$if[$get[c]==;Modlog channel disabled.;Modlog channel set to <#$get[c]>.]]
-$color[7C3AED]
+$color[5865F2]
 ;
 $if[$get[mode]==user;
 $arrayLoad[cs;,;$get[uc]]
 $arrayLoad[out;]
 $arrayMap[cs;k;$jsonLoad[one;$getGuildVar[case_$env[k];$guildID;{}]]$return[-# **#$env[k]** $actionEmoji[$env[one;t]] · <@$env[one;m]> · $env[one;r]];out]
 $author[User logs • $userTag[$get[target]];$userAvatar[$get[target];64;png]]
-$color[7C3AED]
+$color[5865F2]
 $description[$arrayJoin[out;
 ]]
 $footer[Chronolith • $arrayLength[cs] case(s)];
@@ -1938,7 +1958,7 @@ $arrayPush[out;-# **#$get[ptr]** · <@$env[one;u]> · $env[one;r]]
 $let[ptr;$math[$get[ptr]-1]]
 ]
 $author[Action logs • $get[atype];$userAvatar[$botID;64;png]]
-$color[7C3AED]
+$color[5865F2]
 $description[$if[$arrayLength[out]==0;No cases of that type in the last 200.;$arrayJoin[out;
 ]]]
 $footer[Chronolith • scanned up to 200];
@@ -1955,7 +1975,7 @@ $arrayPush[out;-# **#$get[ptr]** $actionEmoji[$env[one;t]] · <@$env[one;u]> · 
 $let[ptr;$math[$get[ptr]+1]]
 ]
 $author[Recent logs;$userAvatar[$botID;64;png]]
-$color[7C3AED]
+$color[5865F2]
 $description[$arrayJoin[out;
 ]]
 $footer[Chronolith • $get[total] case(s) total]
@@ -1968,7 +1988,7 @@ $interactionReply[
 $author[Chronolith • Modlog;$userAvatar[$botID;64;png]]
 $description[Use the prefix command for log views, or:
 -# %modlog recent \| %modlog user <target> \| %modlog action <type> \| %modlog set <#channel|off>]
-$color[7C3AED]
+$color[5865F2]
 ]""", gate="mod")
 
 # ---------------------------------------------------------------- staff notes
@@ -1988,7 +2008,7 @@ $interactionReply[
 $author[📝 Note #$get[n];$userAvatar[$botID;64;png]]
 $description[**$userTag[$option[user]]**
 > $option[content]]
-$color[7C3AED]
+$color[5865F2]
 $footer[Chronolith • Notes]
 ]""",
     [{"type": 6, "name": "user", "description": "Target user", "required": True},
@@ -2006,7 +2026,7 @@ $letSum[removed;1]
 ]
 $onlyIf[$get[removed]>0;None of those note IDs exist.]
 $description[🗑️ Removed `$get[removed]` note(s).]
-$color[22C55E]
+$color[248046]
 $footer[Chronolith • Notes]""",
     """$let[removed;0]
 $arrayLoad[nids; ;$option[ids]]
@@ -2019,7 +2039,7 @@ $letSum[removed;1]
 $onlyIf[$get[removed]>0;$ephemeral None of those note IDs exist.]
 $interactionReply[
 $description[🗑️ Removed `$get[removed]` note(s).]
-$color[22C55E]
+$color[248046]
 $footer[Chronolith • Notes]
 ]""",
     [{"type": 3, "name": "ids", "description": "Space-separated note IDs", "required": True}])
@@ -2040,7 +2060,7 @@ $letSum[cleared;1]
 ]
 ]
 $description[🧼 Cleared `$get[cleared]` note(s).]
-$color[22C55E]
+$color[248046]
 $footer[Chronolith • Notes]""",
     """$arrayLoad[nt;,;$option[users]]
 $let[cleared;0]
@@ -2055,7 +2075,7 @@ $letSum[cleared;1]
 ]
 $interactionReply[
 $description[🧼 Cleared `$get[cleared]` note(s).]
-$color[22C55E]
+$color[248046]
 $footer[Chronolith • Notes]
 ]""",
     [{"type": 3, "name": "users", "description": "Mentions/usernames/IDs", "required": True}])
@@ -2070,7 +2090,7 @@ $arrayLoad[out;]
 $arrayMap[ns;n;$jsonLoad[one;$noteGet[$guildID;$env[n]]]$return[-# **#$env[n]** · <@$env[one;by]> · $discordTimestamp[$env[one;ts];RelativeTime]
 > $env[one;c]];out]
 $author[Notes • $userTag[$get[target]];$userAvatar[$get[target];64;png]]
-$color[7C3AED]
+$color[5865F2]
 $thumbnail[$userAvatar[$get[target];256;png]]
 $description[$arrayJoin[out;
 ]]
@@ -2165,6 +2185,9 @@ for c in CMDS:
     sdir = os.path.join(ROOT, "slashesCmd")   # FLAT: the loader turns subfolders into subcommand groups
     os.makedirs(pdir, exist_ok=True)
     os.makedirs(sdir, exist_ok=True)
+    c["prefix"] = _fix_footers(c["prefix"], c["folder"])
+    if c.get("slash"):
+        c["slash"] = _fix_footers(c["slash"], c["folder"])
     with open(os.path.join(pdir, c["name"] + ".js"), "w", encoding="utf-8") as f:
         f.write(prefix_file(c))
     made += 1
