@@ -10,7 +10,7 @@ $nomention
 $onlyIf[$guildID!=;Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;⛔ You need moderator permissions.]
 $cooldown[$authorID-dmnotices;3s;]
-$onlyIf[$or[$toLowerCase[$message[0]]==on,$toLowerCase[$message[0]]==off]==true;Usage: dmnotices <on|off>]
+$onlyIf[$or[$toLowerCase[$message[0]]==on;$toLowerCase[$message[0]]==off]==true;Usage: dmnotices <on|off>]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $!jsonSet[cfg;dmnotices;$if[$toLowerCase[$message[0]]==on;true;false]]
 $!setGuildVar[cfg;$jsonStringify[cfg];$guildID]

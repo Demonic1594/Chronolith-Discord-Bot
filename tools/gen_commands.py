@@ -62,9 +62,9 @@ def _fix_seps(code):
             if j < 0:
                 break
             depth = 0
-            k = j + len(fname)  # position of the opening [
+            k = j + len(fname) + 1  # position AFTER the opening [
             start = k  # start of the body content
-            nest = 0  # nesting depth INSIDE the body
+            nest = 0  # nesting depth INSIDE the body (0 = directly in the body)
             while k < len(code):
                 c = code[k]
                 if c == "\\":
@@ -73,14 +73,14 @@ def _fix_seps(code):
                 if c == "[":
                     nest += 1
                 elif c == "]":
-                    nest -= 1
                     if nest <= 0:
                         break  # closing the $and/$or itself
+                    nest -= 1
                 elif c == "," and nest == 0:
                     # Top-level comma inside $and/$or → replace with ;
                     code = code[:k] + ";" + code[k+1:]
                 k += 1
-            idx = k + 1
+            idx = j + 1  # re-scan for NESTED $and/$or bodies too
     return code
 
 

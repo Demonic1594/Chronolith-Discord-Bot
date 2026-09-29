@@ -17,7 +17,7 @@ $!jsonLoad[found;$get[scan]]
 $let[ids;]
 $let[count;0]
 $!arrayForEach[found;m;
-$if[$and[$env[m;a]==$botID,$math[$arrayLength[$arrayLoad[cur;,;$get[ids]]]]<100]==true;
+$if[$and[$env[m;a]==$botID;$math[$arrayLength[$arrayLoad[cur;,;$get[ids]]]]<100]==true;
 $let[ids;$get[ids]$if[$get[ids]!=;,]$env[m;i]]
 $letSum[count;1]
 ]

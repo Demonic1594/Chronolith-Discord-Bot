@@ -20,7 +20,7 @@ $color[7C3AED]
 $footer[Chronolith • %protect role|user add|remove <target>];
 $let[kind;$toLowerCase[$message[0]]]
 $let[act;$toLowerCase[$message[1]]]
-$onlyIf[$and[$or[$get[kind]==role,$get[kind]==user]==true,$or[$get[act]==add,$get[act]==remove]==true]==true;Usage: protect <role|user> <add|remove> <target>]
+$onlyIf[$and[$or[$get[kind]==role;$get[kind]==user]==true;$or[$get[act]==add;$get[act]==remove]==true]==true;Usage: protect <role|user> <add|remove> <target>]
 $let[tgt;$if[$get[kind]==role;$replace[$replace[$replace[$message[2];<@&;];!;];>;];$findUser[$message[2]]]]
 $onlyIf[$get[tgt]!=;Provide the target.]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]

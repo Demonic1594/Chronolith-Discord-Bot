@@ -75,7 +75,7 @@ module.exports = [
             $if[$get[next]==claimed;
                 $jsonSet[r;claimed;"$env[by]"]
             ]
-            $if[$or[$get[next]==resolved,$get[next]==dismissed]==true;
+            $if[$or[$get[next]==resolved;$get[next]==dismissed]==true;
                 $jsonSet[r;closedBy;"$env[by]"]
                 $jsonSet[r;closedTs;$getTimestamp]
             ]

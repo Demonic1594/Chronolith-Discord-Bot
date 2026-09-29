@@ -12,7 +12,7 @@ $onlyIf[$guildID!=;Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;⛔ You need moderator permissions.]
 $cooldown[$authorID-modlog;3s;]
 $let[mode;$if[$message[0]!=;$toLowerCase[$message[0]];recent]]
-$if[$or[$get[mode]==recent,$get[mode]==user,$or[$get[mode]==action,$get[mode]==set]]!=true;
+$if[$or[$get[mode]==recent;$get[mode]==user;$or[$get[mode]==action;$get[mode]==set]]!=true;
 Usage: modlog [recent|user|action|set] [...]
 ;
 $if[$get[mode]==set;
@@ -43,7 +43,7 @@ $let[scanned;0]
 $let[ptr;$get[total]]
 $!arrayLoad[out;]
 $loop[200;
-$if[$or[$get[ptr]<1,$math[$get[total]-$get[ptr]]>=200];
+$if[$or[$get[ptr]<1;$math[$get[total]-$get[ptr]]>=200];
 $break
 ]
 $!jsonLoad[one;$getGuildVar[case_$get[ptr];$guildID;{}]]

@@ -10,7 +10,7 @@ $nomention
 $onlyIf[$guildID!=;Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;⛔ You need moderator permissions.]
 $cooldown[$authorID-antinuke;3s;]
-$onlyIf[$or[$toLowerCase[$message[0]]==on,$toLowerCase[$message[0]]==off]==true;Usage: antinuke <on|off> \\[threshold\\] \\[ban|kick|strip\\]]
+$onlyIf[$or[$toLowerCase[$message[0]]==on;$toLowerCase[$message[0]]==off]==true;Usage: antinuke <on|off> \\[threshold\\] \\[ban|kick|strip\\]]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $!jsonSet[cfg;antinuke;on;$if[$toLowerCase[$message[0]]==on;true;false]]
 $if[$toLowerCase[$message[0]]==on;

@@ -10,7 +10,7 @@ $nomention
 $onlyIf[$guildID!=;Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;⛔ You need moderator permissions.]
 $cooldown[$authorID-linkwl;3s;]
-$onlyIf[$or[$toLowerCase[$message[0]]==add,$or[$toLowerCase[$message[0]]==remove,$toLowerCase[$message[0]]==list]]==true;Usage: linkwl add|remove|list <domain>]
+$onlyIf[$or[$toLowerCase[$message[0]]==add;$or[$toLowerCase[$message[0]]==remove;$toLowerCase[$message[0]]==list]]==true;Usage: linkwl add|remove|list <domain>]
 $if[$toLowerCase[$message[0]]==list;
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $description[Whitelisted domains]

@@ -46,7 +46,7 @@ $let[ll;$get[ll]🔒 <#$get[cid]> — locked$if[$get[until]!=0;, ends $discordTi
 ]
 ]
 ]
-$if[$and[$get[bl]==,$and[$get[ol]==,$get[ll]==]]==true;
+$if[$and[$get[bl]==;$and[$get[ol]==;$get[ll]==]]==true;
 $description[No active timed moderations.]
 $color[64748B];
 $addField[Hardbans / timed bans;$if[$get[bl]==;*none*;$get[bl]];false]

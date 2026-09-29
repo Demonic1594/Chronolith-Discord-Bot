@@ -22,10 +22,10 @@ $let[cls;reason]
 $if[$toLowerCase[$env[w]]==server;
 $let[cls;server]
 ]
-$if[$and[$isNumber[$replace[$replace[$replace[$replace[$replace[$env[w];s;];m;];h;];d;];w;]]==true,$isNumber[$env[w]]!=true]==true;
+$if[$and[$isNumber[$replace[$replace[$replace[$replace[$replace[$env[w];s;];m;];h;];d;];w;]]==true;$isNumber[$env[w]]!=true]==true;
 $let[cls;dur]
 ]
-$if[$and[$or[$startsWith[$env[w];<#]==true,$isNumber[$env[w]]==true]==true,$get[cls]==reason]==true;
+$if[$and[$or[$startsWith[$env[w];<#]==true;$isNumber[$env[w]]==true]==true;$get[cls]==reason]==true;
 $let[cls;ch]
 ]
 $if[$get[cls]==dur;
@@ -57,7 +57,7 @@ $let[n;$lockAll[$guildID;$if[$trim[$get[reason]]==;no reason;$trim[$get[reason]]
 ;
 $!arrayLoad[cl;,;$get[chs]]
 $!arrayForEach[cl;c;
-$if[$and[$channelExists[$env[c]]==true,$get[server]==0]==true;
+$if[$and[$channelExists[$env[c]]==true;$get[server]==0]==true;
 $!lockChan[$guildID;$env[c];$if[$trim[$get[reason]]==;no reason;$trim[$get[reason]]];$authorID;$get[until]]
 $letSum[n;1]
 ]

@@ -13,7 +13,7 @@ $cooldown[$authorID-automod;3s;]
 $onlyIf[$message[0]!=;Usage: automod <invites|links|words|mentions|caps|spam> <on|off>]
 $let[mod2;$toLowerCase[$message[0]]]
 $let[val;$toLowerCase[$message[1]]]
-$onlyIf[$and[$or[$get[mod2]==invites,$or[$get[mod2]==links,$or[$get[mod2]==mentions,$or[$get[mod2]==caps,$get[mod2]==spam]]]]==true,$or[$get[val]==on,$get[val]==off]==true]==true;Usage: automod <module> <on|off>]
+$onlyIf[$and[$or[$get[mod2]==invites;$or[$get[mod2]==links;$or[$get[mod2]==mentions;$or[$get[mod2]==caps;$get[mod2]==spam]]]]==true;$or[$get[val]==on;$get[val]==off]==true]==true;Usage: automod <module> <on|off>]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $if[$get[mod2]==invites;$jsonSet[cfg;automod;invites;$if[$get[val]==on;true;false]]]
 $if[$get[mod2]==links;
