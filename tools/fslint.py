@@ -15,7 +15,7 @@ Usage:
   python3 tools/fslint.py --explain '$fn'       # show KB info for a function
   python3 tools/fslint.py --diff                # prefix vs slash mirror diff
 
-CHECKS (48):
+CHECKS (70):
   SYNTAX & STRUCTURE
    1. Bracket balance (escape-aware, line-tracked, exact position)
    2. Unclosed function calls (per-call, not just global count)
@@ -76,9 +76,40 @@ CHECKS (48):
   45. Excessive nesting in single expression (>10 levels)
 
   STYLE
-  46. Deeply nested $if chains (suggest $ifx)
-  47. Repeated function calls on same variable (suggest $let caching)
-  48. Overly long single-line code (>200 chars)
+   46. Deeply nested $if chains (suggest $ifx)
+   47. Repeated function calls on same variable (suggest $let caching)
+   48. Overly long single-line code (>200 chars)
+
+  RUNTIME SEMANTICS (verified live against 2.7.1)
+   49. $env[x] where x is only $let-defined (keywords ≠ environment store)
+   50. $get[x] where x is only env-defined (jsonLoad/try/http/params)
+   51. Embed/component decorators BEFORE $cooldown/$onlyIf (error send
+       resets the container — embeds destroyed when the gate fires)
+   52. Literal backslash before a function ($fn — backslash is dropped,
+       the function still executes)
+   53. $# on nested calls (ignored — only the top-level flag is checked)
+   54. Top-level $# (suppresses the alert but STILL aborts the run)
+   55. Time literal traps: decimals with units throw, 'ms' unit doesn't
+       exist, M = month not minute
+   56. Literal text inside $loop body (discarded — only $return accumulates)
+
+  RELATIONSHIPS (producer → consumer ordering)
+   57. $addButton/$addStringSelectMenu without prior $addActionRow
+   58. $addOption without prior $addStringSelectMenu
+   59. $addTextInput without $modal; $showModal without $modal
+   60. $jsonSet/$jsonDelete with no $jsonLoad (writes go nowhere)
+   61. $splitText family with no $textSplit (disjoint hidden store)
+   62. $httpResult/$httpPing with no $httpRequest
+   63. Array fns on never-created arrays (no $arrayLoad/$arrayCreate/$let)
+   64. $ephemeral AFTER $defer/$interactionReply (read at flush time)
+   65. $interactionReply after $defer (reply slot consumed — use followUp)
+   66. $fetchComponents mixed with manual component builders (fetch wins)
+   67. Context-gated fns in command files ($input/$customID/$option etc.)
+
+  REAL-WORLD PATTERNS
+   68. $loop[-1] spin-lock without $wait (unthrottled busy-loop)
+   69. $djsEval with raw $get/$env interpolation (use $jsonStringify bridge)
+   70. Fixed time-regex: decimals-with-unit and 'ms' no longer pass validation
 
 SIMULATION (--sim):
   Full execution tree with variable flow tracking, branch prediction,
@@ -239,7 +270,8 @@ def load_custom_functions(root):
             text, re.S,
         ):
             pname, pbody = m.group(1), m.group(2)
-            required = len(re.findall(r'"\w+"', pbody))
+            param_names = re.findall(r'["\'](\w+)["\']', pbody)
+            required = len(param_names)
             # Extract the code body
             code_start = text.find("code: `", m.end())
             code_end = text.find("`", code_start + 7) if code_start > 0 else -1
@@ -258,6 +290,7 @@ def load_custom_functions(root):
                 "file": str(js.relative_to(root)),
                 "code": code_body,
                 "has_return": has_return,
+                "params": param_names,
                 "called": called,
             }
     return custom
@@ -316,7 +349,12 @@ def js_cook(code):
 CALL_RE = re.compile(r"\$[!#]?(?:@\[[^\]]*\])?([A-Za-z_][A-Za-z0-9_]*)\[")
 
 SNOWFLAKE_RE = re.compile(r"^\d{16,23}$")
-TIME_RE = re.compile(r"^(\d+(\.\d+)?(ms|s|m|h|d|w)?|inf)$", re.I)
+# Runtime-verified (2.7.1): plain number = ms value; with a unit it must be an
+# INTEGER (decimals throw), there is NO 'ms' unit, 'M' = month (30d), 'y' = 360d.
+TIME_RE = re.compile(r"^(\d+(\.\d+)?|inf|\d+(s|m|h|d|w|M|y))$")
+TIME_TRAP_DECIMAL = re.compile(r"^\d+\.\d+\s*(s|m|h|d|w|M|y)$")
+TIME_TRAP_MS = re.compile(r"^\d+\s*ms$", re.I)
+TIME_TRAP_CAPM = re.compile(r"^\d+M$")
 COLOR_RE = re.compile(r"^#?[0-9a-fA-F]{6}$|^[0-9a-fA-F]{3}$")
 NUMBER_RE = re.compile(r"^-?\d+(\.\d+)?$")
 PERMISSION_RE = re.compile(r"^[A-Z][a-zA-Z]*$")
@@ -344,6 +382,60 @@ ENTITY_TYPES = {
 
 # Known-safe empty-arg functions (intentional $let[x;] etc.)
 EMPTY_SAFE = {"let", "replace", "default", "return", "if", "ifx"}
+
+# ── Container lifecycle (runtime-verified) ─────────────────────────────────
+# Decorators mutate the response container; guard error-sends RESET it, so
+# decorators placed before a gate are destroyed when the gate fires.
+EMBED_DECORATORS = {
+    "title", "description", "addfield", "color", "author", "footer",
+    "image", "thumbnail", "timestamp", "setthumbnail", "setauthor",
+}
+COMPONENT_DECORATORS = {
+    "addactionrow", "addbutton", "addstringselectmenu",
+    "adduserselectmenu", "addroleselectmenu", "addchannelselectmenu",
+    "addmentionableselectmenu", "addoption", "addtextinput",
+}
+CONTAINER_DECORATORS = EMBED_DECORATORS | COMPONENT_DECORATORS
+
+# Gates whose error-send resets the shared container (embeds built before
+# them are destroyed when the gate trips)
+CONTAINER_RESET_GATES = {
+    "cooldown", "onlyif", "onlyperms", "onlyforroles", "onlyforchannels",
+    "onlyforguilds", "onlybotowners", "onlynsfw", "staffonly",
+}
+
+# ── Producer → consumer maps (runtime-verified hidden stores) ─────────────
+ARRAY_PRODUCERS = {"arrayload", "arraycreate"}
+ARRAY_CONSUMERS = {
+    "arrayat", "arrayjoin", "arraylength", "arraypush", "arraypop",
+    "arrayshift", "arrayunshift", "arraysplice", "arrayslice", "arraysort",
+    "arrayreverse", "arrayincludes", "arraysome", "arrayevery", "arraymap",
+    "arrayfilter", "arrayfind", "arrayfindindex", "arrayforeach",
+    "arrayindexof", "arraylast", "arrayunique", "arrayconcat", "arrayshuffle",
+    "arrayclear", "arraydelete",
+}
+
+# Functions that populate the ENV store (readable via $env, not $get)
+ENV_PRODUCER_FNS = {
+    "jsonload": 0,        # $jsonLoad[var;json] → arg 0 is the env var
+    "try": 2,             # $try[code;catch;errVar] → arg 2
+    "httprequest": -1,    # response var = last arg
+    "loop": 2,            # $loop[times;code;counterVar] → arg 2
+}
+
+# Context-gated accessors: only meaningful inside their interaction kind
+INTERACTION_ONLY_FNS = {
+    "input": "modal submit only",
+    "customid": "component interaction only",
+    "selectmenuvalues": "select-menu interaction only",
+    "isbutton": "component interaction only",
+    "isanyselectmenu": "component interaction only",
+    "ismodal": "modal submit only",
+    "focusedoptionname": "autocomplete only",
+    "focusedoptionvalue": "autocomplete only",
+    "addchoice": "autocomplete only",
+}
+SLASH_ONLY_FNS = {"option", "interactionreply", "interactiondefer"}
 
 SEVERITY_ORDER = {"error": 0, "warn": 1, "info": 2}
 
@@ -484,6 +576,27 @@ def lint_code(code, sigs, custom, enums, label="", cmd_registry=None):
     # Track loop nesting for O(n²) detection
     loop_depth = 0
     nested_loops = []
+
+    # Store tracking ($let/keywords vs $env/environment — separate stores)
+    env_vars_defined = set()      # vars populated into the env store
+    env_reads = {}                # var → (line, col, ctx) of $env reads
+
+    # Producer → consumer tracking
+    arrays_defined = set()
+
+    # Custom fn params are env vars INSIDE their own bodies only — seed
+    # them when linting that fn's code (exact match); union fallback for
+    # multi-fn files to avoid false store-confusion positives.
+    if custom and label and "functions" in label.replace("\\", "/"):
+        seeded = False
+        for cf in custom.values():
+            if cf.get("code") and cf["code"] == code:
+                env_vars_defined.update(cf.get("params", []))
+                seeded = True
+                break
+        if not seeded:
+            for cf in custom.values():
+                env_vars_defined.update(cf.get("params", []))
 
     # ══ SYNTAX & STRUCTURE ════════════════════════════════════════════════
 
@@ -675,12 +788,31 @@ def lint_code(code, sigs, custom, enums, label="", cmd_registry=None):
                         fix="Resolve to ID: $mentioned[0], $findUser[...], $channelID, etc.",
                         context=ctx_line))
 
-                # 20. Time format
-                if p["type"] == "Time" and re.fullmatch(r"[A-Za-z ]+", a) and not TIME_RE.match(a):
-                    findings.append(Finding("warn", "type-gate",
-                        f"${fname} arg#{idx+1}: '{a}' not a valid time format "
-                        f"(use '10m', '1h30m', or ms number)",
-                        line_no, col, context=ctx_line))
+                # 20/55. Time format + runtime-verified time traps
+                if p["type"] == "Time" and re.fullmatch(r"[A-Za-z0-9. ]+", a):
+                    if TIME_TRAP_DECIMAL.match(a):
+                        findings.append(Finding("error", "time-trap",
+                            f"${fname} arg#{idx+1}: '{a}' — decimals with a unit THROW at runtime "
+                            f"(integer units only; a bare decimal is a ms value)",
+                            line_no, col,
+                            fix="Use whole units: '90m' not '1.5h'; or convert to ms",
+                            context=ctx_line))
+                    elif TIME_TRAP_MS.match(a):
+                        findings.append(Finding("error", "time-trap",
+                            f"${fname} arg#{idx+1}: '{a}' — there is no 'ms' unit "
+                            f"(a bare number IS milliseconds)",
+                            line_no, col, fix=f"Write {a.replace('ms','').strip()} (plain ms number)",
+                            context=ctx_line))
+                    elif TIME_TRAP_CAPM.match(a):
+                        findings.append(Finding("error", "time-trap",
+                            f"${fname} arg#{idx+1}: '{a}' — capital M = MONTH (30d), not minute",
+                            line_no, col, fix=f"Minutes are lowercase: {a.replace('M','m')}",
+                            context=ctx_line))
+                    elif not TIME_RE.match(a):
+                        findings.append(Finding("warn", "type-gate",
+                            f"${fname} arg#{idx+1}: '{a}' not a valid time format "
+                            f"(use '10m', '1h30m', or ms number; units: s m h d w M y)",
+                            line_no, col, context=ctx_line))
 
                 # 21. Number
                 if p["type"] == "Number" and not NUMBER_RE.match(a) and not TIME_RE.match(a):
@@ -704,6 +836,31 @@ def lint_code(code, sigs, custom, enums, label="", cmd_registry=None):
             var_name = args[0].strip()
             if var_name:
                 vt.note_get(var_name)
+            if fname_lower == "env" and var_name:
+                env_reads[var_name] = (line_no, col, ctx_line)
+
+        # ── 49-50. Store tracking: env producers ──
+        if fname_lower in ENV_PRODUCER_FNS:
+            ai = ENV_PRODUCER_FNS[fname_lower]
+            if fname_lower == "httprequest":
+                # last arg is the response var (if the call stores one)
+                if len(args) >= 2 and args[-1].strip():
+                    env_vars_defined.add(args[-1].strip())
+            elif ai < len(args) and args[ai].strip():
+                env_vars_defined.add(args[ai].strip())
+
+        # ── 63. Array consumer validation ──
+        if fname_lower in ARRAY_PRODUCERS and args:
+            arrays_defined.add(args[0].strip())
+        elif fname_lower in ARRAY_CONSUMERS and args:
+            arr_name = args[0].strip()
+            if arr_name and arr_name not in arrays_defined and "$" not in arr_name:
+                # not defined here; if also not $let-ed or env-defined, flag it
+                if arr_name not in vt.defined and arr_name not in env_vars_defined:
+                    findings.append(Finding("warn", "array-undefined",
+                        f"${fname} reads array '{arr_name}' that's never created in this code "
+                        f"($arrayLoad/$arrayCreate/$let) — empty/undefined if not from outer scope",
+                        line_no, col, context=ctx_line))
 
         # ── 38. Guild var RMW race detection ──
         if fname_lower == "setguildvar" and len(args) >= 2:
@@ -749,15 +906,15 @@ def lint_code(code, sigs, custom, enums, label="", cmd_registry=None):
         # ── 40. $parseMS with text arg ──
         if fname_lower == "parsems" and args:
             arg = args[0].strip()
-            if re.fullmatch(r"\d+[smhdw].*", arg, re.I):
+            if re.fullmatch(r"\d+[smhdwM].*", arg, re.I):
                 findings.append(Finding("error", "parsems",
                     f"$parseMS receives '{arg}' (duration text) but expects a Number (ms) — "
                     f"this is ms→human, NOT text→ms",
                     line_no, col,
-                    fix="Use $durationToMs[text] for text→ms conversion",
+                    fix="Use $parseString[text] for text→ms conversion",
                     context=ctx_line))
 
-        # ── 43. Unbounded loops ──
+        # ── 43/68. Unbounded loops ──
         if fname_lower == "loop":
             loop_depth += 1
             if args and args[0].strip() == "-1":
@@ -766,6 +923,34 @@ def lint_code(code, sigs, custom, enums, label="", cmd_registry=None):
                         f"$loop[-1] without $break guard — infinite loop",
                         line_no, col,
                         fix="Add $break condition inside the loop body",
+                        context=ctx_line))
+                elif "$wait" not in body:
+                    findings.append(Finding("warn", "spin",
+                        f"$loop[-1] spin-lock without $wait — unthrottled busy-loop "
+                        f"(the async-join idiom needs $wait[n] between checks)",
+                        line_no, col,
+                        fix="Add $wait[5] (or similar) inside the loop body",
+                        context=ctx_line))
+            # ── 56. Literal text in loop body is discarded ──
+            if len(args) >= 2 and "$return[" not in body:
+                code_arg = args[1]
+                leftover = code_arg
+                while True:
+                    cm = CALL_RE.search(leftover)
+                    if not cm:
+                        break
+                    ce = find_call_end(leftover, cm.end())
+                    leftover = (
+                        leftover[: cm.start()] + " " +
+                        (leftover[ce + 1:] if ce > 0 else "")
+                    )
+                literal_text = leftover.replace("\\", "").replace(";", "").strip()
+                if len(literal_text) > 2:
+                    findings.append(Finding("warn", "loop-output",
+                        f"$loop body contains plain text ('{literal_text[:20]}') but no $return — "
+                        f"plain output is DISCARDED; only $return values accumulate",
+                        line_no, col,
+                        fix="Wrap accumulated output in $return[...] inside the loop",
                         context=ctx_line))
             nested_loops.append((loop_depth, line_no, fname))
         elif fname_lower == "while":
@@ -957,6 +1142,261 @@ def lint_code(code, sigs, custom, enums, label="", cmd_registry=None):
             findings.append(Finding("info", "style",
                 f"Bracket depth {start_d} at line start — very deeply nested",
                 i))
+
+    # ══ RUNTIME SEMANTICS (three-agent verified) ═══════════════════════════
+
+    # ── Bare-call sweep: CALL_RE requires '[', but functions with optional
+    # args are legally called WITHOUT brackets ($addActionRow, $ephemeral,
+    # $defer, ...). Rebuild producer/gate/flow line lists from a word-
+    # boundary scan that catches both forms. ──
+    def line_hits(names):
+        pats = [re.compile(rf"\$[!#]?{n}\b", re.I) for n in names]
+        return [
+            i for i, ln in enumerate(lines, 1)
+            if any(p.search(ln) for p in pats)
+        ]
+
+    action_row_lines = line_hits(["addActionRow"])
+    select_menu_lines = line_hits(["addStringSelectMenu"])
+    modal_lines = line_hits(["modal"])
+    add_option_lines = line_hits(["addOption"])
+    add_textinput_lines = line_hits(["addTextInput"])
+    show_modal_lines = line_hits(["showModal"])
+    defer_lines = line_hits(["defer", "interactionDefer", "deferUpdate"])
+    reply_lines = line_hits(["interactionReply"])
+    update_lines = line_hits(["interactionUpdate"])
+    ephemeral_lines = line_hits(["ephemeral"])
+    fetch_components_lines = line_hits(["fetchComponents"])
+    manual_component_lines = line_hits(sorted(COMPONENT_DECORATORS))
+    decorator_lines = [
+        ("decorator", l) for l in line_hits(sorted(CONTAINER_DECORATORS))
+    ]
+    gate_lines = [
+        ("gate", l) for l in line_hits(sorted(CONTAINER_RESET_GATES))
+    ]
+    text_split_seen = bool(line_hits(["textSplit"]))
+    json_load_seen = bool(line_hits(["jsonLoad"]))
+    http_request_seen = bool(line_hits(["httpRequest"]))
+
+    # ── 49. $env[x] where x is only $let-defined (store confusion) ──
+    for var, (ln, cl, ctxl) in env_reads.items():
+        if var in env_vars_defined:
+            continue
+        if var in vt.defined:
+            findings.append(Finding("error", "store-confusion",
+                f"$env[{var}] but '{var}' is only $let-defined — $let writes the KEYWORDS "
+                f"store; $env reads the ENVIRONMENT store (jsonLoad/try/http/fn params). "
+                f"Result: always empty. Use $get[{var}]",
+                ln, cl, context=ctxl))
+        # env read of a var defined nowhere at all → var-flow check covers it
+
+    # ── 50. $get[x] where x is only env-defined ──
+    for m in re.finditer(r"\$get\[(\w+)\]", cooked):
+        var = m.group(1)
+        if var in env_vars_defined and var not in vt.defined:
+            ln, _ = get_line_col(cooked, m.start())
+            findings.append(Finding("error", "store-confusion",
+                f"$get[{var}] but '{var}' is only env-defined (jsonLoad/try/http/param) — "
+                f"$get reads the KEYWORDS store. Use $env[{var}]",
+                ln, context=get_context_line(cooked, m.start())))
+            break  # one finding per var-class is enough
+
+    # ── 51. Container decorators before a resetting gate ──
+    for gname, gline in gate_lines:
+        destroyed = [(d, dl) for d, dl in decorator_lines if dl < gline]
+        if destroyed:
+            findings.append(Finding("warn", "container-reset",
+                f"container-resetting gate (line {gline}) fires AFTER {len(destroyed)} "
+                f"decorator(s) (first at line {destroyed[0][1]}) — the gate's error send "
+                f"RESETS the container: embeds/components are destroyed when it trips",
+                gline,
+                fix="Move the gate ($cooldown/$onlyIf/...) above all embed/component builders",
+                context=lines[gline - 1].strip()[:70] if gline <= len(lines) else None))
+
+    # ── 52. Literal backslash before a function (escape is dropped) ──
+    for m in re.finditer(r"\\\$[A-Za-z_][A-Za-z0-9_]*\[", cooked):
+        fn = m.group(0)[2:-1]
+        ln, cl = get_line_col(cooked, m.start())
+        findings.append(Finding("error", "backslash-fn",
+            f"\\${fn}[ — the backslash is DROPPED by the runtime and the function executes "
+            f"anyway (SystemRegex ignores its own escape guard). This is not a suppression.",
+            ln, cl,
+            fix="Remove the backslash and negate with $! or silence with $# at top level, "
+                "or restructure (e.g. $c[...] wrapping for literal text)",
+            context=get_context_line(cooked, m.start())))
+
+    # ── 53-54. $# flag misuse (nested = ignored; top-level = still aborts) ──
+    if "$#" in cooked:
+        # Build a depth map to know which $# calls are nested
+        depth_at = []
+        d = 0
+        i = 0
+        while i < len(cooked):
+            c = cooked[i]
+            if c == "\\":
+                depth_at.extend([d, d])
+                i += 2
+                continue
+            if c == "[":
+                depth_at.append(d)
+                d += 1
+            else:
+                depth_at.append(d)
+                if c == "]":
+                    d -= 1
+            i += 1
+        for m in re.finditer(r"\$\#", cooked):
+            pos = m.start()
+            if pos < len(depth_at) and depth_at[pos] > 0:
+                ln, cl = get_line_col(cooked, pos)
+                nxt = cooked[pos : pos + 30].split("[")[0]
+                findings.append(Finding("warn", "silent-flag",
+                    f"{nxt}[ uses $# but is NESTED — the # flag is only honored on the "
+                    f"top-level call of a run; nested # is ignored",
+                    ln, cl,
+                    fix="Wrap in $try[code;catch] for real error containment",
+                    context=get_context_line(cooked, pos)))
+            else:
+                ln, cl = get_line_col(cooked, pos)
+                nxt = cooked[pos : pos + 30].split("[")[0]
+                findings.append(Finding("info", "silent-flag",
+                    f"{nxt}[ uses $# at top level — this suppresses the alert but STILL "
+                    f"ABORTS the whole run: nothing after it executes",
+                    ln, cl,
+                    fix="If you need continue-on-error, use $try[code;catch]",
+                    context=get_context_line(cooked, pos)))
+
+    # ── 57. Buttons/menus without an action row ──
+    attach_fns = {
+        "addbutton", "addstringselectmenu", "adduserselectmenu",
+        "addroleselectmenu", "addchannelselectmenu", "addmentionableselectmenu",
+    }
+    for (fname, body, line_no, col, ctx_line) in all_calls:
+        fl = fname.lower()
+        if fl in attach_fns:
+            prior_rows = [l for l in action_row_lines if l <= line_no]
+            if not prior_rows:
+                findings.append(Finding("error", "component-order",
+                    f"${fname} with no prior $addActionRow — components attach to the "
+                    f"NEWEST row; with none, Discord rejects the message",
+                    line_no, col,
+                    fix="Add $addActionRow before the first component on each row",
+                    context=ctx_line))
+
+    # ── 58. $addOption without a select menu ──
+    for ln in add_option_lines:
+        prior_menu = [l for l in select_menu_lines if l <= ln]
+        if not prior_menu:
+            findings.append(Finding("error", "component-order",
+                f"$addOption (line {ln}) with no prior $addStringSelectMenu — "
+                f"options attach to the newest select; orphaned options are dropped",
+                ln, fix="Add the select menu first, then its $addOption entries"))
+
+    # ── 59. Modal completeness ──
+    for ln in add_textinput_lines:
+        if not any(l <= ln for l in modal_lines):
+            findings.append(Finding("error", "modal-order",
+                f"$addTextInput (line {ln}) before $modal — the modal object must "
+                f"be created first", ln,
+                fix="$modal[customID;title] → $addLabel → $addTextInput → $showModal"))
+    for ln in show_modal_lines:
+        if not modal_lines:
+            findings.append(Finding("error", "modal-order",
+                f"$showModal (line {ln}) with no $modal built in this code", ln,
+                fix="Build with $modal + $addTextInput before $showModal"))
+
+    # ── 60. jsonSet/jsonDelete with no jsonLoad ──
+    if re.search(r"\$\!?json(Set|Delete)\[", cooked) and not json_load_seen:
+        for m in re.finditer(r"\$\!?(jsonSet|jsonDelete)\[", cooked):
+            ln, _ = get_line_col(cooked, m.start())
+            findings.append(Finding("warn", "json-order",
+                f"${m.group(1)} with no $jsonLoad in this code — it operates "
+                f"on the MOST RECENTLY loaded JSON; with none, writes go nowhere "
+                f"(unless a custom fn loaded one earlier in the run)",
+                ln, fix="$jsonLoad[var;json] first, then $jsonSet/$jsonDelete",
+                context=get_context_line(cooked, m.start())))
+            break
+
+    # ── 61. SplitText family without $textSplit ──
+    if re.search(r"\$splitText|\$getSplitTextLength", cooked) and not text_split_seen:
+        m = re.search(r"\$(splitText(?:Join)?|getSplitTextLength)", cooked)
+        if m:
+            ln, _ = get_line_col(cooked, m.start())
+            findings.append(Finding("warn", "split-order",
+                f"${m.group(1)} with no $textSplit in this code — it reads a HIDDEN "
+                f"split store (disjoint from named arrays); empty without a prior split",
+                ln, fix="$textSplit[text;separator] first",
+                context=get_context_line(cooked, m.start())))
+
+    # ── 62. httpResult/httpPing without httpRequest ──
+    if re.search(r"\$http(Result|Ping|GetHeader)\[", cooked) and not http_request_seen:
+        m = re.search(r"\$http(Result|Ping|GetHeader)\[", cooked)
+        ln, _ = get_line_col(cooked, m.start())
+        findings.append(Finding("warn", "http-order",
+            f"${m.group(0)[1:-1]} with no $httpRequest in this code — response env "
+            f"is only populated by a prior $httpRequest[...,var]",
+            ln, context=get_context_line(cooked, m.start())))
+
+    # ── 64. $ephemeral after defer/reply ──
+    if ephemeral_lines:
+        ephemeral_line = min(ephemeral_lines)
+        blocking = defer_lines + reply_lines + update_lines
+        late = [l for l in blocking if l < ephemeral_line]
+        if late:
+            findings.append(Finding("warn", "ephemeral-late",
+                f"$ephemeral (line {ephemeral_line}) placed after $defer/$interactionReply "
+                f"(line {late[0]}) — it's read at FLUSH time; by then the flag is moot",
+                ephemeral_line,
+                fix="Put $ephemeral before the defer/reply (top of the interaction code)"))
+
+    # ── 65. $interactionReply after $defer ──
+    for rline in reply_lines:
+        prior_defer = [l for l in defer_lines if l < rline]
+        if prior_defer:
+            findings.append(Finding("error", "defer-conflict",
+                f"$interactionReply (line {rline}) after $defer (line {prior_defer[0]}) — "
+                f"defer consumed the reply slot; the reply 400s",
+                rline,
+                fix="Use $interactionFollowUp after $defer"))
+            break
+
+    # ── 66. $fetchComponents mixed with manual builders ──
+    if fetch_components_lines and manual_component_lines:
+        findings.append(Finding("warn", "component-conflict",
+            f"$fetchComponents (line {fetch_components_lines[0]}) mixed with manual "
+            f"component builders (line {manual_component_lines[0]}) — fetch OVERRIDES "
+            f"manually added components",
+            fetch_components_lines[0],
+            fix="Use one strategy: fetch the original message's components OR build fresh"))
+
+    # ── 67. Context-gated fns in command files ──
+    if label:
+        is_cmd_file = "slashesCmd" in label or "prefixesCmd" in label
+        if is_cmd_file:
+            for (fname, body, line_no, col, ctx_line) in all_calls:
+                fl = fname.lower()
+                if fl in INTERACTION_ONLY_FNS:
+                    findings.append(Finding("warn", "context-gate",
+                        f"${fname} in a command file — only meaningful in "
+                        f"{INTERACTION_ONLY_FNS[fl]}; always empty here",
+                        line_no, col, context=ctx_line))
+                elif fl in SLASH_ONLY_FNS and "prefixesCmd" in label:
+                    findings.append(Finding("warn", "context-gate",
+                        f"${fname} in a PREFIX command file — slash-interaction only; "
+                        f"empty in message commands",
+                        line_no, col, context=ctx_line))
+
+    # ── 69. djsEval interpolation without the JSON bridge ──
+    for body, line_no, col, ctx_line in djs_eval_bodies:
+        interp = re.findall(r"\$(?:get|env)\[\w+\]", body)
+        if interp and "$jsonStringify" not in body:
+            findings.append(Finding("info", "eval-bridge",
+                f"$djsEval interpolates {', '.join(interp[:3])} raw — quotes/backslashes "
+                f"in the value break the JS literal. The injection-safe bridge is "
+                f"$jsonStringify[var], which yields a valid double-quoted JS string",
+                line_no, col,
+                fix="ctx.getKeyword('var') in JS, or $djsEval[...$jsonStringify[var]...]",
+                context=ctx_line))
 
     # Deduplicate and sort
     seen = set()

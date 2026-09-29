@@ -157,14 +157,14 @@ module.exports = [
                     $let[n;$newCase[$env[guild];ban;$env[target];$env[mod];;$get[reason2]]]
                 ]
                 $case[hardban;
-                    $ban[$env[guild];$env[target];$env[reason2] — expires $discordTimestamp[$math[$getTimestamp+$durationToMs[$env[duration]]];RelativeTime]]
+                    $ban[$env[guild];$env[target];$get[reason2] — expires $discordTimestamp[$math[$getTimestamp+$durationToMs[$env[duration]]];RelativeTime]]
                     $setGuildVar[tb_$env[target];$math[$getTimestamp+$durationToMs[$env[duration]]];$env[guild]]
                     $let[tball;$getGuildVar[tb_all;$env[guild];]]
                     $if[$get[tball]!=;
                         $setGuildVar[tb_all;$get[tball],$env[target];$env[guild]];
                         $setGuildVar[tb_all;$env[target];$env[guild]]
                     ]
-                    $let[n;$newCase[$env[guild];hardban;$env[target];$env[mod];$env[duration];$env[reason2]]]
+                    $let[n;$newCase[$env[guild];hardban;$env[target];$env[mod];$env[duration];$get[reason2]]]
                 ]
                 $case[softban;
                     $ban[$env[guild];$env[target];$get[reason2];86400]
