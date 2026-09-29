@@ -23,7 +23,7 @@ $let[atype;$toLowerCase[$message[1]]]
 $onlyIf[$get[atype]!=;Provide an action type: modlog action <warn|ban|kick|...>]
 ]
 $if[$or[$get[mode]==recent;$get[mode]==user;$or[$get[mode]==action;$get[mode]==set]]!=true;
-Usage: modlog [recent|user|action|set] [...]
+Usage: modlog \\[recent\\|user\\|action\\|set\\] \\[...\\]
 ;
 $if[$get[mode]==set;
 $let[c;$if[$message[1]==off;;$replace[$replace[$message[1];<#;];>;] ]]

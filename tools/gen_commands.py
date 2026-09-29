@@ -188,7 +188,7 @@ def multi_punish_cmd(name, action, aliases, desc, duration_required=False, durat
 $jsonLoad[tj;$get[t]]
 $onlyIf[$env[tj;ids]!=;No valid target found. Mention a user, or type a username/ID.]"""
     if duration_required:
-        pfx += "\n" + duration_scan_block() + "\n$onlyIf[$get[dur]!=;A duration is required: " + name + " <targets> <duration> [reason]]"
+        pfx += "\n" + duration_scan_block() + "\n$onlyIf[$get[dur]!=;A duration is required: " + name + " <targets> <duration> \\[reason\\]]"
     else:
         pfx += "\n$let[dur;]\n$let[rest;$env[tj;reason]]"
     pfx += f"""
@@ -695,7 +695,7 @@ $color[4E5058]
 purge_pfx = """$onlyIf[$hasPerms[$guildID;$botID;ManageMessages]==true;⛔ I am missing the Manage Messages permission.]
 $let[arg1;$if[$message[0]!=;$message[0];all]]
 $let[mode;$if[$checkCondition[$get[arg1] + 0 >= 0]==true;all;$toLowerCase[$get[arg1]]]]
-$onlyIf[$or[$get[mode]==all,$or[$get[mode]==bot,$or[$get[mode]==contains,$or[$get[mode]==embeds,$or[$get[mode]==emoji,$or[$get[mode]==files,$or[$get[mode]==images,$or[$get[mode]==links,$or[$get[mode]==mentions,$or[$get[mode]==pings,$or[$get[mode]==human,$get[mode]==reactions]]]]]]]]]]]==true;Usage: purge [all|bot|contains|embeds|emoji|files|images|links|mentions|human|reactions] [search=100] [...]]
+$onlyIf[$or[$get[mode]==all,$or[$get[mode]==bot,$or[$get[mode]==contains,$or[$get[mode]==embeds,$or[$get[mode]==emoji,$or[$get[mode]==files,$or[$get[mode]==images,$or[$get[mode]==links,$or[$get[mode]==mentions,$or[$get[mode]==pings,$or[$get[mode]==human,$get[mode]==reactions]]]]]]]]]]]==true;Usage: purge \\[all\\|bot\\|contains\\|embeds\\|emoji\\|files\\|images\\|links\\|mentions\\|human\\|reactions\\] [search=100] [...]]
 $let[search;$if[$checkCondition[$get[arg1] + 0 >= 0]==true;$get[arg1];100]]
 $let[extra;$trim[$message[1;999]]]
 $let[scan;$scanMessages[$channelID;$if[$get[search]>500;500;$get[search]]]]
@@ -1924,7 +1924,7 @@ $let[atype;$toLowerCase[$message[1]]]
 $onlyIf[$get[atype]!=;Provide an action type: modlog action <warn|ban|kick|...>]
 ]
 $if[$or[$get[mode]==recent,$get[mode]==user,$or[$get[mode]==action,$get[mode]==set]]!=true;
-Usage: modlog [recent|user|action|set] [...]
+Usage: modlog \[recent\|user\|action\|set\] \[...\]
 ;
 $if[$get[mode]==set;
 $let[c;$if[$message[1]==off;;""" + CH_STRIP.replace("$message[0]", "$message[1]") + """ ]]
