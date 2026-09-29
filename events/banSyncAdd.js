@@ -16,7 +16,7 @@ module.exports = {
                 $let[reason;No reason provided (manual ban)]
             ]
             $let[n;$newCase[$guildID;ban;$get[target];$get[executor];;$get[reason]]]
-            $modlogPost[$guildID;$get[n];ban;$get[target];$get[executor];;$get[reason]]
+            $!modlogPost[$guildID;$get[n];ban;$get[target];$get[executor];;$get[reason]]
         ]
     `
 };

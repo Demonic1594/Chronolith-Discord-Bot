@@ -25,7 +25,7 @@ Usage:
   python3 tools/fslint.py --fix file.js [--dry] # operator-prefix auto-fix
   python3 tools/fslint.py --(un)comment f.js --lines M[-N]   # $c[] toggle
 
-CHECKS (76):
+CHECKS (78 + 24b):
   SYNTAX & STRUCTURE
    1. Bracket balance (escape-aware, line-tracked, exact position)
    2. Unclosed function calls (per-call, not just global count)
@@ -120,6 +120,12 @@ CHECKS (76):
    68. $loop[-1] spin-lock without $wait (unthrottled busy-loop)
    69. $djsEval with raw $get/$env interpolation (use $jsonStringify bridge)
    70. Fixed time-regex: decimals-with-unit and 'ms' no longer pass validation
+
+  CAMPAIGN RULES (v4.1 — from the BotForge field study)
+   77. Duplicated $cooldown in one execution (second sees the first's
+       just-armed timer → silent stop; generators own the gate)
+   78. $customID parsed but no $authorID in the body (component responses
+       not author-locked — anyone can press the button)
 
   FORGEVSC ENGINE CHECKS (v4)
    71. Operator prefix ORDER (!# / @[sep]! — parses as literal text)
@@ -1504,11 +1510,54 @@ def lint_code(code, sigs, custom, enums, label="", cmd_registry=None):
             fix="Use literal keys, or one dynamic key max. Flatten to separate vars for dynamic paths.",
             context=get_context_line(cooked, m.start())))
 
+    # ── 24b. jsonSet with unquoted DYNAMIC value that can carry a snowflake ──
+    # Check 23 catches literal 16+ digit values; this catches resolved values.
+    # Uses the positioned arg splitter (nesting-aware) so nested-call semicolons
+    # don't mis-split (regex version false-flagged $messageContent[$a;$b]).
+    # Tier 1 (error): sources that are ALWAYS snowflakes (ID fns, id-named vars).
+    # Tier 2 (info): any other dynamic value — safe as text, but a bare single ID
+    # stored via it rounds past 2^53 (found live: punish ok/fail CSV).
+    ID_CERTAIN = re.compile(r"^(?:\$(?:author|guild|channel|message|bot|user|client)ID"
+                            r"|\$(?:get|env)\[\w*id\]|\$(?:get|env)\[\w*_id\])$", re.I)
+    for (fname, body, line_no, col, ctx_line) in all_calls:
+        if fname.lower() != "jsonset":
+            continue
+        args = split_args(body)
+        if not args:
+            continue
+        val = args[-1].strip()
+        m_id = re.match(r"^(\$(?:get|env)\[[\w]+\])$", val)
+        m_fn = re.match(r"^(\$(?:author|guild|channel|message|bot|user|client)ID)$", val)
+        target = (m_id or m_fn)
+        if not target:
+            continue
+        val = target.group(1)
+        if ID_CERTAIN.match(val):
+            findings.append(Finding("error", "jsonset-dyn-snowflake",
+                f"jsonSet stores {val} bare — always a snowflake: parseJSON rounds it "
+                f"past 2^53 and the stored value silently corrupts",
+                line_no, col,
+                fix=f'Quote-wrap: $jsonSet[var;key;"{val}"]',
+                context=ctx_line))
+        elif m_id:
+            findings.append(Finding("info", "jsonset-dyn-snowflake",
+                f"jsonSet stores {val} bare — safe for text values, but a bare single ID "
+                f"rounds past 2^53. Quote it if this var can ever carry an ID",
+                line_no, col,
+                fix=f'$jsonSet[var;key;"{val}"]',
+                context=ctx_line))
+
     # ── 25. Output leaks ──
+    # Custom-function bodies run with doNotSend:true — bare falling-through output
+    # is DISCARDED at the fn boundary (KB: core/custom-functions.md), so a leaked
+    # `true` inside functions/*.js is harmless. Only command/event files send.
+    is_fn_body = bool(label) and ("functions/" in label or label.startswith("fn:"))
     for i, ln in enumerate(lines, 1):
         st = ln.lstrip()
         bare = st.split("[")[0].lstrip("$!#").lower()
         if bare in LEAKY_FNS and st.startswith("$") and not st.startswith("$!") and not st.startswith("$#"):
+            if is_fn_body:
+                continue  # doNotSend discards stray output — not a leak
             findings.append(Finding("warn", "output-leak",
                 f"Top-level {st.split('[')[0]}[...] leaks return value",
                 i, fix=f"$!{st.split('[')[0]}[...]",
@@ -1699,8 +1748,25 @@ def lint_code(code, sigs, custom, enums, label="", cmd_registry=None):
             break  # one finding per var-class is enough
 
     # ── 51. Container decorators before a resetting gate ──
+    # Stop-awareness: a decorator inside a branch that ends with $stop before
+    # the gate can never coexist with the gate's error send (execution halts).
+    def _coexists(deco_line):
+        """False when a $stop at depth <= the decorator's depth separates them."""
+        d0 = line_depths[deco_line - 1][0] if deco_line <= len(line_depths) else 0
+        for sd, sl in stop_depths_lines:
+            if deco_line < sl < gline and sd <= d0:
+                return False
+        return True
+
+    stop_depths_lines = [
+        (line_depths[i - 1][0], i) for i, ln_text in enumerate(lines, 1)
+        if re.match(r"^\s*\$stop\s*$", ln_text)
+    ]
     for gname, gline in gate_lines:
-        destroyed = [(d, dl) for d, dl in decorator_lines if dl < gline]
+        destroyed = [
+            (d, dl) for d, dl in decorator_lines
+            if dl < gline and _coexists(dl)
+        ]
         if destroyed:
             findings.append(Finding("warn", "container-reset",
                 f"container-resetting gate (line {gline}) fires AFTER {len(destroyed)} "
@@ -1895,6 +1961,28 @@ def lint_code(code, sigs, custom, enums, label="", cmd_registry=None):
                 fix="ctx.getKeyword('var') in JS, or $djsEval[...$jsonStringify[var]...]",
                 context=ctx_line))
 
+    # ── 77. Duplicated $cooldown in one execution ──
+    cooldown_calls = [(l, c, ctx) for (f, b, l, c, ctx) in all_calls
+                      if f.lower() == "cooldown"]
+    if len(cooldown_calls) > 1:
+        dup = cooldown_calls[1]
+        findings.append(Finding("error", "dup-cooldown",
+            f"{len(cooldown_calls)} $cooldown calls in one execution — the second sees "
+            f"the first's just-armed timer and STOPS the command silently "
+            f"(zero output, zero errors)",
+            dup[0], dup[1],
+            fix="Exactly one gate per execution — generators own it; spec bodies must "
+                "never embed their own",
+            context=dup[2]))
+
+    # ── 78. CustomID responses without author-lock ──
+    if "$customID" in cooked and "$authorID" not in cooked:
+        findings.append(Finding("info", "author-lock",
+            "$customID is parsed but $authorID never appears — component responses are "
+            "not author-locked. Anyone who can see the message can press the button",
+            fix="Namespace CustomIDs as name_$authorID (or ~-separated) and reject "
+                "mismatches: 'You're not the author of this interaction'"))
+
     # Deduplicate and sort
     seen = set()
     deduped = []
@@ -2057,15 +2145,16 @@ def build_deps(custom, sigs, root, cmd_registry=None):
     else:
         print(f"  {C.GREEN}✓ No circular dependencies{C.RESET}")
 
-    # Command usage
+    # Command usage (v4: include functions/ dir + bare calls via loose scanner)
     print(f"\n{C.BOLD}Custom function usage by commands:{C.RESET}")
     fn_usage = defaultdict(list)
-    for cmd_dir in (root / "prefixesCmd", root / "slashesCmd", root / "events"):
+    for cmd_dir in (root / "prefixesCmd", root / "slashesCmd",
+                    root / "events", root / "functions"):
         if not cmd_dir.exists():
             continue
         for js in cmd_dir.rglob("*.js"):
             text = js.read_text(encoding="utf-8")
-            for cm in re.finditer(r"\$[!#]?(\w+)\[", text):
+            for cm in re.finditer(r"\$[!#]?(\w+)(?:\[|\b)", text):
                 fn = cm.group(1).lower()
                 if fn in custom:
                     rel = str(js.relative_to(root))

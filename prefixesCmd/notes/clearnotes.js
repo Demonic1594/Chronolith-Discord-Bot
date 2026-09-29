@@ -18,8 +18,10 @@ $!arrayLoad[nt;,;$env[tj;ids]]
 $!arrayForEach[nt;u;
 $!arrayLoad[ns;,;$userNotes[$guildID;$env[u]]]
 $!arrayForEach[ns;n;
-$noteDel[$guildID;$env[n]]
+$let[d;$noteDel[$guildID;$env[n]]]
+$if[$get[d]==1;
 $letSum[cleared;1]
+]
 ]
 ]
 $description[🧼 Cleared \`$get[cleared]\` note(s).]

@@ -88,7 +88,7 @@ module.exports = [
         name: "dmNotify",
         params: ["target", "guild", "action", "duration", "n", "reason"],
         code: `
-            $#sendDM[$env[target];
+            $try[$sendDM[$env[target];
                 $author[$actionEmoji[$env[action]];$userAvatar[$botID;64;png]]
                 $color[$actionColor[$env[action]]]
                 $description[You received a moderation action in **$guildName[$env[guild]]**$if[$env[duration]!=;
@@ -98,7 +98,7 @@ Duration: **$env[duration]**].
                 $addField[Case;#$env[n];true]
                 $addField[Server;$guildName[$env[guild]];true]
                 $footer[Chronolith · Moderation]
-            ]
+            ];]
         `
     }
 ];

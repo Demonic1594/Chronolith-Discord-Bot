@@ -8,6 +8,7 @@
 module.exports = {
     type: "messageUpdate",
     code: `
+        $nomention
         $onlyIf[$guildID!=;]
         $onlyIf[$isBot[$authorID]!=true;]
         $let[raw;$getGuildVar[esnipe_$channelID;$guildID;]]
@@ -17,14 +18,14 @@ $arrayLoad[s]
 $jsonLoad[s;$get[raw]]
 ]
         $!jsonLoad[entry;{}]
-        $!jsonSet[entry;a;$authorID]
+        $!jsonSet[entry;a;"$authorID"]
         $!jsonSet[entry;before;$oldMessage[content]]
         $!jsonSet[entry;after;$newMessage[content]]
         $!jsonSet[entry;t;$getTimestamp]
         $arrayUnshift[s;$jsonStringify[entry]]
         $if[$arrayLength[s]>5;
-            $arraySlice[s;s;0;5]
+            $!arraySlice[s;s;0;5]
         ]
-        $setGuildVar[esnipe_$channelID;$jsonStringify[s];$guildID]
+        $!setGuildVar[esnipe_$channelID;$jsonStringify[s];$guildID]
     `
 };

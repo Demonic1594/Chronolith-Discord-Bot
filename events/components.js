@@ -26,7 +26,7 @@ module.exports = {
                 $stop
             ]
             $!jsonLoad[cfg;$getGuildVar[cfg;$get[vg];{}]]
-            $#memberRemoveRoles[$get[vg];$authorID;$env[cfg;verify;role]]
+            $try[$memberRemoveRoles[$get[vg];$authorID;$env[cfg;verify;role]];]
             $ephemeral
             $interactionReply[
                 $description[You are verified — welcome to **$guildName[$get[vg]]**.]
@@ -72,7 +72,7 @@ module.exports = {
                 $interactionReply[Only the ticket owner or a moderator can close this.]
                 $stop
             ]
-            $removeChannelPerms[$channelID;$guildID;SendMessages]
+            $!removeChannelPerms[$channelID;$guildID;SendMessages]
             $interactionUpdate[
                 $author[Ticket;$userAvatar[$botID;64;png]]
                 $title[Ticket closed]

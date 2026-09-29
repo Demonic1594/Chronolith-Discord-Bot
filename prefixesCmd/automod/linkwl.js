@@ -11,16 +11,18 @@ $onlyIf[$guildID!=;Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;⛔ You need moderator permissions.]
 $cooldown[$authorID-linkwl;3s;]
 $onlyIf[$or[$toLowerCase[$message[0]]==add;$or[$toLowerCase[$message[0]]==remove;$toLowerCase[$message[0]]==list]]==true;Usage: linkwl add|remove|list <domain>]
+$if[$toLowerCase[$message[0]]!=list;
+$let[d;$toLowerCase[$message[1]]]
+$onlyIf[$get[d]!=;Provide the domain.]
+]
 $if[$toLowerCase[$message[0]]==list;
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $description[Whitelisted domains]
 $addField[Domains;$if[$env[cfg;automod;linkwl]==;*none*;$env[cfg;automod;linkwl]];false];
-$let[d;$toLowerCase[$message[1]]]
-$onlyIf[$get[d]!=;Provide the domain.]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $!arrayLoad[ds;,;$env[cfg;automod;linkwl]]
 $if[$toLowerCase[$message[0]]==add;
-$if[$arrayIncludes[ds;$get[d]]!=true;
+$if[$arraySome[ds;x;$checkCondition[$env[x]==$get[d]]]!=true;
 $!arrayPush[ds;$get[d]]
 $!jsonSet[cfg;automod;linkwl;$arrayJoin[ds;,]]
 $!setGuildVar[cfg;$jsonStringify[cfg];$guildID]

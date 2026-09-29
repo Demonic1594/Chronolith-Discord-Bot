@@ -22,6 +22,7 @@ $!jsonLoad[tj;$get[t]]
 $onlyIf[$env[tj;ids]!=;$ephemeral No valid target found.]
 $onlyIf[$option[duration]!=;$ephemeral A duration is required.]
 $let[r;$punishMulti[hardban;$guildID;$authorID;$env[tj;ids];$option[duration];$if[$option[reason]==;No reason provided;$option[reason]]]]
+$!jsonLoad[rj;$get[r]]
 $interactionReply[
 $author[$actionEmoji[hardban];$userAvatar[$botID;32;png]]
 $color[$actionColor[hardban]]

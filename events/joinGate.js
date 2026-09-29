@@ -15,30 +15,31 @@
 module.exports = {
     type: "guildMemberAdd",
     code: `
+        $nomention
         $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 
         $if[$env[cfg;autorole]!=;
-            $#memberAddRoles[$guildID;$userID;$env[cfg;autorole]]
+            $try[$memberAddRoles[$guildID;$userID;$env[cfg;autorole]];]
         ]
 
         $if[$env[cfg;verify;role]!=;
-            $#memberAddRoles[$guildID;$userID;$env[cfg;verify;role]]
-            $#sendDM[$userID;
+            $try[$memberAddRoles[$guildID;$userID;$env[cfg;verify;role]];]
+            $try[$sendDM[$userID;
                 $author[Welcome to $guildName[$guildID];$userAvatar[$botID;64;png]]
                 $description[Press the button below to verify and unlock the server.]
                 $color[5865F2]
                 $footer[Chronolith • Verification]
                 $addActionRow
                 $addButton[verify-$guildID-$userID;Verify;Success]
-            ]
+            ];]
         ]
 
         $if[$env[cfg;joingate;minAgeDays]!=;
             $let[ageDays;$math[($getTimestamp-$userCreatedAt[$userID])/86400000]]
             $if[$get[ageDays]<$env[cfg;joingate;minAgeDays];
-                $kick[$guildID;$userID;Join gate: account younger than $env[cfg;joingate;minAgeDays] days]
+                $!kick[$guildID;$userID;Join gate: account younger than $env[cfg;joingate;minAgeDays] days]
                 $let[n;$newCase[$guildID;gate;$userID;$botID;;Account age $math[$get[ageDays]*24]h below minimum]]
-                $modlogPost[$guildID;$get[n];gate;$userID;$botID;;Join gate kick — account too new]
+                $!modlogPost[$guildID;$get[n];gate;$userID;$botID;;Join gate kick — account too new]
             ]
         ]
 
@@ -57,8 +58,8 @@ $jsonLoad[js;$get[rawjs]]
             ]
         ;js]
         $let[cnt;$arrayLength[js]]
-        $arrayPush[js;$get[now]]
-        $setGuildVar[joins_$guildID;$jsonStringify[js];$guildID]
+        $!arrayPush[js;$get[now]]
+        $!setGuildVar[joins_$guildID;$jsonStringify[js];$guildID]
         $if[$math[$get[cnt]+1]>=$get[maxj];
             $let[ch;$modlogChannel[$guildID]]
             $if[$get[ch]!=;
@@ -72,7 +73,7 @@ $jsonLoad[js;$get[rawjs]]
                 ;false]
             ]
             $if[$env[cfg;joingate;action]==lockdown;
-                $lockAll[$guildID;Raid detection;automatic;0]
+                $let[r;$lockAll[$guildID;Raid detection;automatic;0]]
             ]
         ]
 

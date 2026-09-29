@@ -18,7 +18,6 @@ module.exports = {
 $onlyIf[$guildID!=;$ephemeral Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;$ephemeral ⛔ You need moderator permissions.]
 $onlyIf[$hasPerms[$guildID;$botID;ManageChannels]==true;⛔ I am missing the Manage Channels permission.]
-$let[tg;$default[$option[targets];here]]
 $let[rc;$lockAll[$guildID;$if[$option[reason]==;no reason;$option[reason]];$authorID;0]]
 $ephemeral
 $interactionReply[

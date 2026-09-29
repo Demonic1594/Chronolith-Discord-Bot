@@ -56,7 +56,7 @@ module.exports = [
                 $arrayLoad[mods;,;$env[cfg;modroles]]
                 $arrayLoad[have;,;$memberRoles[$env[guild];$env[user];,]]
                 $arrayForEach[mods;r;
-                    $if[$arrayIncludes[have;$env[r]];
+                    $if[$arraySome[have;x;$checkCondition[$env[x]==$env[r]]]==true;
                         $return[true]
                     ]
                 ]

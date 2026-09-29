@@ -77,7 +77,7 @@ module.exports = [
             $if[$get[resp]==strip;
                 $arrayLoad[allroles;,;$memberRoles[$env[guild];$get[executor];,]]
                 $arrayForEach[allroles;r;
-                    $#memberRemoveRoles[$env[guild];$get[executor];$env[r]]
+                    $try[$memberRemoveRoles[$env[guild];$get[executor];$env[r]];]
                 ]
             ]
             $dmNotify[$get[executor];$env[guild];$get[resp];;$get[n2];Anti-nuke protection triggered]

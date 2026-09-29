@@ -15,7 +15,7 @@ $let[w;$toLowerCase[$message[0]]]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $let[words;$env[cfg;automod;words]]
 $!arrayLoad[ws;,;$get[words]]
-$if[$arrayIncludes[ws;$get[w]]!=true;
+$if[$arraySome[ws;x;$checkCondition[$env[x]==$get[w]]]!=true;
 $!arrayPush[ws;$get[w]]
 $!jsonSet[cfg;automod;words;$arrayJoin[ws;,]]
 $!setGuildVar[cfg;$jsonStringify[cfg];$guildID]

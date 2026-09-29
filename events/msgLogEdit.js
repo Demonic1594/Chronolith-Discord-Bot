@@ -3,17 +3,20 @@
 module.exports = {
     type: "messageUpdate",
     code: `
+        $nomention
         $onlyIf[$isBot[$authorID]!=true;]
+        $try[$let[oldc;$oldMessage[content]];$let[oldc;]]
+        $try[$let[newc;$newMessage[content]];$let[newc;]]
         $let[lch;$logChannel[$guildID;msglogs]]
         $if[$get[lch]!=;
             $sendMessage[$get[lch];
                 $author[✎ $userTag[$authorID];$userAvatar[$authorID;64;png]]
                 $color[4E5058]
                 $description[**Before**
-> $if[$#oldMessage[content]==;*(empty)*;$#oldMessage[content]]
+> $if[$get[oldc]==;*(empty)*;$get[oldc]]
 
 **After**
-> $if[$#newMessage[content]==;*(empty)*;$#newMessage[content]]]
+> $if[$get[newc]==;*(empty)*;$get[newc]]]
                 $addField[Channel;<#$channelID>;true]
                 $addField[Jump;-# $hyperlink[message;$messageLink[$channelID;$messageID]];true]
                 $footer[Chronolith]

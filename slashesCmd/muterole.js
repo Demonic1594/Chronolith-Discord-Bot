@@ -17,7 +17,7 @@ $onlyIf[$guildID!=;$ephemeral Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;$ephemeral ⛔ You need moderator permissions.]
 $let[r;$default[$option[role];]]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$!jsonSet[cfg;muterole;$get[r]]
+$!jsonSet[cfg;muterole;"$get[r]"]
 $!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[$if[$get[r]==;Mutes now use timeouts.;✅ Mutes now use <@&$get[r]>.]]
     `

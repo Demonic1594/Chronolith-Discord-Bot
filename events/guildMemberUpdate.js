@@ -4,13 +4,16 @@
 module.exports = {
     type: "guildMemberUpdate",
     code: `
-        $if[$#oldMember[nick]!=$#newMember[nick];
+        $nomention
+        $try[$let[on;$oldMember[nick]];$let[on;]]
+        $try[$let[nn;$newMember[nick]];$let[nn;]]
+        $if[$get[on]!=$get[nn];
             $let[lch;$logChannel[$guildID;serverlogs]]
             $if[$get[lch]!=;
                 $sendMessage[$get[lch];
                     $title[✎ Nickname changed]
                     $color[64748B]
-                    $description[<@$userID>: **$if[$#oldMember[nick]==;*(none)*;$#oldMember[nick]]** → **$if[$#newMember[nick]==;*(none)*;$#newMember[nick]]**]
+                    $description[<@$userID>: **$if[$get[on]==;*(none)*;$get[on]]** → **$if[$get[nn]==;*(none)*;$get[nn]]**]
                     $footer[Chronolith • Server]
                     $timestamp
                 ;false]

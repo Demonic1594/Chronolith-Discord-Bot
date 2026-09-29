@@ -191,6 +191,7 @@ $onlyIf[$env[tj;ids]!=;$ephemeral No valid target found.]"""
         slx += "\n$onlyIf[$option[duration]!=;$ephemeral A duration is required.]"
     slx += f"""
 $let[r;$punishMulti[{name};$guildID;$authorID;$env[tj;ids];$option[duration];$if[$option[reason]==;No reason provided;$option[reason]]]]
+$jsonLoad[rj;$get[r]]
 $interactionReply[
 $author[$actionEmoji[{name}];$userAvatar[$botID;32;png]]
 $color[$actionColor[{name}]]
@@ -341,12 +342,12 @@ $footer[Chronolith • Moderation]
 # ---------------------------------------------------------------- channels
 cmd("channel", "slowmode", [], "Set channel slowmode (seconds, or off)",
     """$let[s;$if[$message[0]==off;0;$message[0]]]
-$onlyIf[$and[$get[s]>=0,$get[s]<=21600]==true;Usage: slowmode <seconds|off>]
-$let[r;$setChannelSlowmode[$channelID;$get[s]]]
+$onlyIf[$and[$get[s]!=,$get[s]>=0,$get[s]<=21600]==true;Usage: slowmode <seconds|off>]
+$setChannelSlowmode[$channelID;$get[s]]
 $description[🐢 Slowmode in <#$channelID> set to $get[s]s.]""",
     """$let[s;$option[seconds]]
-$onlyIf[$and[$get[s]>=0,$get[s]<=21600]==true;$ephemeral Pick 0-21600 seconds.]
-$let[r;$setChannelSlowmode[$default[$option[channel];$channelID];$get[s]]]
+$onlyIf[$and[$get[s]!=,$get[s]>=0,$get[s]<=21600]==true;$ephemeral Pick 0-21600 seconds.]
+$setChannelSlowmode[$default[$option[channel];$channelID];$get[s]]
 $interactionReply[$description[🐢 Slowmode updated to $get[s]s.]]""",
     [{"type": 4, "name": "seconds", "description": "0 to disable", "required": True},
      {"type": 7, "name": "channel", "description": "Channel (default: here)", "required": False}])
@@ -440,7 +441,6 @@ def build_lock():
     c = dict(LOCK_SPEC)
     pfx = lock_pfx  # durations are baked into lockChan/lockAll by the engine
     slx = """$onlyIf[$hasPerms[$guildID;$botID;ManageChannels]==true;⛔ I am missing the Manage Channels permission.]
-$let[tg;$default[$option[targets];here]]
 $let[rc;$lockAll[$guildID;$if[$option[reason]==;no reason;$option[reason]];$authorID;0]]
 $ephemeral
 $interactionReply[
@@ -483,7 +483,7 @@ $let[n;$unlockAll[$guildID]]
 ;
 $arrayLoad[cl;,;$get[chs]]
 $arrayForEach[cl;c;
-$let[u;$unlockChan[$guildID;$get[c]]]
+$let[u;$unlockChan[$guildID;$env[c]]]
 $if[$get[u]==1;
 $letSum[n;1]
 ]
@@ -517,7 +517,7 @@ cmd("reports", "setreportchannel", ["reportchannel"], "Set the channel where use
     """$let[c;$if[$message[0]!=;$replace[$replace[$message[0];<#;];>;];$channelID]]
 $onlyIf[$get[c]!=;Usage: setreportchannel <#channel|ID>]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$!jsonSet[cfg;reports;$trim[$get[c]]]
+$!jsonSet[cfg;reports;"$trim[$get[c]]"]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $author[Chronolith • Reports;$userAvatar[$botID;64;png]]
 $description[Report channel set to <#$get[c]>.]
@@ -526,7 +526,7 @@ $footer[Chronolith]""",
     """$let[c;$default[$option[channel];]]
 $onlyIf[$get[c]!=;$ephemeral Provide a channel.]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$!jsonSet[cfg;reports;$trim[$get[c]]]
+$!jsonSet[cfg;reports;"$trim[$get[c]]"]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[
 $author[Chronolith • Reports;$userAvatar[$botID;64;png]]
@@ -584,6 +584,9 @@ $interactionReply[$ephemeral ✅ Report **#$get[id]** filed.]""",
 
 cmd("reports", "reports", ["reportlist"], "List reports by status, or view one by ID",
     """$let[q;$if[$message[0]!=;$toLowerCase[$message[0]];open]]
+$onlyIf[$or[$get[q]==open,$or[$get[q]==claimed,$or[$get[q]==resolved,$or[$get[q]==dismissed,$or[$get[q]==all,$checkCondition[$get[q] + 0 >= 0]]]]]]==true;Usage: reports \[open|claimed|resolved|dismissed|all\] or reports <id>]
+$let[allr;$reportAll[$guildID]]
+$onlyIf[$get[allr]!=;No reports on record.]
 $if[$checkCondition[$get[q] + 0 >= 0]==true;
 $let[raw;$reportGet[$guildID;$get[q]]]
 $onlyIf[$get[raw]!=;Report not found.]
@@ -603,9 +606,6 @@ $addField[Resolution note;$env[r;note];false]
 $footer[Chronolith • Reports]
 $stop
 ]
-$onlyIf[$or[$get[q]==open,$or[$get[q]==claimed,$or[$get[q]==resolved,$or[$get[q]==dismissed,$get[q]==all]]]]==true;Usage: reports \[open|claimed|resolved|dismissed|all\] or reports <id>]
-$let[allr;$reportAll[$guildID]]
-$onlyIf[$get[allr]!=;No reports on record.]
 $arrayLoad[rids;,;$get[allr]]
 $arrayLoad[lines;]
 $arrayForEach[rids;id;
@@ -615,7 +615,10 @@ $if[$or[$get[q]==all,$env[r;st]==$get[q]]==true;
 $arrayPush[lines;-# **$env[id]** · $toUpperCase[$env[r;st]] · <@$env[r;tgt]> · $env[r;rsn]]
 ]
 ]
-$onlyIf[$arrayLength[lines]>0;No $get[q] reports.]
+$if[$arrayLength[lines]==0;
+$description[No $get[q] reports.]
+$stop
+]
 $if[$arrayLength[lines]>10;
 $arraySlice[lines;lines;$math[$arrayLength[lines]-10];$arrayLength[lines]]]
 $author[Reports • $get[q];$userAvatar[$botID;64;png]]
@@ -676,7 +679,7 @@ $onlyIf[$or[$get[mode]==all,$or[$get[mode]==bot,$or[$get[mode]==contains,$or[$ge
 $let[search;$if[$checkCondition[$get[arg1] + 0 >= 0]==true;$get[arg1];100]]
 $let[extra;$trim[$message[1;999]]]
 $let[scan;$scanMessages[$channelID;$if[$get[search]>500;500;$get[search]]]]
-$onlyIf[$checkContains[$get[scan];[;1]==true;Scan failed — cannot read this channel's history.]
+$onlyIf[$checkContains[$get[scan];\\[;1]==true;Scan failed — cannot read this channel's history.]
 $!jsonLoad[found;$get[scan]]
 $let[ids;]
 $let[count;0]
@@ -773,7 +776,7 @@ cmd("channel", "purge", ["clean"], "Purge messages with filters (pinned are igno
 cmd("channel", "cleanup", [], "Purge the bot's own messages (pinned included)",
     """$onlyIf[$hasPerms[$guildID;$botID;ManageMessages]==true;⛔ I am missing the Manage Messages permission.]
 $let[scan;$scanMessages[$channelID;$if[$checkCondition[$if[$message[0]!=;$message[0];100] + 0 > 500]==true;500;$if[$message[0]!=;$message[0];100]]]]
-$onlyIf[$checkContains[$get[scan];[;1]==true;Scan failed — cannot read this channel's history.]
+$onlyIf[$checkContains[$get[scan];\\[;1]==true;Scan failed — cannot read this channel's history.]
 $!jsonLoad[found;$get[scan]]
 $let[ids;]
 $let[count;0]
@@ -831,7 +834,7 @@ $onlyIf[$get[target]!=;Could not resolve that user.]
 $let[uc;$userCases[$guildID;$get[target]]]
 $onlyIf[$get[uc]!=;No cases on record for that user.]
 $arrayLoad[cs;,;$get[uc]]
-$let[p;$if[$message[1]!=;$message[1];0]]
+$arrayLoad[out;]
 $arrayMap[cs;k;$jsonLoad[one;$getGuildVar[case_$env[k];$guildID;{}]]$return[-# **#$env[k]** $actionEmoji[$env[one;t]] · $env[one;r]];out]
 $author[History • $userTag[$get[target]];$userAvatar[$get[target];64;png]]
 $color[7C3AED]
@@ -847,6 +850,8 @@ $ephemeral
 $interactionReply[No cases on record for that user.]
 $stop
 ]
+$arrayLoad[cs;,;$get[uc]]
+$arrayLoad[out;]
 $arrayMap[cs;k;$jsonLoad[one;$getGuildVar[case_$env[k];$guildID;{}]]$return[-# **#$env[k]** $actionEmoji[$env[one;t]] · $env[one;r]];out]
 $interactionReply[
 $author[History • $userTag[$option[user]];$userAvatar[$option[user];64;png]]
@@ -935,7 +940,7 @@ $let[w;$toLowerCase[$message[0]]]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $let[words;$env[cfg;automod;words]]
 $arrayLoad[ws;,;$get[words]]
-$if[$arrayIncludes[ws;$get[w]]!=true;
+$if[$arraySome[ws;x;$checkCondition[$env[x]==$get[w]]]!=true;
 $arrayPush[ws;$get[w]]
 $jsonSet[cfg;automod;words;$arrayJoin[ws;,]]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
@@ -945,7 +950,7 @@ $description[That word is already on the list.]
     """$let[w;$toLowerCase[$option[word]]]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $arrayLoad[ws;,;$env[cfg;automod;words]]
-$if[$arrayIncludes[ws;$get[w]]!=true;
+$if[$arraySome[ws;x;$checkCondition[$env[x]==$get[w]]]!=true;
 $arrayPush[ws;$get[w]]
 $jsonSet[cfg;automod;words;$arrayJoin[ws;,]]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
@@ -1050,7 +1055,7 @@ $onlyIf[$get[r]!=;Mention the role.]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $arrayLoad[rs;,;$env[cfg;modroles]]
 $if[$get[mode]==add;
-$if[$arrayIncludes[rs;$get[r]]!=true;
+$if[$arraySome[rs;x;$checkCondition[$env[x]==$get[r]]]!=true;
 $arrayPush[rs;$get[r]]
 $jsonSet[cfg;modroles;$arrayJoin[rs;,]]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
@@ -1071,7 +1076,7 @@ $let[mode;$option[mode]]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $arrayLoad[rs;,;$env[cfg;modroles]]
 $if[$get[mode]==add;
-$if[$arrayIncludes[rs;$get[r]]!=true;
+$if[$arraySome[rs;x;$checkCondition[$env[x]==$get[r]]]!=true;
 $arrayPush[rs;$get[r]]
 $jsonSet[cfg;modroles;$arrayJoin[rs;,]]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
@@ -1099,13 +1104,13 @@ Mutes now use timeouts.;
 $let[r;""" + ROLE_STRIP + """]
 $onlyIf[$get[r]!=;Usage: muterole <role|off>]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$jsonSet[cfg;muterole;$get[r]]
+$jsonSet[cfg;muterole;"$get[r]"]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 ✅ Mutes now use <@&$get[r]>.
 ]""",
     """$let[r;$default[$option[role];]]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$jsonSet[cfg;muterole;$get[r]]
+$jsonSet[cfg;muterole;"$get[r]"]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[$if[$get[r]==;Mutes now use timeouts.;✅ Mutes now use <@&$get[r]>.]]""",
     [{"type": 8, "name": "role", "description": "Role (omit for timeouts)", "required": False}])
@@ -1138,13 +1143,13 @@ Autorole disabled.;
 $let[r;""" + ROLE_STRIP + """]
 $onlyIf[$get[r]!=;Usage: autorole <role|off>]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$jsonSet[cfg;autorole;$get[r]]
+$jsonSet[cfg;autorole;"$get[r]"]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 ✅ Autorole set to <@&$get[r]>.
 ]""",
     """$let[r;$default[$option[role];]]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$jsonSet[cfg;autorole;$get[r]]
+$jsonSet[cfg;autorole;"$get[r]"]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[$if[$get[r]==;Autorole disabled.;✅ Autorole set to <@&$get[r]>.]]""",
     [{"type": 8, "name": "role", "description": "Role (omit to disable)", "required": False}])
@@ -1558,14 +1563,14 @@ Verification disabled.;
 $let[r;""" + ROLE_STRIP + """]
 $onlyIf[$get[r]!=;Usage: verify <role|off> — members joining get the role and a verify button.]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$jsonSet[cfg;verify;role;$get[r]]
+$jsonSet[cfg;verify;role;"$get[r]"]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 ✅ Verification enabled — joiners get <@&$get[r]> and a DM button.
 ]
 $footer[Chronolith • Security]""",
     """$let[r;$default[$option[role];]]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$jsonSet[cfg;verify;role;$get[r]]
+$jsonSet[cfg;verify;role;"$get[r]"]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[$if[$get[r]==;Verification disabled.;✅ Verification enabled.]
 $footer[Chronolith • Security]]""",
@@ -1573,16 +1578,18 @@ $footer[Chronolith • Security]]""",
 
 cmd("automod", "linkwl", [], "Link-filter whitelist domains",
     """$onlyIf[$or[$toLowerCase[$message[0]]==add,$or[$toLowerCase[$message[0]]==remove,$toLowerCase[$message[0]]==list]]==true;Usage: linkwl add|remove|list <domain>]
+$if[$toLowerCase[$message[0]]!=list;
+$let[d;$toLowerCase[$message[1]]]
+$onlyIf[$get[d]!=;Provide the domain.]
+]
 $if[$toLowerCase[$message[0]]==list;
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $description[Whitelisted domains]
 $addField[Domains;$if[$env[cfg;automod;linkwl]==;*none*;$env[cfg;automod;linkwl]];false];
-$let[d;$toLowerCase[$message[1]]]
-$onlyIf[$get[d]!=;Provide the domain.]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $arrayLoad[ds;,;$env[cfg;automod;linkwl]]
 $if[$toLowerCase[$message[0]]==add;
-$if[$arrayIncludes[ds;$get[d]]!=true;
+$if[$arraySome[ds;x;$checkCondition[$env[x]==$get[d]]]!=true;
 $arrayPush[ds;$get[d]]
 $jsonSet[cfg;automod;linkwl;$arrayJoin[ds;,]]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
@@ -1610,7 +1617,7 @@ $onlyIf[$get[d]!=;$ephemeral Provide the domain.]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $arrayLoad[ds;,;$env[cfg;automod;linkwl]]
 $if[$get[mode]==add;
-$if[$arrayIncludes[ds;$get[d]]!=true;
+$if[$arraySome[ds;x;$checkCondition[$env[x]==$get[d]]]!=true;
 $arrayPush[ds;$get[d]]
 $jsonSet[cfg;automod;linkwl;$arrayJoin[ds;,]]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
@@ -1764,14 +1771,7 @@ $color[7C3AED]
 ]""")
 
 cmd("config", "protect", [], "Configure protected roles/users (cannot be moderated here)",
-    """$if[$message[0]==;
-$jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$author[Protection;$userAvatar[$botID;64;png]]
-$description[Protected members cannot be moderated in this server — enabled by default, applies alongside owner protection and role hierarchy.]
-$addField[Protected roles;$if[$env[cfg;protected;roles]==;*none*;<@&$replace[$env[cfg;protected;roles];,;>, <@&>]>];true]
-$addField[Protected users;$if[$env[cfg;protected;users]==;*none*;<@$replace[$env[cfg;protected;users];,;>, <@>]>];true]
-$color[7C3AED]
-$footer[Chronolith • %protect role|user add|remove <target>];
+    """$if[$message[0]!=;
 $let[kind;$toLowerCase[$message[0]]]
 $let[act;$toLowerCase[$message[1]]]
 $onlyIf[$and[$or[$get[kind]==role,$get[kind]==user]==true,$or[$get[act]==add,$get[act]==remove]==true]==true;Usage: protect <role|user> <add|remove> <target>]
@@ -1780,7 +1780,7 @@ $onlyIf[$get[tgt]!=;Provide the target.]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $arrayLoad[pl;,;$if[$get[kind]==role;$env[cfg;protected;roles];$env[cfg;protected;users]]]
 $if[$get[act]==add;
-$if[$arrayIncludes[pl;$get[tgt]]!=true;
+$if[$arraySome[pl;x;$checkCondition[$env[x]==$get[tgt]]]!=true;
 $arrayPush[pl;$get[tgt]]
 $if[$get[kind]==role;
 $!jsonSet[cfg;protected;roles;$arrayJoin[pl;,]]
@@ -1804,7 +1804,14 @@ $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $description[✅ Removed from protection.]
 ]
 ]
-$footer[Chronolith • Security]
+$footer[Chronolith • Security];
+$jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
+$author[Protection;$userAvatar[$botID;64;png]]
+$description[Protected members cannot be moderated in this server — enabled by default, applies alongside owner protection and role hierarchy.]
+$addField[Protected roles;$if[$env[cfg;protected;roles]==;*none*;<@&$replace[$env[cfg;protected;roles];,;>, <@&>]>];true]
+$addField[Protected users;$if[$env[cfg;protected;users]==;*none*;<@$replace[$env[cfg;protected;users];,;>, <@>]>];true]
+$color[7C3AED]
+$footer[Chronolith • %protect role|user add|remove <target>]
 ]""",
     """$ephemeral
 $interactionReply[
@@ -1886,6 +1893,16 @@ $color[7C3AED]
 # ---------------------------------------------------------------- modlog viewer
 cmd("modlog", "modlog", ["modlogs"], "View moderation logs (recent / by user / by action / set channel)",
     """$let[mode;$if[$message[0]!=;$toLowerCase[$message[0]];recent]]
+$if[$get[mode]==user;
+$let[target;$findUser[$message[1]]]
+$onlyIf[$get[target]!=;Provide a target: modlog user <target>]
+$let[uc;$userCases[$guildID;$get[target]]]
+$onlyIf[$get[uc]!=;No cases on record for that user.]
+]
+$if[$get[mode]==action;
+$let[atype;$toLowerCase[$message[1]]]
+$onlyIf[$get[atype]!=;Provide an action type: modlog action <warn|ban|kick|...>]
+]
 $if[$or[$get[mode]==recent,$get[mode]==user,$or[$get[mode]==action,$get[mode]==set]]!=true;
 Usage: modlog [recent|user|action|set] [...]
 ;
@@ -1893,16 +1910,13 @@ $if[$get[mode]==set;
 $let[c;$if[$message[1]==off;;""" + CH_STRIP.replace("$message[0]", "$message[1]") + """ ]]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $!jsonSet[cfg;modlog;$trim[$get[c]]]
-$setGuildVar[cfg;$jsonStringify[cfg];$guildID]
+$!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $description[$if[$get[c]==;Modlog channel disabled.;Modlog channel set to <#$get[c]>.]]
 $color[7C3AED]
 ;
 $if[$get[mode]==user;
-$let[target;$findUser[$message[1]]]
-$onlyIf[$get[target]!=;Provide a target: modlog user <target>]
-$let[uc;$userCases[$guildID;$get[target]]]
-$onlyIf[$get[uc]!=;No cases on record for that user.]
 $arrayLoad[cs;,;$get[uc]]
+$arrayLoad[out;]
 $arrayMap[cs;k;$jsonLoad[one;$getGuildVar[case_$env[k];$guildID;{}]]$return[-# **#$env[k]** $actionEmoji[$env[one;t]] · <@$env[one;m]> · $env[one;r]];out]
 $author[User logs • $userTag[$get[target]];$userAvatar[$get[target];64;png]]
 $color[7C3AED]
@@ -1910,10 +1924,7 @@ $description[$arrayJoin[out;
 ]]
 $footer[Chronolith • $arrayLength[cs] case(s)];
 $if[$get[mode]==action;
-$let[atype;$toLowerCase[$message[1]]]
-$onlyIf[$get[atype]!=;Provide an action type: modlog action <warn|ban|kick|...>]
 $let[total;$getGuildVar[caseCount;$guildID;0]]
-$let[scanned;0]
 $let[ptr;$get[total]]
 $arrayLoad[out;]
 $loop[200;
@@ -2022,8 +2033,10 @@ $arrayLoad[nt;,;$env[tj;ids]]
 $arrayForEach[nt;u;
 $arrayLoad[ns;,;$userNotes[$guildID;$env[u]]]
 $arrayForEach[ns;n;
-$noteDel[$guildID;$env[n]]
+$let[d;$noteDel[$guildID;$env[n]]]
+$if[$get[d]==1;
 $letSum[cleared;1]
+]
 ]
 ]
 $description[🧼 Cleared `$get[cleared]` note(s).]
@@ -2034,8 +2047,10 @@ $let[cleared;0]
 $arrayForEach[nt;u;
 $arrayLoad[ns;,;$userNotes[$guildID;$env[u]]]
 $arrayForEach[ns;n;
-$noteDel[$guildID;$env[n]]
+$let[d;$noteDel[$guildID;$env[n]]]
+$if[$get[d]==1;
 $letSum[cleared;1]
+]
 ]
 ]
 $interactionReply[
@@ -2051,6 +2066,7 @@ $onlyIf[$get[target]!=;Could not resolve that user.]
 $let[ns;$userNotes[$guildID;$get[target]]]
 $onlyIf[$get[ns]!=;No notes on record for that user.]
 $arrayLoad[ns;,;$get[ns]]
+$arrayLoad[out;]
 $arrayMap[ns;n;$jsonLoad[one;$noteGet[$guildID;$env[n]]]$return[-# **#$env[n]** · <@$env[one;by]> · $discordTimestamp[$env[one;ts];RelativeTime]
 > $env[one;c]];out]
 $author[Notes • $userTag[$get[target]];$userAvatar[$get[target];64;png]]
@@ -2066,6 +2082,7 @@ $interactionReply[No notes on record for that user.]
 $stop
 ]
 $arrayLoad[ns;,;$get[ns]]
+$arrayLoad[out;]
 $arrayMap[ns;n;$jsonLoad[one;$noteGet[$guildID;$env[n]]]$return[-# **#$env[n]** · <@$env[one;by]> · $discordTimestamp[$env[one;ts];RelativeTime]
 > $env[one;c]];out]
 $interactionReply[

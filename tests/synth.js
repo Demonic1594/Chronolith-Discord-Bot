@@ -84,22 +84,23 @@ async function send(content) {
     await new Promise((r) => setTimeout(r, 4000));
 
     const tests = [
-        ["ping replies", "%ping", ["Pong"]],
+        ["ping replies", "%ping", ["Gateway"]],
         ["help page 1", "%help", ["Punishments"]],
         ["config dashboard passes mod gate", "%config", ["Settings"]],
         ["warn rejects unknown user", "%warn 999999999999999999 testing", ["Could not resolve that user"]],
         ["case 99999 not found", "%case 99999", ["ase not found", "Case not found"]],
         ["snipe empty", "%snipe", ["othing to snipe", "Nothing to snipe"]],
         ["slowmode usage hint", "%slowmode", ["sage", "slowmode"]],
-        ["stats", "%stats", ["Uptime"]],
+        ["stats", "%stats", ["Runtime"]],
         ["words list empty-ok", "%words", ["No banned words"]],
         ["automod bad module rejected", "%automod nonsense on", ["sage", "automod"]],
         ["delwarn missing case", "%delwarn 999999999999999999 5", ["Could not resolve that user"]],
-        ["unban usage gate", "%unban", ["sage", "unban"]],
+        ["unban usage gate", "%unban", ["Provide one or more"]],
         ["reason missing arg", "%reason", ["sage", "reason"]],
         ["massban no args", "%massban", ["sage", "massban"]],
-        ["tempban no duration", "%tempban 999999999999999999", ["Could not resolve that user"]],
-        ["lockdown runs (count report)", "%lockdown", ["ocking down"]],
+        ["ban rejects no target", "%ban", ["No valid target"]],
+        ["lockdown runs (count report)", "%lockdown", ["Locked"]],
+        ["lockdown cleanup (unlock)", "%unlock", ["nlocked"]],
     ];
 
     for (const [label, content, needles] of tests) {

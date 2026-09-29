@@ -20,6 +20,7 @@ $let[t;$resolveTargets[$guildID;$option[targets];$channelID;$messageID]]
 $!jsonLoad[tj;$get[t]]
 $onlyIf[$env[tj;ids]!=;$ephemeral No valid target found.]
 $let[r;$punishMulti[kick;$guildID;$authorID;$env[tj;ids];$option[duration];$if[$option[reason]==;No reason provided;$option[reason]]]]
+$!jsonLoad[rj;$get[r]]
 $interactionReply[
 $author[$actionEmoji[kick];$userAvatar[$botID;32;png]]
 $color[$actionColor[kick]]

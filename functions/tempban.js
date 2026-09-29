@@ -45,9 +45,9 @@ module.exports = [
                     $if[$math[$get[until]-$getTimestamp]>0;
                         $arrayPush[keep;$env[u]]
                     ;
-                        $#unban[$env[guild];$env[u];Hardban expired]
+                        $try[$unban[$env[guild];$env[u];Hardban expired];]
                         $let[n;$newCase[$env[guild];unban;$env[u];$botID;;Hardban expired automatically]]
-                        $#modlogPost[$env[guild];$get[n];unban;$env[u];$botID;;Hardban expired automatically]
+                        $try[$modlogPost[$env[guild];$get[n];unban;$env[u];$botID;;Hardban expired automatically];]
                         $setGuildVar[tb_$env[u];0;$env[guild]]
                         $letSum[done;1]
                     ]

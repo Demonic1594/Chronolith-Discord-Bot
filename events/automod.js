@@ -20,10 +20,11 @@
 module.exports = {
     type: "messageCreate",
     code: `
+        $nomention
         $onlyIf[$guildID!=;]
         $onlyIf[$isBot[$authorID]!=true;]
         $onlyIf[$isMod[$guildID;$authorID]!=true;]
-        $let[content;$#messageContent[$channelID;$messageID]]
+        $try[$let[content;$messageContent[$channelID;$messageID]];$let[content;]]
         $onlyIf[$get[content]!=;]
 
         $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
@@ -98,12 +99,12 @@ module.exports = {
                         $return[$env[t]]
                     ]
                 ;rl]
-                $arrayPush[rl;$get[now]]
-                $setGuildVar[rl_$authorID;$arrayJoin[rl;,];$guildID]
+                $!arrayPush[rl;$get[now]]
+                $!setGuildVar[rl_$authorID;$arrayJoin[rl;,];$guildID]
                 $if[$arrayLength[rl]>=$get[limit];
-                    $setGuildVar[rl_$authorID;;$guildID]
-                    $#deleteMessage[$channelID;$messageID]
-                    $punish[mute;$guildID;$botID;$authorID;10m;Automod: message flooding ($arrayLength[rl] msgs/$get[secs]s)]
+                    $!setGuildVar[rl_$authorID;;$guildID]
+                    $try[$deleteMessage[$channelID;$messageID];]
+                    $let[r;$punish[mute;$guildID;$botID;$authorID;10m;Automod: message flooding ($arrayLength[rl] msgs/$get[secs]s)]]
                     $sendMessage[$channelID;
                         $author[Automod;$userAvatar[$botID;64;png]]
                         $description[<@$authorID> muted 10m — **message flooding**.]
@@ -117,9 +118,9 @@ module.exports = {
         ]
 
         $if[$get[vio]!=;
-            $#deleteMessage[$channelID;$messageID]
+            $try[$deleteMessage[$channelID;$messageID];]
             $let[n;$newCase[$guildID;automod;$authorID;$botID;;Automod trigger: $get[vio]]]
-            $modlogPost[$guildID;$get[n];automod;$authorID;$botID;;Automod trigger: $get[vio] (message deleted)]
+            $!modlogPost[$guildID;$get[n];automod;$authorID;$botID;;Automod trigger: $get[vio] (message deleted)]
             $sendMessage[$channelID;
                 $author[Automod;$userAvatar[$botID;64;png]]
                 $description[<@$authorID> message removed — **$get[vio]**.]

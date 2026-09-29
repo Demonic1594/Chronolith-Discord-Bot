@@ -15,13 +15,13 @@ $arrayLoad[s]
 $jsonLoad[s;$get[raw]]
 ]
         $!jsonLoad[entry;{}]
-        $!jsonSet[entry;a;$authorID]
+        $!jsonSet[entry;a;"$authorID"]
         $!jsonSet[entry;c;$messageContent[$channelID;$messageID]]
         $!jsonSet[entry;t;$getTimestamp]
         $arrayUnshift[s;$jsonStringify[entry]]
         $if[$arrayLength[s]>5;
-            $arraySlice[s;s;0;5]
+            $!arraySlice[s;s;0;5]
         ]
-        $setGuildVar[snipe_$channelID;$jsonStringify[s];$guildID]
+        $!setGuildVar[snipe_$channelID;$jsonStringify[s];$guildID]
     `
 };

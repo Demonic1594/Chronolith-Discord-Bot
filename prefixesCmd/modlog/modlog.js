@@ -12,6 +12,16 @@ $onlyIf[$guildID!=;Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;⛔ You need moderator permissions.]
 $cooldown[$authorID-modlog;3s;]
 $let[mode;$if[$message[0]!=;$toLowerCase[$message[0]];recent]]
+$if[$get[mode]==user;
+$let[target;$findUser[$message[1]]]
+$onlyIf[$get[target]!=;Provide a target: modlog user <target>]
+$let[uc;$userCases[$guildID;$get[target]]]
+$onlyIf[$get[uc]!=;No cases on record for that user.]
+]
+$if[$get[mode]==action;
+$let[atype;$toLowerCase[$message[1]]]
+$onlyIf[$get[atype]!=;Provide an action type: modlog action <warn|ban|kick|...>]
+]
 $if[$or[$get[mode]==recent;$get[mode]==user;$or[$get[mode]==action;$get[mode]==set]]!=true;
 Usage: modlog [recent|user|action|set] [...]
 ;
@@ -24,11 +34,8 @@ $description[$if[$get[c]==;Modlog channel disabled.;Modlog channel set to <#$get
 $color[7C3AED]
 ;
 $if[$get[mode]==user;
-$let[target;$findUser[$message[1]]]
-$onlyIf[$get[target]!=;Provide a target: modlog user <target>]
-$let[uc;$userCases[$guildID;$get[target]]]
-$onlyIf[$get[uc]!=;No cases on record for that user.]
 $!arrayLoad[cs;,;$get[uc]]
+$!arrayLoad[out;]
 $!arrayMap[cs;k;$jsonLoad[one;$getGuildVar[case_$env[k];$guildID;{}]]$return[-# **#$env[k]** $actionEmoji[$env[one;t]] · <@$env[one;m]> · $env[one;r]];out]
 $author[User logs • $userTag[$get[target]];$userAvatar[$get[target];64;png]]
 $color[7C3AED]
@@ -36,10 +43,7 @@ $description[$arrayJoin[out;
 ]]
 $footer[Chronolith • $arrayLength[cs] case(s)];
 $if[$get[mode]==action;
-$let[atype;$toLowerCase[$message[1]]]
-$onlyIf[$get[atype]!=;Provide an action type: modlog action <warn|ban|kick|...>]
 $let[total;$getGuildVar[caseCount;$guildID;0]]
-$let[scanned;0]
 $let[ptr;$get[total]]
 $!arrayLoad[out;]
 $loop[200;

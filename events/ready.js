@@ -7,6 +7,7 @@
 module.exports = {
     type: "clientReady",
     code: `
+        $nomention
         $log[================================]
         $log[Chronolith online as $username[$botID]]
         $log[Connected to $guildCount guild(s)]
@@ -19,12 +20,12 @@ $if[$get[rawtd]!=;
 $jsonLoad[td;$get[rawtd]]
 $arrayForEach[td;k;
 $if[$math[$env[td;$env[k]]-$getTimestamp]<=0;
-$jsonDelete[td;$env[k]]
+$!jsonDelete[td;$env[k]]
 ]
 ]
-$setGuildVar[timedouts;$jsonStringify[td];$env[g]]
+$!setGuildVar[timedouts;$jsonStringify[td];$env[g]]
 ]
-$timedList[$env[g]]]
+$let[r;$timedList[$env[g]]]]
         ;60s;tempsweep]
         $arrayLoad[gs2;,;$guildIDs[,]]
         $arrayForEach[gs2;g2;$tempbanSweep[$env[g2]]$lockSweep[$env[g2]]]

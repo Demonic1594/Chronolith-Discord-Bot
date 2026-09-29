@@ -18,7 +18,7 @@ $onlyIf[$get[r]!=;Mention the role.]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $!arrayLoad[rs;,;$env[cfg;modroles]]
 $if[$get[mode]==add;
-$if[$arrayIncludes[rs;$get[r]]!=true;
+$if[$arraySome[rs;x;$checkCondition[$env[x]==$get[r]]]!=true;
 $!arrayPush[rs;$get[r]]
 $!jsonSet[cfg;modroles;$arrayJoin[rs;,]]
 $!setGuildVar[cfg;$jsonStringify[cfg];$guildID]

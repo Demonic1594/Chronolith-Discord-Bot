@@ -23,6 +23,8 @@ $ephemeral
 $interactionReply[No cases on record for that user.]
 $stop
 ]
+$!arrayLoad[cs;,;$get[uc]]
+$!arrayLoad[out;]
 $!arrayMap[cs;k;$jsonLoad[one;$getGuildVar[case_$env[k];$guildID;{}]]$return[-# **#$env[k]** $actionEmoji[$env[one;t]] · $env[one;r]];out]
 $interactionReply[
 $author[History • $userTag[$option[user]];$userAvatar[$option[user];64;png]]

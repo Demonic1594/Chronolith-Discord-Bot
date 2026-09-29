@@ -20,7 +20,7 @@ module.exports = {
             ]
         ]]
         $if[$get[danger]==true;
-            $anCheck[$guildID;$get[a];$auditLog[targetID]]
+            $let[r;$anCheck[$guildID;$get[a];$auditLog[targetID]]]
         ]
     `
 };

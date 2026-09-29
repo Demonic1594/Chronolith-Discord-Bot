@@ -18,7 +18,7 @@ Mutes now use timeouts.;
 $let[r;$replace[$replace[$message[0];<@&;];>;]]
 $onlyIf[$get[r]!=;Usage: muterole <role|off>]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$!jsonSet[cfg;muterole;$get[r]]
+$!jsonSet[cfg;muterole;"$get[r]"]
 $!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 ✅ Mutes now use <@&$get[r]>.
 ]

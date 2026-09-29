@@ -22,6 +22,7 @@ $interactionReply[No notes on record for that user.]
 $stop
 ]
 $!arrayLoad[ns;,;$get[ns]]
+$!arrayLoad[out;]
 $!arrayMap[ns;n;$jsonLoad[one;$noteGet[$guildID;$env[n]]]$return[-# **#$env[n]** · <@$env[one;by]> · $discordTimestamp[$env[one;ts];RelativeTime]
 > $env[one;c]];out]
 $interactionReply[

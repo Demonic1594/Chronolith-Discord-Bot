@@ -20,8 +20,10 @@ $let[cleared;0]
 $!arrayForEach[nt;u;
 $!arrayLoad[ns;,;$userNotes[$guildID;$env[u]]]
 $!arrayForEach[ns;n;
-$noteDel[$guildID;$env[n]]
+$let[d;$noteDel[$guildID;$env[n]]]
+$if[$get[d]==1;
 $letSum[cleared;1]
+]
 ]
 ]
 $interactionReply[

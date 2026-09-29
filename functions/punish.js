@@ -172,7 +172,7 @@ module.exports = [
                     $let[n;$newCase[$env[guild];softban;$env[target];$env[mod];;$get[reason2]]]
                 ]
                 $case[unban;
-                    $#unban[$env[guild];$env[target];$get[reason2]]
+                    $try[$unban[$env[guild];$env[target];$get[reason2]];]
                     $setGuildVar[tb_$env[target];0;$env[guild]]
                     $let[tball;$getGuildVar[tb_all;$env[guild];]]
                     $if[$get[tball]!=;
@@ -214,7 +214,7 @@ module.exports = [
                 $if[$or[$env[cfg;warns;action]==mute;$or[$env[cfg;warns;action]==kick;$env[cfg;warns;action]==ban]]==true;
                     $if[$env[cfg;warns;threshold]!=;
                         $if[$get[count]>=$env[cfg;warns;threshold];
-                            $punish[$env[cfg;warns;action];$env[guild];$env[mod];$env[target];$env[cfg;warns;duration];Automatic escalation: $get[count] warnings on record]
+                            $let[r;$punish[$env[cfg;warns;action];$env[guild];$env[mod];$env[target];$env[cfg;warns;duration];Automatic escalation: $get[count] warnings on record]]
                         ]
                     ]
                 ]
@@ -243,8 +243,8 @@ module.exports = [
                 ]
             ]
             $jsonLoad[sm;{}]
-            $jsonSet[sm;ok;$get[ok]]
-            $jsonSet[sm;fail;$get[fail]]
+            $jsonSet[sm;ok;"$get[ok]"]
+            $jsonSet[sm;fail;"$get[fail]"]
             $return[$jsonStringify[sm]]
         `
     }

@@ -68,7 +68,7 @@ $if[$get[idxcheck]==0;
             $arrayForEach[chs;c;
                 $if[$env[c]!=;
                     $if[$or[$channelType[$env[c]]==GuildText;$channelType[$env[c]]==GuildNews]==true;
-                        $lockChan[$env[guild];$env[c];$env[reason];$env[by];$env[until]]
+                        $let[r;$lockChan[$env[guild];$env[c];$env[reason];$env[by];$env[until]]]
                         $letSum[n;1]
                     ]
                 ]
@@ -87,7 +87,7 @@ $if[$get[idxcheck]==0;
             $arrayLoad[idx;,;$get[all]]
             $let[n;0]
             $arrayForEach[idx;c;
-                $unlockChan[$env[guild];$env[c]]
+                $let[r;$unlockChan[$env[guild];$env[c]]]
                 $letSum[n;1]
             ]
             $return[$get[n]]
@@ -107,7 +107,7 @@ $if[$get[idxcheck]==0;
                 $let[raw;$getGuildVar[lkd_$env[c];$env[guild];{}]]
                 $jsonLoad[e;$get[raw]]
                 $if[$and[$env[e;u]!=0;$math[$env[e;u]-$getTimestamp]<=0]==true;
-                    $unlockChan[$env[guild];$env[c]]
+                    $let[r;$unlockChan[$env[guild];$env[c]]]
                     $letSum[n;1]
                 ]
             ]

@@ -12,6 +12,9 @@ $onlyIf[$guildID!=;Server only.]
 $onlyIf[$isMod[$guildID;$authorID]==true;⛔ You need moderator permissions.]
 $cooldown[$authorID-reports;3s;]
 $let[q;$if[$message[0]!=;$toLowerCase[$message[0]];open]]
+$onlyIf[$or[$get[q]==open;$or[$get[q]==claimed;$or[$get[q]==resolved;$or[$get[q]==dismissed;$or[$get[q]==all;$checkCondition[$get[q] + 0 >= 0]]]]]]==true;Usage: reports \\[open|claimed|resolved|dismissed|all\\] or reports <id>]
+$let[allr;$reportAll[$guildID]]
+$onlyIf[$get[allr]!=;No reports on record.]
 $if[$checkCondition[$get[q] + 0 >= 0]==true;
 $let[raw;$reportGet[$guildID;$get[q]]]
 $onlyIf[$get[raw]!=;Report not found.]
@@ -31,9 +34,6 @@ $addField[Resolution note;$env[r;note];false]
 $footer[Chronolith • Reports]
 $stop
 ]
-$onlyIf[$or[$get[q]==open;$or[$get[q]==claimed;$or[$get[q]==resolved;$or[$get[q]==dismissed;$get[q]==all]]]]==true;Usage: reports \\[open|claimed|resolved|dismissed|all\\] or reports <id>]
-$let[allr;$reportAll[$guildID]]
-$onlyIf[$get[allr]!=;No reports on record.]
 $!arrayLoad[rids;,;$get[allr]]
 $!arrayLoad[lines;]
 $!arrayForEach[rids;id;
@@ -43,7 +43,10 @@ $if[$or[$get[q]==all;$env[r;st]==$get[q]]==true;
 $!arrayPush[lines;-# **$env[id]** · $toUpperCase[$env[r;st]] · <@$env[r;tgt]> · $env[r;rsn]]
 ]
 ]
-$onlyIf[$arrayLength[lines]>0;No $get[q] reports.]
+$if[$arrayLength[lines]==0;
+$description[No $get[q] reports.]
+$stop
+]
 $if[$arrayLength[lines]>10;
 $!arraySlice[lines;lines;$math[$arrayLength[lines]-10];$arrayLength[lines]]]
 $author[Reports • $get[q];$userAvatar[$botID;64;png]]

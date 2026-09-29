@@ -18,7 +18,7 @@ Autorole disabled.;
 $let[r;$replace[$replace[$message[0];<@&;];>;]]
 $onlyIf[$get[r]!=;Usage: autorole <role|off>]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$!jsonSet[cfg;autorole;$get[r]]
+$!jsonSet[cfg;autorole;"$get[r]"]
 $!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 ✅ Autorole set to <@&$get[r]>.
 ]

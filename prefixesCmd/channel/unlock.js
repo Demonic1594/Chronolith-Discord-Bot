@@ -37,7 +37,7 @@ $let[n;$unlockAll[$guildID]]
 ;
 $!arrayLoad[cl;,;$get[chs]]
 $!arrayForEach[cl;c;
-$let[u;$unlockChan[$guildID;$get[c]]]
+$let[u;$unlockChan[$guildID;$env[c]]]
 $if[$get[u]==1;
 $letSum[n;1]
 ]

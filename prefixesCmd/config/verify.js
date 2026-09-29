@@ -18,7 +18,7 @@ Verification disabled.;
 $let[r;$replace[$replace[$message[0];<@&;];>;]]
 $onlyIf[$get[r]!=;Usage: verify <role|off> — members joining get the role and a verify button.]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
-$!jsonSet[cfg;verify;role;$get[r]]
+$!jsonSet[cfg;verify;role;"$get[r]"]
 $!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 ✅ Verification enabled — joiners get <@&$get[r]> and a DM button.
 ]

@@ -18,7 +18,7 @@ $onlyIf[$or[$get[mode]==all;$or[$get[mode]==bot;$or[$get[mode]==contains;$or[$ge
 $let[search;$if[$checkCondition[$get[arg1] + 0 >= 0]==true;$get[arg1];100]]
 $let[extra;$trim[$message[1;999]]]
 $let[scan;$scanMessages[$channelID;$if[$get[search]>500;500;$get[search]]]]
-$onlyIf[$checkContains[$get[scan];[;1]==true;Scan failed — cannot read this channel's history.]
+$onlyIf[$checkContains[$get[scan];\\[;1]==true;Scan failed — cannot read this channel's history.]
 $!jsonLoad[found;$get[scan]]
 $let[ids;]
 $let[count;0]

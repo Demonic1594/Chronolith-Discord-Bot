@@ -18,7 +18,7 @@ $onlyIf[$isMod[$guildID;$authorID]==true;$ephemeral ⛔ You need moderator permi
 $let[w;$toLowerCase[$option[word]]]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $!arrayLoad[ws;,;$env[cfg;automod;words]]
-$if[$arrayIncludes[ws;$get[w]]!=true;
+$if[$arraySome[ws;x;$checkCondition[$env[x]==$get[w]]]!=true;
 $!arrayPush[ws;$get[w]]
 $!jsonSet[cfg;automod;words;$arrayJoin[ws;,]]
 $!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
