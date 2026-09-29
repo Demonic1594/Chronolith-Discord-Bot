@@ -516,7 +516,7 @@ $description[**$get[n]** channel(s) unlocked
 $color[248046]
 ;
 $description[🔓 No channels were locked.]
-$color[4E5058]
+$color[#4E5058]
 ]
 $footer[Chronolith • Lockdown]"""
 unlock_slx = """$onlyIf[$hasPerms[$guildID;$botID;ManageChannels]==true;⛔ I am missing the Manage Channels permission.]
@@ -681,13 +681,13 @@ cmd("reports", "archivereport", ["rarchive"], "Delete a report record entirely",
 $let[r;$reportArchive[$guildID;$message[0]]]
 $onlyIf[$get[r]==1;Report not found.]
 $description[📦 Report #$message[0] archived (record deleted).]
-$color[4E5058]
+$color[#4E5058]
 $footer[Chronolith • Reports]""",
     """$let[r;$reportArchive[$guildID;$option[id]]]
 $onlyIf[$get[r]==1;$ephemeral Report not found.]
 $interactionReply[
 $description[📦 Report #$option[id] archived.]
-$color[4E5058]
+$color[#4E5058]
 ]""",
     [{"type": 4, "name": "id", "description": "Report ID", "required": True}])
 
@@ -1349,7 +1349,7 @@ $jsonLoad[e;$get[e]]
 $description[$if[$env[e;c]==;*(empty message)*;$env[e;c]]]
 $addField[Author;<@$env[e;a]>;true]
 $addField[Deleted;$discordTimestamp[$env[e;t];RelativeTime];true]
-$color[4E5058]""",
+$color[#4E5058]""",
     """$let[i;$default[$option[index];0]]
 $let[e;$snipeGet[$guildID;$channelID;snipe;$get[i]]]
 $if[$get[e]==;
@@ -1362,7 +1362,7 @@ $interactionReply[
 $description[$if[$env[e;c]==;*(empty message)*;$env[e;c]]]
 $addField[Author;<@$env[e;a]>;true]
 $addField[Deleted;$discordTimestamp[$env[e;t];RelativeTime];true]
-$color[4E5058]
+$color[#4E5058]
 ]""",
     [{"type": 4, "name": "index", "description": "0 = newest (default)", "required": False}])
 
@@ -1374,7 +1374,7 @@ $jsonLoad[e;$get[e]]
 $description[**Before:** $env[e;before]
 **After:** $env[e;after]]
 $addField[Author;<@$env[e;a]>;true]
-$color[4E5058]""",
+$color[#4E5058]""",
     """$let[e;$snipeGet[$guildID;$channelID;esnipe;$default[$option[index];0]]]
 $if[$get[e]==;
 $ephemeral
@@ -1386,7 +1386,7 @@ $interactionReply[
 $description[**Before:** $env[e;before]
 **After:** $env[e;after]]
 $addField[Author;<@$env[e;a]>;true]
-$color[4E5058]
+$color[#4E5058]
 ]""",
     [{"type": 4, "name": "index", "description": "0 = newest (default)", "required": False}])
 
@@ -1774,7 +1774,7 @@ $let[ll;$get[ll]🔒 <#$get[cid]> — locked$if[$get[until]!=0;, ends $discordTi
 ]
 $if[$and[$get[bl]==,$and[$get[ol]==,$get[ll]==]]==true;
 $description[No active timed moderations.]
-$color[4E5058];
+$color[#4E5058];
 $addField[Hardbans / timed bans;$if[$get[bl]==;*none*;$get[bl]];false]
 $addField[Timeouts;$if[$get[ol]==;*none*;$get[ol]];false]
 $addField[Lockdowns;$if[$get[ll]==;*none*;$get[ll]];false]
@@ -1878,7 +1878,7 @@ $onlyIf[$get[m]!=;Could not resolve that user.]
 $let[raw;$modStats[$guildID;$get[m]]]
 $if[$get[raw]==;
 $description[<@$get[m]> has no recorded moderation actions yet.]
-$color[4E5058];
+$color[#4E5058];
 $!jsonLoad[st;$get[raw]]
 $author[Mod stats • $userTag[$get[m]];$userAvatar[$get[m];64;png]]
 $thumbnail[$userAvatar[$get[m];256;png]]

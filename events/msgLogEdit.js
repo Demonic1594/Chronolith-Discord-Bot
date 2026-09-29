@@ -11,7 +11,7 @@ module.exports = {
         $if[$get[lch]!=;
             $sendMessage[$get[lch];
                 $author[✎ $userTag[$authorID];$userAvatar[$authorID;64;png]]
-                $color[4E5058]
+                $color[#4E5058]
                 $description[**Before**
 > $if[$get[oldc]==;*(empty)*;$get[oldc]]
 

@@ -11,7 +11,7 @@ module.exports = {
         $if[$get[lch]!=;
             $sendMessage[$get[lch];
                 $author[✖ $userTag[$authorID];$userAvatar[$authorID;64;png]]
-                $color[4E5058]
+                $color[#4E5058]
                 $description[$if[$get[content]==;*(empty or uncached)*;$get[content]]]
                 $addField[Channel;<#$channelID>;true]
                 $addField[Jump;-# deleted messages have no jump link;true]

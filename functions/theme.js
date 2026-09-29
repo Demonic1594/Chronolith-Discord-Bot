@@ -36,7 +36,7 @@ module.exports = [
                 $return[9B59B6]
             ]
             $if[$env[role]==subtle;
-                $return[4E5058]
+                $return[#4E5058]
             ]
             $return[5865F2]
         `

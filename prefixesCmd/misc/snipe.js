@@ -17,6 +17,6 @@ $!jsonLoad[e;$get[e]]
 $description[$if[$env[e;c]==;*(empty message)*;$env[e;c]]]
 $addField[Author;<@$env[e;a]>;true]
 $addField[Deleted;$discordTimestamp[$env[e;t];RelativeTime];true]
-$color[4E5058]
+$color[#4E5058]
     `
 };

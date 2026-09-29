@@ -50,7 +50,7 @@ $description[**$get[n]** channel(s) unlocked
 $color[248046]
 ;
 $description[🔓 No channels were locked.]
-$color[4E5058]
+$color[#4E5058]
 ]
 $footer[Chronolith • Lockdown]
     `

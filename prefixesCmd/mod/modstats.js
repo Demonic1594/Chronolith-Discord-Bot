@@ -15,7 +15,7 @@ $onlyIf[$get[m]!=;Could not resolve that user.]
 $let[raw;$modStats[$guildID;$get[m]]]
 $if[$get[raw]==;
 $description[<@$get[m]> has no recorded moderation actions yet.]
-$color[4E5058];
+$color[#4E5058];
 $!jsonLoad[st;$get[raw]]
 $author[Mod stats • $userTag[$get[m]];$userAvatar[$get[m];64;png]]
 $thumbnail[$userAvatar[$get[m];256;png]]
