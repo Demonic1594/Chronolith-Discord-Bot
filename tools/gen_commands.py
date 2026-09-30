@@ -181,17 +181,18 @@ def cmd(folder, name, aliases, desc, prefix, slash, options=None, gate="mod"):
 
 HAMMER_IMG = "https://cdn.discordapp.com/emojis/1129080609248137266.png?size=4096"
 ACTION_STYLE = {
-    "ban": ("The Ban Hammer has spoken!", True),
-    "hardban": ("The Ban Hammer has spoken!", True),
-    "softban": ("The Ban Hammer has swept clean!", True),
-    "kick": ("The Boot has spoken!", False),
-    "mute": ("Silence has been decreed.", False),
-    "unmute": ("Silence has been lifted.", False),
-    "quarantine": ("Isolation has been ordered.", False),
-    "unquarantine": ("Isolation has ended.", False),
-    "warn": ("The Warning stands.", False),
-    "note": ("For the record.", False),
-    "unban": ("The Ban Hammer retracts.", True),
+    "ban": ("The Ban Hammer has spoken!", HAMMER_IMG),
+    "hardban": ("The Ban Hammer has spoken!", HAMMER_IMG),
+    "softban": ("The Ban Hammer has swept clean!", HAMMER_IMG),
+    "unban": ("The Ban Hammer retracts.", HAMMER_IMG),
+    "kick": ("The Booty Kick has spoken!",
+             "https://media.discordapp.net/attachments/1064138335922167808/1131099018185953300/image0.jpg?size=4096"),
+    "mute": ("Silence has been decreed.", ""),
+    "unmute": ("Silence has been lifted.", ""),
+    "quarantine": ("Isolation has been ordered.", ""),
+    "unquarantine": ("Isolation has ended.", ""),
+    "warn": ("The Warning stands.", ""),
+    "note": ("For the record.", ""),
 }
 
 def multi_punish_cmd(name, action, aliases, desc, duration_required=False, duration_optional=False, unban_button=False):
@@ -252,7 +253,7 @@ $addButton[bunban-$env[tj;ids]-$authorID;Unban;Danger]
 ]
 ]"""
     _title, _img = ACTION_STYLE.get(name, (name.capitalize() + " executed.", False))
-    thumb = HAMMER_IMG if _img else ""
+    thumb = _img
     pfx = pfx.replace("%TITLE%", _title).replace("$thumbnail[THUMB]", "$thumbnail[" + thumb + "]" if thumb else "")
     slx = slx.replace("%TITLE%", _title).replace("$thumbnail[THUMB]", "$thumbnail[" + thumb + "]" if thumb else "")
     opts = [{"type": 3, "name": "targets", "description": "Mentions/usernames/IDs (space separated)", "required": True}]

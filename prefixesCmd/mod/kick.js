@@ -17,7 +17,7 @@ $let[dur;]
 $let[rest;$env[tj;reason]]
 $let[r;$punishMulti[kick;$guildID;$authorID;$env[tj;ids];$get[dur];$if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]]]
 $!jsonLoad[rj;$get[r]]
-**__The Boot has spoken!__**
+**__The Booty Kick has spoken!__**
 $author[Server Management]
 $title[$serverName[$guildID]]
 $color[$actionColor[kick]]
@@ -25,7 +25,7 @@ $description[• **Action :** \`kick\`
 > **Reason:** \`$if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]\`
 > **Member:** $if[$checkContains[$env[tj;ids];,]!=true;[$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids]) (\`$env[tj;ids]\`);<@$env[tj;ids]>]
 > **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID) (\`$authorID\`)]
-
+$thumbnail[https://media.discordapp.net/attachments/1064138335922167808/1131099018185953300/image0.jpg?size=4096]
 $footer[Rule breakers begone!]
 $timestamp
     `
