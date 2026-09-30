@@ -22,27 +22,28 @@ $onlyIf[$env[tj;ids]!=;$ephemeral No valid target found.]
 $let[r;$punishMulti[ban;$guildID;$authorID;$env[tj;ids];$option[duration];$if[$option[reason]==;No reason provided;$option[reason]]]]
 $!jsonLoad[rj;$get[r]]
 $interactionReply[
-$title[**__The Ban Hammer has spoken!__**]
-$author[$serverName[$guildID];$guildIcon[$guildID;128;png]]
+**__The Ban Hammer has spoken!__**
+$author[Server Management]
+$title[$serverName[$guildID]]
 $color[$actionColor[ban]]
 $description[• **Action :** \`ban\`
 $if[$checkContains[$env[tj;ids];,]!=true;
-> **Member:** [$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids])
+> **Member:** [$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids]) (\`$env[tj;ids]\`)
 ;
 > **Members:** <@$env[tj;ids]>
 ]
 > **Reason:** \`$if[$option[reason]==;No reason provided;$option[reason]]\`
-> **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID)]
-$thumbnail[$userAvatar[$authorID;128;png]]
-$addField[Applied;$env[rj;ok];true]
-$addField[Skipped;$env[rj;fail];true]
-$footer[Chronolith • Moderation]
+> **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID) (\`$authorID\`)
+$if[$env[rj;fail]!=;
+> ⚠ Skipped: $env[rj;fail]]
+]
+$thumbnail[https://cdn.discordapp.com/emojis/1129080609248137266.png?size=4096]
+$footer[Rule breakers begone! • Chronolith]
 $timestamp
 $if[$checkContains[$env[tj;ids];,]!=true;
 $addActionRow
-$addButton[bunban-$env[tj;ids]-$authorID;Unban;Success]
+$addButton[bunban-$env[tj;ids]-$authorID;Unban;Danger]
 ]
 ]
-$image[https://cdn.discordapp.com/emojis/1129080609248137266.png?size=4096]
     `
 };

@@ -18,21 +18,23 @@ $let[dur;]
 $let[rest;$env[tj;reason]]
 $let[r;$punishMulti[unmute;$guildID;$authorID;$env[tj;ids];$get[dur];$if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]]]
 $!jsonLoad[rj;$get[r]]
-$title[**__Silence has been lifted.__**]
-$author[$serverName[$guildID];$guildIcon[$guildID;128;png]]
+**__Silence has been lifted.__**
+$author[Server Management]
+$title[$serverName[$guildID]]
 $color[$actionColor[unmute]]
 $description[• **Action :** \`unmute\`
 $if[$checkContains[$env[tj;ids];,]!=true;
-> **Member:** [$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids])
+> **Member:** [$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids]) (\`$env[tj;ids]\`)
 ;
 > **Members:** <@$env[tj;ids]>
 ]
 > **Reason:** \`$if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]\`
-> **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID)]
-$thumbnail[$userAvatar[$authorID;128;png]]
-$addField[Applied;$env[rj;ok];true]
-$addField[Skipped;$env[rj;fail];true]
-$footer[Chronolith • Moderation]
+> **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID) (\`$authorID\`)
+$if[$env[rj;fail]!=;
+> ⚠ Skipped: $env[rj;fail]]
+]
+
+$footer[Rule breakers begone! • Chronolith]
 $timestamp
     `
 };

@@ -209,27 +209,29 @@ $onlyIf[$env[tj;ids]!=;No valid target found. Mention a user, or type a username
     pfx += f"""
 $let[r;$punishMulti[{name};$guildID;$authorID;$env[tj;ids];$get[dur];{reason_expr}]]
 $jsonLoad[rj;$get[r]]
-$title[**__%TITLE%__**]
-$author[$serverName[$guildID];$guildIcon[$guildID;128;png]]
+**__%TITLE%__**
+$author[Server Management]
+$title[$serverName[$guildID]]
 $color[$actionColor[{name}]]
 $description[• **Action :** `{name}`
 $if[$checkContains[$env[tj;ids];,]!=true;
-> **Member:** [$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids])
+> **Member:** [$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids]) (`$env[tj;ids]`)
 ;
 > **Members:** <@$env[tj;ids]>
 ]
 > **Reason:** `$if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]`
-> **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID)]
-$thumbnail[$userAvatar[$authorID;128;png]]
-$addField[Applied;$env[rj;ok];true]
-$addField[Skipped;$env[rj;fail];true]
-$footer[Chronolith • Moderation]
+> **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID) (`$authorID`)
+$if[$env[rj;fail]!=;
+> ⚠ Skipped: $env[rj;fail]]
+]
+$thumbnail[THUMB]
+$footer[Rule breakers begone! • Chronolith]
 $timestamp"""
     if unban_button:
         pfx += """
 $if[$checkContains[$env[tj;ids];,]!=true;
 $addActionRow
-$addButton[bunban-$env[tj;ids]-$authorID;Unban;Success]
+$addButton[bunban-$env[tj;ids]-$authorID;Unban;Danger]
 ]"""
     slx = f"""$let[t;$resolveTargets[$guildID;$option[targets];$channelID;$messageID]]
 $jsonLoad[tj;$get[t]]
@@ -240,35 +242,33 @@ $onlyIf[$env[tj;ids]!=;$ephemeral No valid target found.]"""
 $let[r;$punishMulti[{name};$guildID;$authorID;$env[tj;ids];$option[duration];$if[$option[reason]==;No reason provided;$option[reason]]]]
 $jsonLoad[rj;$get[r]]
 $interactionReply[
-$title[**__%TITLE%__**]
-$author[$serverName[$guildID];$guildIcon[$guildID;128;png]]
+**__%TITLE%__**
+$author[Server Management]
+$title[$serverName[$guildID]]
 $color[$actionColor[{name}]]
 $description[• **Action :** `{name}`
 $if[$checkContains[$env[tj;ids];,]!=true;
-> **Member:** [$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids])
+> **Member:** [$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids]) (`$env[tj;ids]`)
 ;
 > **Members:** <@$env[tj;ids]>
 ]
 > **Reason:** `$if[$option[reason]==;No reason provided;$option[reason]]`
-> **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID)]
-$thumbnail[$userAvatar[$authorID;128;png]]
-$addField[Applied;$env[rj;ok];true]
-$addField[Skipped;$env[rj;fail];true]
-$footer[Chronolith • Moderation]
+> **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID) (`$authorID`)
+$if[$env[rj;fail]!=;
+> ⚠ Skipped: $env[rj;fail]]
+]
+$thumbnail[THUMB]
+$footer[Rule breakers begone! • Chronolith]
 $timestamp
 $if[$checkContains[$env[tj;ids];,]!=true;
 $addActionRow
-$addButton[bunban-$env[tj;ids]-$authorID;Unban;Success]
+$addButton[bunban-$env[tj;ids]-$authorID;Unban;Danger]
 ]
 ]"""
     _title, _img = ACTION_STYLE.get(name, (name.capitalize() + " executed.", False))
-    if _img:
-        _img_line_pfx = "\n$image[" + HAMMER_IMG + "]"
-        _img_line_slx = "\n$image[" + HAMMER_IMG + "]"
-    else:
-        _img_line_pfx = _img_line_slx = ""
-    pfx = pfx.replace("%TITLE%", _title) + _img_line_pfx
-    slx = slx.replace("%TITLE%", _title) + _img_line_slx
+    thumb = HAMMER_IMG if _img else ""
+    pfx = pfx.replace("%TITLE%", _title).replace("$thumbnail[THUMB]", "$thumbnail[" + thumb + "]" if thumb else "")
+    slx = slx.replace("%TITLE%", _title).replace("$thumbnail[THUMB]", "$thumbnail[" + thumb + "]" if thumb else "")
     opts = [{"type": 3, "name": "targets", "description": "Mentions/usernames/IDs (space separated)", "required": True}]
     if duration_optional or duration_required:
         opts.append({"type": 3, "name": "duration", "description": "e.g. 30s, 5m, 2h, 1d", "required": duration_required})
