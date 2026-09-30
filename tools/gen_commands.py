@@ -137,15 +137,14 @@ $let[rest;]
 $if[$env[tj;reason]!=;
 $arrayLoad[rt; ;$env[tj;reason]]
 $arrayForEach[rt;w;
-$if[$get[dur]==;
-$if[$isNumber[$replace[$replace[$replace[$replace[$replace[$env[w];s;];m;];h;];d;];w;]]==true;
+$if[$and[$get[dur]==,$isNumber[$replace[$replace[$replace[$replace[$replace[$env[w];s;];m;];h;];d;];w;]]==true]==true;
 $let[dur;$env[w]]
 ;
-$let[rest;$get[rest] $env[w]]
+$let[rest;$get[rest]$if[$get[rest]!=; ]$env[w]]
 ]
 ]
 ]
-]"""
+"""
 
 
 PUNISH_ALIASES = {
@@ -1744,7 +1743,7 @@ $footer[Chronolith]
 # ---------------------------------------------------------------- phase 1
 multi_punish_cmd("hardban", "hardban", [],
     "Ban for a duration, auto-unbanned on expiry (persistent across restarts)",
-    duration_required=True)
+    duration_required=True, unban_button=True)
 
 cmd("mod", "moderations", ["timedmoderations", "timed"], "Show active timed bans, timeouts and lockdowns",
     """$let[all;$timedList[$guildID]]

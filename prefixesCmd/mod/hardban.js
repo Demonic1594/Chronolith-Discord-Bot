@@ -18,15 +18,14 @@ $let[rest;]
 $if[$env[tj;reason]!=;
 $!arrayLoad[rt; ;$env[tj;reason]]
 $!arrayForEach[rt;w;
-$if[$get[dur]==;
-$if[$isNumber[$replace[$replace[$replace[$replace[$replace[$env[w];s;];m;];h;];d;];w;]]==true;
+$if[$and[$get[dur]==;$isNumber[$replace[$replace[$replace[$replace[$replace[$env[w];s;];m;];h;];d;];w;]]==true]==true;
 $let[dur;$env[w]]
 ;
-$let[rest;$get[rest] $env[w]]
+$let[rest;$get[rest]$if[$get[rest]!=; ]$env[w]]
 ]
 ]
 ]
-]
+
 $onlyIf[$get[dur]!=;A duration is required: hardban <targets> <duration> \\[reason\\]]
 $let[r;$punishMulti[hardban;$guildID;$authorID;$env[tj;ids];$get[dur];$if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]]]
 $!jsonLoad[rj;$get[r]]
@@ -39,5 +38,9 @@ $addField[Applied;$env[rj;ok];true]
 $addField[Skipped;$env[rj;fail];true]
 $footer[Chronolith • Moderation]
 $timestamp
+$if[$checkContains[$env[tj;ids];,]!=true;
+$addActionRow
+$addButton[bunban-$env[tj;ids]-$authorID;Unban;Success]
+]
     `
 };

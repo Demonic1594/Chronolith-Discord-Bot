@@ -19,15 +19,14 @@ $let[rest;]
 $if[$env[tj;reason]!=;
 $!arrayLoad[rt; ;$env[tj;reason]]
 $!arrayForEach[rt;w;
-$if[$get[dur]==;
-$if[$isNumber[$replace[$replace[$replace[$replace[$replace[$env[w];s;];m;];h;];d;];w;]]==true;
+$if[$and[$get[dur]==;$isNumber[$replace[$replace[$replace[$replace[$replace[$env[w];s;];m;];h;];d;];w;]]==true]==true;
 $let[dur;$env[w]]
 ;
-$let[rest;$get[rest] $env[w]]
+$let[rest;$get[rest]$if[$get[rest]!=; ]$env[w]]
 ]
 ]
 ]
-]
+
 $onlyIf[$get[dur]!=;A duration is required: mute <targets> <duration> \\[reason\\]]
 $let[r;$punishMulti[mute;$guildID;$authorID;$env[tj;ids];$get[dur];$if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]]]
 $!jsonLoad[rj;$get[r]]
