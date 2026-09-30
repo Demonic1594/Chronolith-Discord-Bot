@@ -65,6 +65,37 @@ module.exports = {
             ]
         ]
 
+        $if[$get[verb]==mlogs;
+            $let[direction;$arrayAt[id;1]]
+            $let[page;$arrayAt[id;2]]
+            $onlyIf[$isMod[$guildID;$authorID]==true;
+                $ephemeral
+                $interactionReply[⛔ Missing permissions to change the pages.]
+                $stop
+            ]
+            $if[$get[direction]==back;
+                $let[page;$max[$math[$get[page]-1];1]]
+            ;
+                $let[page;$math[$get[page]+1]]
+            ]
+            $let[total;$getGuildVar[caseCount;$guildID;0]]
+            $let[hi;$math[$get[total]-[$math[$get[page]-1]*5]]]
+            $interactionUpdate[
+                $author[Server Management]
+                $title[Server Moderation Logs]
+                $color[AA00E6]
+                $description[$if[$get[hi]<1;
+> \`No Mod logs as of yet on this page.\`
+;
+$modlogPage[$guildID;$get[hi]]
+]]
+                $footer[To edit a reason, do %reason <caseID> <new reason> • Page $get[page]]
+                $timestamp
+                $addActionRow
+                $addButton[mlogs-back-$get[page]-$authorID;;Secondary;⬅️]
+                $addButton[mlogs-fwd-$get[page]-$authorID;;Secondary;➡️]
+            ]
+        ]
         $if[$get[verb]==bunban;
             $let[tgt;$arrayAt[id;1]]
             $onlyIf[$isMod[$guildID;$authorID]==true;

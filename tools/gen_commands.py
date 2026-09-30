@@ -2038,22 +2038,19 @@ $description[$if[$arrayLength[out]==0;No cases of that type in the last 200.;$ar
 ]]]
 $footer[Chronolith • scanned up to 200];
 $let[total;$getGuildVar[caseCount;$guildID;0]]
-$let[start;$math[$if[$get[total]>10;$get[total]-10;0]]]
-$let[ptr;$math[$get[start]+1]]
-$arrayLoad[out;]
-$loop[12;
-$if[$get[ptr]>$get[total];
-$break
-]
-$jsonLoad[one;$getGuildVar[case_$get[ptr];$guildID;{}]]
-$arrayPush[out;-# **#$get[ptr]** $actionEmoji[$env[one;t]] · <@$env[one;u]> · $env[one;r]]
-$let[ptr;$math[$get[ptr]+1]]
-]
-$author[Recent logs;$userAvatar[$botID;64;png]]
-$color[5865F2]
-$description[$arrayJoin[out;
+$author[Server Management]
+$title[Server Moderation Logs]
+$color[AA00E6]
+$description[$if[$get[total]==0;
+> `No Mod logs as of yet.`
+;
+$modlogPage[$guildID;$get[total]]
 ]]
-$footer[Chronolith • $get[total] case(s) total]
+$footer[To edit a reason, do %reason <caseID> <new reason> • Page 1]
+$timestamp
+$addActionRow
+$addButton[mlogs-back-1-$authorID;;Secondary;⬅️]
+$addButton[mlogs-fwd-1-$authorID;;Secondary;➡️]
 ]
 ]
 ]
