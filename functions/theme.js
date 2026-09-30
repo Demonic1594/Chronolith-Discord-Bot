@@ -11,7 +11,7 @@
  *
  * Palette:
  *   primary  5865F2  blurple  — brand, info, neutral actions
- *   danger   DA373C  red      — bans, kicks, hardbans, lockdown, nuke
+ *   danger   F23F24  red      — bans, kicks, hardbans, lockdown, nuke
  *   warning  F0B232  amber    — warnings, automod triggers
  *   success  248046  green    — success confirmations, unbans, joins
  *   mute     9B59B6  purple   — mutes, timeouts, quarantine
@@ -24,7 +24,7 @@ module.exports = [
         params: ["role"],
         code: `
             $if[$env[role]==danger;
-                $return[DA373C]
+                $return[F23F24]
             ]
             $if[$env[role]==warning;
                 $return[F0B232]
@@ -46,22 +46,22 @@ module.exports = [
         params: ["action"],
         code: `
             $if[$env[action]==ban;
-                $return[DA373C]
+                $return[F23F24]
             ]
             $if[$env[action]==softban;
-                $return[DA373C]
+                $return[F23F24]
             ]
             $if[$env[action]==hardban;
-                $return[DA373C]
+                $return[F23F24]
             ]
             $if[$env[action]==kick;
-                $return[DA373C]
+                $return[F23F24]
             ]
             $if[$env[action]==nuke;
-                $return[DA373C]
+                $return[F23F24]
             ]
             $if[$env[action]==gate;
-                $return[DA373C]
+                $return[F23F24]
             ]
             $if[$env[action]==warn;
                 $return[F0B232]

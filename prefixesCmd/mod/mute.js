@@ -30,11 +30,18 @@ $let[rest;$get[rest]$if[$get[rest]!=; ]$env[w]]
 $onlyIf[$get[dur]!=;A duration is required: mute <targets> <duration> \\[reason\\]]
 $let[r;$punishMulti[mute;$guildID;$authorID;$env[tj;ids];$get[dur];$if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]]]
 $!jsonLoad[rj;$get[r]]
-$author[$actionEmoji[mute];$userAvatar[$botID;32;png]]
+$title[**__Silence has been decreed.__**]
+$author[$serverName[$guildID];$guildIcon[$guildID;128;png]]
 $color[$actionColor[mute]]
-$description[<@$env[tj;ids]>
-> $if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]
+$description[• **Action :** \`mute\`
+$if[$checkContains[$env[tj;ids];,]!=true;
+> **Member:** [$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids])
+;
+> **Members:** <@$env[tj;ids]>
 ]
+> **Reason:** \`$if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]\`
+> **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID)]
+$thumbnail[$userAvatar[$authorID;128;png]]
 $addField[Applied;$env[rj;ok];true]
 $addField[Skipped;$env[rj;fail];true]
 $footer[Chronolith • Moderation]

@@ -78,11 +78,14 @@ module.exports = {
                 $interactionReply[$get[r]]
             ;
                 $interactionUpdate[
-                    $author[$actionEmoji[unban];$userAvatar[$botID;32;png]]
+                    $title[**__The Ban Hammer retracts.__**]
+                    $author[$serverName[$guildID];$guildIcon[$guildID]]
                     $color[$actionColor[unban]]
-                    $description[<@$get[tgt]>
-> Unbanned via one-click follow-up]
-                    $addField[Moderator;<@$authorID>;true]
+                    $description[• **Action :** \`unban\`
+> **Member:** [$username[$get[tgt]]\\](https://discord.com/users/$get[tgt])
+> **Reason:** \`Unbanned via one-click follow-up\`
+> **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID)]
+                    $thumbnail[$userAvatar[$authorID;128;png]]
                     $footer[Chronolith • Moderation]
                     $timestamp
                 ]
@@ -101,11 +104,14 @@ module.exports = {
                 $interactionReply[$get[r]]
             ;
                 $interactionUpdate[
-                    $author[$actionEmoji[ban];$userAvatar[$botID;32;png]]
+                    $title[**__The Ban Hammer has spoken!__**]
+                    $author[$serverName[$guildID];$guildIcon[$guildID]]
                     $color[$actionColor[ban]]
-                    $description[<@$get[tgt]>
-> Re-banned via one-click follow-up]
-                    $addField[Moderator;<@$authorID>;true]
+                    $description[• **Action :** \`ban\`
+> **Member:** [$username[$get[tgt]]\\](https://discord.com/users/$get[tgt])
+> **Reason:** \`Re-banned via one-click follow-up\`
+> **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID)]
+                    $thumbnail[$userAvatar[$authorID;128;png]]
                     $footer[Chronolith • Moderation]
                     $timestamp
                 ]
@@ -123,7 +129,7 @@ module.exports = {
             $interactionUpdate[
                 $author[Ticket;$userAvatar[$botID;64;png]]
                 $title[Ticket closed]
-                $color[DA373C]
+                $color[F23F24]
                 $description[Closed by <@$authorID>. The channel is now read-only — a moderator may delete it after review.]
                 $footer[Chronolith • Tickets]
                     $timestamp

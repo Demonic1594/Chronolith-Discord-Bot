@@ -178,6 +178,22 @@ def cmd(folder, name, aliases, desc, prefix, slash, options=None, gate="mod"):
                      options=options or [], gate=gate))
 
 
+
+HAMMER_IMG = "https://cdn.discordapp.com/emojis/1129080609248137266.png?size=4096"
+ACTION_STYLE = {
+    "ban": ("The Ban Hammer has spoken!", True),
+    "hardban": ("The Ban Hammer has spoken!", True),
+    "softban": ("The Ban Hammer has swept clean!", True),
+    "kick": ("The Boot has spoken!", False),
+    "mute": ("Silence has been decreed.", False),
+    "unmute": ("Silence has been lifted.", False),
+    "quarantine": ("Isolation has been ordered.", False),
+    "unquarantine": ("Isolation has ended.", False),
+    "warn": ("The Warning stands.", False),
+    "note": ("For the record.", False),
+    "unban": ("The Ban Hammer retracts.", True),
+}
+
 def multi_punish_cmd(name, action, aliases, desc, duration_required=False, duration_optional=False, unban_button=False):
     aliases = list(aliases)
     if name in PUNISH_ALIASES:
@@ -193,14 +209,21 @@ $onlyIf[$env[tj;ids]!=;No valid target found. Mention a user, or type a username
     pfx += f"""
 $let[r;$punishMulti[{name};$guildID;$authorID;$env[tj;ids];$get[dur];{reason_expr}]]
 $jsonLoad[rj;$get[r]]
-$author[$actionEmoji[{name}];$userAvatar[$botID;32;png]]
+$title[**__%TITLE%__**]
+$author[$serverName[$guildID];$guildIcon[$guildID;128;png]]
 $color[$actionColor[{name}]]
-$description[<@$env[tj;ids]>
-> $if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]
+$description[• **Action :** `{name}`
+$if[$checkContains[$env[tj;ids];,]!=true;
+> **Member:** [$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids])
+;
+> **Members:** <@$env[tj;ids]>
 ]
+> **Reason:** `$if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]`
+> **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID)]
+$thumbnail[$userAvatar[$authorID;128;png]]
 $addField[Applied;$env[rj;ok];true]
 $addField[Skipped;$env[rj;fail];true]
-$footer[Chronolith]
+$footer[Chronolith • Moderation]
 $timestamp"""
     if unban_button:
         pfx += """
@@ -217,20 +240,35 @@ $onlyIf[$env[tj;ids]!=;$ephemeral No valid target found.]"""
 $let[r;$punishMulti[{name};$guildID;$authorID;$env[tj;ids];$option[duration];$if[$option[reason]==;No reason provided;$option[reason]]]]
 $jsonLoad[rj;$get[r]]
 $interactionReply[
-$author[$actionEmoji[{name}];$userAvatar[$botID;32;png]]
+$title[**__%TITLE%__**]
+$author[$serverName[$guildID];$guildIcon[$guildID;128;png]]
 $color[$actionColor[{name}]]
-$description[<@$env[tj;ids]>
-> $if[$option[reason]==;No reason provided;$option[reason]]
+$description[• **Action :** `{name}`
+$if[$checkContains[$env[tj;ids];,]!=true;
+> **Member:** [$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids])
+;
+> **Members:** <@$env[tj;ids]>
 ]
+> **Reason:** `$if[$option[reason]==;No reason provided;$option[reason]]`
+> **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID)]
+$thumbnail[$userAvatar[$authorID;128;png]]
 $addField[Applied;$env[rj;ok];true]
 $addField[Skipped;$env[rj;fail];true]
-$footer[Chronolith]
+$footer[Chronolith • Moderation]
 $timestamp
 $if[$checkContains[$env[tj;ids];,]!=true;
 $addActionRow
 $addButton[bunban-$env[tj;ids]-$authorID;Unban;Success]
 ]
 ]"""
+    _title, _img = ACTION_STYLE.get(name, (name.capitalize() + " executed.", False))
+    if _img:
+        _img_line_pfx = "\n$image[" + HAMMER_IMG + "]"
+        _img_line_slx = "\n$image[" + HAMMER_IMG + "]"
+    else:
+        _img_line_pfx = _img_line_slx = ""
+    pfx = pfx.replace("%TITLE%", _title) + _img_line_pfx
+    slx = slx.replace("%TITLE%", _title) + _img_line_slx
     opts = [{"type": 3, "name": "targets", "description": "Mentions/usernames/IDs (space separated)", "required": True}]
     if duration_optional or duration_required:
         opts.append({"type": 3, "name": "duration", "description": "e.g. 30s, 5m, 2h, 1d", "required": duration_required})
@@ -335,21 +373,49 @@ $footer[Chronolith • Moderation]
 ]""",
     [{"type": 3, "name": "users", "description": "Mentions/usernames/IDs", "required": True}])
 
-cmd("mod", "unban", [], "Unban one or more users by ID",
-    """$onlyIf[$message[0]!=;Provide one or more user IDs.]
+cmd("mod", "unban", [], "Unban one or more users by ID (trailing words = reason)",
+    """$onlyIf[$message[0]!=;Provide one or more user IDs (extra words become the reason).]
+$let[ulist;]
+$let[reason;]
+$arrayLoad[toks; ;$message]
+$arrayForEach[toks;t;
+$if[$isNumber[$env[t]]==true;
+$let[ulist;$get[ulist]$if[$get[ulist]!=;,]$env[t]]
+;
+$let[reason;$get[reason]$if[$get[reason]!=; ]$env[t]]
+]
+]
+$onlyIf[$get[ulist]!=;Provide one or more user IDs (extra words become the reason).]
+$let[reason;$if[$get[reason]==;Unban;$get[reason]]]
 $let[ok;0]
-$arrayLoad[ids; ;$message]
+$arrayLoad[ids;,;$get[ulist]]
 $arrayForEach[ids;u;
 $if[$env[u]!=;
-$let[r;$punish[unban;$guildID;$authorID;$env[u];;Unban]]
+$let[r;$punish[unban;$guildID;$authorID;$env[u];;$get[reason]]]
 $if[$checkContains[$get[r];⛔]!=true;
 $letSum[ok;1]
 ]
 ]
 ]
-$description[🕊 Unbanned `$get[ok]` user(s).]
+$title[**__The Ban Hammer retracts.__**]
+$author[$serverName[$guildID];$guildIcon[$guildID;128;png]]
 $color[$actionColor[unban]]
-$footer[Chronolith • Moderation]""",
+$description[• **Action :** `unban`
+$if[$checkContains[$get[ulist];,]!=true;
+> **Member:** [$username[$get[ulist]]\\](https://discord.com/users/$get[ulist])
+;
+> **Members:** <@$get[ulist]>
+]
+> **Reason:** `$get[reason]`
+> **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID)]
+$thumbnail[$userAvatar[$authorID;128;png]]
+$addField[Unbanned;$get[ok];true]
+$footer[Chronolith • Moderation]
+$timestamp
+$if[$checkContains[$get[ulist];,]!=true;
+$addActionRow
+$addButton[bban-$get[ulist]-$authorID;Ban;Danger]
+]""",
     """$let[ok;0]
 $arrayLoad[ids; ;$option[ids]]
 $arrayForEach[ids;u;
@@ -360,15 +426,32 @@ $letSum[ok;1]
 ]
 ]
 ]
+$let[ulist;$replace[$option[ids]; ;,]]
 $interactionReply[
-$description[🕊 Unbanned `$get[ok]` user(s).]
+$title[**__The Ban Hammer retracts.__**]
+$author[$serverName[$guildID];$guildIcon[$guildID;128;png]]
 $color[$actionColor[unban]]
+$description[• **Action :** `unban`
+$if[$checkContains[$get[ulist];,]!=true;
+> **Member:** [$username[$get[ulist]]\\](https://discord.com/users/$get[ulist])
+;
+> **Members:** <@$get[ulist]>
+]
+> **Reason:** `$if[$option[reason]==;No reason provided;$option[reason]]`
+> **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID)]
+$thumbnail[$userAvatar[$authorID;128;png]]
+$addField[Unbanned;$get[ok];true]
 $footer[Chronolith • Moderation]
+$timestamp
+$if[$checkContains[$get[ulist];,]!=true;
+$addActionRow
+$addButton[bban-$get[ulist]-$authorID;Ban;Danger]
+]
 ]""",
     [{"type": 3, "name": "ids", "description": "Space-separated user IDs", "required": True},
      {"type": 3, "name": "reason", "description": "Reason", "required": False}])
 
-# ---------------------------------------------------------------- channels
+
 cmd("channel", "slowmode", [], "Set channel slowmode (seconds, or off)",
     """$let[s;$if[$message[0]==off;0;$message[0]]]
 $onlyIf[$and[$get[s]!=,$get[s]>=0,$get[s]<=21600]==true;Usage: slowmode <seconds|off>]
@@ -456,7 +539,7 @@ $let[casen;$newCase[$guildID;lock;$botID;$authorID;$if[$get[dur]!=;$get[dur];];L
 $let[ml;$modlogPost[$guildID;$get[casen];lock;$botID;$authorID;$if[$get[dur]!=;$get[dur];];Lockdown of $get[n] channel(s)]]
 $description[Locked `$get[n]` channel(s)$if[$get[dur]!=;, auto-unlock in $get[dur]].
 > $if[$trim[$get[reason]]==;no reason;$trim[$get[reason]]]]
-$color[DA373C]
+$color[F23F24]
 $footer[Chronolith • Lockdown]"""
 
 def lock_bodies(which):
@@ -474,7 +557,7 @@ $let[rc;$lockAll[$guildID;$if[$option[reason]==;no reason;$option[reason]];$auth
 $ephemeral
 $interactionReply[
 $description[🔒 `$get[rc]` channel(s) locked server-wide.$if[$option[duration]!=; Auto-unlock in **$option[duration]**.]]
-$color[DA373C]
+$color[F23F24]
 $footer[Chronolith • Lockdown]
 ]"""
     c["prefix"] = pfx
@@ -575,7 +658,7 @@ $onlyIf[$get[ch]!=;Reports are not configured here (mods: %setreportchannel).]
 $let[id;$reportNew[$guildID;$authorID;$get[target];$message[1;999]]]
 $sendMessage[$get[ch];
 $author[Report #$get[id];$userAvatar[$authorID;32;png]]
-$color[DA373C]
+$color[F23F24]
 $description[> $message[1;999]]
 $addField[Reported user;<@$get[target]>
 -# $get[target];true]
@@ -598,7 +681,7 @@ $stop
 $let[id;$reportNew[$guildID;$authorID;$option[user];$option[reason]]]
 $sendMessage[$get[ch];
 $author[Report #$get[id];$userAvatar[$authorID;32;png]]
-$color[DA373C]
+$color[F23F24]
 $description[> $option[reason]]
 $addField[Reported user;<@$option[user]>
 -# $option[user];true]
@@ -1517,13 +1600,13 @@ cmd("mod", "massban", [], "Ban many users by ID at once",
     """$onlyIf[$message[0]!=;Usage: massban <id> <id> ...]
 $let[done;$massBan[$guildID;$authorID;$message]]
 $description[⛔ Banned **$get[done]** user(s).]
-$color[DA373C]
+$color[F23F24]
 $footer[Chronolith]""",
     """$onlyIf[$option[ids]!=;$ephemeral Provide space-separated user IDs.]
 $let[done;$massBan[$guildID;$authorID;$option[ids]]]
 $interactionReply[
 $description[⛔ Banned **$get[done]** user(s).]
-$color[DA373C]
+$color[F23F24]
 $footer[Chronolith]
 ]""",
     [{"type": 3, "name": "ids", "description": "Space-separated user IDs", "required": True}])
@@ -1564,7 +1647,7 @@ $jsonSet[cfg;antinuke;action;$if[$message[2]!=;$message[2];ban]]
 ]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $description[🛡️ Anti-nuke **$toLowerCase[$message[0]]**$if[$toLowerCase[$message[0]]==on; — $if[$message[1]!=;$message[1];3] dangerous actions in 20s → $if[$message[2]!=;$message[2];ban]]. Whitelist: mods.]
-$color[DA373C]
+$color[F23F24]
 $footer[Chronolith • Security]""",
     """$let[state;$option[state]]
 $jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
@@ -1576,7 +1659,7 @@ $jsonSet[cfg;antinuke;action;$if[$option[action]!=;$option[action];ban]]
 $setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[
 $description[🛡️ Anti-nuke **$get[state]**.]
-$color[DA373C]
+$color[F23F24]
 $footer[Chronolith • Security]
 ]""",
     [{"type": 3, "name": "state", "description": "on or off", "required": True},

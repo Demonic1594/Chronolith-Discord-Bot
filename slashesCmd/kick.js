@@ -22,11 +22,18 @@ $onlyIf[$env[tj;ids]!=;$ephemeral No valid target found.]
 $let[r;$punishMulti[kick;$guildID;$authorID;$env[tj;ids];$option[duration];$if[$option[reason]==;No reason provided;$option[reason]]]]
 $!jsonLoad[rj;$get[r]]
 $interactionReply[
-$author[$actionEmoji[kick];$userAvatar[$botID;32;png]]
+$title[**__The Boot has spoken!__**]
+$author[$serverName[$guildID];$guildIcon[$guildID;128;png]]
 $color[$actionColor[kick]]
-$description[<@$env[tj;ids]>
-> $if[$option[reason]==;No reason provided;$option[reason]]
+$description[• **Action :** \`kick\`
+$if[$checkContains[$env[tj;ids];,]!=true;
+> **Member:** [$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids])
+;
+> **Members:** <@$env[tj;ids]>
 ]
+> **Reason:** \`$if[$option[reason]==;No reason provided;$option[reason]]\`
+> **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID)]
+$thumbnail[$userAvatar[$authorID;128;png]]
 $addField[Applied;$env[rj;ok];true]
 $addField[Skipped;$env[rj;fail];true]
 $footer[Chronolith • Moderation]

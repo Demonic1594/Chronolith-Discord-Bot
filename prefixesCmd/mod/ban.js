@@ -18,11 +18,18 @@ $let[dur;]
 $let[rest;$env[tj;reason]]
 $let[r;$punishMulti[ban;$guildID;$authorID;$env[tj;ids];$get[dur];$if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]]]
 $!jsonLoad[rj;$get[r]]
-$author[$actionEmoji[ban];$userAvatar[$botID;32;png]]
+$title[**__The Ban Hammer has spoken!__**]
+$author[$serverName[$guildID];$guildIcon[$guildID;128;png]]
 $color[$actionColor[ban]]
-$description[<@$env[tj;ids]>
-> $if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]
+$description[• **Action :** \`ban\`
+$if[$checkContains[$env[tj;ids];,]!=true;
+> **Member:** [$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids])
+;
+> **Members:** <@$env[tj;ids]>
 ]
+> **Reason:** \`$if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]\`
+> **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID)]
+$thumbnail[$userAvatar[$authorID;128;png]]
 $addField[Applied;$env[rj;ok];true]
 $addField[Skipped;$env[rj;fail];true]
 $footer[Chronolith • Moderation]
@@ -31,5 +38,6 @@ $if[$checkContains[$env[tj;ids];,]!=true;
 $addActionRow
 $addButton[bunban-$env[tj;ids]-$authorID;Unban;Success]
 ]
+$image[https://cdn.discordapp.com/emojis/1129080609248137266.png?size=4096]
     `
 };

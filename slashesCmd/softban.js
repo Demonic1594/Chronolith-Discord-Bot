@@ -22,11 +22,18 @@ $onlyIf[$env[tj;ids]!=;$ephemeral No valid target found.]
 $let[r;$punishMulti[softban;$guildID;$authorID;$env[tj;ids];$option[duration];$if[$option[reason]==;No reason provided;$option[reason]]]]
 $!jsonLoad[rj;$get[r]]
 $interactionReply[
-$author[$actionEmoji[softban];$userAvatar[$botID;32;png]]
+$title[**__The Ban Hammer has swept clean!__**]
+$author[$serverName[$guildID];$guildIcon[$guildID;128;png]]
 $color[$actionColor[softban]]
-$description[<@$env[tj;ids]>
-> $if[$option[reason]==;No reason provided;$option[reason]]
+$description[• **Action :** \`softban\`
+$if[$checkContains[$env[tj;ids];,]!=true;
+> **Member:** [$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids])
+;
+> **Members:** <@$env[tj;ids]>
 ]
+> **Reason:** \`$if[$option[reason]==;No reason provided;$option[reason]]\`
+> **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID)]
+$thumbnail[$userAvatar[$authorID;128;png]]
 $addField[Applied;$env[rj;ok];true]
 $addField[Skipped;$env[rj;fail];true]
 $footer[Chronolith • Moderation]
@@ -36,5 +43,6 @@ $addActionRow
 $addButton[bunban-$env[tj;ids]-$authorID;Unban;Success]
 ]
 ]
+$image[https://cdn.discordapp.com/emojis/1129080609248137266.png?size=4096]
     `
 };

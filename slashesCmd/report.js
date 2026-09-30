@@ -25,7 +25,7 @@ $stop
 $let[id;$reportNew[$guildID;$authorID;$option[user];$option[reason]]]
 $sendMessage[$get[ch];
 $author[Report #$get[id];$userAvatar[$authorID;32;png]]
-$color[DA373C]
+$color[F23F24]
 $description[> $option[reason]]
 $addField[Reported user;<@$option[user]>
 -# $option[user];true]

@@ -27,7 +27,7 @@ $!jsonSet[cfg;antinuke;action;$if[$option[action]!=;$option[action];ban]]
 $!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[
 $description[🛡️ Anti-nuke **$get[state]**.]
-$color[DA373C]
+$color[F23F24]
 $footer[Chronolith • Security]
 ]
     `

@@ -22,7 +22,7 @@ $let[rc;$lockAll[$guildID;$if[$option[reason]==;no reason;$option[reason]];$auth
 $ephemeral
 $interactionReply[
 $description[🔒 \`$get[rc]\` channel(s) locked server-wide.$if[$option[duration]!=; Auto-unlock in **$option[duration]**.]]
-$color[DA373C]
+$color[F23F24]
 $footer[Chronolith • Lockdown]
 ]
     `

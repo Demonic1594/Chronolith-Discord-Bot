@@ -19,7 +19,7 @@ $onlyIf[$option[ids]!=;$ephemeral Provide space-separated user IDs.]
 $let[done;$massBan[$guildID;$authorID;$option[ids]]]
 $interactionReply[
 $description[⛔ Banned **$get[done]** user(s).]
-$color[DA373C]
+$color[F23F24]
 $footer[Chronolith • Moderation]
 ]
     `
