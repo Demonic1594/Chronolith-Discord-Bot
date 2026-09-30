@@ -27,18 +27,11 @@ $author[Server Management]
 $title[$serverName[$guildID]]
 $color[$actionColor[unmute]]
 $description[• **Action :** \`unmute\`
-$if[$checkContains[$env[tj;ids];,]!=true;
-> **Member:** [$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids]) (\`$env[tj;ids]\`)
-;
-> **Members:** <@$env[tj;ids]>
-]
+> **Member:** $if[$checkContains[$env[tj;ids];,]!=true;[$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids]) (\`$env[tj;ids]\`);<@$env[tj;ids]>]
 > **Reason:** \`$if[$option[reason]==;No reason provided;$option[reason]]\`
-> **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID) (\`$authorID\`)
-$if[$env[rj;fail]!=;
-> ⚠ Skipped: $env[rj;fail]]
-]
+> **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID) (\`$authorID\`)]
 
-$footer[Rule breakers begone! • Chronolith]
+$footer[Rule breakers begone!]
 $timestamp
 $if[$checkContains[$env[tj;ids];,]!=true;
 $addActionRow

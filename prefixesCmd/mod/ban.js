@@ -23,18 +23,11 @@ $author[Server Management]
 $title[$serverName[$guildID]]
 $color[$actionColor[ban]]
 $description[• **Action :** \`ban\`
-$if[$checkContains[$env[tj;ids];,]!=true;
-> **Member:** [$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids]) (\`$env[tj;ids]\`)
-;
-> **Members:** <@$env[tj;ids]>
-]
+> **Member:** $if[$checkContains[$env[tj;ids];,]!=true;[$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids]) (\`$env[tj;ids]\`);<@$env[tj;ids]>]
 > **Reason:** \`$if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]\`
-> **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID) (\`$authorID\`)
-$if[$env[rj;fail]!=;
-> ⚠ Skipped: $env[rj;fail]]
-]
+> **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID) (\`$authorID\`)]
 $thumbnail[https://cdn.discordapp.com/emojis/1129080609248137266.png?size=4096]
-$footer[Rule breakers begone! • Chronolith]
+$footer[Rule breakers begone!]
 $timestamp
 $if[$checkContains[$env[tj;ids];,]!=true;
 $addActionRow
