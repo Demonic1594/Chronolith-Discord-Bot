@@ -179,7 +179,7 @@ def cmd(folder, name, aliases, desc, prefix, slash, options=None, gate="mod"):
                      options=options or [], gate=gate))
 
 
-def multi_punish_cmd(name, action, aliases, desc, duration_required=False, duration_optional=False):
+def multi_punish_cmd(name, action, aliases, desc, duration_required=False, duration_optional=False, unban_button=False):
     aliases = list(aliases)
     if name in PUNISH_ALIASES:
         aliases = list(dict.fromkeys(aliases + PUNISH_ALIASES[name]))  # dedupe preserving order
@@ -203,6 +203,12 @@ $addField[Applied;$env[rj;ok];true]
 $addField[Skipped;$env[rj;fail];true]
 $footer[Chronolith]
 $timestamp"""
+    if unban_button:
+        pfx += """
+$if[$checkContains[$env[tj;ids];,]!=true;
+$addActionRow
+$addButton[bunban-$env[tj;ids]-$authorID;Unban;Success]
+]"""
     slx = f"""$let[t;$resolveTargets[$guildID;$option[targets];$channelID;$messageID]]
 $jsonLoad[tj;$get[t]]
 $onlyIf[$env[tj;ids]!=;$ephemeral No valid target found.]"""
@@ -221,6 +227,10 @@ $addField[Applied;$env[rj;ok];true]
 $addField[Skipped;$env[rj;fail];true]
 $footer[Chronolith]
 $timestamp
+$if[$checkContains[$env[tj;ids];,]!=true;
+$addActionRow
+$addButton[bunban-$env[tj;ids]-$authorID;Unban;Success]
+]
 ]"""
     opts = [{"type": 3, "name": "targets", "description": "Mentions/usernames/IDs (space separated)", "required": True}]
     if duration_optional or duration_required:
@@ -230,7 +240,7 @@ $timestamp
 
 
 multi_punish_cmd("kick", "kick", [], "Kick one or more users")
-multi_punish_cmd("ban", "ban", ["hackban"], "Ban one or more users (optional duration = auto-unban)")
+multi_punish_cmd("ban", "ban", ["hackban"], "Ban one or more users (optional duration = auto-unban)", unban_button=True)
 multi_punish_cmd("mute", "mute", ["timeout"], "Timeout one or more users (duration required)", duration_required=True)
 multi_punish_cmd("unmute", "unmute", ["untimeout"], "Remove timeouts from one or more users")
 multi_punish_cmd("softban", "softban", [], "Softban a user (ban + day purge + unban)")

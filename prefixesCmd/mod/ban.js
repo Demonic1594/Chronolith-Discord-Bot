@@ -27,5 +27,9 @@ $addField[Applied;$env[rj;ok];true]
 $addField[Skipped;$env[rj;fail];true]
 $footer[Chronolith • Moderation]
 $timestamp
+$if[$checkContains[$env[tj;ids];,]!=true;
+$addActionRow
+$addButton[bunban-$env[tj;ids]-$authorID;Unban;Success]
+]
     `
 };

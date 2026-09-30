@@ -65,6 +65,52 @@ module.exports = {
             ]
         ]
 
+        $if[$get[verb]==bunban;
+            $let[tgt;$arrayAt[id;1]]
+            $onlyIf[$isMod[$guildID;$authorID]==true;
+                $ephemeral
+                $interactionReply[⛔ You need moderator permissions.]
+                $stop
+            ]
+            $let[r;$punish[unban;$guildID;$authorID;$get[tgt];;Unban — one-click follow-up on the ban]]
+            $if[$checkContains[$get[r];⛔]==true;
+                $ephemeral
+                $interactionReply[$get[r]]
+            ;
+                $interactionUpdate[
+                    $author[$actionEmoji[unban];$userAvatar[$botID;32;png]]
+                    $color[$actionColor[unban]]
+                    $description[<@$get[tgt]>
+> Unbanned via one-click follow-up]
+                    $addField[Moderator;<@$authorID>;true]
+                    $footer[Chronolith • Moderation]
+                    $timestamp
+                ]
+            ]
+        ]
+        $if[$get[verb]==bban;
+            $let[tgt;$arrayAt[id;1]]
+            $onlyIf[$isMod[$guildID;$authorID]==true;
+                $ephemeral
+                $interactionReply[⛔ You need moderator permissions.]
+                $stop
+            ]
+            $let[r;$punish[ban;$guildID;$authorID;$get[tgt];;Re-banned via one-click follow-up]]
+            $if[$checkContains[$get[r];⛔]==true;
+                $ephemeral
+                $interactionReply[$get[r]]
+            ;
+                $interactionUpdate[
+                    $author[$actionEmoji[ban];$userAvatar[$botID;32;png]]
+                    $color[$actionColor[ban]]
+                    $description[<@$get[tgt]>
+> Re-banned via one-click follow-up]
+                    $addField[Moderator;<@$authorID>;true]
+                    $footer[Chronolith • Moderation]
+                    $timestamp
+                ]
+            ]
+        ]
         $if[$get[verb]==tkclose;
             $let[owner;$arrayAt[id;1]]
             $let[allowed;$if[$authorID==$get[owner];true;$isMod[$guildID;$authorID]]]
