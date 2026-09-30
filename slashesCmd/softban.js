@@ -27,8 +27,8 @@ $author[Server Management]
 $title[$serverName[$guildID]]
 $color[$actionColor[softban]]
 $description[• **Action :** \`softban\`
-> **Member:** $if[$checkContains[$env[tj;ids];,]!=true;[$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids]) (\`$env[tj;ids]\`);<@$env[tj;ids]>]
 > **Reason:** \`$if[$option[reason]==;No reason provided;$option[reason]]\`
+> **Member:** $if[$checkContains[$env[tj;ids];,]!=true;[$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids]) (\`$env[tj;ids]\`);<@$env[tj;ids]>]
 > **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID) (\`$authorID\`)]
 $thumbnail[https://cdn.discordapp.com/emojis/1129080609248137266.png?size=4096]
 $footer[Rule breakers begone!]

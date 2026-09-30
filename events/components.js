@@ -82,8 +82,8 @@ module.exports = {
                     $author[$serverName[$guildID];$guildIcon[$guildID]]
                     $color[$actionColor[unban]]
                     $description[• **Action :** \`unban\`
-> **Member:** [$username[$get[tgt]]\\](https://discord.com/users/$get[tgt])
 > **Reason:** \`Unbanned via one-click follow-up\`
+> **Member:** [$username[$get[tgt]]\\](https://discord.com/users/$get[tgt])
 > **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID)]
                     $thumbnail[$userAvatar[$authorID;128;png]]
                     $footer[Chronolith • Moderation]
@@ -108,8 +108,8 @@ module.exports = {
                     $author[$serverName[$guildID];$guildIcon[$guildID]]
                     $color[$actionColor[ban]]
                     $description[• **Action :** \`ban\`
-> **Member:** [$username[$get[tgt]]\\](https://discord.com/users/$get[tgt])
 > **Reason:** \`Re-banned via one-click follow-up\`
+> **Member:** [$username[$get[tgt]]\\](https://discord.com/users/$get[tgt])
 > **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID)]
                     $thumbnail[$userAvatar[$authorID;128;png]]
                     $footer[Chronolith • Moderation]

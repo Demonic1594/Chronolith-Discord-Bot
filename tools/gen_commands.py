@@ -214,8 +214,8 @@ $author[Server Management]
 $title[$serverName[$guildID]]
 $color[$actionColor[{name}]]
 $description[• **Action :** `{name}`
-> **Member:** $if[$checkContains[$env[tj;ids];,]!=true;[$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids]) (`$env[tj;ids]`);<@$env[tj;ids]>]
 > **Reason:** `$if[$trim[$get[rest]]==;No reason provided;$trim[$get[rest]]]`
+> **Member:** $if[$checkContains[$env[tj;ids];,]!=true;[$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids]) (`$env[tj;ids]`);<@$env[tj;ids]>]
 > **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID) (`$authorID`)]
 $thumbnail[THUMB]
 $footer[Rule breakers begone!]
@@ -240,8 +240,8 @@ $author[Server Management]
 $title[$serverName[$guildID]]
 $color[$actionColor[{name}]]
 $description[• **Action :** `{name}`
-> **Member:** $if[$checkContains[$env[tj;ids];,]!=true;[$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids]) (`$env[tj;ids]`);<@$env[tj;ids]>]
 > **Reason:** `$if[$option[reason]==;No reason provided;$option[reason]]`
+> **Member:** $if[$checkContains[$env[tj;ids];,]!=true;[$username[$env[tj;ids]]\\](https://discord.com/users/$env[tj;ids]) (`$env[tj;ids]`);<@$env[tj;ids]>]
 > **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID) (`$authorID`)]
 $thumbnail[THUMB]
 $footer[Rule breakers begone!]
@@ -387,8 +387,8 @@ $title[**__The Ban Hammer retracts.__**]
 $author[$serverName[$guildID];$guildIcon[$guildID;128;png]]
 $color[$actionColor[unban]]
 $description[• **Action :** `unban`
-> **Member:** $if[$checkContains[$get[ulist];,]!=true;[$username[$get[ulist]]\\](https://discord.com/users/$get[ulist]) (`$get[ulist]`);<@$get[ulist]>]
 > **Reason:** `$get[reason]`
+> **Member:** $if[$checkContains[$get[ulist];,]!=true;[$username[$get[ulist]]\\](https://discord.com/users/$get[ulist]) (`$get[ulist]`);<@$get[ulist]>]
 > **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID) (`$authorID`)]
 > **Reason:** `$get[reason]`
 > **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID)]
@@ -416,8 +416,8 @@ $title[**__The Ban Hammer retracts.__**]
 $author[$serverName[$guildID];$guildIcon[$guildID;128;png]]
 $color[$actionColor[unban]]
 $description[• **Action :** `unban`
-> **Member:** $if[$checkContains[$get[ulist];,]!=true;[$username[$get[ulist]]\\](https://discord.com/users/$get[ulist]) (`$get[ulist]`);<@$get[ulist]>]
 > **Reason:** `$if[$option[reason]==;No reason provided;$option[reason]]`
+> **Member:** $if[$checkContains[$get[ulist];,]!=true;[$username[$get[ulist]]\\](https://discord.com/users/$get[ulist]) (`$get[ulist]`);<@$get[ulist]>]
 > **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID) (`$authorID`)]
 > **Reason:** `$if[$option[reason]==;No reason provided;$option[reason]]`
 > **Action By:** [$username[$authorID]\\](https://discord.com/users/$authorID)]
