@@ -1,0 +1,100 @@
+# Community guides — index
+
+96 approved guides from docs.botforge.org, with full content.
+
+- [guide-294 — Working with Extensions](guide-294.md) — BotForge Developer API · approved 2026-07-25
+- [guide-289 — Rate Limits](guide-289.md) — BotForge Developer API · approved 2026-07-24
+- [guide-291 — Discord Utilities](guide-291.md) — BotForge Developer API · approved 2026-07-24
+- [guide-292 — Searching & Pagination](guide-292.md) — BotForge Developer API · approved 2026-07-24
+- [guide-293 — Getting an API Key](guide-293.md) — BotForge Developer API · approved 2026-07-23
+- [guide-270 — Introduction to ForgeCanvas](guide-270.md) — ForgeCanvas · approved 2026-03-18
+- [guide-271 — Basic Drawing](guide-271.md) — ForgeCanvas · approved 2026-03-18
+- [guide-264 — Custom Named Colors](guide-264.md) — ForgeColor · approved 2026-02-22
+- [guide-251 — ColorFormat guide](guide-251.md) — ForgeColor · approved 2025-11-01
+- [guide-227 — $randomColor guide](guide-227.md) — ForgeColor · approved 2025-09-01
+- [guide-228 — $isValidColor guide](guide-228.md) — ForgeColor · approved 2025-09-01
+- [guide-229 — $colorFormatType guide](guide-229.md) — ForgeColor · approved 2025-09-01
+- [guide-230 — $convertColor guide](guide-230.md) — ForgeColor · approved 2025-09-01
+- [guide-286 — Setup](guide-286.md) — ForgeDB · approved 2026-06-28
+- [guide-232 — Setup](guide-232.md) — ForgeIndia · approved 2025-09-01
+- [guide-281 — $modal guide](guide-281.md) — ForgeScript · approved 2026-09-12
+- [guide-296 — messageCreate guide](guide-296.md) — ForgeScript · approved 2026-08-22
+- [guide-295 — $addPermissionOverwrite guide](guide-295.md) — ForgeScript · approved 2026-08-15
+- [guide-284 — Slash Commands](guide-284.md) — ForgeScript · approved 2026-06-13
+- [guide-280 — Custom Functions](guide-280.md) — ForgeScript · approved 2026-05-09
+- [guide-224 — $abs guide](guide-224.md) — ForgeScript · approved 2026-03-21
+- [guide-225 — $base guide](guide-225.md) — ForgeScript · approved 2026-03-21
+- [guide-240 — $sign guide](guide-240.md) — ForgeScript · approved 2026-03-21
+- [guide-244 — $repeat guide](guide-244.md) — ForgeScript · approved 2026-03-21
+- [guide-263 — Function Operators](guide-263.md) — ForgeScript · approved 2026-02-19
+- [guide-259 — Display Components](guide-259.md) — ForgeScript · approved 2025-12-17
+- [guide-252 — JSON Functions](guide-252.md) — ForgeScript · approved 2025-11-09
+- [guide-250 — $addActionRow guide](guide-250.md) — ForgeScript · approved 2025-10-13
+- [guide-249 — $max guide](guide-249.md) — ForgeScript · approved 2025-10-12
+- [guide-245 — $reverseText guide](guide-245.md) — ForgeScript · approved 2025-09-20
+- [guide-235 — $log guide](guide-235.md) — ForgeScript · approved 2025-09-03
+- [guide-236 — $chalkLog guide](guide-236.md) — ForgeScript · approved 2025-09-03
+- [guide-231 — $hasExtension guide](guide-231.md) — ForgeScript · approved 2025-09-01
+- [guide-233 — $djsVersion guide](guide-233.md) — ForgeScript · approved 2025-09-01
+- [guide-202 — $while guide](guide-202.md) — ForgeScript · approved 2025-07-22
+- [guide-178 — $try guide](guide-178.md) — ForgeScript · approved 2025-06-27
+- [guide-186 — $addButton guide](guide-186.md) — ForgeScript · approved 2025-06-27
+- [guide-189 — $stop guide](guide-189.md) — ForgeScript · approved 2025-06-27
+- [guide-197 — $memberDisplayName guide](guide-197.md) — ForgeScript · approved 2025-06-27
+- [guide-190 — How to use Select Menus](guide-190.md) — ForgeScript · approved 2025-06-26
+- [guide-179 — $userExists guide](guide-179.md) — ForgeScript · approved 2025-06-23
+- [guide-111 — $discriminator guide](guide-111.md) — ForgeScript · approved 2025-06-22
+- [guide-112 — $sum guide](guide-112.md) — ForgeScript · approved 2025-06-22
+- [guide-116 — $authorID guide](guide-116.md) — ForgeScript · approved 2025-06-22
+- [guide-122 — $messageID guide](guide-122.md) — ForgeScript · approved 2025-06-22
+- [guide-125 — $channelID guide](guide-125.md) — ForgeScript · approved 2025-06-22
+- [guide-127 — $sendMessage guide](guide-127.md) — ForgeScript · approved 2025-06-22
+- [guide-130 — $ping guide](guide-130.md) — ForgeScript · approved 2025-06-22
+- [guide-132 — $readFile guide](guide-132.md) — ForgeScript · approved 2025-06-22
+- [guide-133 — $writeFile guide](guide-133.md) — ForgeScript · approved 2025-06-22
+- [guide-134 — $sendDM guide](guide-134.md) — ForgeScript · approved 2025-06-22
+- [guide-137 — $clearTimeout guide](guide-137.md) — ForgeScript · approved 2025-06-22
+- [guide-139 — $clearInterval guide](guide-139.md) — ForgeScript · approved 2025-06-22
+- [guide-140 — $guildID guide](guide-140.md) — ForgeScript · approved 2025-06-22
+- [guide-141 — $toKebabCase guide](guide-141.md) — ForgeScript · approved 2025-06-22
+- [guide-143 — $toCamelCase guide](guide-143.md) — ForgeScript · approved 2025-06-22
+- [guide-144 — $toSnakeCase guide](guide-144.md) — ForgeScript · approved 2025-06-22
+- [guide-145 — $toLowerCase guide](guide-145.md) — ForgeScript · approved 2025-06-22
+- [guide-146 — $toTitleCase guide](guide-146.md) — ForgeScript · approved 2025-06-22
+- [guide-148 — $toUpperCase guide](guide-148.md) — ForgeScript · approved 2025-06-22
+- [guide-149 — $randomUUID guide](guide-149.md) — ForgeScript · approved 2025-06-22
+- [guide-150 — $randomText guide](guide-150.md) — ForgeScript · approved 2025-06-22
+- [guide-151 — $randomString guide](guide-151.md) — ForgeScript · approved 2025-06-22
+- [guide-152 — $charCount guide](guide-152.md) — ForgeScript · approved 2025-06-22
+- [guide-153 — $randomNumber guide](guide-153.md) — ForgeScript · approved 2025-06-22
+- [guide-160 — $setTimeout guide](guide-160.md) — ForgeScript · approved 2025-06-22
+- [guide-161 — $setInterval guide](guide-161.md) — ForgeScript · approved 2025-06-22
+- [guide-162 — $randomUserID guide](guide-162.md) — ForgeScript · approved 2025-06-22
+- [guide-165 — $username guide](guide-165.md) — ForgeScript · approved 2025-06-22
+- [guide-167 — $isBot guide](guide-167.md) — ForgeScript · approved 2025-06-22
+- [guide-168 — $userCount guide](guide-168.md) — ForgeScript · approved 2025-06-22
+- [guide-170 — $let guide](guide-170.md) — ForgeScript · approved 2025-06-22
+- [guide-171 — $get guide](guide-171.md) — ForgeScript · approved 2025-06-22
+- [guide-172 — $if guide](guide-172.md) — ForgeScript · approved 2025-06-22
+- [guide-174 — $ifx guide](guide-174.md) — ForgeScript · approved 2025-06-22
+- [guide-175 — $loop guide](guide-175.md) — ForgeScript · approved 2025-06-22
+- [guide-180 — $break guide](guide-180.md) — ForgeScript · approved 2025-06-22
+- [guide-182 — $eval guide](guide-182.md) — ForgeScript · approved 2025-06-22
+- [guide-183 — $userAvatar guide](guide-183.md) — ForgeScript · approved 2025-06-22
+- [guide-185 — $userDisplayName guide](guide-185.md) — ForgeScript · approved 2025-06-22
+- [guide-101 — $min guide](guide-101.md) — ForgeScript · approved 2025-06-21
+- [guide-103 — $modulo guide](guide-103.md) — ForgeScript · approved 2025-06-21
+- [guide-104 — $math guide](guide-104.md) — ForgeScript · approved 2025-06-21
+- [guide-105 — $divide guide](guide-105.md) — ForgeScript · approved 2025-06-21
+- [guide-106 — $pi guide](guide-106.md) — ForgeScript · approved 2025-06-21
+- [guide-107 — $pi guide](guide-107.md) — ForgeScript · approved 2025-06-21
+- [guide-108 — $multi guide](guide-108.md) — ForgeScript · approved 2025-06-21
+- [guide-109 — $pow guide](guide-109.md) — ForgeScript · approved 2025-06-21
+- [guide-110 — $round guide](guide-110.md) — ForgeScript · approved 2025-06-21
+- [guide-85 — $test guide](guide-85.md) — ForgeScript · approved 2025-06-16
+- [guide-75 — $botID guide](guide-75.md) — ForgeScript · approved 2025-06-15
+- [guide-79 — $botCustomInvite guide](guide-79.md) — ForgeScript · approved 2025-06-15
+- [guide-80 — $botDestroy guide](guide-80.md) — ForgeScript · approved 2025-06-15
+- [guide-81 — $botToken guide](guide-81.md) — ForgeScript · approved 2025-06-15
+- [guide-82 — $botCount guide](guide-82.md) — ForgeScript · approved 2025-06-15
+- [guide-208 — $githubSearchRepo guide](guide-208.md) — ForgeSocial · approved 2025-08-27

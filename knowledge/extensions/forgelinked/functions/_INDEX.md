@@ -1,0 +1,66 @@
+# ForgeLinked functions — index
+
+- [`$linkedEvent`]($linkedEvent.md) — This function is used to get player info on events for forgelinked
+- [`$playerAddTrack`]($playerAddTrack.md) — Add a track to a player
+- [`$playerApplyFilters`]($playerApplyFilters.md) — Apply Player filters for lavalink filter sending data, if the filter is enabled / not
+- [`$playerCheckFilterState`]($playerCheckFilterState.md) — Check if a player filter is enabled or not
+- [`$playerClearQueue`]($playerClearQueue.md) — Clear the queue of a player
+- [`$playerConnectedVC`]($playerConnectedVC.md) — Get the voice channel ID the player is connected to
+- [`$playerCreate`]($playerCreate.md) — Create a player for a guild
+- [`$playerCurrentLyrics`]($playerCurrentLyrics.md) — Get the current lyrics of a player
+- [`$playerCurrentTrack`]($playerCurrentTrack.md) — Get the current track of a player
+- [`$playerDestroy`]($playerDestroy.md) — Destroy a player
+- [`$playerElapsedTime`]($playerElapsedTime.md) — Get the elapsed time of a player
+- [`$playerExists`]($playerExists.md) — Check if a player exists
+- [`$playerFilterSetEQ`]($playerFilterSetEQ.md) — Sets the players equalizer band on-top of the existing ones
+- [`$playerFilters`]($playerFilters.md) — Get the filters of a player
+- [`$playerFiltersClearEQ`]($playerFiltersClearEQ.md) — Clears the players equalizer bands
+- [`$playerFiltersSetVolume`]($playerFiltersSetVolume.md) — Set the Filter Volume
+- [`$playerGetVolume`]($playerGetVolume.md) — Get the volume of a player
+- [`$playerIsCustomFilterActive`]($playerIsCustomFilterActive.md) — Check if a custom timescale or other non-preset filter is currently active
+- [`$playerIsPaused`]($playerIsPaused.md) — Check if a player is paused
+- [`$playerJoinVC`]($playerJoinVC.md) — Join a voice channel
+- [`$playerLoopStatus`]($playerLoopStatus.md) — Get the current loop mode
+- [`$playerMoveVC`]($playerMoveVC.md) — Move the player to a different voice channel
+- [`$playerNextTrack`]($playerNextTrack.md) — Get the next upcoming track in the queue
+- [`$playerNodeStats`]($playerNodeStats.md) — Get CPU, memory, and other stats of a Lavalink node
+- [`$playerPause`]($playerPause.md) — Pause a player
+- [`$playerPing`]($playerPing.md) — Get the roundtrip latency between Lavalink and Discord
+- [`$playerPrevious`]($playerPrevious.md) — Plays the previous track from the queue history.
+- [`$playerPreviousExists`]($playerPreviousExists.md) — Check if a previous track exists (ignores current until it ends)
+- [`$playerPreviousTrack`]($playerPreviousTrack.md) — Get the last played track from the queue history
+- [`$playerQueue`]($playerQueue.md) — Get the queue of a player
+- [`$playerQueueHistory`]($playerQueueHistory.md) — Get the queue history of a player
+- [`$playerQueueLength`]($playerQueueLength.md) — Get the queue length of a player
+- [`$playerQueueTime`]($playerQueueTime.md) — Get the total queue time of a player, optionally excluding specific sources.
+- [`$playerReconnect`]($playerReconnect.md) — Reconnect the player to its current voice channel
+- [`$playerRemoveTrack`]($playerRemoveTrack.md) — Remove a track from a player
+- [`$playerReplay`]($playerReplay.md) — Restart the current track from the beginning
+- [`$playerResetFilters`]($playerResetFilters.md) — Reset the filters of a player
+- [`$playerResume`]($playerResume.md) — Resume a player
+- [`$playerSearchTrack`]($playerSearchTrack.md) — Search for a track
+- [`$playerSeek`]($playerSeek.md) — Seek a player
+- [`$playerSetAudioOutput`]($playerSetAudioOutput.md) — Set the AudioOutput Filter
+- [`$playerSetPitch`]($playerSetPitch.md) — Set custom filter.timescale#pitch. This method disables both: nightcore & vaporwave. Use 1 to reset.
+- [`$playerSetRate`]($playerSetRate.md) — Set custom filter.timescale#rate. This method disables both: nightcore & vaporwave. Use 1 to reset.
+- [`$playerSetSpeed`]($playerSetSpeed.md) — Set custom filter.timescale#speed. This method disables both: nightcore & vaporwave. Use 1 to reset.
+- [`$playerSetVolume`]($playerSetVolume.md) — Set the volume of a player
+- [`$playerShuffle`]($playerShuffle.md) — Shuffle a player
+- [`$playerShuffleQueue`]($playerShuffleQueue.md) — Randomize the order of tracks in the queue
+- [`$playerSkip`]($playerSkip.md) — Skip a track. If position not given skips current track.
+- [`$playerSkipExists`]($playerSkipExists.md) — Check whether the next track exists in the player queue
+- [`$playerStop`]($playerStop.md) — Stops playback without destroying the player
+- [`$playerSwapTracks`]($playerSwapTracks.md) — Swap the position of two tracks in the queue
+- [`$playerTextID`]($playerTextID.md) — Get the text id of a player
+- [`$playerToggleKaraoke`]($playerToggleKaraoke.md) — Enable / Disables a Karaoke like Filter Effect
+- [`$playerToggleLoop`]($playerToggleLoop.md) — Set repeat mode to off, track, or queue
+- [`$playerToggleLowPass`]($playerToggleLowPass.md) — Enables / Disables the LowPass effect
+- [`$playerToggleNightcore`]($playerToggleNightcore.md) — Enables / Disables a Nightcore-like filter Effect. Disables/Overrides both: custom and Vaporwave Filter
+- [`$playerToggleRotation`]($playerToggleRotation.md) — Enables / Disables the rotation effect
+- [`$playerToggleTremolo`]($playerToggleTremolo.md) — Enables / Disables the Tremolo effect
+- [`$playerToggleVaporwave`]($playerToggleVaporwave.md) — Enables / Disables a Vaporwave-like filter Effect. Disables/Overrides both: custom and nightcore Filter
+- [`$playerToggleVibrato`]($playerToggleVibrato.md) — Enables / Disables the Vibrato effect
+- [`$playerTrackDuration`]($playerTrackDuration.md) — Get the duration (ms) of the current track
+- [`$playerTrackInfoOf`]($playerTrackInfoOf.md) — Get the info of a track
+- [`$playerTrackRequester`]($playerTrackRequester.md) — Get the user who requested the current track
+- [`$playerTrackThumbnail`]($playerTrackThumbnail.md) — Get the thumbnail URL of the current track (if available)

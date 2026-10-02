@@ -1,0 +1,27 @@
+# ForgeMusic events — index
+
+- [`audioFiltersUpdate`](audioFiltersUpdate.md) — Executed when FFMPEG audio filters are updated.
+- [`audioTrackAdd`](audioTrackAdd.md) — Executed when audio track is added to the queue.
+- [`audioTrackRemove`](audioTrackRemove.md) — Executed when audio track is removed from the queue.
+- [`audioTracksAdd`](audioTracksAdd.md) — Executed when multiple audio track are added to the queue.
+- [`biquadFiltersUpdate`](biquadFiltersUpdate.md) — Executed when biquad filters is updated.
+- [`channelPopulate`](channelPopulate.md) — Executed when a voice channel is populated.
+- [`connection`](connection.md) — Executed when a connection is created.
+- [`connectionDestroyed`](connectionDestroyed.md) — Executed when a connection is destroyed.
+- [`debug`](debug.md) — Executed when the queue sends a debug info.
+- [`disconnect`](disconnect.md) — Executed when the bot is disconnected from the channel.
+- [`dspUpdate`](dspUpdate.md) — Executed when dsp filters are updated.
+- [`emptyChannel`](emptyChannel.md) — Executed when the voice channel is empty.
+- [`emptyQueue`](emptyQueue.md) — Executed when the queue is empty.
+- [`equalizerUpdate`](equalizerUpdate.md) — Executed when equalizer config is updated.
+- [`error`](error.md) — Executed when the queue encounters error.
+- [`playerError`](playerError.md) — Executed when the audio player errors while streaming audio track.
+- [`playerFinish`](playerFinish.md) — Executed when the audio player finishes streaming audio track.
+- [`playerPause`](playerPause.md) — Executed when audio player is paused.
+- [`playerResume`](playerResume.md) — Executed when audio player is resumed.
+- [`playerSkip`](playerSkip.md) — Executed when the audio player skips current track.
+- [`playerStart`](playerStart.md) — Executed when the audio player starts streaming audio track.
+- [`playerTrigger`](playerTrigger.md) — Executed when the audio player is triggered.
+- [`queueCreate`](queueCreate.md) — Executed when a queue is successfully created.
+- [`queueDelete`](queueDelete.md) — Executed when a queue is successfully deleted.
+- [`volumeChange`](volumeChange.md) — Executed when audio player's volume is changed.

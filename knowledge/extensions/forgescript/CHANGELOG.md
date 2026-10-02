@@ -1,0 +1,566 @@
+# ForgeScript — full changelog
+
+## 2.7.1
+
+- Fixed $arrayIncludes for numbers
+
+## 2.7.0
+
+- Updated commit file, $test
+- Refactored unprefixed property, added new properties to IBaseCommand
+- Refactor typingStart event to include all provided data objects
+- Fixed $botMutualGuilds incorrect filtering
+- Added many missing properties
+- Added $fetchSnapshot and $hasSnapshots
+- Added $getForumTag
+- Added $guildSystemChannelFlags, $deleteDM, $userURL
+- Added $threadIsLocked
+- Restructured condition parameter behavior for custom functions
+- Added $fetchApplication and $addPermissionOverwrite
+- Added new features, bump djs
+- Added new boolean functions and interaction types
+- Extend ForgeFunction interfaces to support custom properties
+- Extend Compiler to return raw field value
+- Added translation metadata
+- Updated some functions
+- Rename $kickMember to $kick
+- Fixed $typeof for NaN input
+- Fixed $input (issue caused by djs)
+- Fixed $isUserDMEnabled
+- Added $localeCompare and $jsonFromEntries
+- Fixed some file functions
+- Added new modal components, small refactor
+- Fixed boolean args of $editRole
+- Added $arrayFilter, bump versions
+- Fixed negation and count operator for custom functions
+- Added $pathExtensionName and $loadEmojiContext
+- Export more functions for extensions
+- Added $arrayFind and $arrayFindLast
+- Fixed $setTimeout and $setInterval cause crash on error
+- Added $isArray, adjusted parsing of JSON input
+
+## 2.6.0
+
+- Marked $setCalendar as experimental for now
+- Clone and revamp local functions
+- Removed alias $addItem from $addMediaItem
+- Added $setGuildInvitesDisabled and $setGuildDmsDisabled
+- Allowed enabling mentions without ids, added $enableAllMentions
+- Added $silent
+- Support setting client guild avatar, banner and bio
+- Fixed $separateNumber and $separateBigint replace minus with sep
+- Added $emojiAuthorID
+- Bump djs
+- Added $roleHasPerms and $roleHasAnyPerms
+- Added $jsonAssign
+- Added $getWebhook, small webhook overhall
+- Added $addFileUpload
+- Fixed $arrayUnique not working with objects
+- Added $getAutomodRuleActions
+- Fixed prev change caused default spoiler on containers
+- Added $memberBotRoleID
+- Added scheduled event support
+- Fixed partySize activity property
+- Small fixes and improvements
+- Added new modal components, bump djs
+- Made some arguments optional when editing buttons/options
+- added license comments for the files
+- Fixed $addActionRowTo
+
+## 2.5.0
+
+- Renamed $fetchGuildPreview to $getGuildPreview
+- Added new events, optimized fetching app emojis
+- Added new functions and made small adjustments
+- Added $channelThreadIDs and $fetchThreads
+- Added int param to $rolePerms and $memberPerms
+- better fix of commit command
+- fix $ issue on commits and fixed generateMetadata
+- Remove ready event in favor of clientReady
+- Added $getTextSplitIndex
+- fix $async
+- fix $setTimeout & $setInterval
+- Forum tags overhall and addition
+- Added $setAuditLogReason
+- Fixed disabling mentions
+- Added $getPoll, fixed $botMutualGuilds
+- fix $eval not fetching enviroment variables on escaped code.
+- Added $guildInvites and many missing properties
+- Added $arrayUnique and $hasComponents
+- Added new features, bump djs
+
+## 2.4.1
+
+- Fixed broken legacy component functions
+
+## 2.4.0
+
+- Fixed various component functions
+- Fixed $getComponents (cv2 support)
+- Fixed buffers and generating enums
+- Fixed generating paths
+- Fixed some time functions
+- Removed deprecated reason args of thread member functions
+- Small fixes
+- Support editing select menus in cv2
+- Fixed $httpRequest causes crash on error, small other fixes
+- Added new functions, bump djs
+- Added $isActivityCommand and "activityCommand" type
+- Allowed components for webhook messages, added threadID to $webhookEditMessage
+- Added new functions
+- Added activity support, small fixes
+- Small changes, bump djs
+- Added rest option to custom function params
+- Fixed stacking action rows in containers
+- Fixed prev change on component builders
+- Fixed $arrayCreate not defaulting to empty array
+- Added $messageEmojis
+- Fixed $guildVanityCode, optimized $unparseDigital
+- Added $cloneRole, $guildInviteExists and new metadata
+- Added $guildTemplateCode
+- Added $typeof, $syncGuildTemplate and new arg to $createGuild
+- Added $getSnapshots
+- Restructured changelogs.json
+- Fixed count operator for empty strings
+- Added desc arg to $attachment, deleted $test
+- Fixed $memberAvatar and $memberBanner
+- Fixed $loadComponents, $fetchResponse, $fetchComponents
+- Added team functions, changed $loop last arg
+- Fixed edit component functions, bump djs
+- Added components v2 support
+- Added soundboard support, bump versions
+
+## 2.3.0
+
+- Small changes, fixed ArgType.Date
+- Added more stage instance support
+- Marked affected guild functions as deprecated
+- Added embed support to $webhookEditMessage
+- Fixed custom function loader
+- Comited updates
+- Bumped to main depency Sucessfully
+- added $chalkLog
+- Added alias $weekday to $dayOfWeek
+- Fixed $poll and $pollAnswer
+- breaking change: changed behavior of $day, Added $dayOfWeek
+- Added $clearTimeout and $clearInterval
+- Added local functions
+- Added optional type property to custom function params
+- Fixed $isBanned throws error
+- Added more interaction member support and new functions, fixed $nickname
+- Added $stickerURL and new arg to $messageStickers
+- Small changes and fixes
+- Required param now affects rest arguments, fixed $advancedBar
+- Added voiceChannelEffectSend event and $effect
+- Fixed $hasPerms and $hasAnyPerms
+- Added more webhook funcs and $followChannel, bump versions
+
+## 2.2.0
+
+- Added $djsVersion
+- Added $forward and new guild functions, djs v14.18
+- Added more forum functions
+- Added $jsonHas, fixed other json functions
+- Added $subtext
+- Fixed $loadComponents
+- Added $fetchMessage
+- Added optional guild arg to $applicationCommands
+- Added optional param to $applicationCommandCount
+- Added $pathJoin and $pathResolve
+- Added $fetchRoles, $fetchChannels and new arg to $fetchMembers
+- Added new functions and more support for app emojis, fixed some functions
+- Added bunch of new edit select menu functions
+- Added $getMessageReactions and new arg to $getMessageReactionCount
+- Added $getInvite and $getGuildInvite, updated $deleteInvite, added more invite properties
+- Added sort type to $arraySort
+- Added functions to enable all buttons and components
+- Added $disableComponents and $disableComponentsOf
+- Added $disableButtons and $disableButtonsOf
+- Added support for return statement in $loop
+- Added $sign and $pi
+- Fixed $XExists funcs throw errors in console
+- Added client webhook event functions
+- Allowed time changing functions to affect $parseDate locales
+- Added $ramTotal and some aliases
+
+## 2.1.0
+
+- Added $deleteField, updated some descriptions
+- Removed deprecated djs stuff
+- Added bunch of new guild functions
+- Added some shard functions, updated $userBadges
+- Added $memberBanner, bump versions
+
+## 1.5.0
+
+- Fixed $memberCustomStatus
+- Added prefixCaseInsensitive client option
+- Fixed $deleteMessage always returns 0 for one single deleted message
+- Added deprecation warning logger to $interactionRequirePremium
+- Added filters to $clearMessages and $clearUserMessages
+- Fixed $emojiID not working with app emojis
+- Added $botDescription, $setBotDescription and $setBotTags
+- Added $unparseDigital, renamed $isBool to $isBoolean
+- Fixed $deleteComponent functions can cause empty action rows
+- Fixed successJSON can't handle BigInts
+- Fixed automod rule options not being cleared after execution
+- Fixed $guildMemberCount offline presence not working properly
+- Added new params to $bar, fixed negative input
+- Added $arrayFindLastIndex
+- Updated $arraySplice to now return deleted elements
+- Added $guildEmojiLimit, $guildStickerLimit and $arrayLastIndexOf
+- Added optional arg to $guildMemberCount
+- Added $parseDigital
+- Added $firstMessageID and $channelPinnedMessages
+- Added optional direction arg to $loop and fixed iteration count for infinite times
+- Added $deleteIn
+- Added optional arg to $authorizingIntegrationOwners
+- Fixed reactions of messages not properly cached, fixes reaction functions
+- Added optional reason param to $timeout
+- Fixed $randomGuildChannelID
+- Added support for nullable and optional custom func params
+- Added $interactionRawData
+- Added $channelPermissionsOf
+- Added various raw data functions
+- Added $cloneChannelPerms, small changes and additions
+- Added some new functions
+- Added new functions, aliases and parameters
+- Added more flag functions and $setGuildPausedInvites
+- Added $isPinned
+- Added args to $messageType, fixed $messageWebhookID
+- Added more voice state properties
+- Fixed emoji functions, added support for app emojis, small changes
+- Added some new functions and properties
+- Added $editEmoji, update djs to v14.16.3
+- Updated invite functions
+- Fix for previous commit
+- Added new application command functions
+- Fixed application command functions
+- Allowed strings as input for $isInteger and $isFloat
+- Added $authorizingIntegrationOwners and $context
+- Added $targetMessageEmbeds, new msg properties and updated $djsEval
+- Added $targetMessage and more message properties
+- Added $httpPing
+- Deprecated $interactionRequirePremium in favor of new premium buttons
+- Added $httpGetHeader
+- Added $isRepliable
+- Added $memberActivity
+- Added $threadStarterMessageID and fixed thread functions
+- Added new automod rule events and state functions
+- Added $tts
+- Fixed $editButton not allowing empty labels
+- Added new functions, fixed $editButton, update djs to v14.16.2
+- Added support for more application command customization
+- Added $editGuildTemplate
+- Moved prev wrongly added aliases from $loadEmbeds to $fetchEmbeds
+- Added $messageEditedAt
+- Added optional separator arg to $selectMenuValues
+- Added bunch of new automod rule functions
+- Renamed func to $setGuildBoostProgressBar
+- Updated deprecated Emoji#url getter
+- Added $getApplicationEmojis and small improvements
+- Update $createInvite to always create unique invites
+- Optimized $guildBoosterIDs, final commit
+- Revert prev change
+- Small change
+- Fixed $guildBoosterIDs again
+- Fixed $guildBoosterIDs
+- Added $threadTotalMessagesSent and small fixes
+- Added more guild boost functions
+- Fixed $title doesn't allow empty values
+- Fixed $guildID and $channelID not working with user installable apps
+- Added $guildHighestRoleID and $guildLowestRoleID
+- Fixed prev $ fix caused no note on docs?
+- Fixed $ sign not escaped properly for GitHub commits
+- Added $$userReferenceID
+- Added randomRoleID and optional reason arg to voiceMove
+- 'Added $memberLowestRoleID'
+- Added guild template funcs and fixed typo
+- Added \$lastPinTimestamp and aliases to \$loadEmbeds
+- Added optional type param to emoji count funcs
+- Fixed guild funcs not working within ban events
+- Added optional asc param to \$rolePosition
+- Fixed $arrayAdvancedSort
+- Added support for SKUIds in addButton funcs
+- Fixed typo in $decrypt desc
+- Added new functions and userinstall app support, update djs to v14.16.1
+- Added $encrypt, $decrypt and $randomBytes
+- Fi
+- Added $week
+- Added $deleteThread
+- Fix channel id being optional in some funcs
+- Added $setChannelArchiveDuration
+- Added another function
+- New functions some new fields for other functions
+- Idk
+- Added modifyforumtag
+- Fixed fetching messages giving partial ones
+- Added $isArchived and fix threads no cached
+- Added hasPoll
+- More poll functionality
+- Fixed $pollAnswers emojis not showing up
+- Added some poll functionality
+- Skill issue
+- Updated $createInvite with more parameters
+- Fixed $applicationCommandOptions and new param
+- Added new param to $cropText
+- Added $applicationCommandOptions
+- Added 2 new fields to $webhookSend
+- Added entitlement support, updated djs to v14.5
+- Added @private to some command props
+- Fixed $escapeCode
+- Added many new cooldown function utilities
+- Added new field to $bar, added $advancedBar for complex bars.
+- Introduced count and silent operators
+- Added $average
+- fixed parseJSON for numbers
+- Remove old attachments when editing
+- Added $reverseText
+- Fixed $bar again
+- Fixed $bar not working with multi char strings
+- Added $gc
+- Small changes
+- Added $bar
+- Fixed compiler attempting to read fields for functions that dont have args
+- Added new workflow
+- workflow test | 3#
+- workflow test | #2
+- dev workflow | #1
+- Fixed $editButton and $editButtonOf attempting to set empty fields
+- Added websocket support
+- Added many functions to edit components and rows from different messages
+- Some functions did not allow negation operator, this has been fixed.
+- Added $channelIsChildrenOf
+- Added $djs and $js aliases to $djsEval
+- Added $discordAPI as alias to $api
+- Quick change to $api
+- Added $api
+- Updated readme
+- Bump version
+
+## 1.4.0
+
+- $arrayLoad now allows loading without values
+- Fixed $isSlashCommand and slashCommand int type
+- Fixed guild functions
+- $option now returns attachment urls
+- interactionCreate events now forward app commands, might become a breaking change for some (?),
+- Fixed $guildRulesChannelID
+- Added more time units
+- Added $discordTimestamp
+- Fixed some component functions, added $isJSON
+- Added $userIDs
+- Added some more funcs
+- Added some funcs
+- Added $voiceMove
+- Added some new functions
+- Nothing much
+- Tried a fix for ephemeral messages not being recognized
+- Added emoji property to component
+- Added some aliases and functions
+- Added $transcript, $guildChannelID, $getComponent and $loadComponent
+- Removed old compiler.
+- Added $splitTextJoin and $reply now mentions by default
+- Added registration type to application commands
+- Added $findMembers
+- Added $hasAnyPerms
+- Fixed $guildNSFWLevel
+- Change $commandInfo's last field.
+- Prefixes no longer sensitive
+- Fixed no ping behavior
+- Small typo
+- Added Arg class for ease of arg creation
+- Fixed $awaitComponent throwing error regardless of error disabled
+- Fixed interactionReply 2nd field, fixed $disableConsoleErrors
+- Added index to parsed functions
+- Added event emitter to command manager
+- Added new option to client and command to disable errors
+- feat: add $userID as alias to $authorID
+- Added more await functions, added $showModal
+- Fixed some file funcs
+- Added more file functions
+- Added more file functions
+- Added form data support to http
+- Added BaseCommandManager#toArray
+- Added a lot of sticker functions, changed $sticker fields.
+- Removed content argument from $createThread
+- Setting Context#obj now clears cache, cache was moved to a property, added context loaders.
+- FunctionManager#add is now a shorthand for addMany
+- $scope now allows syncing vars, adapted paths to work with other operating systems
+- Prefixes are no longer required
+- dollar custom functions now allow recursion
+- Custom functions are now populated as actual functions, made several changes, backwards compatibility to FunctionManager#load, fixed $messageCreatedAt, and some other stuff
+- Reenabled outer escaping in experimental compiler, functions are properly escaped
+- Fixed experimental compiler skipping functions
+- Fixed experimental compiler again
+- Added docs translations, fixed compiler again, fixed $thumbnail and some other embed functions causing errors with empty field values, array functions can now return output, $eval now shares context container
+- Fixed condition fields not working in experimental compiler
+- Added alloc field to resolveCode
+- fixed some imports
+- Another fix to experimental compiler, fixed types in the json
+- Added $interactionDelete and translations
+- Added translations.json
+- Added ForgeClient#commandManagers
+- I promise this is the last row of events
+- Another row of events.
+- Added a few more events!
+- Added $usertag and $discriminator
+- Changed $jsonSet fields
+- $arrayMap now allows json, fixed $cloneChannel, $jsonDelete and added error when missing data to app commands
+- Fixed $cloneChannel, $arrayMap now allows json returned, fixed $jsonDelete
+- whoops forgot to install deps
+- Fixed command load crash
+- Exported generateMetadata again
+- Fixed circular imports (pain)
+- Fixed docgen
+- Added eventabsolutepath option to generateMetadata
+- Added intents enum, added alias to $hasChannelPerms
+- Added $cloneChannel, $channelHas(Any)Perms, fixed no perms issue with attach files perm
+- Added more events
+- Redone dist
+- Added $messageSticker and $messageStickerCount, renamed $stickers
+- Added $fetchResponse
+- Added $editField
+- Added $guildHas(Any)Features
+- Added more aliases
+- Added $fetchEmbeds, added more functionality to $getEmbed, added $loadEmbeds
+- Added id to all commands
+- Renamed $markdown to $inlineCode
+- Fixed $markdown
+- Redone errors a bit
+- Added ForgeClient#getExtension and Context#getExtension
+- Fixed $argCount, fixed $updateApplicationCommands description, fixed $fetchAuditLog/$fetchUserAuditLog fields
+- Added $jsonDelete
+- Swapped $jsonSet fields, now made work
+- Added output type to functions
+- Removed message validation from $deleteMessage
+- Added infinite loop possibility to $loop
+- Fixed $arrayEvery
+- Fixed $httpResult with no args
+- Fixed $arraySome
+- Fixed $httpRequest ignoring $httpSetContentType
+- Added $httpSetContentType
+- Added path to app commans
+- Added $guildEmojis
+- Added fields to $applicationCommandDisplay
+- Added $loop
+- Added $editStringSelectMenu, $editOption and replaced separator field $getEmbed in favor of field index.
+- Added $applicationCommandDisplay
+- I trimmed twice
+- Fixed $argCount returning 1 for empty values
+- Added $locale
+- Added roleCount to member properties
+- Added some functions for audit log management
+- Added $guildBannedMembers and $guildBanReason
+- Added enums.json to metadata, added enumName to args in metadata
+- Added aliases to all $bot functions and $server
+- Added $memberIDs
+- added $messageContent
+- Commented all runnable properties
+- Added function support to prefixes
+- Added $modifyChannelPerms and modified internal code
+- Added $channelPermissionsfor
+- Fix slashes not working with independent mode
+- Added independent prop to app commands
+- Fixed $messageAttachment
+- Added $replaceText as alias to $replace
+- Added alias to $sendMessage and added $messageAttachment
+- Fixed compiler breaking on negation op
+- $isValidHex no longer accepts hexes like ff#ff00
+- Small touch on compiler
+- Added aliases to functions (experimental)
+- Changed extension loadup message
+- Removed category property from functions
+- Added respondOnEdit as client option
+- Rearranged functions in categories
+- Fixed path again
+- Fixed empty files being used
+- Fixed command path
+- Categorized all functions
+- Added category to functions.json, deleted generateFunctionDoc
+- Added $arrayRandomIndex, $arrayRandomValue, fixed $platform user arg, deleted $attachments in favor of $messageAttachments
+- Fixed $guildChannelCount
+- (Might fix invite system?) Added deprecation warning to ForgeClient#useInviteSystem, implemented ForgeClient#trackers.
+- Introduced breaking change to extensions, added extra command checks and minor improvements
+- Reorganized structures folder
+- Fixed version on newer functions
+- Fixed package.json version
+- Added few channel, voice, select menu and option functions
+- Bump 1.4.0
+
+## 1.3.0
+
+- Added mobile option to client
+- Added $addRoleSelectMenu
+- added $sliceText and $messageSlice
+- Added a lot of missing guild and role functions
+- added $arrayPushJSON and unshift variants
+- Added $guildChannelIDs and $guildRoleIDs
+- Added $hyperlink
+- Added $mentionedXCount
+- Added command path to compilation errors, fixed some path joins
+- Added ability to disable unneccesary functions
+- Improved description of $isValidHex and $isValidLink
+- Added 2 new properties to extension class (requireExtensions and targetVersions)
+- Added $isValidHex
+- Some interpreter optimizations were applied, attempt to fix stickers issue with $editMessage and added $deferUpdate
+- Added formatting functions
+- Fixed $stickers indexing and added $sticker (sticker support for responses)
+- Added $ordinal
+- Added $enableUserMentions, $enableRoleMentions, $disableEveryoneMention and $disableAllMentions
+- Added $disableUserMentions, $disableRoleMentions, $nomention and a new field to $reply
+- Added $disableUserMentions, $disableRoleMentions, $nomention and a new field to $reply
+- Added bigint functions, and some shorthand functions for $let
+- Added better logging to ForgeScript core, also implemented api as a function
+- Fixed negation operator for functions with fields
+- Functions are now case insensitive, improved commit.ts
+- Added case insensitive functions, improved commit.ts
+- Please write the commit message:
+- Please write the commit message:
+- Bump ForgeScript version
+
+## 1.2.0
+
+- Added URL arg type
+- Fixed updateApplicationCommands partially working
+- Added updateApplicationCommands
+- Changed all functions internally to adapt to the new negation operator
+- Move negation operator to the beginning of function
+- make executionTime more accurate
+- added parseInt
+- Fixed findUser crash
+- Fixed some grammar errors in docs by Nicky
+- added ifx function allows blocks of statements
+- Fixed lastMessageID returning content instead of id
+- Return no longer requires brackets
+- Fixed commandInfo
+- Added allowedInteractionTypes property to commands and the name property now works for interactions
+- Speeded up interpreter performance
+- Added negation operator to cancel output of functions
+- Added deleteCommand
+- Fixed successJSON and successFormatted
+- Add line:column to parser errors
+- Deleted changelogs folder
+- Moved json files to metadata folder
+- Added color strings back
+- Renamed loadJSON = jsonLoad
+- Added jsonSet
+- Reordered fields in botOwnerID default to the owner id
+- Added reason field to createInvite
+- Fixed botOwnerID and extended its functionality
+- Added missing reference to ThreadManager.ts
+- Make httpRequest last field optional and added httpResult [shortcut for env]
+- Fixed small typo in a log given by FunctionManager#load
+- Added color functions and new arg type
+- Added autoModerationActionExecution event and a few functions for it
+- Added titleURL to embed properties
+- Added hasExtension
+- Fixed embed properties and added color and authorURL to it
+- Added a handful of functions
+- Renamed runInThread => coroutine
+- Added lastMessageID
+- Fix docgen not generating functions
+- Added interactionFollowUp
+- Implemented feature for code threading (experimental)
+- Add error for invalid flags in changelog gen
+- Make json instead of txt for changelogs

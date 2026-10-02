@@ -1,0 +1,236 @@
+# ForgeIndia functions — index
+
+- [`$aakhriMessageID`]($aakhriMessageID.md) — Returns the latest message sent in a channel
+- [`$agar`]($agar.md) — Creates an if statement
+- [`$ifKaro`]($ifKaro.md) — Alias of `$agar`
+- [`$sochoAgar`]($sochoAgar.md) — Alias of `$agar`
+- [`$aur`]($aur.md) — Validates multiple conditions
+- [`$badaText`]($badaText.md) — Makes a string uppercase
+- [`$textBadaKaro`]($textBadaKaro.md) — Alias of `$badaText`
+- [`$uppercaseKaro`]($uppercaseKaro.md) — Alias of `$badaText`
+- [`$banHatao`]($banHatao.md) — Unbans a user
+- [`$unbanKaro`]($unbanKaro.md) — Alias of `$banHatao`
+- [`$unblockKaro`]($unblockKaro.md) — Alias of `$banHatao`
+- [`$wapisLao`]($wapisLao.md) — Alias of `$banHatao`
+- [`$bannedHaiKya`]($bannedHaiKya.md) — Returns whether this user is banned
+- [`$kyaBannedHai`]($kyaBannedHai.md) — Alias of `$bannedHaiKya`
+- [`$bato`]($bato.md) — Divides multiple numbers
+- [`$bhaagKaro`]($bhaagKaro.md) — Alias of `$bato`
+- [`$divideKaro`]($divideKaro.md) — Alias of `$bato`
+- [`$botBannerSetKaro`]($botBannerSetKaro.md) — Sets the bot banner
+- [`$botKiBannerLgao`]($botKiBannerLgao.md) — Alias of `$botBannerSetKaro`
+- [`$botBulawo`]($botBulawo.md) — Returns a bot's invite link
+- [`$botKaInvite`]($botKaInvite.md) — Alias of `$botBulawo`
+- [`$botKoBulawo`]($botKoBulawo.md) — Alias of `$botBulawo`
+- [`$botKaDesc`]($botKaDesc.md) — Returns the description of the bot
+- [`$botKaDescSetKaro`]($botKaDescSetKaro.md) — Sets the bot description
+- [`$setBotDesc`]($setBotDesc.md) — Alias of `$botKaDescSetKaro`
+- [`$botKaID`]($botKaID.md) — Returns the client's id
+- [`$botKaNaamRakho`]($botKaNaamRakho.md) — Sets the bot name
+- [`$botKoNaamDo`]($botKoNaamDo.md) — Alias of `$botKaNaamRakho`
+- [`$naamSetKaro`]($naamSetKaro.md) — Alias of `$botKaNaamRakho`
+- [`$botKabSeChalRaha`]($botKabSeChalRaha.md) — Returns the bots uptime
+- [`$kitneTimeSeBotChalRaha`]($kitneTimeSeBotChalRaha.md) — Alias of `$botKabSeChalRaha`
+- [`$botKeBaapKaID`]($botKeBaapKaID.md) — Returns the bot's owner id or team members
+- [`$botKaMaalik`]($botKaMaalik.md) — Alias of `$botKeBaapKaID`
+- [`$botKiPhotoLgao`]($botKiPhotoLgao.md) — Sets the bot profile icon
+- [`$botAvatarLgao`]($botAvatarLgao.md) — Alias of `$botKiPhotoLgao`
+- [`$botDPSetKaro`]($botDPSetKaro.md) — Alias of `$botKiPhotoLgao`
+- [`$botKitneHain`]($botKitneHain.md) — Returns the bot count of the bot
+- [`$kitneBots`]($kitneBots.md) — Alias of `$botKitneHain`
+- [`$botUdaao`]($botUdaao.md) — Destroys the discord.js client
+- [`$botBandKaro`]($botBandKaro.md) — Alias of `$botUdaao`
+- [`$channelCategoryKaID`]($channelCategoryKaID.md) — Returns the channel category id
+- [`$channelDhoondo`]($channelDhoondo.md) — Finds a channel
+- [`$chnlKhojo`]($chnlKhojo.md) — Alias of `$channelDhoondo`
+- [`$channelHaiKya`]($channelHaiKya.md) — Returns whether a channel id exists
+- [`$channelKaNaam`]($channelKaNaam.md) — Returns the channel name
+- [`$channelKaNaamSetKaro`]($channelKaNaamSetKaro.md) — Sets a channel name, returns bool
+- [`$channelKaServerID`]($channelKaServerID.md) — Returns the channel guild id
+- [`$channelKaTopicSetKaro`]($channelKaTopicSetKaro.md) — Sets a channel topic, returns bool
+- [`$channelKaType`]($channelKaType.md) — Returns the channel type
+- [`$channelKabBana`]($channelKabBana.md) — Returns the channel timestamp
+- [`$channelKeBacchonKiGinti`]($channelKeBacchonKiGinti.md) — Returns the amount of children this category has
+- [`$channelKeBacchonKiIDs`]($channelKeBacchonKiIDs.md) — Returns the children ids this category has
+- [`$subChannelIDs`]($subChannelIDs.md) — Alias of `$channelKeBacchonKiIDs`
+- [`$channelKiCategorySetKaro`]($channelKiCategorySetKaro.md) — Sets a channel's category, returns bool
+- [`$channelKiCopyBanao`]($channelKiCopyBanao.md) — Clones the given channel
+- [`$channelKiJagah`]($channelKiJagah.md) — Returns the channel position
+- [`$channelsDhoondo`]($channelsDhoondo.md) — Finds channels of a guild using a query
+- [`$chnlsKhojo`]($chnlsKhojo.md) — Alias of `$channelsDhoondo`
+- [`$channelsKiGinti`]($channelsKiGinti.md) — Returns the channel count of all servers
+- [`$totalChannels`]($totalChannels.md) — Alias of `$channelsKiGinti`
+- [`$channelsUdaao`]($channelsUdaao.md) — Deletes given channels, returns the count of channels deleted
+- [`$chnlDelete`]($chnlDelete.md) — Alias of `$channelsUdaao`
+- [`$deleteChnls`]($deleteChnls.md) — Alias of `$channelsUdaao`
+- [`$hataoChannels`]($hataoChannels.md) — Alias of `$channelsUdaao`
+- [`$chhotaText`]($chhotaText.md) — Makes a string lowercase
+- [`$lowercaseKaro`]($lowercaseKaro.md) — Alias of `$chhotaText`
+- [`$textChotaKaro`]($textChotaKaro.md) — Alias of `$chhotaText`
+- [`$chnlID`]($chnlID.md) — Gets the channel id of a channel name
+- [`$channelKaID`]($channelKaID.md) — Alias of `$chnlID`
+- [`$chnID`]($chnID.md) — Alias of `$chnlID`
+- [`$din`]($din.md) — Returns current day of month
+- [`$aajKaDin`]($aajKaDin.md) — Alias of `$din`
+- [`$dmBhej`]($dmBhej.md) — Sends a dm to the user
+- [`$emojiKhojo`]($emojiKhojo.md) — Finds an emoji
+- [`$emojiDhoondo`]($emojiDhoondo.md) — Alias of `$emojiKhojo`
+- [`$fileDeleteKaro`]($fileDeleteKaro.md) — Deletes a file
+- [`$fileHaiKya`]($fileHaiKya.md) — Checks whether a path exists
+- [`$fileKaNaamBadlo`]($fileKaNaamBadlo.md) — Renames a file
+- [`$fileKiCopyBanao`]($fileKiCopyBanao.md) — Copies given path to another path
+- [`$fileMeinAddKaro`]($fileMeinAddKaro.md) — Appends text to a file
+- [`$fileMeinLikho`]($fileMeinLikho.md) — Writes text to a file
+- [`$filePadho`]($filePadho.md) — Reads text from a file
+- [`$ghanta`]($ghanta.md) — Returns current hour
+- [`$ghante`]($ghante.md) — Alias of `$ghanta`
+- [`$ghatao`]($ghatao.md) — Subtracts multiple numbers
+- [`$minusKaro`]($minusKaro.md) — Alias of `$ghatao`
+- [`$subtractKaro`]($subtractKaro.md) — Alias of `$ghatao`
+- [`$ghumao`]($ghumao.md) — Executes given code for N times
+- [`$barbarChalao`]($barbarChalao.md) — Alias of `$ghumao`
+- [`$loopLagao`]($loopLagao.md) — Alias of `$ghumao`
+- [`$gunaKaro`]($gunaKaro.md) — Multiplies multiple numbers
+- [`$multiplyKaro`]($multiplyKaro.md) — Alias of `$gunaKaro`
+- [`$hafta`]($hafta.md) — Returns current week of month
+- [`$haiKya`]($haiKya.md) — Checks whether a string contains a set of other trings
+- [`$payaGayaKya`]($payaGayaKya.md) — Alias of `$haiKya`
+- [`$shamilHaiKya`]($shamilHaiKya.md) — Alias of `$haiKya`
+- [`$halatDekho`]($halatDekho.md) — Checks whether a condition is valid
+- [`$conditionCheck`]($conditionCheck.md) — Alias of `$halatDekho`
+- [`$shartCheckKaro`]($shartCheckKaro.md) — Alias of `$halatDekho`
+- [`$hisabKaro`]($hisabKaro.md) — Runs math expression, returns nothing if incorrect expression
+- [`$calculateKaro`]($calculateKaro.md) — Alias of `$hisabKaro`
+- [`$ganitKaro`]($ganitKaro.md) — Alias of `$hisabKaro`
+- [`$mathKaro`]($mathKaro.md) — Alias of `$hisabKaro`
+- [`$inviteLinkBanao`]($inviteLinkBanao.md) — Creates an invite, returns the code
+- [`$iskePaasKuchPermsHai`]($iskePaasKuchPermsHai.md) — Returns whether given member has any of the provided perms
+- [`$kuchTohPermsHai`]($kuchTohPermsHai.md) — Alias of `$iskePaasKuchPermsHai`
+- [`$iskePaasPermsHai`]($iskePaasPermsHai.md) — Returns whether given member has X perms
+- [`$kyaPermsHai`]($kyaPermsHai.md) — Alias of `$iskePaasPermsHai`
+- [`$jabTak`]($jabTak.md) — Executes code while a condition is true
+- [`$conditionTak`]($conditionTak.md) — Alias of `$jabTak`
+- [`$jawabDo`]($jawabDo.md) — Marks the response as a reply
+- [`$bolWapas`]($bolWapas.md) — Alias of `$jawabDo`
+- [`$replyKaro`]($replyKaro.md) — Alias of `$jawabDo`
+- [`$uttarDo`]($uttarDo.md) — Alias of `$jawabDo`
+- [`$jod`]($jod.md) — Adds multiple numbers
+- [`$addKaro`]($addKaro.md) — Alias of `$jod`
+- [`$plusKaro`]($plusKaro.md) — Alias of `$jod`
+- [`$koiBhiChannelID`]($koiBhiChannelID.md) — Returns a random channel ID
+- [`$koiBhiID`]($koiBhiID.md) — Returns a random user ID
+- [`$kisiKaID`]($kisiKaID.md) — Alias of `$koiBhiID`
+- [`$userRandomID`]($userRandomID.md) — Alias of `$koiBhiID`
+- [`$koiBhiMemberKiID`]($koiBhiMemberKiID.md) — Returns a random member ID of a guild
+- [`$randomBandaa`]($randomBandaa.md) — Alias of `$koiBhiMemberKiID`
+- [`$koshishKaro`]($koshishKaro.md) — Handles a possible error from given code
+- [`$tryKaro`]($tryKaro.md) — Alias of `$koshishKaro`
+- [`$kuchBhi`]($kuchBhi.md) — Returns a random text (no cache)
+- [`$faltuText`]($faltuText.md) — Alias of `$kuchBhi`
+- [`$kuchBhiText`]($kuchBhiText.md) — Alias of `$kuchBhi`
+- [`$randomBol`]($randomBol.md) — Alias of `$kuchBhi`
+- [`$randomLikhai`]($randomLikhai.md) — Alias of `$kuchBhi`
+- [`$rigged`]($rigged.md) — Alias of `$kuchBhi`
+- [`$kyaBotHai`]($kyaBotHai.md) — Whether the user is a bot
+- [`$botCheck`]($botCheck.md) — Alias of `$kyaBotHai`
+- [`$botHaiKya`]($botHaiKya.md) — Alias of `$kyaBotHai`
+- [`$laatMar`]($laatMar.md) — Kicks a member from the guild, returns true or false depending on whether the action was successfully performed
+- [`$kickKaro`]($kickKaro.md) — Alias of `$laatMar`
+- [`$memberKickKaro`]($memberKickKaro.md) — Alias of `$laatMar`
+- [`$latencyCheckKaro`]($latencyCheckKaro.md) — The current bot ping
+- [`$botPing`]($botPing.md) — Alias of `$latencyCheckKaro`
+- [`$pingCheck`]($pingCheck.md) — Alias of `$latencyCheckKaro`
+- [`$mahina`]($mahina.md) — Returns current month
+- [`$memberKaBanner`]($memberKaBanner.md) — Returns the member banner
+- [`$memberKaNaamBadlo`]($memberKaNaamBadlo.md) — Edits a member's nickname
+- [`$nicknameLagao`]($nicknameLagao.md) — Alias of `$memberKaNaamBadlo`
+- [`$memberKaNaamDikhao`]($memberKaNaamDikhao.md) — Returns the display name of a member
+- [`$memberNaam`]($memberNaam.md) — Alias of `$memberKaNaamDikhao`
+- [`$memberKaRangDikhao`]($memberKaRangDikhao.md) — Returns the display color of a member
+- [`$memberKaColor`]($memberKaColor.md) — Alias of `$memberKaRangDikhao`
+- [`$memberKhojo`]($memberKhojo.md) — Finds a member of a guild
+- [`$memberDhoondo`]($memberDhoondo.md) — Alias of `$memberKhojo`
+- [`$memberKiPhoto`]($memberKiPhoto.md) — Returns the member avatar
+- [`$memberDP`]($memberDP.md) — Alias of `$memberKiPhoto`
+- [`$membersKhojo`]($membersKhojo.md) — Finds member of a guild using a query
+- [`$membersDhoondo`]($membersDhoondo.md) — Alias of `$membersKhojo`
+- [`$messageBhej`]($messageBhej.md) — Sends a message to a channel
+- [`$bolDo`]($bolDo.md) — Alias of `$messageBhej`
+- [`$msgBhej`]($msgBhej.md) — Alias of `$messageBhej`
+- [`$sandeshBhej`]($sandeshBhej.md) — Alias of `$messageBhej`
+- [`$sendMsg`]($sendMsg.md) — Alias of `$messageBhej`
+- [`$minat`]($minat.md) — Returns current minute
+- [`$msgHatao`]($msgHatao.md) — Deletes given messages, returns the count of messages deleted
+- [`$deleteMsg`]($deleteMsg.md) — Alias of `$msgHatao`
+- [`$hataDoMsg`]($hataDoMsg.md) — Alias of `$msgHatao`
+- [`$msgID`]($msgID.md) — Returns the message id
+- [`$idOfMsg`]($idOfMsg.md) — Alias of `$msgID`
+- [`$messageKaID`]($messageKaID.md) — Alias of `$msgID`
+- [`$msgReactionAddKaro`]($msgReactionAddKaro.md) — Adds reactions to a message, returns amount of emojis successfully reacted
+- [`$emoteLagao`]($emoteLagao.md) — Alias of `$msgReactionAddKaro`
+- [`$reactionAdd`]($reactionAdd.md) — Alias of `$msgReactionAddKaro`
+- [`$reactionLagao`]($reactionLagao.md) — Alias of `$msgReactionAddKaro`
+- [`$naam`]($naam.md) — Retrieves a user's username
+- [`$naamOfUser`]($naamOfUser.md) — Alias of `$naam`
+- [`$uname`]($uname.md) — Alias of `$naam`
+- [`$usernaam`]($usernaam.md) — Alias of `$naam`
+- [`$naamJaisaText`]($naamJaisaText.md) — Converts a string to title case
+- [`$titleBanao`]($titleBanao.md) — Alias of `$naamJaisaText`
+- [`$nayaChannelBanao`]($nayaChannelBanao.md) — Creates a channel in a guild, returns the channel id
+- [`$nicknameKya`]($nicknameKya.md) — Returns the member nickname
+- [`$iskoKyaBolteHai`]($iskoKyaBolteHai.md) — Alias of `$nicknameKya`
+- [`$nickBatado`]($nickBatado.md) — Alias of `$nicknameKya`
+- [`$nikalBahar`]($nikalBahar.md) — Bans a member from the guild, returns true or false depending on whether the action was successfully performed
+- [`$banKaro`]($banKaro.md) — Alias of `$nikalBahar`
+- [`$blockKaro`]($blockKaro.md) — Alias of `$nikalBahar`
+- [`$pehlaMessageID`]($pehlaMessageID.md) — Returns the first message sent in a channel
+- [`$puraNaam`]($puraNaam.md) — Returns the user tag
+- [`$userKaPuraNaam`]($userKaPuraNaam.md) — Alias of `$puraNaam`
+- [`$userKaTag`]($userKaTag.md) — Alias of `$puraNaam`
+- [`$userPuraNaam`]($userPuraNaam.md) — Alias of `$puraNaam`
+- [`$rukJao`]($rukJao.md) — Stops code execution
+- [`$abBas`]($abBas.md) — Alias of `$rukJao`
+- [`$bandKaro`]($bandKaro.md) — Alias of `$rukJao`
+- [`$saal`]($saal.md) — Returns current year
+- [`$varsh`]($varsh.md) — Alias of `$saal`
+- [`$saareMessagesMitao`]($saareMessagesMitao.md) — Clears x amount of messages from a channel, returns the number of messages deleted
+- [`$sabkeSamneNaam`]($sabkeSamneNaam.md) — Returns the global name of a user
+- [`$globalNaam`]($globalNaam.md) — Alias of `$sabkeSamneNaam`
+- [`$serverKaRandomChannel`]($serverKaRandomChannel.md) — Returns a random channel ID of a guild
+- [`$sirfAgar`]($sirfAgar.md) — Stop execution if condition is not matched
+- [`$basTabhi`]($basTabhi.md) — Alias of `$sirfAgar`
+- [`$tabhiChalega`]($tabhiChalega.md) — Alias of `$sirfAgar`
+- [`$textUlatDo`]($textUlatDo.md) — Reverses given text
+- [`$palatText`]($palatText.md) — Alias of `$textUlatDo`
+- [`$ultaLikhai`]($ultaLikhai.md) — Alias of `$textUlatDo`
+- [`$typingChaluKaro`]($typingChaluKaro.md) — Starts typing in a channel
+- [`$liknaChaluKaro`]($liknaChaluKaro.md) — Alias of `$typingChaluKaro`
+- [`$userHaiKya`]($userHaiKya.md) — Returns whether a user id exists
+- [`$userKaBanner`]($userKaBanner.md) — Returns the user banner
+- [`$userKabBana`]($userKabBana.md) — Returns the timestamp this user created their account
+- [`$userKeMessagesMitao`]($userKeMessagesMitao.md) — Clears x amount of messages from a channel of given user, returns the number of messages deleted
+- [`$userKhojo`]($userKhojo.md) — Finds a user
+- [`$userDhoondo`]($userDhoondo.md) — Alias of `$userKhojo`
+- [`$userKiPhoto`]($userKiPhoto.md) — Returns the user avatar
+- [`$userKaChehra`]($userKaChehra.md) — Alias of `$userKiPhoto`
+- [`$userKiShakal`]($userKiShakal.md) — Alias of `$userKiPhoto`
+- [`$userKitneHain`]($userKitneHain.md) — Returns the user count of the bot
+- [`$kitneUsers`]($kitneUsers.md) — Alias of `$userKitneHain`
+- [`$varBanao`]($varBanao.md) — Create a keyword
+- [`$rakho`]($rakho.md) — Alias of `$varBanao`
+- [`$variableSetKaro`]($variableSetKaro.md) — Alias of `$varBanao`
+- [`$varLo`]($varLo.md) — Get a keyword value
+- [`$nikalo`]($nikalo.md) — Alias of `$varLo`
+- [`$variablePao`]($variablePao.md) — Alias of `$varLo`
+- [`$varna`]($varna.md) — Creates an else statement
+- [`$elseWala`]($elseWala.md) — Alias of `$varna`
+- [`$nahiTo`]($nahiTo.md) — Alias of `$varna`
+- [`$warnaAgar`]($warnaAgar.md) — Creates an else if statement
+- [`$phirAgar`]($phirAgar.md) — Alias of `$warnaAgar`
+- [`$ya`]($ya.md) — Validates one condition
+- [`$yeChannelsHi`]($yeChannelsHi.md) — Only executes code if given ids match the current channel
+- [`$khaaliInChannelsKeLiye`]($khaaliInChannelsKeLiye.md) — Alias of `$yeChannelsHi`
+- [`$yeFileHaiKya`]($yeFileHaiKya.md) — Checks whether a path is a file
+- [`$yeKaunseNumberParAaya`]($yeKaunseNumberParAaya.md) — Returns the position at which the member joined the guild
+- [`$yeUsersHi`]($yeUsersHi.md) — Only executes code if given ids match the author
+- [`$khaaliInUsersKeLiye`]($khaaliInUsersKeLiye.md) — Alias of `$yeUsersHi`

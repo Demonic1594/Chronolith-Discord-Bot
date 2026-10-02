@@ -1,0 +1,13 @@
+*.zip
+/node_modules
+.env
+/database
+forge.db
+package-lock.json
+.vscode
+.cache
+/quoriel
+forgeconfig.json
+bun.lock
+.forgevsc.json
+back/client/ytCacheTracks

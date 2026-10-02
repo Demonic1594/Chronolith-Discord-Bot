@@ -1,0 +1,38 @@
+# CompositingOperation
+
+Enum defined by **ForgeCanvas** with `26` values.
+
+## Values
+
+| Value | Index |
+|---|---|
+| `source-over` | 0 |
+| `source-in` | 1 |
+| `source-out` | 2 |
+| `source-atop` | 3 |
+| `destination-over` | 4 |
+| `destination-in` | 5 |
+| `destination-out` | 6 |
+| `destination-atop` | 7 |
+| `lighter` | 8 |
+| `copy` | 9 |
+| `xor` | 10 |
+| `multiply` | 11 |
+| `screen` | 12 |
+| `overlay` | 13 |
+| `darken` | 14 |
+| `lighten` | 15 |
+| `color-dodge` | 16 |
+| `color-burn` | 17 |
+| `hard-light` | 18 |
+| `soft-light` | 19 |
+| `difference` | 20 |
+| `exclusion` | 21 |
+| `hue` | 22 |
+| `saturation` | 23 |
+| `color` | 24 |
+| `luminosity` | 25 |
+
+## Usage
+
+Enum arguments must receive one of the exact values above (case matters). Depending on the underlying implementation, some functions also accept the numeric index.

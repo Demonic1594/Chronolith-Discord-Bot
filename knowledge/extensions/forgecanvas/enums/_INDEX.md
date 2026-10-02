@@ -1,0 +1,24 @@
+# ForgeCanvas enums — index
+
+- [`ColorDataType`](ColorDataType.md) — 2 values
+- [`ColorOutput`](ColorOutput.md) — 3 values
+- [`CompositingOperation`](CompositingOperation.md) — 26 values
+- [`DecoderOption`](DecoderOption.md) — 5 values
+- [`FillOrStroke`](FillOrStroke.md) — 2 values
+- [`FillOrStrokeOrClear`](FillOrStrokeOrClear.md) — 4 values
+- [`FillRule`](FillRule.md) — 2 values
+- [`FilterMethod`](FilterMethod.md) — 7 values
+- [`Filters`](Filters.md) — 9 values
+- [`FontVariantCaps`](FontVariantCaps.md) — 7 values
+- [`FrameOption`](FrameOption.md) — 11 values
+- [`ImageFormat`](ImageFormat.md) — 5 values
+- [`LineJoinShape`](LineJoinShape.md) — 3 values
+- [`LottieOption`](LottieOption.md) — 8 values
+- [`LottieSeekType`](LottieSeekType.md) — 3 values
+- [`MeasureTextProperty`](MeasureTextProperty.md) — 10 values
+- [`RectAlign`](RectAlign.md) — 3 values
+- [`RectBaseline`](RectBaseline.md) — 3 values
+- [`TextAlign`](TextAlign.md) — 5 values
+- [`TextBaseline`](TextBaseline.md) — 6 values
+- [`TextWrap`](TextWrap.md) — 5 values
+- [`WidthOrHeight`](WidthOrHeight.md) — 2 values

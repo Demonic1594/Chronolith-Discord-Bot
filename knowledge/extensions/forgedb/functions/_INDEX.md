@@ -1,0 +1,86 @@
+# ForgeDB functions — index
+
+- [`$channelCooldown`]($channelCooldown.md) — Imposes a cooldown period for a command within a specific channel.
+- [`$channelLeaderboard`]($channelLeaderboard.md) — Creates a leaderboard specific to channels based on a variable.
+- [`$data`]($data.md) — Retrieves data that has been set or deleted for a record during create and delete events
+- [`$dbPing`]($dbPing.md) — Returns the database ping.
+- [`$dbLatency`]($dbLatency.md) — Alias of `$dbPing`
+- [`$deleteChannelCooldown`]($deleteChannelCooldown.md) — Deletes a cooldown of a given channel
+- [`$deleteChannelVar`]($deleteChannelVar.md) — Removes a value from a variable associated with a channel.
+- [`$deleteGlobalCooldown`]($deleteGlobalCooldown.md) — Deletes a cooldown of a given global
+- [`$deleteGlobalVar`]($deleteGlobalVar.md) — Removes a value from a global variable
+- [`$deleteGuildCooldown`]($deleteGuildCooldown.md) — Deletes a cooldown of a given guild
+- [`$deleteGuildVar`]($deleteGuildVar.md) — Removes a value from a guild variable
+- [`$deleteServerVar`]($deleteServerVar.md) — Alias of `$deleteGuildVar`
+- [`$deleteMemberCooldown`]($deleteMemberCooldown.md) — Deletes a cooldown of a given member
+- [`$deleteMemberVar`]($deleteMemberVar.md) — Removes a value from a member variable
+- [`$deleteMessageVar`]($deleteMessageVar.md) — Deletes a value from a message variable
+- [`$deleteRecords`]($deleteRecords.md) — Deletes variables associated with your inputs.
+- [`$deleteVariables`]($deleteVariables.md) — Alias of `$deleteRecords`
+- [`$deleteVars`]($deleteVars.md) — Alias of `$deleteRecords`
+- [`$deleteRoleVar`]($deleteRoleVar.md) — Deletes a value from a role variable
+- [`$deleteUserCooldown`]($deleteUserCooldown.md) — Deletes a cooldown of a given user
+- [`$deleteUserVar`]($deleteUserVar.md) — Deletes a value from a user variable
+- [`$deleteVar`]($deleteVar.md) — Deletes a value from a variable
+- [`$getChannelCooldownTime`]($getChannelCooldownTime.md) — Retrieves current cooldown time in ms for a channel
+- [`$getChannelLeaderboardID`]($getChannelLeaderboardID.md) — Returns the channel in the leaderboard of a specified position
+- [`$getChannelLeaderboardLength`]($getChannelLeaderboardLength.md) — Returns the total number of entries in a channel leaderboard.
+- [`$getChannelLeaderboardValue`]($getChannelLeaderboardValue.md) — Fetches the position of a channel in the leaderboard of a variable
+- [`$getChannelLeaderboardPosition`]($getChannelLeaderboardPosition.md) — Alias of `$getChannelLeaderboardValue`
+- [`$getChannelVar`]($getChannelVar.md) — Retrieves the value of a variable associated with a channel
+- [`$getDB`]($getDB.md) — Returns all stored identifiers in the database
+- [`$getDataBase`]($getDataBase.md) — Alias of `$getDB`
+- [`$getRecords`]($getRecords.md) — Alias of `$getDB`
+- [`$getGlobalCooldownTime`]($getGlobalCooldownTime.md) — Retrieves current cooldown time in ms for a global
+- [`$getGlobalVar`]($getGlobalVar.md) — Retrieves the value of a variable associated with a global
+- [`$getGuildCooldownTime`]($getGuildCooldownTime.md) — Retrieves current cooldown time in ms for a guild
+- [`$getGuildLeaderboardID`]($getGuildLeaderboardID.md) — Returns the guild in the leaderboard of a specified position
+- [`$getServerLeaderboardID`]($getServerLeaderboardID.md) — Alias of `$getGuildLeaderboardID`
+- [`$getGuildLeaderboardLength`]($getGuildLeaderboardLength.md) — Retrieves the length of a guild leaderboard
+- [`$getServerLeaderboardLength`]($getServerLeaderboardLength.md) — Alias of `$getGuildLeaderboardLength`
+- [`$getGuildLeaderboardValue`]($getGuildLeaderboardValue.md) — Retrieves the position of a guild in the leaderboard of a variable
+- [`$getGuildLeaderboardPosition`]($getGuildLeaderboardPosition.md) — Alias of `$getGuildLeaderboardValue`
+- [`$getServerLeaderboardPosition`]($getServerLeaderboardPosition.md) — Alias of `$getGuildLeaderboardValue`
+- [`$getServerLeaderboardValue`]($getServerLeaderboardValue.md) — Alias of `$getGuildLeaderboardValue`
+- [`$getGuildVar`]($getGuildVar.md) — Retrieves the value of a variable associated with a guild
+- [`$getServerVar`]($getServerVar.md) — Alias of `$getGuildVar`
+- [`$getMemberCooldownTime`]($getMemberCooldownTime.md) — Retrieves current cooldown time in ms for a member
+- [`$getMemberLeaderboardID`]($getMemberLeaderboardID.md) — Returns the member in the leaderboard of a specified position
+- [`$getMemberLeaderboardLength`]($getMemberLeaderboardLength.md) — Retrieves the length of a member leaderboard
+- [`$getMemberLeaderboardValue`]($getMemberLeaderboardValue.md) — Retrieves the position of a member in the leaderboard of a variable
+- [`$getMemberLeaderboardPosition`]($getMemberLeaderboardPosition.md) — Alias of `$getMemberLeaderboardValue`
+- [`$getMemberVar`]($getMemberVar.md) — Retrieves the value of a variable associated with a member
+- [`$getMessageVar`]($getMessageVar.md) — Returns a variable's value of a message
+- [`$getRoleVar`]($getRoleVar.md) — Returns a variable's value of a role
+- [`$getUserCooldownTime`]($getUserCooldownTime.md) — Retrieves current cooldown time in ms for a user
+- [`$getUserLeaderboardID`]($getUserLeaderboardID.md) — Returns the user in the leaderboard of a specified position
+- [`$getUserLeaderboardLength`]($getUserLeaderboardLength.md) — Returns the length of a user leaderboard
+- [`$getUserLeaderboardValue`]($getUserLeaderboardValue.md) — Returns the position of a user in the leaderboard of a specified variable
+- [`$getUserLeaderboardPosition`]($getUserLeaderboardPosition.md) — Alias of `$getUserLeaderboardValue`
+- [`$getUserVar`]($getUserVar.md) — Retrieves the value of a specified variable for a user
+- [`$getVar`]($getVar.md) — Returns an identifier's value in a variable
+- [`$globalCooldown`]($globalCooldown.md) — Adds a cooldown to a command for a global
+- [`$guildCooldown`]($guildCooldown.md) — Adds a cooldown to a command for a guild
+- [`$guildLeaderboard`]($guildLeaderboard.md) — Creates a guild leaderboard of a variable
+- [`$serverLeaderboard`]($serverLeaderboard.md) — Alias of `$guildLeaderboard`
+- [`$memberCooldown`]($memberCooldown.md) — Adds a cooldown to a command for a member
+- [`$memberLeaderboard`]($memberLeaderboard.md) — Creates a leaderboard of members for a variable
+- [`$newData`]($newData.md) — Retrieves the new data that has been updated for a record during an update event
+- [`$oldData`]($oldData.md) — Retrieves the old data that has been updated for a record during an update event
+- [`$searchDB`]($searchDB.md) — Retrieves variables associated with your inputs.
+- [`$searchDataBase`]($searchDataBase.md) — Alias of `$searchDB`
+- [`$searchRecords`]($searchRecords.md) — Alias of `$searchDB`
+- [`$setChannelVar`]($setChannelVar.md) — Assigns a value to a variable associated with a channel
+- [`$setGlobalVar`]($setGlobalVar.md) — Assigns a value to a variable associated with a global
+- [`$setGuildVar`]($setGuildVar.md) — Assigns a value to a variable associated with a guild
+- [`$setServerVar`]($setServerVar.md) — Alias of `$setGuildVar`
+- [`$setMemberVar`]($setMemberVar.md) — Sets a member's value in a variable
+- [`$setMessageVar`]($setMessageVar.md) — Sets a message's value in a variable
+- [`$setRoleVar`]($setRoleVar.md) — Sets a role's value in a variable
+- [`$setUserVar`]($setUserVar.md) — Sets a user's value in a variable
+- [`$setVar`]($setVar.md) — Sets an identifier's value in a variable
+- [`$userCooldown`]($userCooldown.md) — Adds a cooldown to a command for a user
+- [`$userLeaderboard`]($userLeaderboard.md) — Creates a user leaderboard for a variable
+- [`$wipeDB`]($wipeDB.md) — Wipes all the data stored in the database including cooldowns
+- [`$clearDB`]($clearDB.md) — Alias of `$wipeDB`
+- [`$deleteDB`]($deleteDB.md) — Alias of `$wipeDB`

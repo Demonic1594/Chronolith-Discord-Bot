@@ -1,0 +1,24 @@
+# ForgeRegex functions — index
+
+- [`$createRegex`]($createRegex.md) — Creates a new regex
+- [`$deleteRegex`]($deleteRegex.md) — Deletes an existing regex, returns bool
+- [`$getRegex`]($getRegex.md) — Gets an existing regex
+- [`$regexEscape`]($regexEscape.md) — Escapes any regex syntax characters in the input string
+- [`$regexExecute`]($regexExecute.md) — Executes a regex search on a string, returns the result
+- [`$regexExec`]($regexExec.md) — Alias of `$regexExecute`
+- [`$regexExists`]($regexExists.md) — Returns whether a regex exists
+- [`$regexFlags`]($regexFlags.md) — Returns the flags of a regex
+- [`$regexFlag`]($regexFlag.md) — Alias of `$regexFlags`
+- [`$regexHasAnyFlags`]($regexHasAnyFlags.md) — Returns whether the regex has any of the given flags
+- [`$regexHasFlags`]($regexHasFlags.md) — Returns whether the regex has all given flags
+- [`$regexLastIndex`]($regexLastIndex.md) — Returns the last index of a regex
+- [`$regexMatch`]($regexMatch.md) — Returns the regex matches for a string
+- [`$regexMatches`]($regexMatches.md) — Alias of `$regexMatch`
+- [`$regexReplace`]($regexReplace.md) — Replace text in a string using regex
+- [`$regexSearch`]($regexSearch.md) — Returns the index of the first match in a string
+- [`$regexSource`]($regexSource.md) — Returns a copy of the regex pattern text
+- [`$regexSplit`]($regexSplit.md) — Splits a string with regex
+- [`$regexTest`]($regexTest.md) — Returns whether the regex matches the string
+- [`$setRegexFlags`]($setRegexFlags.md) — Sets the flags for a regex
+- [`$setRegexFlag`]($setRegexFlag.md) — Alias of `$setRegexFlags`
+- [`$setRegexLastIndex`]($setRegexLastIndex.md) — Sets the last index for a regex

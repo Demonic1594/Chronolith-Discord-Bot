@@ -1,0 +1,13 @@
+# ForgeDB — full changelog
+
+## 2.1.1
+
+- Fixed switched up sort orders
+
+## 2.0.0
+
+- move from quick.db to typeorm
+- added sqlite, better-sqlite3, mongodb, mysql and postgres support
+- added helper functions and removed $setVar, $getVar to secure better results
+- added database events
+- fixed a ton of bugs

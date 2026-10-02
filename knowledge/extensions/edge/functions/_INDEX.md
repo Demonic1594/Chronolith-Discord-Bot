@@ -1,0 +1,30 @@
+# Edge functions — index
+
+- [`$benchmark`]($benchmark.md) — Runs a code block N times and returns elapsed time and ops/sec
+- [`$call`]($call.md) — Calls a local JS function defined in the command file
+- [`$clamp`]($clamp.md) — Clamps the value to the specified range
+- [`$clearCache`]($clearCache.md) — Clears cached data, clearing all tables if no table is provided
+- [`$deleteCache`]($deleteCache.md) — Deletes data from the cache by variable
+- [`$exportCache`]($exportCache.md) — Exports all entries from a cache table to a JSON file
+- [`$factorial`]($factorial.md) — Calculates the factorial of a number
+- [`$gcd`]($gcd.md) — Calculates the greatest common divisor of two numbers
+- [`$getCache`]($getCache.md) — Retrieves and loads data from the cache by variable
+- [`$hasCache`]($hasCache.md) — Checks if a cache key exists
+- [`$importCache`]($importCache.md) — Imports entries from a JSON file into a cache table
+- [`$jsonDivide`]($jsonDivide.md) — Divides a JSON key by a number
+- [`$jsonMulti`]($jsonMulti.md) — Multiplies a JSON key by a number
+- [`$jsonSub`]($jsonSub.md) — Subtracts a number from a JSON key
+- [`$jsonSum`]($jsonSum.md) — Adds a number to a JSON key
+- [`$keysCache`]($keysCache.md) — Returns all keys from the cache joined by a separator
+- [`$lcm`]($lcm.md) — Calculates the least common multiple of two numbers
+- [`$lerp`]($lerp.md) — Linear interpolation between two values
+- [`$parallel`]($parallel.md) — Runs multiple code blocks in parallel and returns all results as an array
+- [`$processEnv`]($processEnv.md) — Gets the Node.js environment variable value
+- [`$qev`]($qev.md) — Retrieves an environment value with fallback to structure defaults
+- [`$rangeCache`]($rangeCache.md) — Retrieves all entries from the cache
+- [`$require`]($require.md) — Dynamically loads the module
+- [`$requireCache`]($requireCache.md) — Deletes a module from the cache or reloads it (including dependencies)
+- [`$setCache`]($setCache.md) — Sets a cache variable to the specified value
+- [`$spread`]($spread.md) — Spreads a delimited string as individual rest arguments
+- [`$updateEvents`]($updateEvents.md) — Updates all events routes
+- [`$updateStructures`]($updateStructures.md) — Reloads all default value schemas from the previously loaded folder

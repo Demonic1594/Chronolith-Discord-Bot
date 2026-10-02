@@ -17,3 +17,5 @@ testsynth.log
 chronolith.log
 __pycache__/
 .git-corrupt-backup/
+**/.git-dead/
+**/.git-broken/

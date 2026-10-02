@@ -1,0 +1,1650 @@
+# ForgeScript functions — index
+
+1120 functions (+388 aliases, each with its own stub page) across 46 categories.
+
+## array (45)
+
+- [`$advancedTextSplit`](array/$advancedTextSplit.md) — Split and get all at the same time multiple times
+- [`$arrayAdvancedSort`](array/$arrayAdvancedSort.md) — Advanced array sort
+- [`$arrayAt`](array/$arrayAt.md) — Returns the element at given index
+- [`$arrayClear`](array/$arrayClear.md) — Clears all elements from an array
+- [`$arrayConcat`](array/$arrayConcat.md) — Concat arrays and load them into another variable
+- [`$arrayCreate`](array/$arrayCreate.md) — Initializes an array and loads it to a variable
+- [`$arrayInit`](array/$arrayInit.md) — Alias of `$arrayCreate`
+- [`$arrayNew`](array/$arrayNew.md) — Alias of `$arrayCreate`
+- [`$arrayEvery`](array/$arrayEvery.md) — Loops through every element of the array with a condition that must pass every element
+- [`$arrayFill`](array/$arrayFill.md) — Fills an array with given value
+- [`$arrayFilter`](array/$arrayFilter.md) — Filters through every element of the array and loads the results to another array
+- [`$arrayFind`](array/$arrayFind.md) — Finds the value of a first found element in the array
+- [`$arrayFindIndex`](array/$arrayFindIndex.md) — Finds the index of a first found element in the array
+- [`$arrayFindLast`](array/$arrayFindLast.md) — Finds the value of a last found element in the array
+- [`$arrayFindLastIndex`](array/$arrayFindLastIndex.md) — Finds the index of a last found element in the array
+- [`$arrayForEach`](array/$arrayForEach.md) — Loops through every element of the array
+- [`$arrayIncludes`](array/$arrayIncludes.md) — Checks whether a value exists in an array
+- [`$arrayIndexOf`](array/$arrayIndexOf.md) — Gets the index of a first found element in the array
+- [`$arrayJoin`](array/$arrayJoin.md) — Joins all elements from an array with given separator
+- [`$arrayLastIndexOf`](array/$arrayLastIndexOf.md) — Gets the index of a last found element in the array
+- [`$arrayLength`](array/$arrayLength.md) — Returns the numbers of elements in an array
+- [`$arrayLoad`](array/$arrayLoad.md) — Loads an array to an environment variable
+- [`$arrayMap`](array/$arrayMap.md) — Maps through every element of the array and loads the results to another array
+- [`$arrayPop`](array/$arrayPop.md) — Deletes the last element of the array and returns it
+- [`$arrayPush`](array/$arrayPush.md) — Appends an element to an array
+- [`$arrayPushJSON`](array/$arrayPushJSON.md) — Appends an element to an array
+- [`$arrayRandomIndex`](array/$arrayRandomIndex.md) — Returns a random index
+- [`$arrayRandomValue`](array/$arrayRandomValue.md) — Returns a random element
+- [`$arrayReduce`](array/$arrayReduce.md) — Reduces an array of elements and returns the result
+- [`$arrayReverse`](array/$arrayReverse.md) — Reverses an array and loads it to another variable
+- [`$arrayShift`](array/$arrayShift.md) — Deletes the first element of the array and returns it
+- [`$arrayShuffle`](array/$arrayShuffle.md) — Shuffles given array
+- [`$arraySlice`](array/$arraySlice.md) — Slices an array and loads it to another variable
+- [`$arraySome`](array/$arraySome.md) — Loops through every element of the array to find a match
+- [`$arraySort`](array/$arraySort.md) — Sorts given array
+- [`$arraySplice`](array/$arraySplice.md) — Removes x elements starting from y index, returns deleted elements
+- [`$arrayUnique`](array/$arrayUnique.md) — Removes duplicate elements from the array
+- [`$arrayUnload`](array/$arrayUnload.md) — Unloads an array from an environment variable
+- [`$arrayUnshift`](array/$arrayUnshift.md) — Adds elements to the beginning of an array
+- [`$arrayUnshiftJSON`](array/$arrayUnshiftJSON.md) — Adds elements to the beginning of an array
+- [`$getSplitTextLength`](array/$getSplitTextLength.md) — Gets count of elements from $textSplit
+- [`$getTextSplitLength`](array/$getTextSplitLength.md) — Alias of `$getSplitTextLength`
+- [`$getTextSplitIndex`](array/$getTextSplitIndex.md) — Gets the index of a textSplit element
+- [`$getSplitTextIndex`](array/$getSplitTextIndex.md) — Alias of `$getTextSplitIndex`
+- [`$isArray`](array/$isArray.md) — Checks whether given array is valid
+- [`$isValidArray`](array/$isValidArray.md) — Alias of `$isArray`
+- [`$segmentTextSplit`](array/$segmentTextSplit.md) — Creates an array on given text using segmenter
+- [`$splitText`](array/$splitText.md) — Gets element of textSplit
+- [`$splitTextJoin`](array/$splitTextJoin.md) — Joins all elements from array with given separator
+- [`$textSplitJoin`](array/$textSplitJoin.md) — Alias of `$splitTextJoin`
+- [`$textSplit`](array/$textSplit.md) — Creates an array on given text with a separator
+
+## audit (4)
+
+- [`$fetchAuditLog`](audit/$fetchAuditLog.md) — Fetches an audit log using the type of it
+- [`$fetchAuditLogCount`](audit/$fetchAuditLogCount.md) — Fetches audit log count using the type of it
+- [`$fetchUserAuditLog`](audit/$fetchUserAuditLog.md) — Fetches an audit log from a user using the type of it
+- [`$setAuditLogReason`](audit/$setAuditLogReason.md) — Sets the reason for audit log entries
+
+## automod (24)
+
+- [`$automodActionType`](automod/$automodActionType.md) — Returns the action type automod used
+- [`$automodAlertSystemMessageID`](automod/$automodAlertSystemMessageID.md) — Returns the message sent by automod
+- [`$automodChannelID`](automod/$automodChannelID.md) — Returns the channel id for automod
+- [`$automodContent`](automod/$automodContent.md) — Returns the content automod acted upon
+- [`$automodCustomMessage`](automod/$automodCustomMessage.md) — Returns the custom message used by automod on this detection
+- [`$automodDuration`](automod/$automodDuration.md) — Returns the duration in ms by this automod action
+- [`$automodMatchedContent`](automod/$automodMatchedContent.md) — Returns the matched content automod acted upon
+- [`$automodMatchedKeyword`](automod/$automodMatchedKeyword.md) — Returns the matched keyword the automod caught
+- [`$automodRuleID`](automod/$automodRuleID.md) — Returns the rule id used by automod
+- [`$automodRuleTriggerType`](automod/$automodRuleTriggerType.md) — Returns the rule trigger type used by automod
+- [`$createAutomodRule`](automod/$createAutomodRule.md) — Creates a new automod rule for a guild, returns rule id
+- [`$deleteAutomodRule`](automod/$deleteAutomodRule.md) — Deletes an automod rule from a guild, returns bool
+- [`$editAutomodRule`](automod/$editAutomodRule.md) — Edits an automod rule on a guild, returns bool
+- [`$getAutomodRule`](automod/$getAutomodRule.md) — Returns an automod rule of a guild
+- [`$getAutomodRuleActions`](automod/$getAutomodRuleActions.md) — Returns the actions of an automod rule from a guild
+- [`$setAutomodAction`](automod/$setAutomodAction.md) — Sets a new action for current automod rule
+- [`$setAutomodAllowList`](automod/$setAutomodAllowList.md) — Sets allowed words for current automod rule
+- [`$setAutomodExemptChannels`](automod/$setAutomodExemptChannels.md) — Sets exempt channels for current automod rule
+- [`$setAutomodExemptRoles`](automod/$setAutomodExemptRoles.md) — Sets exempt roles for current automod rule
+- [`$setAutomodKeywordFilter`](automod/$setAutomodKeywordFilter.md) — Sets disallowed words for current automod rule
+- [`$setAutomodMentionRaidProtection`](automod/$setAutomodMentionRaidProtection.md) — Sets mention raid protection for current automod rule
+- [`$setAutomodMentionTotalLimit`](automod/$setAutomodMentionTotalLimit.md) — Sets a total mention limit for current automod rule
+- [`$setAutomodPresets`](automod/$setAutomodPresets.md) — Sets preset keyword wordsets for current automod rule
+- [`$setAutomodRegexFilter`](automod/$setAutomodRegexFilter.md) — Sets regex filter for current automod rule
+
+## bot (43)
+
+- [`$applicationCommandCount`](bot/$applicationCommandCount.md) — Returns the amount of application commands registered by this bot
+- [`$slashCommandCount`](bot/$slashCommandCount.md) — Alias of `$applicationCommandCount`
+- [`$applicationCommands`](bot/$applicationCommands.md) — Returns all application commands
+- [`$botCount`](bot/$botCount.md) — Returns the bot count of the bot
+- [`$botCustomInvite`](bot/$botCustomInvite.md) — Returns the client's custom invite link
+- [`$clientCustomInvite`](bot/$clientCustomInvite.md) — Alias of `$botCustomInvite`
+- [`$botDescription`](bot/$botDescription.md) — Returns the description of the bot
+- [`$clientDescription`](bot/$clientDescription.md) — Alias of `$botDescription`
+- [`$botDestroy`](bot/$botDestroy.md) — Destroys the discord.js client
+- [`$clientDestroy`](bot/$clientDestroy.md) — Alias of `$botDestroy`
+- [`$botID`](bot/$botID.md) — Returns the client's id
+- [`$clientID`](bot/$clientID.md) — Alias of `$botID`
+- [`$botInvite`](bot/$botInvite.md) — Returns a bot's invite link
+- [`$clientInvite`](bot/$clientInvite.md) — Alias of `$botInvite`
+- [`$getBotInvite`](bot/$getBotInvite.md) — Alias of `$botInvite`
+- [`$botMutualGuilds`](bot/$botMutualGuilds.md) — Returns the client's mutual guilds with a user
+- [`$clientMutualGuilds`](bot/$clientMutualGuilds.md) — Alias of `$botMutualGuilds`
+- [`$botOwnerID`](bot/$botOwnerID.md) — Returns the bot's owner id or team members
+- [`$clientOwnerID`](bot/$clientOwnerID.md) — Alias of `$botOwnerID`
+- [`$botTags`](bot/$botTags.md) — Returns the client tags
+- [`$clientTags`](bot/$clientTags.md) — Alias of `$botTags`
+- [`$botTeamCreatedAt`](bot/$botTeamCreatedAt.md) — Returns the client's team creation timestamp
+- [`$clientTeamCreatedAt`](bot/$clientTeamCreatedAt.md) — Alias of `$botTeamCreatedAt`
+- [`$botTeamID`](bot/$botTeamID.md) — Returns the client's team id
+- [`$clientTeamID`](bot/$clientTeamID.md) — Alias of `$botTeamID`
+- [`$botTeamIcon`](bot/$botTeamIcon.md) — Returns the client's team icon
+- [`$clientTeamIcon`](bot/$clientTeamIcon.md) — Alias of `$botTeamIcon`
+- [`$botTeamMembers`](bot/$botTeamMembers.md) — Returns the client's team members
+- [`$clientTeamMembers`](bot/$clientTeamMembers.md) — Alias of `$botTeamMembers`
+- [`$botTeamName`](bot/$botTeamName.md) — Returns the client's team name
+- [`$clientTeamName`](bot/$clientTeamName.md) — Alias of `$botTeamName`
+- [`$botToken`](bot/$botToken.md) — Returns the client token
+- [`$clientToken`](bot/$clientToken.md) — Alias of `$botToken`
+- [`$botUserAuthorizationCount`](bot/$botUserAuthorizationCount.md) — Returns the user authorization count of the bot
+- [`$clientUserAuthorizationCount`](bot/$clientUserAuthorizationCount.md) — Alias of `$botUserAuthorizationCount`
+- [`$botUserInstallCount`](bot/$botUserInstallCount.md) — Returns the user install count of the bot
+- [`$clientUserInstallCount`](bot/$clientUserInstallCount.md) — Alias of `$botUserInstallCount`
+- [`$botWebhookEvents`](bot/$botWebhookEvents.md) — Returns the client webhook event types
+- [`$clientWebhookEvents`](bot/$clientWebhookEvents.md) — Alias of `$botWebhookEvents`
+- [`$botWebhookStatus`](bot/$botWebhookStatus.md) — Returns the client webhook event status
+- [`$clientWebhookStatus`](bot/$clientWebhookStatus.md) — Alias of `$botWebhookStatus`
+- [`$botWebhookURL`](bot/$botWebhookURL.md) — Returns the client webhook event url
+- [`$clientWebhookURL`](bot/$clientWebhookURL.md) — Alias of `$botWebhookURL`
+- [`$deleteGlobalApplicationCommands`](bot/$deleteGlobalApplicationCommands.md) — Deletes all global commands of your bot
+- [`$extensionVersion`](bot/$extensionVersion.md) — Returns the version an extension is running on
+- [`$fetchApplication`](bot/$fetchApplication.md) — Fetches the application of the client
+- [`$hasExtension`](bot/$hasExtension.md) — Checks whether client has an extension
+- [`$ping`](bot/$ping.md) — The current bot ping
+- [`$botPing`](bot/$botPing.md) — Alias of `$ping`
+- [`$clientPing`](bot/$clientPing.md) — Alias of `$ping`
+- [`$setBotAvatar`](bot/$setBotAvatar.md) — Sets the bot profile icon
+- [`$setClientAvatar`](bot/$setClientAvatar.md) — Alias of `$setBotAvatar`
+- [`$setBotBanner`](bot/$setBotBanner.md) — Sets the bot banner
+- [`$setClientBanner`](bot/$setClientBanner.md) — Alias of `$setBotBanner`
+- [`$setBotDescription`](bot/$setBotDescription.md) — Sets the bot description
+- [`$setClientDescription`](bot/$setClientDescription.md) — Alias of `$setBotDescription`
+- [`$setBotGuildAvatar`](bot/$setBotGuildAvatar.md) — Sets the bot avatar on a guild
+- [`$setClientGuildAvatar`](bot/$setClientGuildAvatar.md) — Alias of `$setBotGuildAvatar`
+- [`$setBotGuildBanner`](bot/$setBotGuildBanner.md) — Sets the bot banner on a guild
+- [`$setClientGuildBanner`](bot/$setClientGuildBanner.md) — Alias of `$setBotGuildBanner`
+- [`$setBotGuildDescription`](bot/$setBotGuildDescription.md) — Sets the bot description on a guild
+- [`$setBotGuildBio`](bot/$setBotGuildBio.md) — Alias of `$setBotGuildDescription`
+- [`$setClientGuildBio`](bot/$setClientGuildBio.md) — Alias of `$setBotGuildDescription`
+- [`$setClientGuildDescription`](bot/$setClientGuildDescription.md) — Alias of `$setBotGuildDescription`
+- [`$setBotName`](bot/$setBotName.md) — Sets the bot name
+- [`$setClientName`](bot/$setClientName.md) — Alias of `$setBotName`
+- [`$setBotTags`](bot/$setBotTags.md) — Sets the bot tags
+- [`$setClientTags`](bot/$setClientTags.md) — Alias of `$setBotTags`
+- [`$setStatus`](bot/$setStatus.md) — Sets the client's status
+- [`$setBotStatus`](bot/$setBotStatus.md) — Alias of `$setStatus`
+- [`$setClientStatus`](bot/$setClientStatus.md) — Alias of `$setStatus`
+- [`$shardCount`](bot/$shardCount.md) — Returns the shard count of the client
+- [`$botShardCount`](bot/$botShardCount.md) — Alias of `$shardCount`
+- [`$clientShardCount`](bot/$clientShardCount.md) — Alias of `$shardCount`
+- [`$shardID`](bot/$shardID.md) — Returns the shard id of the client
+- [`$botShardIDs`](bot/$botShardIDs.md) — Alias of `$shardID`
+- [`$clientShardIDs`](bot/$clientShardIDs.md) — Alias of `$shardID`
+- [`$shardStatus`](bot/$shardStatus.md) — Returns the shard status of the client
+- [`$botShardStatus`](bot/$botShardStatus.md) — Alias of `$shardStatus`
+- [`$clientShardStatus`](bot/$clientShardStatus.md) — Alias of `$shardStatus`
+- [`$updateApplicationCommands`](bot/$updateApplicationCommands.md) — Updates application commands, also registers new ones
+- [`$updateCommands`](bot/$updateCommands.md) — Updates bot commands, also registers new ones
+- [`$uptime`](bot/$uptime.md) — Returns the bots uptime
+- [`$botUptime`](bot/$botUptime.md) — Alias of `$uptime`
+- [`$clientUptime`](bot/$clientUptime.md) — Alias of `$uptime`
+- [`$version`](bot/$version.md) — Returns the package version the client is using
+- [`$packageVersion`](bot/$packageVersion.md) — Alias of `$version`
+
+## buffer (9)
+
+- [`$bufferAlloc`](buffer/$bufferAlloc.md) — Allocates given number of bytes in a buffer
+- [`$bufferAllocUnsafe`](buffer/$bufferAllocUnsafe.md) — Unsafely allocates given number of bytes in a buffer
+- [`$bufferLength`](buffer/$bufferLength.md) — Returns the length of a buffer
+- [`$bufferReadInt32`](buffer/$bufferReadInt32.md) — Reads int from a buffer
+- [`$bufferReadUtf8`](buffer/$bufferReadUtf8.md) — Reads utf8 string from a buffer
+- [`$bufferResize`](buffer/$bufferResize.md) — Resizes a buffer
+- [`$bufferToString`](buffer/$bufferToString.md) — Stringifies a buffer
+- [`$bufferWriteInt32`](buffer/$bufferWriteInt32.md) — Writes int32 to a buffer
+- [`$bufferWriteUtf8`](buffer/$bufferWriteUtf8.md) — Writes utf8 string to a buffer
+
+## channel (117)
+
+- [`$addChannelPerms`](channel/$addChannelPerms.md) — Adds permission overwrites to a channel, returns bool
+- [`$addPermissionOverwrite`](channel/$addPermissionOverwrite.md) — Adds a new permission overwrite to the channel
+- [`$addPostTags`](channel/$addPostTags.md) — Adds tags to a forum post, returns bool
+- [`$addThreadMember`](channel/$addThreadMember.md) — Adds a member to a thread, returns bool
+- [`$archiveThread`](channel/$archiveThread.md) — Archives a thread, returns bool
+- [`$archivePost`](channel/$archivePost.md) — Alias of `$archiveThread`
+- [`$channelBitrate`](channel/$channelBitrate.md) — Returns the bitrate of the voice channel
+- [`$channelCategoryID`](channel/$channelCategoryID.md) — Returns the channel category id
+- [`$channelParentID`](channel/$channelParentID.md) — Alias of `$channelCategoryID`
+- [`$channelChildrenCount`](channel/$channelChildrenCount.md) — Returns the amount of children this category has
+- [`$channelChildrenIDs`](channel/$channelChildrenIDs.md) — Returns the children ids this category has
+- [`$channelCount`](channel/$channelCount.md) — Returns the channel count of all servers
+- [`$channelCreatedAt`](channel/$channelCreatedAt.md) — Returns the channel timestamp
+- [`$channelDeletable`](channel/$channelDeletable.md) — Returns whether the channel is deletable
+- [`$channelExists`](channel/$channelExists.md) — Returns whether a channel id exists
+- [`$channelFlags`](channel/$channelFlags.md) — Returns the flags of a channel
+- [`$channelFull`](channel/$channelFull.md) — Returns whether the voice channel is full
+- [`$channelGuildID`](channel/$channelGuildID.md) — Returns the channel guild id
+- [`$channelHasAnyPerms`](channel/$channelHasAnyPerms.md) — Returns whether role or member has any of the perms in a channel
+- [`$channelHasAnyPerm`](channel/$channelHasAnyPerm.md) — Alias of `$channelHasAnyPerms`
+- [`$channelHasPerms`](channel/$channelHasPerms.md) — Returns whether role or member has perms in a channel
+- [`$hasChannelPerm`](channel/$hasChannelPerm.md) — Alias of `$channelHasPerms`
+- [`$hasChannelPerms`](channel/$hasChannelPerms.md) — Alias of `$channelHasPerms`
+- [`$channelID`](channel/$channelID.md) — Gets the channel id of a channel name
+- [`$channelIDs`](channel/$channelIDs.md) — Returns every channel id
+- [`$channelIsChildrenOf`](channel/$channelIsChildrenOf.md) — Checks whether given channel is a children of a category
+- [`$isChildrenOf`](channel/$isChildrenOf.md) — Alias of `$channelIsChildrenOf`
+- [`$channelJoinable`](channel/$channelJoinable.md) — Returns whether the voice channel is joinable by the bot
+- [`$channelManageable`](channel/$channelManageable.md) — Returns whether the channel is manageable
+- [`$channelMembers`](channel/$channelMembers.md) — Returns the members of a channel
+- [`$channelNSFW`](channel/$channelNSFW.md) — Returns whether the channel is nsfw
+- [`$channelName`](channel/$channelName.md) — Returns the channel name
+- [`$channelNames`](channel/$channelNames.md) — Returns the channel names of a guild
+- [`$channelPermissions`](channel/$channelPermissions.md) — Returns all permission overwrites of a channel
+- [`$channelOverwrites`](channel/$channelOverwrites.md) — Alias of `$channelPermissions`
+- [`$channelPerms`](channel/$channelPerms.md) — Alias of `$channelPermissions`
+- [`$channelPermissionsFor`](channel/$channelPermissionsFor.md) — Returns permissions for a role or member in a channel
+- [`$channelPermsFor`](channel/$channelPermsFor.md) — Alias of `$channelPermissionsFor`
+- [`$memberChannelPerms`](channel/$memberChannelPerms.md) — Alias of `$channelPermissionsFor`
+- [`$roleChannelPerms`](channel/$roleChannelPerms.md) — Alias of `$channelPermissionsFor`
+- [`$channelPermissionsOf`](channel/$channelPermissionsOf.md) — Returns specific permissions of a role or member in a channel
+- [`$channelPermsOf`](channel/$channelPermsOf.md) — Alias of `$channelPermissionsOf`
+- [`$channelPinnedMessages`](channel/$channelPinnedMessages.md) — Returns the pinned messages of a channel
+- [`$pinnedMessages`](channel/$pinnedMessages.md) — Alias of `$channelPinnedMessages`
+- [`$channelPosition`](channel/$channelPosition.md) — Returns the channel position
+- [`$channelRawData`](channel/$channelRawData.md) — Returns the raw data of a channel
+- [`$channelSlowmode`](channel/$channelSlowmode.md) — Returns the channel slowmode in seconds
+- [`$channelTags`](channel/$channelTags.md) — Retrieves tags from a forum thread
+- [`$channelThreadIDs`](channel/$channelThreadIDs.md) — Returns the thread ids of a channel
+- [`$channelTopic`](channel/$channelTopic.md) — Returns the channel topic
+- [`$channelType`](channel/$channelType.md) — Returns the channel type
+- [`$channelURL`](channel/$channelURL.md) — Returns the url of a channel
+- [`$channelUserLimit`](channel/$channelUserLimit.md) — Returns the user limit of the voice channel
+- [`$channelVoiceMemberCount`](channel/$channelVoiceMemberCount.md) — Returns the member count that are connected to this voice channel
+- [`$channelMemberCount`](channel/$channelMemberCount.md) — Alias of `$channelVoiceMemberCount`
+- [`$channelVoiceMemberIDs`](channel/$channelVoiceMemberIDs.md) — Returns the members that are connected to this voice channel
+- [`$channelMemberIDs`](channel/$channelMemberIDs.md) — Alias of `$channelVoiceMemberIDs`
+- [`$channelVoiceRegion`](channel/$channelVoiceRegion.md) — Returns the region of a voice channel
+- [`$channelWebhooks`](channel/$channelWebhooks.md) — Returns all webhooks of a channel
+- [`$clearChannelPerms`](channel/$clearChannelPerms.md) — Deletes all permission overwrites from the channel or given id, returns bool
+- [`$clearMessages`](channel/$clearMessages.md) — Clears x amount of messages from a channel, returns the number of messages deleted
+- [`$clearUserMessages`](channel/$clearUserMessages.md) — Clears x amount of messages from a channel of given user, returns the number of messages deleted
+- [`$cloneChannel`](channel/$cloneChannel.md) — Clones the given channel
+- [`$cloneChannelPerms`](channel/$cloneChannelPerms.md) — Clones the given channel's perms to another channel, returns bool
+- [`$createChannel`](channel/$createChannel.md) — Creates a channel in a guild, returns the channel id
+- [`$createForumPost`](channel/$createForumPost.md) — Creates a forum post, returns the post channel id
+- [`$createForumTag`](channel/$createForumTag.md) — Creates a forum tag, returns tag id
+- [`$createInvite`](channel/$createInvite.md) — Creates an invite, returns the invite code
+- [`$createStageInstance`](channel/$createStageInstance.md) — Creates a new stage instance, returns instance id
+- [`$createThread`](channel/$createThread.md) — Creates a thread, returns thread channel id on success
+- [`$deleteChannelPerms`](channel/$deleteChannelPerms.md) — Deletes some permission overwrites from a channel, returns bool
+- [`$deleteChannels`](channel/$deleteChannels.md) — Deletes given channels, returns the count of channels deleted
+- [`$deleteChannel`](channel/$deleteChannel.md) — Alias of `$deleteChannels`
+- [`$deleteForumTags`](channel/$deleteForumTags.md) — Deletes tags from a forum, returns bool
+- [`$deleteForumTag`](channel/$deleteForumTag.md) — Alias of `$deleteForumTags`
+- [`$deleteStageInstance`](channel/$deleteStageInstance.md) — Deletes a stage instance, returns bool
+- [`$deleteThread`](channel/$deleteThread.md) — Deletes a thread, returns bool
+- [`$dmChannelID`](channel/$dmChannelID.md) — Returns the dm channel id of a user
+- [`$editForumTag`](channel/$editForumTag.md) — Edits an existing forum tag, returns bool
+- [`$editStageInstance`](channel/$editStageInstance.md) — Edits a stage instance, returns bool
+- [`$fetchChannels`](channel/$fetchChannels.md) — Caches all channels of a guild
+- [`$fetchChannel`](channel/$fetchChannel.md) — Alias of `$fetchChannels`
+- [`$fetchThreads`](channel/$fetchThreads.md) — Caches all threads of a channel
+- [`$firstMessageID`](channel/$firstMessageID.md) — Returns the first message sent in a channel
+- [`$channelFirstMessageID`](channel/$channelFirstMessageID.md) — Alias of `$firstMessageID`
+- [`$followChannel`](channel/$followChannel.md) — Follows given announcement channel, returns webhook id
+- [`$forumDefaultLayout`](channel/$forumDefaultLayout.md) — Returns the default layout of a forum
+- [`$forumDefaultReactionEmoji`](channel/$forumDefaultReactionEmoji.md) — Returns the default reaction emoji of a forum
+- [`$forumDefaultSortOrder`](channel/$forumDefaultSortOrder.md) — Returns the default sort order of a forum
+- [`$forumDefaultThreadArchiveDuration`](channel/$forumDefaultThreadArchiveDuration.md) — Returns the default auto archive duration for threads of a forum
+- [`$forumDefaultThreadAutoArchiveDuration`](channel/$forumDefaultThreadAutoArchiveDuration.md) — Alias of `$forumDefaultThreadArchiveDuration`
+- [`$forumDefaultThreadSlowmode`](channel/$forumDefaultThreadSlowmode.md) — Returns the default slowmode for threads of a forum
+- [`$forumTags`](channel/$forumTags.md) — Returns all available tags of a forum
+- [`$getForumTag`](channel/$getForumTag.md) — Returns the tag of a forum
+- [`$getStageInstance`](channel/$getStageInstance.md) — Returns a stage instance of a guild
+- [`$getThreadMembers`](channel/$getThreadMembers.md) — Returns all members from a thread
+- [`$guildChannelID`](channel/$guildChannelID.md) — Gets the guild channel id of a channel name
+- [`$lastMessageID`](channel/$lastMessageID.md) — Returns the latest message sent in a channel
+- [`$channelLastMessageID`](channel/$channelLastMessageID.md) — Alias of `$lastMessageID`
+- [`$lastPinTimestamp`](channel/$lastPinTimestamp.md) — Returns the latest pin timestamp of a channel
+- [`$channelLastPinTimestamp`](channel/$channelLastPinTimestamp.md) — Alias of `$lastPinTimestamp`
+- [`$lockThread`](channel/$lockThread.md) — Locks a thread, returns bool
+- [`$lockPost`](channel/$lockPost.md) — Alias of `$lockThread`
+- [`$modifyChannelPerms`](channel/$modifyChannelPerms.md) — Modifies given channel perms for a role or user
+- [`$editChannelPerms`](channel/$editChannelPerms.md) — Alias of `$modifyChannelPerms`
+- [`$modifyPostTags`](channel/$modifyPostTags.md) — Modifies tags of a forum post, returns bool
+- [`$editPostTags`](channel/$editPostTags.md) — Alias of `$modifyPostTags`
+- [`$randomChannelID`](channel/$randomChannelID.md) — Returns a random channel ID
+- [`$randomGuildChannelID`](channel/$randomGuildChannelID.md) — Returns a random channel ID of a guild
+- [`$removeChannelPerms`](channel/$removeChannelPerms.md) — Removes permission overwrites from a channel, returns bool
+- [`$removeThreadMember`](channel/$removeThreadMember.md) — Removes a member from a thread, returns bool
+- [`$sendMessage`](channel/$sendMessage.md) — Sends a message to a channel
+- [`$channelSendMessage`](channel/$channelSendMessage.md) — Alias of `$sendMessage`
+- [`$setChannelArchiveDuration`](channel/$setChannelArchiveDuration.md) — Modifies a channel's archive duration
+- [`$setChannelCategory`](channel/$setChannelCategory.md) — Sets a channel's category, returns bool
+- [`$setChannelParent`](channel/$setChannelParent.md) — Alias of `$setChannelCategory`
+- [`$setChannelNSFW`](channel/$setChannelNSFW.md) — Sets a channel nsfw state, returns bool
+- [`$setChannelName`](channel/$setChannelName.md) — Sets a channel name, returns bool
+- [`$setChannelSlowmode`](channel/$setChannelSlowmode.md) — Sets a channel slowmode, returns bool
+- [`$setChannelTopic`](channel/$setChannelTopic.md) — Sets a channel topic, returns bool
+- [`$setDefaultForumLayout`](channel/$setDefaultForumLayout.md) — Sets a forum's default layout of posts
+- [`$setDefaultReactionEmoji`](channel/$setDefaultReactionEmoji.md) — Sets a forum's default reaction emoji for posts
+- [`$setDefaultSortOrder`](channel/$setDefaultSortOrder.md) — Sets a forum's default sort order of posts
+- [`$setDefaultThreadArchiveDuration`](channel/$setDefaultThreadArchiveDuration.md) — Sets a forum's default auto archive duration of posts
+- [`$setDefaultThreadAutoArchiveDuration`](channel/$setDefaultThreadAutoArchiveDuration.md) — Alias of `$setDefaultThreadArchiveDuration`
+- [`$setDefaultThreadSlowmode`](channel/$setDefaultThreadSlowmode.md) — Sets a forum's default slowmode for posts
+- [`$setPostTags`](channel/$setPostTags.md) — Sets tags to a forum post, returns bool
+- [`$setThreadArchiveDuration`](channel/$setThreadArchiveDuration.md) — Sets a thread's auto archive duration
+- [`$setThreadAutoArchiveDuration`](channel/$setThreadAutoArchiveDuration.md) — Alias of `$setThreadArchiveDuration`
+- [`$setVoiceBitrate`](channel/$setVoiceBitrate.md) — Sets the bitrate quality of a voice channel, returns bool
+- [`$setVoiceDeaf`](channel/$setVoiceDeaf.md) — Deafens a member from voice channel
+- [`$voiceDeaf`](channel/$voiceDeaf.md) — Alias of `$setVoiceDeaf`
+- [`$setVoiceMute`](channel/$setVoiceMute.md) — Mutes a member from voice channel
+- [`$voiceMute`](channel/$voiceMute.md) — Alias of `$setVoiceMute`
+- [`$setVoiceRegion`](channel/$setVoiceRegion.md) — Sets the region of a voice channel, returns bool
+- [`$setVoiceUndeaf`](channel/$setVoiceUndeaf.md) — Undeafens a member from voice channel
+- [`$voiceUndeaf`](channel/$voiceUndeaf.md) — Alias of `$setVoiceUndeaf`
+- [`$setVoiceUnmute`](channel/$setVoiceUnmute.md) — Unmutes a member from voice channel
+- [`$voiceUnmute`](channel/$voiceUnmute.md) — Alias of `$setVoiceUnmute`
+- [`$setVoiceUserLimit`](channel/$setVoiceUserLimit.md) — Sets the limit of users that can connect to this voice channel
+- [`$setVoiceVideoQuality`](channel/$setVoiceVideoQuality.md) — Sets the video quality of a voice channel, returns bool
+- [`$startTyping`](channel/$startTyping.md) — Starts typing in a channel
+- [`$channelStartTyping`](channel/$channelStartTyping.md) — Alias of `$startTyping`
+- [`$threadIsArchived`](channel/$threadIsArchived.md) — Returns whether a thread is archived
+- [`$isArchived`](channel/$isArchived.md) — Alias of `$threadIsArchived`
+- [`$threadArchived`](channel/$threadArchived.md) — Alias of `$threadIsArchived`
+- [`$threadIsLocked`](channel/$threadIsLocked.md) — Returns whether a thread is locked
+- [`$isLocked`](channel/$isLocked.md) — Alias of `$threadIsLocked`
+- [`$threadLocked`](channel/$threadLocked.md) — Alias of `$threadIsLocked`
+- [`$threadOwnerID`](channel/$threadOwnerID.md) — Returns the owner of the thread
+- [`$threadStarterMessageID`](channel/$threadStarterMessageID.md) — Returns the id of the message that started this thread
+- [`$threadTotalMessagesSent`](channel/$threadTotalMessagesSent.md) — Returns the total count of sent messages in a thread
+- [`$threadTotalMessagesCount`](channel/$threadTotalMessagesCount.md) — Alias of `$threadTotalMessagesSent`
+- [`$transcript`](channel/$transcript.md) — Creates a channel transcript
+- [`$channelTranscript`](channel/$channelTranscript.md) — Alias of `$transcript`
+- [`$createTranscript`](channel/$createTranscript.md) — Alias of `$transcript`
+- [`$unarchiveThread`](channel/$unarchiveThread.md) — Unarchives a thread, returns bool
+- [`$unarchivePost`](channel/$unarchivePost.md) — Alias of `$unarchiveThread`
+- [`$unlockThread`](channel/$unlockThread.md) — Unlocks a thread, returns bool
+- [`$unlockPost`](channel/$unlockPost.md) — Alias of `$unlockThread`
+
+## command (5)
+
+- [`$commandCount`](command/$commandCount.md) — Returns the command count
+- [`$commandInfo`](command/$commandInfo.md) — Retrieves command info
+- [`$commandName`](command/$commandName.md) — Returns the current command name
+- [`$commandNames`](command/$commandNames.md) — Return commands with given type
+- [`$deleteCommand`](command/$deleteCommand.md) — Deletes the author's message
+
+## component (62)
+
+- [`$addActionRow`](component/$addActionRow.md) — Adds an action row
+- [`$addActionRowTo`](component/$addActionRowTo.md) — Adds an action row (or rows) to a message
+- [`$addActionRowsTo`](component/$addActionRowsTo.md) — Alias of `$addActionRowTo`
+- [`$addButton`](component/$addButton.md) — Adds a button component to the newest row
+- [`$addButtonTo`](component/$addButtonTo.md) — Adds a button component to the newest row in a message
+- [`$addChannelSelectMenu`](component/$addChannelSelectMenu.md) — Creates a channel select menu
+- [`$addChannelSelectMenuTo`](component/$addChannelSelectMenuTo.md) — Creates a channel select menu on a message
+- [`$addChannelType`](component/$addChannelType.md) — Adds channel types to the last select menu
+- [`$addChannelTypes`](component/$addChannelTypes.md) — Alias of `$addChannelType`
+- [`$addCheckbox`](component/$addCheckbox.md) — Adds a new checkbox component to the newest modal label
+- [`$addCheckboxGroup`](component/$addCheckboxGroup.md) — Adds a new checkbox group component to the newest modal label
+- [`$addCheckboxOption`](component/$addCheckboxOption.md) — Adds a new option to the newest checkbox group component
+- [`$addChoice`](component/$addChoice.md) — Adds an autocomplete choice
+- [`$addContainer`](component/$addContainer.md) — Adds a new container component
+- [`$addDefaultChannelOption`](component/$addDefaultChannelOption.md) — Adds default channel options to the last select menu
+- [`$addDefaultChannelOptions`](component/$addDefaultChannelOptions.md) — Alias of `$addDefaultChannelOption`
+- [`$addDefaultChannels`](component/$addDefaultChannels.md) — Alias of `$addDefaultChannelOption`
+- [`$addDefaultRoleOption`](component/$addDefaultRoleOption.md) — Adds default role options to the last select menu
+- [`$addDefaultRoleOptions`](component/$addDefaultRoleOptions.md) — Alias of `$addDefaultRoleOption`
+- [`$addDefaultRoles`](component/$addDefaultRoles.md) — Alias of `$addDefaultRoleOption`
+- [`$addDefaultUserOption`](component/$addDefaultUserOption.md) — Adds default user options to the last select menu
+- [`$addDefaultUserOptions`](component/$addDefaultUserOptions.md) — Alias of `$addDefaultUserOption`
+- [`$addDefaultUsers`](component/$addDefaultUsers.md) — Alias of `$addDefaultUserOption`
+- [`$addFile`](component/$addFile.md) — Adds a new file component
+- [`$addFileUpload`](component/$addFileUpload.md) — Adds a new file upload component to the newest modal label
+- [`$addLabel`](component/$addLabel.md) — Adds a new label component to the modal
+- [`$addMediaGallery`](component/$addMediaGallery.md) — Adds a new media gallery component
+- [`$addMediaItem`](component/$addMediaItem.md) — Adds a new media gallery item
+- [`$addMentionableSelectMenu`](component/$addMentionableSelectMenu.md) — Creates a mentionable select menu
+- [`$addMentionableSelectMenuTo`](component/$addMentionableSelectMenuTo.md) — Creates a mentionable select menu on a message
+- [`$addOption`](component/$addOption.md) — Adds a select menu option
+- [`$addRadioGroup`](component/$addRadioGroup.md) — Adds a new radio group component to the newest modal label
+- [`$addRadioOption`](component/$addRadioOption.md) — Adds a new option to the newest radio group component
+- [`$addRoleSelectMenu`](component/$addRoleSelectMenu.md) — Creates a role select menu
+- [`$addRoleSelectMenuTo`](component/$addRoleSelectMenuTo.md) — Creates a role select menu on a message
+- [`$addSection`](component/$addSection.md) — Adds a new section component
+- [`$addSeparator`](component/$addSeparator.md) — Adds a new separator component
+- [`$addStringSelectMenu`](component/$addStringSelectMenu.md) — Creates a string select menu
+- [`$addStringSelectMenuTo`](component/$addStringSelectMenuTo.md) — Creates a string select menu on a message
+- [`$addTextDisplay`](component/$addTextDisplay.md) — Adds a new text display component
+- [`$addTextInput`](component/$addTextInput.md) — Adds a text input field to the modal
+- [`$addThumbnail`](component/$addThumbnail.md) — Adds a new thumbnail accessory
+- [`$addUserSelectMenu`](component/$addUserSelectMenu.md) — Creates a user select menu
+- [`$addUserSelectMenuTo`](component/$addUserSelectMenuTo.md) — Creates a user select menu on a message
+- [`$deleteActionRow`](component/$deleteActionRow.md) — Deletes an action row or top level component at given index
+- [`$deleteActionRowFrom`](component/$deleteActionRowFrom.md) — Deletes an action row or top level component at given index
+- [`$deleteComponent`](component/$deleteComponent.md) — Deletes a message component with given custom id
+- [`$deleteComponentFrom`](component/$deleteComponentFrom.md) — Deletes a message component with given custom id from a message
+- [`$disableButtons`](component/$disableButtons.md) — Disables all buttons on the current message
+- [`$disableAllButtons`](component/$disableAllButtons.md) — Alias of `$disableButtons`
+- [`$disableButtonsOf`](component/$disableButtonsOf.md) — Disables all buttons of a message, returns bool
+- [`$disableAllButtonsOf`](component/$disableAllButtonsOf.md) — Alias of `$disableButtonsOf`
+- [`$disableComponents`](component/$disableComponents.md) — Disables all components on the current message
+- [`$disableAllComponents`](component/$disableAllComponents.md) — Alias of `$disableComponents`
+- [`$disableComponentsOf`](component/$disableComponentsOf.md) — Disables all components of a message, returns bool
+- [`$disableAllComponentsOf`](component/$disableAllComponentsOf.md) — Alias of `$disableComponentsOf`
+- [`$editButton`](component/$editButton.md) — Edits a button component
+- [`$editButtonOf`](component/$editButtonOf.md) — Edits a button component of a message
+- [`$editChannelSelectMenu`](component/$editChannelSelectMenu.md) — Edits a channel select menu
+- [`$editChannelSelectMenuOf`](component/$editChannelSelectMenuOf.md) — Edits a channel select menu of a message, returns bool
+- [`$editMentionableSelectMenu`](component/$editMentionableSelectMenu.md) — Edits a mentionable select menu
+- [`$editMentionableSelectMenuOf`](component/$editMentionableSelectMenuOf.md) — Edits a mentionable select menu of a message, returns bool
+- [`$editOption`](component/$editOption.md) — Edits a select menu option
+- [`$editRoleSelectMenu`](component/$editRoleSelectMenu.md) — Edits a role select menu
+- [`$editRoleSelectMenuOf`](component/$editRoleSelectMenuOf.md) — Edits a role select menu of a message, returns bool
+- [`$editStringSelectMenu`](component/$editStringSelectMenu.md) — Edits a string select menu
+- [`$editStringSelectMenuOf`](component/$editStringSelectMenuOf.md) — Edits a string select menu of a message
+- [`$editUserSelectMenu`](component/$editUserSelectMenu.md) — Edits a user select menu
+- [`$editUserSelectMenuOf`](component/$editUserSelectMenuOf.md) — Edits a user select menu of a message, returns bool
+- [`$enableButtons`](component/$enableButtons.md) — Enables all buttons on the current message
+- [`$enableAllButtons`](component/$enableAllButtons.md) — Alias of `$enableButtons`
+- [`$enableButtonsOf`](component/$enableButtonsOf.md) — Enables all buttons of a message, returns bool
+- [`$enableAllButtonsOf`](component/$enableAllButtonsOf.md) — Alias of `$enableButtonsOf`
+- [`$enableComponents`](component/$enableComponents.md) — Enables all components on the current message
+- [`$enableAllComponents`](component/$enableAllComponents.md) — Alias of `$enableComponents`
+- [`$enableComponentsOf`](component/$enableComponentsOf.md) — Enables all components of a message, returns bool
+- [`$enableAllComponentsOf`](component/$enableAllComponentsOf.md) — Alias of `$enableComponentsOf`
+- [`$setChannelType`](component/$setChannelType.md) — Sets channel types for the last select menu
+- [`$setChannelTypes`](component/$setChannelTypes.md) — Alias of `$setChannelType`
+
+## condition (6)
+
+- [`$and`](condition/$and.md) — Validates multiple conditions
+- [`$checkCondition`](condition/$checkCondition.md) — Checks whether a condition is valid
+- [`$isBoolean`](condition/$isBoolean.md) — Checks whether given value is bool like
+- [`$isBool`](condition/$isBool.md) — Alias of `$isBoolean`
+- [`$isValidHex`](condition/$isValidHex.md) — Checks whether given hex is a valid integer number between 0x00000 and 0xffffff
+- [`$isValidLink`](condition/$isValidLink.md) — Checks whether a link is valid, this will not make sure that a site actually exists or returns success HTTP responses
+- [`$or`](condition/$or.md) — Validates one condition
+
+## cooldown (14)
+
+- [`$channelCooldown`](cooldown/$channelCooldown.md) — Adds a cooldown binded to a channel and command
+- [`$cooldown`](cooldown/$cooldown.md) — Adds a command cooldown
+- [`$deleteChannelCooldown`](cooldown/$deleteChannelCooldown.md) — Deletes cooldown for given channel id, binded to current command
+- [`$deleteCooldown`](cooldown/$deleteCooldown.md) — Deletes cooldown of given id
+- [`$deleteGuildCooldown`](cooldown/$deleteGuildCooldown.md) — Deletes cooldown for given guild id, binded to current command
+- [`$deleteMemberCooldown`](cooldown/$deleteMemberCooldown.md) — Deletes cooldown for given guild and user id, binded to current command
+- [`$deleteUserCooldown`](cooldown/$deleteUserCooldown.md) — Deletes cooldown for given user id, binded to current command
+- [`$getCooldownTime`](cooldown/$getCooldownTime.md) — Retrieves current cooldown time in ms for given id
+- [`$getGuildCooldownTime`](cooldown/$getGuildCooldownTime.md) — Retrieves current cooldown time in ms for given guild id, binded to current command
+- [`$getServerCooldownTime`](cooldown/$getServerCooldownTime.md) — Alias of `$getGuildCooldownTime`
+- [`$getMemberCooldownTime`](cooldown/$getMemberCooldownTime.md) — Retrieves current cooldown time in ms for given guild and user id, binded to current command
+- [`$getUserCooldownTime`](cooldown/$getUserCooldownTime.md) — Retrieves current cooldown time in ms for given user id, binded to current command
+- [`$guildCooldown`](cooldown/$guildCooldown.md) — Adds a cooldown binded to a guild and command
+- [`$serverCooldown`](cooldown/$serverCooldown.md) — Alias of `$guildCooldown`
+- [`$memberCooldown`](cooldown/$memberCooldown.md) — Adds a cooldown binded to a guild member and command
+- [`$userCooldown`](cooldown/$userCooldown.md) — Adds a cooldown binded to a user and command
+
+## crypto (13)
+
+- [`$createQueryParams`](crypto/$createQueryParams.md) — Creates query params with given fields
+- [`$decodeURI`](crypto/$decodeURI.md) — Decodes text from a url
+- [`$decodeURIComponent`](crypto/$decodeURIComponent.md) — Decodes text from a url
+- [`$decrypt`](crypto/$decrypt.md) — Decrypts given text with a key
+- [`$deflate`](crypto/$deflate.md) — Compresses given input
+- [`$encodeURI`](crypto/$encodeURI.md) — Encodes text for a url
+- [`$encodeURIComponent`](crypto/$encodeURIComponent.md) — Encodes text for a url
+- [`$encrypt`](crypto/$encrypt.md) — Encrypts given text with a key
+- [`$inflate`](crypto/$inflate.md) — Decompresses given input
+- [`$md5`](crypto/$md5.md) — Creates a md5 key from given input
+- [`$randomBytes`](crypto/$randomBytes.md) — Generates a string of random bytes, in hex
+- [`$sha256`](crypto/$sha256.md) — Creates a sha256 key from given input
+- [`$sha512`](crypto/$sha512.md) — Creates a sha512 key from given input
+
+## embed (11)
+
+- [`$addField`](embed/$addField.md) — Adds an embed field
+- [`$author`](embed/$author.md) — Adds an embed author
+- [`$color`](embed/$color.md) — Adds an embed color
+- [`$deleteField`](embed/$deleteField.md) — Deletes an embed field
+- [`$description`](embed/$description.md) — Adds an embed description
+- [`$editField`](embed/$editField.md) — Edits an embed field
+- [`$footer`](embed/$footer.md) — Adds an embed footer
+- [`$image`](embed/$image.md) — Adds an embed image
+- [`$thumbnail`](embed/$thumbnail.md) — Adds an embed thumbnail
+- [`$timestamp`](embed/$timestamp.md) — Adds an embed timestamp
+- [`$title`](embed/$title.md) — Adds an embed title
+
+## emoji (28)
+
+- [`$addApplicationEmoji`](emoji/$addApplicationEmoji.md) — Adds an application emoji, returns the emoji id
+- [`$addEmoji`](emoji/$addEmoji.md) — Adds an emoji to a guild, returns the emoji id
+- [`$deleteApplicationEmojis`](emoji/$deleteApplicationEmojis.md) — Deletes application emojis, returns the count of emojis deleted
+- [`$deleteEmojiMessageReactions`](emoji/$deleteEmojiMessageReactions.md) — Deletes all emoji reactions from a message, returns amount of reaction emojis successfully deleted
+- [`$deleteEmojis`](emoji/$deleteEmojis.md) — Deletes given emojis from a guild, returns the count of emotes deleted
+- [`$editApplicationEmoji`](emoji/$editApplicationEmoji.md) — Edits an application emoji, returns bool
+- [`$editEmoji`](emoji/$editEmoji.md) — Edits an emoji of a guild, returns bool
+- [`$emoji`](emoji/$emoji.md) — Formats given emoji
+- [`$emojiAnimated`](emoji/$emojiAnimated.md) — Returns whether the emoji is animated
+- [`$emojiAuthorID`](emoji/$emojiAuthorID.md) — Returns the author id of an emoji
+- [`$emojiCount`](emoji/$emojiCount.md) — Returns the emoji count of all servers
+- [`$emojiCreatedAt`](emoji/$emojiCreatedAt.md) — Returns the emoji creation timestamp
+- [`$emojiExists`](emoji/$emojiExists.md) — Returns whether an emoji id exists
+- [`$emojiGuildID`](emoji/$emojiGuildID.md) — Returns the emoji guild id
+- [`$emojiID`](emoji/$emojiID.md) — Returns the emoji id
+- [`$emojiIDs`](emoji/$emojiIDs.md) — Returns every guild emoji id
+- [`$emojiIdentifier`](emoji/$emojiIdentifier.md) — Returns the emoji identifier
+- [`$emojiName`](emoji/$emojiName.md) — Returns the emoji name
+- [`$emojiNames`](emoji/$emojiNames.md) — Returns the emote names of a guild
+- [`$emojiRawData`](emoji/$emojiRawData.md) — Returns the raw data of an emoji
+- [`$emojiRequiresColons`](emoji/$emojiRequiresColons.md) — Returns whether the emoji requires colons
+- [`$emojiRoles`](emoji/$emojiRoles.md) — Returns the role ids that can use this emote
+- [`$emojiURL`](emoji/$emojiURL.md) — Returns the emoji url
+- [`$fetchApplicationEmojis`](emoji/$fetchApplicationEmojis.md) — Caches all application emojis of the client
+- [`$getApplicationEmojis`](emoji/$getApplicationEmojis.md) — Gets all application emojis
+- [`$randomApplicationEmojiID`](emoji/$randomApplicationEmojiID.md) — Returns a random emoji ID of the application
+- [`$randomEmojiID`](emoji/$randomEmojiID.md) — Returns a random emoji ID
+- [`$randomGuildEmojiID`](emoji/$randomGuildEmojiID.md) — Returns a random emoji ID of a guild
+
+## entitlement (16)
+
+- [`$entitlementConsume`](entitlement/$entitlementConsume.md) — Consumes an entitlement from an interaction
+- [`$entitlementEndTimestamp`](entitlement/$entitlementEndTimestamp.md) — Returns the time at which this entitlement ends
+- [`$entitlementGuildID`](entitlement/$entitlementGuildID.md) — Returns this entitlement's guild id
+- [`$entitlementID`](entitlement/$entitlementID.md) — Returns this entitlement's id
+- [`$entitlementIsActive`](entitlement/$entitlementIsActive.md) — Returns whether this entitlement is active
+- [`$entitlementIsConsumed`](entitlement/$entitlementIsConsumed.md) — Returns whether this entitlement is consumed
+- [`$entitlementIsDeleted`](entitlement/$entitlementIsDeleted.md) — Returns whether this entitlement is deleted
+- [`$entitlementIsGuildSubscription`](entitlement/$entitlementIsGuildSubscription.md) — Returns whether this entitlement is for a guild
+- [`$entitlementIsUserSubscription`](entitlement/$entitlementIsUserSubscription.md) — Returns whether this entitlement is for a user
+- [`$entitlementSkuID`](entitlement/$entitlementSkuID.md) — Returns this entitlement's sku id
+- [`$entitlementStartTimestamp`](entitlement/$entitlementStartTimestamp.md) — Returns the time at which this entitlement starts
+- [`$entitlementType`](entitlement/$entitlementType.md) — Returns this entitlement's type
+- [`$entitlementUserID`](entitlement/$entitlementUserID.md) — Returns this entitlement's user id
+- [`$hasAllEntitlements`](entitlement/$hasAllEntitlements.md) — Checks whether this interaction user has all of the given entitlements
+- [`$interactionHasAllEntitlements`](entitlement/$interactionHasAllEntitlements.md) — Alias of `$hasAllEntitlements`
+- [`$hasAnyEntitlement`](entitlement/$hasAnyEntitlement.md) — Checks whether this interaction user has any of the given entitlements
+- [`$interactionHasAnyEntitlement`](entitlement/$interactionHasAnyEntitlement.md) — Alias of `$hasAnyEntitlement`
+- [`$hasEntitlement`](entitlement/$hasEntitlement.md) — Checks whether this interaction user has given entitlement
+- [`$interactionHasEntitlement`](entitlement/$interactionHasEntitlement.md) — Alias of `$hasEntitlement`
+
+## event (6)
+
+- [`$createScheduledEvent`](event/$createScheduledEvent.md) — Creates a new scheduled event on a guild, returns event id
+- [`$deleteScheduledEvent`](event/$deleteScheduledEvent.md) — Deletes a scheduled event from a guild, returns bool
+- [`$editScheduledEvent`](event/$editScheduledEvent.md) — Edits an existing scheduled event on a guild, returns bool
+- [`$getScheduledEvent`](event/$getScheduledEvent.md) — Returns a scheduled event of a guild
+- [`$setScheduledEventChannel`](event/$setScheduledEventChannel.md) — Sets a channel for the current scheduled event
+- [`$setScheduledEventLocation`](event/$setScheduledEventLocation.md) — Sets a location for the current scheduled event
+
+## file (26)
+
+- [`$appendFile`](file/$appendFile.md) — Appends text to a file
+- [`$copyFile`](file/$copyFile.md) — Copies given path to another path
+- [`$deleteFile`](file/$deleteFile.md) — Deletes a file
+- [`$fileAccessedAt`](file/$fileAccessedAt.md) — Gets last time a file was accessed
+- [`$fileBlockCount`](file/$fileBlockCount.md) — Gets block count of a file or directory
+- [`$fileBlockSize`](file/$fileBlockSize.md) — Gets block size of a file or directory
+- [`$fileChangedAt`](file/$fileChangedAt.md) — Gets last time a file was changed
+- [`$fileCreatedAt`](file/$fileCreatedAt.md) — Gets timestamp of a file or directory
+- [`$fileExists`](file/$fileExists.md) — Checks whether a path exists
+- [`$fileModifiedAt`](file/$fileModifiedAt.md) — Gets timestamp of a file or directory when it was last modified
+- [`$fileSize`](file/$fileSize.md) — Gets size of a file or directory in bytes
+- [`$isDirectory`](file/$isDirectory.md) — Checks whether a path is a directory
+- [`$isFile`](file/$isFile.md) — Checks whether a path is a file
+- [`$isSymbolicLink`](file/$isSymbolicLink.md) — Checks whether a path is a symbolic link
+- [`$mkdir`](file/$mkdir.md) — Creates a directory
+- [`$mktdir`](file/$mktdir.md) — Creates a temporary directory
+- [`$createTempDir`](file/$createTempDir.md) — Alias of `$mktdir`
+- [`$makeTempDir`](file/$makeTempDir.md) — Alias of `$mktdir`
+- [`$moveFile`](file/$moveFile.md) — Moves a path to another
+- [`$pathExtensionName`](file/$pathExtensionName.md) — Returns the extension name of a path
+- [`$pathExtName`](file/$pathExtName.md) — Alias of `$pathExtensionName`
+- [`$pathJoin`](file/$pathJoin.md) — Joins paths together
+- [`$pathResolve`](file/$pathResolve.md) — Resolves paths into an absolute path
+- [`$readDir`](file/$readDir.md) — Reads the contents of a directory
+- [`$readFile`](file/$readFile.md) — Reads text from a file
+- [`$renameFile`](file/$renameFile.md) — Renames a file
+- [`$symlink`](file/$symlink.md) — Creates a symbolic link to another path
+- [`$truncateFile`](file/$truncateFile.md) — Truncates text in a file to given length
+- [`$writeFile`](file/$writeFile.md) — Writes text to a file
+
+## formatting (9)
+
+- [`$bold`](formatting/$bold.md) — Makes given text bold
+- [`$codeBlock`](formatting/$codeBlock.md) — Creates a code block with given text
+- [`$hyperlink`](formatting/$hyperlink.md) — Creates a hyperlink text
+- [`$inlineCode`](formatting/$inlineCode.md) — Adds backticks to text
+- [`$inline`](formatting/$inline.md) — Alias of `$inlineCode`
+- [`$markdown`](formatting/$markdown.md) — Alias of `$inlineCode`
+- [`$italic`](formatting/$italic.md) — Makes given text italic
+- [`$spoiler`](formatting/$spoiler.md) — Makes given text a spoiler
+- [`$strikethrough`](formatting/$strikethrough.md) — Makes given text strikethrough
+- [`$subtext`](formatting/$subtext.md) — Makes given text a subtext
+- [`$underline`](formatting/$underline.md) — Adds an underline to text
+- [`$underscore`](formatting/$underscore.md) — Alias of `$underline`
+
+## guild (123)
+
+- [`$createGuild`](guild/$createGuild.md) — Creates a new guild, returns guild id
+- [`$createServer`](guild/$createServer.md) — Alias of `$createGuild`
+- [`$createGuildTemplate`](guild/$createGuildTemplate.md) — Creates template for a guild, returns template code
+- [`$createServerTemplate`](guild/$createServerTemplate.md) — Alias of `$createGuildTemplate`
+- [`$deleteGuild`](guild/$deleteGuild.md) — Deletes a guild, returns bool
+- [`$deleteServer`](guild/$deleteServer.md) — Alias of `$deleteGuild`
+- [`$deleteGuildApplicationCommands`](guild/$deleteGuildApplicationCommands.md) — Deletes all guild commands of your bot from a guild
+- [`$deleteGuildTemplate`](guild/$deleteGuildTemplate.md) — Deletes template from a guild, returns bool
+- [`$deleteServerTemplate`](guild/$deleteServerTemplate.md) — Alias of `$deleteGuildTemplate`
+- [`$editGuildTemplate`](guild/$editGuildTemplate.md) — Edits template on a guild, returns bool
+- [`$editServerTemplate`](guild/$editServerTemplate.md) — Alias of `$editGuildTemplate`
+- [`$getGuildInvite`](guild/$getGuildInvite.md) — Returns information about a guild invite
+- [`$getGuildPreview`](guild/$getGuildPreview.md) — Returns the preview of a guild
+- [`$getGuildTemplate`](guild/$getGuildTemplate.md) — Gets the data of a guild template
+- [`$getServerTemplate`](guild/$getServerTemplate.md) — Alias of `$getGuildTemplate`
+- [`$guildAfkChannelID`](guild/$guildAfkChannelID.md) — Returns the server's afk channel ID
+- [`$serverGuildAfkChannelID`](guild/$serverGuildAfkChannelID.md) — Alias of `$guildAfkChannelID`
+- [`$guildAfkTimeout`](guild/$guildAfkTimeout.md) — Returns the server's afk timeout
+- [`$serverAfkTimeout`](guild/$serverAfkTimeout.md) — Alias of `$guildAfkTimeout`
+- [`$guildApproximateMemberCount`](guild/$guildApproximateMemberCount.md) — Returns the approximated member count
+- [`$serverApproximateMemberCount`](guild/$serverApproximateMemberCount.md) — Alias of `$guildApproximateMemberCount`
+- [`$guildApproximatePresenceCount`](guild/$guildApproximatePresenceCount.md) — Returns the approximated presence count
+- [`$serverApproximatePresenceCount`](guild/$serverApproximatePresenceCount.md) — Alias of `$guildApproximatePresenceCount`
+- [`$guildAutomodRules`](guild/$guildAutomodRules.md) — Returns all automod rules of a guild
+- [`$getAutomodRules`](guild/$getAutomodRules.md) — Alias of `$guildAutomodRules`
+- [`$guildAvailable`](guild/$guildAvailable.md) — Returns whether the server is available
+- [`$serverAvailable`](guild/$serverAvailable.md) — Alias of `$guildAvailable`
+- [`$guildBanReason`](guild/$guildBanReason.md) — Fetches a ban reason of a user
+- [`$banReason`](guild/$banReason.md) — Alias of `$guildBanReason`
+- [`$getBanReason`](guild/$getBanReason.md) — Alias of `$guildBanReason`
+- [`$getGuildBanReason`](guild/$getGuildBanReason.md) — Alias of `$guildBanReason`
+- [`$getServerBanReason`](guild/$getServerBanReason.md) — Alias of `$guildBanReason`
+- [`$serverBanReason`](guild/$serverBanReason.md) — Alias of `$guildBanReason`
+- [`$guildBannedMembers`](guild/$guildBannedMembers.md) — Returns banned member ids of a guild
+- [`$serverBannedMembers`](guild/$serverBannedMembers.md) — Alias of `$guildBannedMembers`
+- [`$guildBanner`](guild/$guildBanner.md) — Returns the guild banner
+- [`$serverBanner`](guild/$serverBanner.md) — Alias of `$guildBanner`
+- [`$guildBoostCount`](guild/$guildBoostCount.md) — Returns the server boost count
+- [`$serverBoostCount`](guild/$serverBoostCount.md) — Alias of `$guildBoostCount`
+- [`$guildBoostLevel`](guild/$guildBoostLevel.md) — Returns the server boost tier
+- [`$serverBoostLevel`](guild/$serverBoostLevel.md) — Alias of `$guildBoostLevel`
+- [`$guildBoostProgressBarEnabled`](guild/$guildBoostProgressBarEnabled.md) — Returns whether a guild has the boost progress bar enabled
+- [`$serverBoostProgressBarEnabled`](guild/$serverBoostProgressBarEnabled.md) — Alias of `$guildBoostProgressBarEnabled`
+- [`$guildBoostRoleID`](guild/$guildBoostRoleID.md) — Returns the server boost role id
+- [`$serverBoostRoleID`](guild/$serverBoostRoleID.md) — Alias of `$guildBoostRoleID`
+- [`$guildBoosterIDs`](guild/$guildBoosterIDs.md) — Returns all current boosters of a guild
+- [`$serverBoosterIDs`](guild/$serverBoosterIDs.md) — Alias of `$guildBoosterIDs`
+- [`$guildBotCount`](guild/$guildBotCount.md) — Returns the bot count of a guild
+- [`$serverBotCount`](guild/$serverBotCount.md) — Alias of `$guildBotCount`
+- [`$guildChannelCount`](guild/$guildChannelCount.md) — Returns the server channel count
+- [`$serverChannelCount`](guild/$serverChannelCount.md) — Alias of `$guildChannelCount`
+- [`$guildChannelExists`](guild/$guildChannelExists.md) — Returns whether a guild channel id exists
+- [`$serverChannelExists`](guild/$serverChannelExists.md) — Alias of `$guildChannelExists`
+- [`$guildChannelIDs`](guild/$guildChannelIDs.md) — Returns every channel id of the guild
+- [`$serverChannelIDs`](guild/$serverChannelIDs.md) — Alias of `$guildChannelIDs`
+- [`$guildCount`](guild/$guildCount.md) — Returns the guild count
+- [`$serverCount`](guild/$serverCount.md) — Alias of `$guildCount`
+- [`$serversCount`](guild/$serversCount.md) — Alias of `$guildCount`
+- [`$guildCreatedAt`](guild/$guildCreatedAt.md) — Returns the server creation timestamp
+- [`$serverCreatedAt`](guild/$serverCreatedAt.md) — Alias of `$guildCreatedAt`
+- [`$guildDefaultMessageNotifications`](guild/$guildDefaultMessageNotifications.md) — Returns the default message notifications for this guild
+- [`$serverDefaultMessageNotifications`](guild/$serverDefaultMessageNotifications.md) — Alias of `$guildDefaultMessageNotifications`
+- [`$guildDescription`](guild/$guildDescription.md) — Returns the server description
+- [`$serverDescription`](guild/$serverDescription.md) — Alias of `$guildDescription`
+- [`$guildDiscoverySplash`](guild/$guildDiscoverySplash.md) — Returns the guild discovery splash
+- [`$serverDiscoverySplash`](guild/$serverDiscoverySplash.md) — Alias of `$guildDiscoverySplash`
+- [`$guildDmSpamDetectedAt`](guild/$guildDmSpamDetectedAt.md) — Returns when a direct message spam was detected on a guild
+- [`$serverDmSpamDetectedAt`](guild/$serverDmSpamDetectedAt.md) — Alias of `$guildDmSpamDetectedAt`
+- [`$guildDmsDisabledUntil`](guild/$guildDmsDisabledUntil.md) — Returns the direct messages disabled timestamp of a guild
+- [`$serverDmsDisabledUntil`](guild/$serverDmsDisabledUntil.md) — Alias of `$guildDmsDisabledUntil`
+- [`$guildEmojiCount`](guild/$guildEmojiCount.md) — Returns the emoji count of a guild
+- [`$serverEmojiCount`](guild/$serverEmojiCount.md) — Alias of `$guildEmojiCount`
+- [`$guildEmojiExists`](guild/$guildEmojiExists.md) — Returns whether an emoji id exists on a guild
+- [`$serverEmojiExists`](guild/$serverEmojiExists.md) — Alias of `$guildEmojiExists`
+- [`$guildEmojiIDs`](guild/$guildEmojiIDs.md) — Returns every emoji id of the guild
+- [`$serverEmojiIDs`](guild/$serverEmojiIDs.md) — Alias of `$guildEmojiIDs`
+- [`$guildEmojiLimit`](guild/$guildEmojiLimit.md) — Returns the emoji limit of a guild
+- [`$serverEmojiLimit`](guild/$serverEmojiLimit.md) — Alias of `$guildEmojiLimit`
+- [`$guildEmojis`](guild/$guildEmojis.md) — Returns every emoji of the guild
+- [`$serverEmojis`](guild/$serverEmojis.md) — Alias of `$guildEmojis`
+- [`$guildExists`](guild/$guildExists.md) — Returns whether a guild id exists
+- [`$serverExists`](guild/$serverExists.md) — Alias of `$guildExists`
+- [`$guildExplicitContentFilter`](guild/$guildExplicitContentFilter.md) — Returns the explicit content filter level for this guild
+- [`$serverExplicitContentFilter`](guild/$serverExplicitContentFilter.md) — Alias of `$guildExplicitContentFilter`
+- [`$guildFeatures`](guild/$guildFeatures.md) — Returns the guild features
+- [`$serverFeatures`](guild/$serverFeatures.md) — Alias of `$guildFeatures`
+- [`$guildHasAnyFeatures`](guild/$guildHasAnyFeatures.md) — Returns whether this guild has any of the given features
+- [`$guildHasAnyFeature`](guild/$guildHasAnyFeature.md) — Alias of `$guildHasAnyFeatures`
+- [`$hasAnyGuildFeature`](guild/$hasAnyGuildFeature.md) — Alias of `$guildHasAnyFeatures`
+- [`$hasAnyGuildFeatures`](guild/$hasAnyGuildFeatures.md) — Alias of `$guildHasAnyFeatures`
+- [`$guildHasFeatures`](guild/$guildHasFeatures.md) — Returns whether this guild has all the given features
+- [`$hasGuildFeatures`](guild/$hasGuildFeatures.md) — Alias of `$guildHasFeatures`
+- [`$guildHasTemplate`](guild/$guildHasTemplate.md) — Returns whether this guild has a template
+- [`$hasGuildTemplate`](guild/$hasGuildTemplate.md) — Alias of `$guildHasTemplate`
+- [`$guildHighestRoleID`](guild/$guildHighestRoleID.md) — Returns the highest role id of a guild
+- [`$serverHighestRoleID`](guild/$serverHighestRoleID.md) — Alias of `$guildHighestRoleID`
+- [`$guildID`](guild/$guildID.md) — Returns the guild id with given name
+- [`$serverID`](guild/$serverID.md) — Alias of `$guildID`
+- [`$guildIDs`](guild/$guildIDs.md) — Returns all the guilds this bot is in
+- [`$serverIDs`](guild/$serverIDs.md) — Alias of `$guildIDs`
+- [`$guildIcon`](guild/$guildIcon.md) — Returns the server icon
+- [`$serverIcon`](guild/$serverIcon.md) — Alias of `$guildIcon`
+- [`$guildInviteExists`](guild/$guildInviteExists.md) — Returns whether a guild invite code exists
+- [`$serverInviteExists`](guild/$serverInviteExists.md) — Alias of `$guildInviteExists`
+- [`$guildInvites`](guild/$guildInvites.md) — Returns all invites of a guild
+- [`$serverInvites`](guild/$serverInvites.md) — Alias of `$guildInvites`
+- [`$guildInvitesDisabledUntil`](guild/$guildInvitesDisabledUntil.md) — Returns the invites disabled timestamp of a guild
+- [`$serverInvitesDisabledUntil`](guild/$serverInvitesDisabledUntil.md) — Alias of `$guildInvitesDisabledUntil`
+- [`$guildLarge`](guild/$guildLarge.md) — Returns whether a guild is considered as large
+- [`$serverLarge`](guild/$serverLarge.md) — Alias of `$guildLarge`
+- [`$guildLeave`](guild/$guildLeave.md) — Leaves a guild
+- [`$serverLeave`](guild/$serverLeave.md) — Alias of `$guildLeave`
+- [`$guildLowestRoleID`](guild/$guildLowestRoleID.md) — Returns the lowest role id of a guild
+- [`$serverLowestRoleID`](guild/$serverLowestRoleID.md) — Alias of `$guildLowestRoleID`
+- [`$guildMFALevel`](guild/$guildMFALevel.md) — Returns the mfa level for this guild
+- [`$serverMFALevel`](guild/$serverMFALevel.md) — Alias of `$guildMFALevel`
+- [`$guildMaxStageVideoChannelUsers`](guild/$guildMaxStageVideoChannelUsers.md) — Returns the maximum video channel users for stage channels of this guild
+- [`$serverMaxStageVideoChannelUsers`](guild/$serverMaxStageVideoChannelUsers.md) — Alias of `$guildMaxStageVideoChannelUsers`
+- [`$guildMaxVideoChannelUsers`](guild/$guildMaxVideoChannelUsers.md) — Returns the maximum video channel users for this guild
+- [`$serverMaxVideoChannelUsers`](guild/$serverMaxVideoChannelUsers.md) — Alias of `$guildMaxVideoChannelUsers`
+- [`$guildMaximumBitrate`](guild/$guildMaximumBitrate.md) — Returns the maximum bitrate for voice channels of this guild
+- [`$serverMaximumBitrate`](guild/$serverMaximumBitrate.md) — Alias of `$guildMaximumBitrate`
+- [`$guildMaximumMembers`](guild/$guildMaximumMembers.md) — Returns the maximum members for this guild
+- [`$serverMaximumMembers`](guild/$serverMaximumMembers.md) — Alias of `$guildMaximumMembers`
+- [`$guildMaximumPresences`](guild/$guildMaximumPresences.md) — Returns the maximum presences for this guild
+- [`$serverMaximumPresences`](guild/$serverMaximumPresences.md) — Alias of `$guildMaximumPresences`
+- [`$guildMaximumStageBitrate`](guild/$guildMaximumStageBitrate.md) — Returns the maximum bitrate for stage channels of this guild
+- [`$serverMaximumStageBitrate`](guild/$serverMaximumStageBitrate.md) — Alias of `$guildMaximumStageBitrate`
+- [`$guildMemberCount`](guild/$guildMemberCount.md) — Returns the user count of a guild
+- [`$serverMemberCount`](guild/$serverMemberCount.md) — Alias of `$guildMemberCount`
+- [`$serverMembersCount`](guild/$serverMembersCount.md) — Alias of `$guildMemberCount`
+- [`$guildMemberIDs`](guild/$guildMemberIDs.md) — Returns all cached member ids of a guild
+- [`$memberIDs`](guild/$memberIDs.md) — Alias of `$guildMemberIDs`
+- [`$serverMemberIDs`](guild/$serverMemberIDs.md) — Alias of `$guildMemberIDs`
+- [`$guildNSFWLevel`](guild/$guildNSFWLevel.md) — Returns the nsfw level for this guild
+- [`$serverNSFWLevel`](guild/$serverNSFWLevel.md) — Alias of `$guildNSFWLevel`
+- [`$guildName`](guild/$guildName.md) — Returns the server name
+- [`$serverName`](guild/$serverName.md) — Alias of `$guildName`
+- [`$guildNameAcronym`](guild/$guildNameAcronym.md) — Returns the server name acronym
+- [`$serverNameAcronym`](guild/$serverNameAcronym.md) — Alias of `$guildNameAcronym`
+- [`$guildNames`](guild/$guildNames.md) — Returns the server names of the bot
+- [`$serverNames`](guild/$serverNames.md) — Alias of `$guildNames`
+- [`$guildOwnerID`](guild/$guildOwnerID.md) — Returns the server owner id
+- [`$serverOwnerID`](guild/$serverOwnerID.md) — Alias of `$guildOwnerID`
+- [`$guildPartnered`](guild/$guildPartnered.md) — Returns whether the server is partnered
+- [`$serverPartnered`](guild/$serverPartnered.md) — Alias of `$guildPartnered`
+- [`$guildPreferredLocale`](guild/$guildPreferredLocale.md) — Returns the server's preferred locale
+- [`$serverPreferredLocale`](guild/$serverPreferredLocale.md) — Alias of `$guildPreferredLocale`
+- [`$guildPublicUpdatesChannelID`](guild/$guildPublicUpdatesChannelID.md) — Returns the server's public updates channel ID
+- [`$serverPublicUpdatesChannelID`](guild/$serverPublicUpdatesChannelID.md) — Alias of `$guildPublicUpdatesChannelID`
+- [`$guildRaidDetectedAt`](guild/$guildRaidDetectedAt.md) — Returns when a raid was detected on a guild
+- [`$serverRaidDetectedAt`](guild/$serverRaidDetectedAt.md) — Alias of `$guildRaidDetectedAt`
+- [`$guildRawData`](guild/$guildRawData.md) — Returns the raw data of a guild
+- [`$serverRawData`](guild/$serverRawData.md) — Alias of `$guildRawData`
+- [`$guildRoleCount`](guild/$guildRoleCount.md) — Returns the role count of a guild
+- [`$serverRoleCount`](guild/$serverRoleCount.md) — Alias of `$guildRoleCount`
+- [`$guildRoleIDs`](guild/$guildRoleIDs.md) — Returns every role id of the guild
+- [`$roleIDs`](guild/$roleIDs.md) — Alias of `$guildRoleIDs`
+- [`$serverRoleIDs`](guild/$serverRoleIDs.md) — Alias of `$guildRoleIDs`
+- [`$guildRulesChannelID`](guild/$guildRulesChannelID.md) — Returns the server's rules channel ID
+- [`$serverRulesChannelID`](guild/$serverRulesChannelID.md) — Alias of `$guildRulesChannelID`
+- [`$guildSafetyAlertsChannelID`](guild/$guildSafetyAlertsChannelID.md) — Returns the server's safety alerts channel ID
+- [`$serverSafetyAlertsChannelID`](guild/$serverSafetyAlertsChannelID.md) — Alias of `$guildSafetyAlertsChannelID`
+- [`$guildScheduledEvents`](guild/$guildScheduledEvents.md) — Returns all scheduled events of a guild
+- [`$guildShardID`](guild/$guildShardID.md) — Returns the server shard ID
+- [`$serverShardID`](guild/$serverShardID.md) — Alias of `$guildShardID`
+- [`$guildSoundboardLimit`](guild/$guildSoundboardLimit.md) — Returns the soundboard sound limit of a guild
+- [`$serverSoundboardLimit`](guild/$serverSoundboardLimit.md) — Alias of `$guildSoundboardLimit`
+- [`$guildSoundboardSounds`](guild/$guildSoundboardSounds.md) — Returns all soundboard sounds of a guild
+- [`$guildSplashURL`](guild/$guildSplashURL.md) — Returns the guild splash url
+- [`$serverSplashURL`](guild/$serverSplashURL.md) — Alias of `$guildSplashURL`
+- [`$guildStageInstances`](guild/$guildStageInstances.md) — Returns all active stage instances of a guild
+- [`$guildStickerExists`](guild/$guildStickerExists.md) — Returns whether a sticker id exists on a guild
+- [`$serverStickerExists`](guild/$serverStickerExists.md) — Alias of `$guildStickerExists`
+- [`$guildStickerIDs`](guild/$guildStickerIDs.md) — Returns every sticker id of the guild
+- [`$serverStickerIDs`](guild/$serverStickerIDs.md) — Alias of `$guildStickerIDs`
+- [`$guildStickerLimit`](guild/$guildStickerLimit.md) — Returns the sticker limit of a guild
+- [`$serverStickerLimit`](guild/$serverStickerLimit.md) — Alias of `$guildStickerLimit`
+- [`$guildSystemChannelFlags`](guild/$guildSystemChannelFlags.md) — Returns the system channel flags of a guild
+- [`$serverSystemChannelFlags`](guild/$serverSystemChannelFlags.md) — Alias of `$guildSystemChannelFlags`
+- [`$guildSystemChannelID`](guild/$guildSystemChannelID.md) — Returns the system channel ID of a guild
+- [`$serverSystemChannelID`](guild/$serverSystemChannelID.md) — Alias of `$guildSystemChannelID`
+- [`$guildTemplateCode`](guild/$guildTemplateCode.md) — Returns the template code of a guild
+- [`$serverTemplateCode`](guild/$serverTemplateCode.md) — Alias of `$guildTemplateCode`
+- [`$guildTimedOutMembers`](guild/$guildTimedOutMembers.md) — Returns all current timed out members of a guild
+- [`$serverTimedOutMembers`](guild/$serverTimedOutMembers.md) — Alias of `$guildTimedOutMembers`
+- [`$guildVanityCode`](guild/$guildVanityCode.md) — Returns the guilds vanity code
+- [`$serverVanityCode`](guild/$serverVanityCode.md) — Alias of `$guildVanityCode`
+- [`$guildVanityUses`](guild/$guildVanityUses.md) — Returns the guilds vanity uses
+- [`$serverVanityUses`](guild/$serverVanityUses.md) — Alias of `$guildVanityUses`
+- [`$guildVerificationLevel`](guild/$guildVerificationLevel.md) — Returns the server verification level
+- [`$serverVerificationLevel`](guild/$serverVerificationLevel.md) — Alias of `$guildVerificationLevel`
+- [`$guildVerified`](guild/$guildVerified.md) — Returns whether the server is verified
+- [`$serverVerified`](guild/$serverVerified.md) — Alias of `$guildVerified`
+- [`$guildWebhooks`](guild/$guildWebhooks.md) — Returns all webhooks of a guild
+- [`$guildWidgetChannelEnabled`](guild/$guildWidgetChannelEnabled.md) — Returns whether widget channel is enabled for this guild
+- [`$serverWidgetChannelEnabled`](guild/$serverWidgetChannelEnabled.md) — Alias of `$guildWidgetChannelEnabled`
+- [`$guildWidgetChannelID`](guild/$guildWidgetChannelID.md) — Returns the widget channel for this guild
+- [`$serverWidgetChannelID`](guild/$serverWidgetChannelID.md) — Alias of `$guildWidgetChannelID`
+- [`$randomGuildID`](guild/$randomGuildID.md) — Returns a random guild ID
+- [`$randomServerID`](guild/$randomServerID.md) — Alias of `$randomGuildID`
+- [`$registerGuildApplicationCommands`](guild/$registerGuildApplicationCommands.md) — Registers all application commands with type: 1 to a guild
+- [`$setGuildAFKChannel`](guild/$setGuildAFKChannel.md) — Sets the AFK channel for a guild, returns bool
+- [`$setServerAFKChannel`](guild/$setServerAFKChannel.md) — Alias of `$setGuildAFKChannel`
+- [`$setGuildAFKTimeout`](guild/$setGuildAFKTimeout.md) — Sets the AFK timeout for a guild, returns bool
+- [`$setServerAFKTimeout`](guild/$setServerAFKTimeout.md) — Alias of `$setGuildAFKTimeout`
+- [`$setGuildBanner`](guild/$setGuildBanner.md) — Sets a guild banner, returns boolean
+- [`$setServerBanner`](guild/$setServerBanner.md) — Alias of `$setGuildBanner`
+- [`$setGuildBoostProgressBar`](guild/$setGuildBoostProgressBar.md) — Sets a guild boost progress bar, returns bool
+- [`$setServerBoostProgressBar`](guild/$setServerBoostProgressBar.md) — Alias of `$setGuildBoostProgressBar`
+- [`$setGuildDefaultMessageNotifications`](guild/$setGuildDefaultMessageNotifications.md) — Sets the default message notifications setting for a guild, returns bool
+- [`$setServerDefaultMessageNotifications`](guild/$setServerDefaultMessageNotifications.md) — Alias of `$setGuildDefaultMessageNotifications`
+- [`$setGuildDiscoverySplash`](guild/$setGuildDiscoverySplash.md) — Sets the discovery splash for a guild, returns bool
+- [`$setServerDiscoverySplash`](guild/$setServerDiscoverySplash.md) — Alias of `$setGuildDiscoverySplash`
+- [`$setGuildDmsDisabled`](guild/$setGuildDmsDisabled.md) — Sets the guild's DMs activity disabled for a specific duration, returns bool
+- [`$setServerDmsDisabled`](guild/$setServerDmsDisabled.md) — Alias of `$setGuildDmsDisabled`
+- [`$setGuildExplicitContentFilter`](guild/$setGuildExplicitContentFilter.md) — Sets the explicit content filter for a guild, returns bool
+- [`$setServerExplicitContentFilter`](guild/$setServerExplicitContentFilter.md) — Alias of `$setGuildExplicitContentFilter`
+- [`$setGuildIcon`](guild/$setGuildIcon.md) — Sets a guild icon, returns boolean
+- [`$setServerIcon`](guild/$setServerIcon.md) — Alias of `$setGuildIcon`
+- [`$setGuildInvitesDisabled`](guild/$setGuildInvitesDisabled.md) — Sets the guild's invites disabled for a specific duration, returns bool
+- [`$setServerInvitesDisabled`](guild/$setServerInvitesDisabled.md) — Alias of `$setGuildInvitesDisabled`
+- [`$setGuildMFALevel`](guild/$setGuildMFALevel.md) — Sets the MFA level for a guild, returns bool
+- [`$setServerMFALevel`](guild/$setServerMFALevel.md) — Alias of `$setGuildMFALevel`
+- [`$setGuildName`](guild/$setGuildName.md) — Sets a guild name, returns boolean
+- [`$setServerName`](guild/$setServerName.md) — Alias of `$setGuildName`
+- [`$setGuildOwner`](guild/$setGuildOwner.md) — Sets the owner of a guild, returns bool
+- [`$setServerOwner`](guild/$setServerOwner.md) — Alias of `$setGuildOwner`
+- [`$setGuildPausedInvites`](guild/$setGuildPausedInvites.md) — Sets a guild paused invite status, returns bool
+- [`$setServerPausedInvites`](guild/$setServerPausedInvites.md) — Alias of `$setGuildPausedInvites`
+- [`$setGuildPreferredLocale`](guild/$setGuildPreferredLocale.md) — Sets the preferred locale of a guild, returns bool
+- [`$setServerPreferredLocale`](guild/$setServerPreferredLocale.md) — Alias of `$setGuildPreferredLocale`
+- [`$setGuildPublicUpdatesChannel`](guild/$setGuildPublicUpdatesChannel.md) — Sets the public updates channel for a guild, returns bool
+- [`$setServerPublicUpdatesChannel`](guild/$setServerPublicUpdatesChannel.md) — Alias of `$setGuildPublicUpdatesChannel`
+- [`$setGuildRulesChannel`](guild/$setGuildRulesChannel.md) — Sets the rules channel for a guild, returns bool
+- [`$setServerRulesChannel`](guild/$setServerRulesChannel.md) — Alias of `$setGuildRulesChannel`
+- [`$setGuildSafetyAlertsChannel`](guild/$setGuildSafetyAlertsChannel.md) — Sets the safety alerts channel for a guild, returns bool
+- [`$setServerSafetyAlertsChannel`](guild/$setServerSafetyAlertsChannel.md) — Alias of `$setGuildSafetyAlertsChannel`
+- [`$setGuildSplash`](guild/$setGuildSplash.md) — Sets a guild splash, returns boolean
+- [`$setServerSplash`](guild/$setServerSplash.md) — Alias of `$setGuildSplash`
+- [`$setGuildSystemChannel`](guild/$setGuildSystemChannel.md) — Sets the system channel for a guild, returns bool
+- [`$setServerSystemChannel`](guild/$setServerSystemChannel.md) — Alias of `$setGuildSystemChannel`
+- [`$setGuildVerificationLevel`](guild/$setGuildVerificationLevel.md) — Sets the verification level of a guild, returns bool
+- [`$setServerVerificationLevel`](guild/$setServerVerificationLevel.md) — Alias of `$setGuildVerificationLevel`
+- [`$setGuildWidgetSettings`](guild/$setGuildWidgetSettings.md) — Sets the widget settings of a guild, returns bool
+- [`$setServerWidgetSettings`](guild/$setServerWidgetSettings.md) — Alias of `$setGuildWidgetSettings`
+- [`$syncGuildTemplate`](guild/$syncGuildTemplate.md) — Syncs this template to the current state of the guild, returns bool
+- [`$syncServerTemplate`](guild/$syncServerTemplate.md) — Alias of `$syncGuildTemplate`
+
+## http (11)
+
+- [`$httpAddForm`](http/$httpAddForm.md) — Adds form data to request
+- [`$httpAddHeader`](http/$httpAddHeader.md) — Adds an HTTP header
+- [`$httpAppendFile`](http/$httpAppendFile.md) — Appends a file to form data
+- [`$httpAppendValue`](http/$httpAppendValue.md) — Appends a key-value to form data
+- [`$httpGetHeader`](http/$httpGetHeader.md) — Gets an HTTP header
+- [`$httpPing`](http/$httpPing.md) — Returns the response time of the HTTP request
+- [`$httpResponseTime`](http/$httpResponseTime.md) — Alias of `$httpPing`
+- [`$httpRemoveHeader`](http/$httpRemoveHeader.md) — Removes an HTTP header
+- [`$httpRequest`](http/$httpRequest.md) — Performs an http request, returns the status code
+- [`$httpResult`](http/$httpResult.md) — Retrieve an http result value
+- [`$httpSetBody`](http/$httpSetBody.md) — Sets a JSON body for the request
+- [`$httpSetContentType`](http/$httpSetContentType.md) — Forces the http request to be decoded using given content type
+
+## interaction (49)
+
+- [`$applicationCommandDescription`](interaction/$applicationCommandDescription.md) — Returns an application command description
+- [`$applicationCommandDisplay`](interaction/$applicationCommandDisplay.md) — Gets the full command interaction with all options
+- [`$applicationCommandID`](interaction/$applicationCommandID.md) — Returns the application command id
+- [`$applicationCommandName`](interaction/$applicationCommandName.md) — Returns an application command name
+- [`$applicationCommandOptions`](interaction/$applicationCommandOptions.md) — Returns an application command options in JSON format
+- [`$applicationSubCommandGroupName`](interaction/$applicationSubCommandGroupName.md) — Returns the application sub command group name of this interaction
+- [`$applicationSubCommandName`](interaction/$applicationSubCommandName.md) — Returns the application sub command name of this interaction
+- [`$authorizingIntegrationOwners`](interaction/$authorizingIntegrationOwners.md) — Returns the authorizing integration owners of this interaction
+- [`$autocomplete`](interaction/$autocomplete.md) — Forces autocomplete response
+- [`$context`](interaction/$context.md) — Returns the context of this interaction
+- [`$interactionContext`](interaction/$interactionContext.md) — Alias of `$context`
+- [`$customID`](interaction/$customID.md) — Retrieves the custom id of the interaction
+- [`$defer`](interaction/$defer.md) — Defers this interaction
+- [`$deferUpdate`](interaction/$deferUpdate.md) — Defers this interaction as an update
+- [`$ephemeral`](interaction/$ephemeral.md) — Marks this reply as ephemeral
+- [`$focusedOptionName`](interaction/$focusedOptionName.md) — Returns the focused option of the command
+- [`$focusedOptionValue`](interaction/$focusedOptionValue.md) — Returns the focused option value of the command
+- [`$input`](interaction/$input.md) — Returns the value from a modal field
+- [`$interactionDelete`](interaction/$interactionDelete.md) — Deletes this interaction's reply
+- [`$interactionFollowUp`](interaction/$interactionFollowUp.md) — Forces an interaction follow up
+- [`$interactionRawData`](interaction/$interactionRawData.md) — Returns the raw data of this interaction
+- [`$interactionReply`](interaction/$interactionReply.md) — Forces an interaction reply
+- [`$interactionRequirePremium`](interaction/$interactionRequirePremium.md) — Requires premium to use this interaction
+- [`$interactionUpdate`](interaction/$interactionUpdate.md) — Forces an interaction update
+- [`$isActivityCommand`](interaction/$isActivityCommand.md) — Returns whether the interaction is an activity command
+- [`$isAnySelectMenu`](interaction/$isAnySelectMenu.md) — Returns whether the context is a select menu
+- [`$isAutocomplete`](interaction/$isAutocomplete.md) — Returns whether the interaction is autocomplete
+- [`$isButton`](interaction/$isButton.md) — Returns whether the interaction is a button
+- [`$isChannelSelectMenu`](interaction/$isChannelSelectMenu.md) — Returns whether the context is a channel select menu
+- [`$isCommand`](interaction/$isCommand.md) — Returns whether the interaction is a command
+- [`$isContextMenu`](interaction/$isContextMenu.md) — Returns whether the interaction is a context menu
+- [`$isMentionableSelectMenu`](interaction/$isMentionableSelectMenu.md) — Returns whether the context is a mentionable select menu
+- [`$isMessageComponent`](interaction/$isMessageComponent.md) — Returns whether the interaction is a message component
+- [`$isMessageContextMenu`](interaction/$isMessageContextMenu.md) — Returns whether the interaction is a message context menu
+- [`$isModal`](interaction/$isModal.md) — Returns whether the context is a modal
+- [`$isRepliable`](interaction/$isRepliable.md) — Returns whether this interaction can be replied to
+- [`$isRoleSelectMenu`](interaction/$isRoleSelectMenu.md) — Returns whether the context is a role select menu
+- [`$isSlashCommand`](interaction/$isSlashCommand.md) — Returns whether the interaction is a slash command
+- [`$isStringSelectMenu`](interaction/$isStringSelectMenu.md) — Returns whether the context is a string select menu
+- [`$isUserContextMenu`](interaction/$isUserContextMenu.md) — Returns whether the interaction is a user context menu
+- [`$isUserSelectMenu`](interaction/$isUserSelectMenu.md) — Returns whether the context is a user select menu
+- [`$launchActivity`](interaction/$launchActivity.md) — Launches the activity of the client, if enabled
+- [`$locale`](interaction/$locale.md) — Retrieves the user locale of the interaction
+- [`$interactionLocale`](interaction/$interactionLocale.md) — Alias of `$locale`
+- [`$modal`](interaction/$modal.md) — Creates a modal
+- [`$option`](interaction/$option.md) — Returns an option value with given name (interaction command)
+- [`$selectMenuValues`](interaction/$selectMenuValues.md) — Returns select menu values
+- [`$showModal`](interaction/$showModal.md) — Shows the modal immediately
+- [`$targetMember`](interaction/$targetMember.md) — Retrieves data of the target member
+- [`$targetMessage`](interaction/$targetMessage.md) — Retrieves data of the target message
+- [`$targetMessageEmbeds`](interaction/$targetMessageEmbeds.md) — Retrieves data of embeds from the target message
+- [`$targetMessageEmbed`](interaction/$targetMessageEmbed.md) — Alias of `$targetMessageEmbeds`
+
+## invite (5)
+
+- [`$deleteInvite`](invite/$deleteInvite.md) — Deletes an invite, returns bool
+- [`$getInvite`](invite/$getInvite.md) — Returns information about an invite
+- [`$inviteExists`](invite/$inviteExists.md) — Returns whether an invite code exists
+- [`$inviterCode`](invite/$inviterCode.md) — Returns the invite code that was used by this person
+- [`$inviterID`](invite/$inviterID.md) — Returns the user who invited this person
+
+## json (11)
+
+- [`$isJSON`](json/$isJSON.md) — Checks whether given JSON is valid
+- [`$isValidJSON`](json/$isValidJSON.md) — Alias of `$isJSON`
+- [`$jsonAssign`](json/$jsonAssign.md) — Combines multiple JSON objects into a single JSON object
+- [`$jsonDelete`](json/$jsonDelete.md) — Deletes a key from a traversed JSON
+- [`$jsonEntries`](json/$jsonEntries.md) — Gets entries from a JSON variable
+- [`$jsonFromEntries`](json/$jsonFromEntries.md) — Converts an array of entries into an object
+- [`$fromEntries`](json/$fromEntries.md) — Alias of `$jsonFromEntries`
+- [`$jsonHas`](json/$jsonHas.md) — Returns whether a key exists in a JSON object
+- [`$jsonKeys`](json/$jsonKeys.md) — Gets keys from a JSON variable
+- [`$jsonLoad`](json/$jsonLoad.md) — Loads JSON to an env variable
+- [`$jsonSet`](json/$jsonSet.md) — Adds a JSON key with a value
+- [`$jsonStringify`](json/$jsonStringify.md) — Returns the JSON in stringified format
+- [`$jsonValues`](json/$jsonValues.md) — Gets values from a JSON variable
+
+## limiter (7)
+
+- [`$onlyForCategories`](limiter/$onlyForCategories.md) — Only executes code if given ids match the current category
+- [`$onlyForChannels`](limiter/$onlyForChannels.md) — Only executes code if given ids match the current channel
+- [`$onlyForGuilds`](limiter/$onlyForGuilds.md) — Only executes code if given ids match the guild
+- [`$onlyForRoles`](limiter/$onlyForRoles.md) — Only executes code if user has given roles
+- [`$onlyForUsers`](limiter/$onlyForUsers.md) — Only executes code if given ids match the author
+- [`$onlyIf`](limiter/$onlyIf.md) — Stop execution if condition is not matched
+- [`$stop`](limiter/$stop.md) — Stops code execution
+
+## logging (3)
+
+- [`$chalkLog`](logging/$chalkLog.md) — Logs styled text to the console using Chalk
+- [`$log`](logging/$log.md) — Log something to console
+- [`$logger`](logging/$logger.md) — Implements Logger API of ForgeScript
+
+## lookup (12)
+
+- [`$findApplicationEmoji`](lookup/$findApplicationEmoji.md) — Finds an application emoji of the client
+- [`$findChannel`](lookup/$findChannel.md) — Finds a channel
+- [`$findChannels`](lookup/$findChannels.md) — Finds channels of a guild using a query
+- [`$findEmoji`](lookup/$findEmoji.md) — Finds an emoji
+- [`$findGuild`](lookup/$findGuild.md) — Finds a guild
+- [`$findGuildChannel`](lookup/$findGuildChannel.md) — Finds a channel of a guild
+- [`$findGuildEmoji`](lookup/$findGuildEmoji.md) — Finds an emoji of a guild
+- [`$findMember`](lookup/$findMember.md) — Finds a member of a guild
+- [`$findMembers`](lookup/$findMembers.md) — Finds member of a guild using a query
+- [`$findRole`](lookup/$findRole.md) — Finds a role of a guild
+- [`$findRoles`](lookup/$findRoles.md) — Finds roles of a guild using a query
+- [`$findUser`](lookup/$findUser.md) — Finds a user
+
+## math (23)
+
+- [`$abs`](math/$abs.md) — Returns the absolute value of a number (the value without regard to whether it is positive or negative)
+- [`$base`](math/$base.md) — Convert number from one base to another
+- [`$bigintDivide`](math/$bigintDivide.md) — Divides multiple numbers
+- [`$bigintMulti`](math/$bigintMulti.md) — Multiplies multiple numbers
+- [`$bigintSub`](math/$bigintSub.md) — Subtracts multiple numbers
+- [`$bigintSum`](math/$bigintSum.md) — Adds multiple numbers
+- [`$ceil`](math/$ceil.md) — Returns the smallest integer greater than or equal to its numeric argument
+- [`$divide`](math/$divide.md) — Divides multiple numbers
+- [`$floor`](math/$floor.md) — Returns the greatest integer less than or equal to its numeric argument
+- [`$logn`](math/$logn.md) — Returns the natural logarithm (base e) of a number
+- [`$math`](math/$math.md) — Runs math expression, returns nothing if incorrect expression
+- [`$max`](math/$max.md) — Returns the largest number of the ones given
+- [`$min`](math/$min.md) — Returns the smallest number of the ones given
+- [`$modulo`](math/$modulo.md) — Returns the remainder of multiple numbers
+- [`$multi`](math/$multi.md) — Multiplies multiple numbers
+- [`$pi`](math/$pi.md) — Returns the constant pi
+- [`$pow`](math/$pow.md) — Exponentially multiply multiple numbers
+- [`$power`](math/$power.md) — Alias of `$pow`
+- [`$round`](math/$round.md) — Rounds provided number to a certain number of decimal places
+- [`$sign`](math/$sign.md) — Returns the sign of the x, indicating whether x is positive, negative or zero
+- [`$sqrt`](math/$sqrt.md) — Returns the square root of a number
+- [`$sub`](math/$sub.md) — Subtracts multiple numbers
+- [`$sum`](math/$sum.md) — Adds multiple numbers
+- [`$trunc`](math/$trunc.md) — Returns the integer part of the a numeric expression, x, removing any fractional digits. If x is already an integer, the result is x
+- [`$truncate`](math/$truncate.md) — Alias of `$trunc`
+
+## member (54)
+
+- [`$ban`](member/$ban.md) — Bans a member from the guild, returns true or false depending on whether the action was successfully performed
+- [`$banMember`](member/$banMember.md) — Alias of `$ban`
+- [`$memberBan`](member/$memberBan.md) — Alias of `$ban`
+- [`$fetchMembers`](member/$fetchMembers.md) — Caches all members of a guild
+- [`$fetchMember`](member/$fetchMember.md) — Alias of `$fetchMembers`
+- [`$hasAnyPerms`](member/$hasAnyPerms.md) — Returns whether given member has any of the provided perms
+- [`$memberHasAnyPerms`](member/$memberHasAnyPerms.md) — Alias of `$hasAnyPerms`
+- [`$hasAnyRole`](member/$hasAnyRole.md) — Returns whether given member has any role
+- [`$memberHasAnyRole`](member/$memberHasAnyRole.md) — Alias of `$hasAnyRole`
+- [`$hasPerms`](member/$hasPerms.md) — Returns whether given member has X perms
+- [`$memberHasPerms`](member/$memberHasPerms.md) — Alias of `$hasPerms`
+- [`$hasRoles`](member/$hasRoles.md) — Returns whether given member has all roles
+- [`$memberHasRoles`](member/$memberHasRoles.md) — Alias of `$hasRoles`
+- [`$isBannable`](member/$isBannable.md) — Returns whether a member is bannable
+- [`$memberIsBannable`](member/$memberIsBannable.md) — Alias of `$isBannable`
+- [`$isBanned`](member/$isBanned.md) — Returns whether this user is banned
+- [`$memberIsBanned`](member/$memberIsBanned.md) — Alias of `$isBanned`
+- [`$isBoosting`](member/$isBoosting.md) — Returns whether this member is boosting
+- [`$isBooster`](member/$isBooster.md) — Alias of `$isBoosting`
+- [`$memberIsBooster`](member/$memberIsBooster.md) — Alias of `$isBoosting`
+- [`$memberIsBoosting`](member/$memberIsBoosting.md) — Alias of `$isBoosting`
+- [`$isDeaf`](member/$isDeaf.md) — Returns whether a member is deafened
+- [`$memberIsDeaf`](member/$memberIsDeaf.md) — Alias of `$isDeaf`
+- [`$isGuildDeaf`](member/$isGuildDeaf.md) — Returns whether a member is server deafened
+- [`$memberIsGuildDeaf`](member/$memberIsGuildDeaf.md) — Alias of `$isGuildDeaf`
+- [`$isGuildMuted`](member/$isGuildMuted.md) — Returns whether a member is server muted
+- [`$memberIsGuildMuted`](member/$memberIsGuildMuted.md) — Alias of `$isGuildMuted`
+- [`$isKickable`](member/$isKickable.md) — Returns whether a member is kickable
+- [`$memberIsKickable`](member/$memberIsKickable.md) — Alias of `$isKickable`
+- [`$isManageable`](member/$isManageable.md) — Returns whether a member is manageable
+- [`$memberIsManageable`](member/$memberIsManageable.md) — Alias of `$isManageable`
+- [`$isModeratable`](member/$isModeratable.md) — Returns whether a member is moderatable
+- [`$memberIsModeratable`](member/$memberIsModeratable.md) — Alias of `$isModeratable`
+- [`$isMuted`](member/$isMuted.md) — Returns whether a member is muted
+- [`$memberIsMuted`](member/$memberIsMuted.md) — Alias of `$isMuted`
+- [`$isSelfDeaf`](member/$isSelfDeaf.md) — Returns whether a member is self deafened
+- [`$memberIsSelfDeaf`](member/$memberIsSelfDeaf.md) — Alias of `$isSelfDeaf`
+- [`$isSelfMuted`](member/$isSelfMuted.md) — Returns whether a member is self muted
+- [`$memberIsSelfMuted`](member/$memberIsSelfMuted.md) — Alias of `$isSelfMuted`
+- [`$isTimedOut`](member/$isTimedOut.md) — Returns whether a member is timed out
+- [`$memberIsTimedOut`](member/$memberIsTimedOut.md) — Alias of `$isTimedOut`
+- [`$isVerified`](member/$isVerified.md) — Returns whether a member is verified
+- [`$memberIsVerified`](member/$memberIsVerified.md) — Alias of `$isVerified`
+- [`$kick`](member/$kick.md) — Kicks a member from the guild, returns true or false depending on whether the action was successfully performed
+- [`$kickMember`](member/$kickMember.md) — Alias of `$kick`
+- [`$memberKick`](member/$memberKick.md) — Alias of `$kick`
+- [`$memberActivity`](member/$memberActivity.md) — Returns the activity of a member
+- [`$activity`](member/$activity.md) — Alias of `$memberActivity`
+- [`$memberActivities`](member/$memberActivities.md) — Alias of `$memberActivity`
+- [`$userActivity`](member/$userActivity.md) — Alias of `$memberActivity`
+- [`$memberAddRoles`](member/$memberAddRoles.md) — Adds roles to a member, returns bool
+- [`$memberAvatar`](member/$memberAvatar.md) — Returns the member avatar
+- [`$memberAvatarDecoration`](member/$memberAvatarDecoration.md) — Returns the member's avatar decoration
+- [`$memberBanner`](member/$memberBanner.md) — Returns the member banner
+- [`$memberBoostingSince`](member/$memberBoostingSince.md) — Returns when the member started boosting the guild
+- [`$boosterSince`](member/$boosterSince.md) — Alias of `$memberBoostingSince`
+- [`$boostingSince`](member/$boostingSince.md) — Alias of `$memberBoostingSince`
+- [`$memberBoosterSince`](member/$memberBoosterSince.md) — Alias of `$memberBoostingSince`
+- [`$memberBotRoleID`](member/$memberBotRoleID.md) — Returns the managed bot role of a member, only available for bots
+- [`$memberCustomStatus`](member/$memberCustomStatus.md) — Returns the custom status of a member
+- [`$customStatus`](member/$customStatus.md) — Alias of `$memberCustomStatus`
+- [`$userCustomStatus`](member/$userCustomStatus.md) — Alias of `$memberCustomStatus`
+- [`$memberDisplayColor`](member/$memberDisplayColor.md) — Returns the display color of a member
+- [`$memberDisplayName`](member/$memberDisplayName.md) — Returns the display name of a member
+- [`$memberExists`](member/$memberExists.md) — Returns whether a member id exists on a guild
+- [`$memberFlags`](member/$memberFlags.md) — Returns the flags of a member
+- [`$memberHighestRoleID`](member/$memberHighestRoleID.md) — Returns the highest role id of a member
+- [`$memberJoinPosition`](member/$memberJoinPosition.md) — Returns the position at which the member joined the guild
+- [`$memberJoinedAt`](member/$memberJoinedAt.md) — Returns the timestamp the member joined at
+- [`$memberLowestRoleID`](member/$memberLowestRoleID.md) — Returns the lowest role id of a member
+- [`$memberPerms`](member/$memberPerms.md) — Returns the member perms
+- [`$memberRawData`](member/$memberRawData.md) — Returns the raw data of a member
+- [`$memberRemoveRoles`](member/$memberRemoveRoles.md) — Removes roles from a member, returns bool
+- [`$memberRoles`](member/$memberRoles.md) — Returns the role ids of a member
+- [`$memberSetNickname`](member/$memberSetNickname.md) — Edits a member's nickname, returns bool
+- [`$memberSetRoles`](member/$memberSetRoles.md) — Sets roles to a member, returns bool
+- [`$memberTimeoutDuration`](member/$memberTimeoutDuration.md) — Returns the timeout duration of a member
+- [`$getTimeoutDuration`](member/$getTimeoutDuration.md) — Alias of `$memberTimeoutDuration`
+- [`$memberTimedOutUntil`](member/$memberTimedOutUntil.md) — Alias of `$memberTimeoutDuration`
+- [`$timedOutUntil`](member/$timedOutUntil.md) — Alias of `$memberTimeoutDuration`
+- [`$timeoutDuration`](member/$timeoutDuration.md) — Alias of `$memberTimeoutDuration`
+- [`$nickname`](member/$nickname.md) — Returns the member nickname
+- [`$memberNickname`](member/$memberNickname.md) — Alias of `$nickname`
+- [`$platform`](member/$platform.md) — Returns the member platforms
+- [`$memberPlatform`](member/$memberPlatform.md) — Alias of `$platform`
+- [`$memberPlatforms`](member/$memberPlatforms.md) — Alias of `$platform`
+- [`$platforms`](member/$platforms.md) — Alias of `$platform`
+- [`$pruneMembers`](member/$pruneMembers.md) — Prunes inactive members from the guild, returns number of kicked members
+- [`$membersPrune`](member/$membersPrune.md) — Alias of `$pruneMembers`
+- [`$prune`](member/$prune.md) — Alias of `$pruneMembers`
+- [`$randomMemberID`](member/$randomMemberID.md) — Returns a random member ID of a guild
+- [`$status`](member/$status.md) — Returns the member status
+- [`$memberStatus`](member/$memberStatus.md) — Alias of `$status`
+- [`$memberStatuses`](member/$memberStatuses.md) — Alias of `$status`
+- [`$statuses`](member/$statuses.md) — Alias of `$status`
+- [`$timeout`](member/$timeout.md) — Times a member out for X milliseconds, returns bool
+- [`$memberTimeout`](member/$memberTimeout.md) — Alias of `$timeout`
+- [`$timeoutMember`](member/$timeoutMember.md) — Alias of `$timeout`
+- [`$unban`](member/$unban.md) — Unbans a user from a guild, returns bool
+- [`$memberUnban`](member/$memberUnban.md) — Alias of `$unban`
+- [`$unbanMember`](member/$unbanMember.md) — Alias of `$unban`
+- [`$voiceID`](member/$voiceID.md) — Returns the voice channel id a member is connected to
+- [`$memberVoiceID`](member/$memberVoiceID.md) — Alias of `$voiceID`
+- [`$voiceKick`](member/$voiceKick.md) — Kicks a member from a voice channel, returns bool
+- [`$memberVoiceKick`](member/$memberVoiceKick.md) — Alias of `$voiceKick`
+- [`$voiceMove`](member/$voiceMove.md) — Moves a member from a voice channel, returns bool
+- [`$memberVoiceMove`](member/$memberVoiceMove.md) — Alias of `$voiceMove`
+
+## mention (17)
+
+- [`$disableAllMentions`](mention/$disableAllMentions.md) — Disables every possible mention
+- [`$disableEveryoneMention`](mention/$disableEveryoneMention.md) — Disables everyone mention
+- [`$disableRoleMentions`](mention/$disableRoleMentions.md) — Disables all role mentions
+- [`$disableUserMentions`](mention/$disableUserMentions.md) — Disables all user mentions
+- [`$enableAllMentions`](mention/$enableAllMentions.md) — Enables every possible mention
+- [`$enableRoleMentions`](mention/$enableRoleMentions.md) — Only parses these roles for mentions
+- [`$enableUserMentions`](mention/$enableUserMentions.md) — Only parses these users for mentions
+- [`$isChannelMentioned`](mention/$isChannelMentioned.md) — Returns whether a channel was mentioned in this message
+- [`$isRoleMentioned`](mention/$isRoleMentioned.md) — Returns whether a role was mentioned in this message
+- [`$isUserMentioned`](mention/$isUserMentioned.md) — Returns whether a user was mentioned in this message
+- [`$mentioned`](mention/$mentioned.md) — Returns the mentioned users
+- [`$mentionedChannelCount`](mention/$mentionedChannelCount.md) — Returns the mentioned channel count
+- [`$mentionedChannelsCount`](mention/$mentionedChannelsCount.md) — Alias of `$mentionedChannelCount`
+- [`$mentionedChannels`](mention/$mentionedChannels.md) — Returns the mentioned channels
+- [`$mentionedChannel`](mention/$mentionedChannel.md) — Alias of `$mentionedChannels`
+- [`$mentionedRoleCount`](mention/$mentionedRoleCount.md) — Returns the mentioned role count
+- [`$mentionedRolesCount`](mention/$mentionedRolesCount.md) — Alias of `$mentionedRoleCount`
+- [`$mentionedRoles`](mention/$mentionedRoles.md) — Returns the mentioned roles
+- [`$mentionedRole`](mention/$mentionedRole.md) — Alias of `$mentionedRoles`
+- [`$mentionedUserCount`](mention/$mentionedUserCount.md) — Returns the mentioned user count
+- [`$mentionedUsersCount`](mention/$mentionedUsersCount.md) — Alias of `$mentionedUserCount`
+- [`$nomention`](mention/$nomention.md) — Disables reply ping
+
+## message (60)
+
+- [`$addMessageReactions`](message/$addMessageReactions.md) — Adds reactions to a message, returns amount of emojis successfully reacted
+- [`$attachment`](message/$attachment.md) — Adds an attachment to the response
+- [`$addAttachment`](message/$addAttachment.md) — Alias of `$attachment`
+- [`$deleteAllMessageReactions`](message/$deleteAllMessageReactions.md) — Deletes all reactions from a message, returns bool
+- [`$deleteIn`](message/$deleteIn.md) — Deletes the response after the given time
+- [`$deleteMessage`](message/$deleteMessage.md) — Deletes given messages, returns the count of messages deleted
+- [`$deleteMessages`](message/$deleteMessages.md) — Alias of `$deleteMessage`
+- [`$deleteUserMessageReaction`](message/$deleteUserMessageReaction.md) — Deletes user emoji reaction from a message, returns bool
+- [`$editMessage`](message/$editMessage.md) — Edits a message in a channel, returns bool
+- [`$fetchComponents`](message/$fetchComponents.md) — Fetches a message's components, this will override any other component added to the response
+- [`$fetchRows`](message/$fetchRows.md) — Alias of `$fetchComponents`
+- [`$fetchEmbeds`](message/$fetchEmbeds.md) — Fetches an embed or all embeds from a message to the next response
+- [`$cloneEmbed`](message/$cloneEmbed.md) — Alias of `$fetchEmbeds`
+- [`$cloneEmbeds`](message/$cloneEmbeds.md) — Alias of `$fetchEmbeds`
+- [`$fetchEmbed`](message/$fetchEmbed.md) — Alias of `$fetchEmbeds`
+- [`$fetchMessage`](message/$fetchMessage.md) — Fetches all data of a message
+- [`$fetchResponse`](message/$fetchResponse.md) — Fetches all data from the message and loads it to the next response, this includes: embeds, components, attachments, stickers
+- [`$fetchSnapshot`](message/$fetchSnapshot.md) — Fetches all data from a message snapshot and loads it to the next response
+- [`$forwardMessage`](message/$forwardMessage.md) — Forwards a message to another channel, returns bool
+- [`$forward`](message/$forward.md) — Alias of `$forwardMessage`
+- [`$getComponents`](message/$getComponents.md) — Retrieves data of a component, not providing any property returns component json
+- [`$getComponent`](message/$getComponent.md) — Alias of `$getComponents`
+- [`$getEmbeds`](message/$getEmbeds.md) — Retrieves data of an embed, not providing any property returns embed json
+- [`$getEmbed`](message/$getEmbed.md) — Alias of `$getEmbeds`
+- [`$getMessage`](message/$getMessage.md) — Retrieves data of a message, not providing any property returns message json
+- [`$getMessageClientTheme`](message/$getMessageClientTheme.md) — Retrieves the shared client theme sent with a message
+- [`$getMessageReactionCount`](message/$getMessageReactionCount.md) — Gets the amount of users that have reacted to a specific emoji
+- [`$getMessageReactionUsers`](message/$getMessageReactionUsers.md) — Gets the user ids that have reacted to a specific emoji
+- [`$getMessageReactions`](message/$getMessageReactions.md) — Retrieves all reactions of a message
+- [`$getReactions`](message/$getReactions.md) — Alias of `$getMessageReactions`
+- [`$getPoll`](message/$getPoll.md) — Retrieves data of a poll from a message
+- [`$getMessagePoll`](message/$getMessagePoll.md) — Alias of `$getPoll`
+- [`$getSnapshots`](message/$getSnapshots.md) — Retrieves data of snapshots from a message
+- [`$getSnapshot`](message/$getSnapshot.md) — Alias of `$getSnapshots`
+- [`$hasComponents`](message/$hasComponents.md) — Checks whether given message has components
+- [`$hasEmbeds`](message/$hasEmbeds.md) — Checks whether given message has embeds
+- [`$hasSnapshots`](message/$hasSnapshots.md) — Checks whether given message has snapshots
+- [`$isPinned`](message/$isPinned.md) — Returns whether the message is pinned
+- [`$isMessagePinned`](message/$isMessagePinned.md) — Alias of `$isPinned`
+- [`$messagePinned`](message/$messagePinned.md) — Alias of `$isPinned`
+- [`$loadComponents`](message/$loadComponents.md) — Loads components JSON (or array) to the response
+- [`$loadComponent`](message/$loadComponent.md) — Alias of `$loadComponents`
+- [`$loadEmbeds`](message/$loadEmbeds.md) — Loads embed json (or array) to the response
+- [`$loadEmbed`](message/$loadEmbed.md) — Alias of `$loadEmbeds`
+- [`$message`](message/$message.md) — Retrieves arguments from a message command
+- [`$messageAttachment`](message/$messageAttachment.md) — Retrieves an attachment from this message
+- [`$messageAttachmentCount`](message/$messageAttachmentCount.md) — Retrieve the amount of attachments in this message
+- [`$messageAttachmentFlags`](message/$messageAttachmentFlags.md) — Returns the flags of an attachment from this message
+- [`$messageAttachments`](message/$messageAttachments.md) — Retrieves all attachments of this message
+- [`$messageContent`](message/$messageContent.md) — Retrieves the content of a message
+- [`$messageCreatedAt`](message/$messageCreatedAt.md) — Returns the timestamp of a message
+- [`$messageEditedAt`](message/$messageEditedAt.md) — Returns the edited timestamp of a message
+- [`$messageEmojis`](message/$messageEmojis.md) — Retrieves all emojis of this message
+- [`$messageExists`](message/$messageExists.md) — Returns whether given message id exists
+- [`$messageFlags`](message/$messageFlags.md) — Returns the flags of a message
+- [`$messageID`](message/$messageID.md) — Returns the message id
+- [`$messageLink`](message/$messageLink.md) — Retrieves a message url
+- [`$messageRawData`](message/$messageRawData.md) — Returns the raw data of a message
+- [`$messageReferenceID`](message/$messageReferenceID.md) — Returns the message id that this message replies to
+- [`$messageSlice`](message/$messageSlice.md) — Slices this message's args
+- [`$messageSticker`](message/$messageSticker.md) — Retrieves a sticker url of this message
+- [`$messageStickerCount`](message/$messageStickerCount.md) — Retrieves sticker count of this message
+- [`$messageStickers`](message/$messageStickers.md) — Retrieves all stickers of this message
+- [`$stickers`](message/$stickers.md) — Alias of `$messageStickers`
+- [`$messageType`](message/$messageType.md) — Returns the message type
+- [`$messageWebhookID`](message/$messageWebhookID.md) — Returns the message's webhook id
+- [`$noMentionMessage`](message/$noMentionMessage.md) — Retrieves arguments from a message without mentions
+- [`$pinMessage`](message/$pinMessage.md) — Pins a message in a channel, returns bool
+- [`$publishMessage`](message/$publishMessage.md) — Crossposts a message in an announcement channel, returns bool
+- [`$removeAttachments`](message/$removeAttachments.md) — Removes all attachments from a message, returns bool
+- [`$reply`](message/$reply.md) — Marks the response as a reply
+- [`$silent`](message/$silent.md) — Marks the response as silent
+- [`$sticker`](message/$sticker.md) — Attach a sticker to the response
+- [`$suppressEmbeds`](message/$suppressEmbeds.md) — Suppresses embeds on a message, returns bool
+- [`$tts`](message/$tts.md) — Marks the response as Text-To-Speech
+- [`$unpinMessage`](message/$unpinMessage.md) — Unpins a message from a channel, returns bool
+- [`$unsuppressEmbeds`](message/$unsuppressEmbeds.md) — Unsuppresses embeds on a message, returns bool
+
+## number (15)
+
+- [`$abbreviateNumber`](number/$abbreviateNumber.md) — Abbreviates given number
+- [`$average`](number/$average.md) — Calculates the average of given numbers
+- [`$hexToInt`](number/$hexToInt.md) — Turns hex string to number
+- [`$inRange`](number/$inRange.md) — Returns whether a number is in range
+- [`$intToHex`](number/$intToHex.md) — Turns integer to hex
+- [`$isFloat`](number/$isFloat.md) — Returns whether the number is a float
+- [`$isInteger`](number/$isInteger.md) — Returns whether the number is an integer
+- [`$isNumber`](number/$isNumber.md) — Returns whether the number is valid
+- [`$maxSafeInteger`](number/$maxSafeInteger.md) — Returns the highest safe integer
+- [`$minSafeInteger`](number/$minSafeInteger.md) — Returns the lowest safe integer
+- [`$ordinal`](number/$ordinal.md) — Appends a suffix to the number
+- [`$parseInt`](number/$parseInt.md) — Implements native parseInt's function into ForgeScript
+- [`$randomNumber`](number/$randomNumber.md) — Returns a random number (no cache)
+- [`$separateBigint`](number/$separateBigint.md) — Separates thousands in the number
+- [`$separateNumber`](number/$separateNumber.md) — Separates thousands in the number
+
+## other (16)
+
+- [`$advancedBar`](other/$advancedBar.md) — Generates an advanced progress bar
+- [`$generateAdvancedBar`](other/$generateAdvancedBar.md) — Alias of `$advancedBar`
+- [`$awaitComponent`](other/$awaitComponent.md) — Awaits a component, executing the code as the interaction context, returns bool depending on whether the interaction was received
+- [`$awaitMessage`](other/$awaitMessage.md) — Awaits a message, returns message ID or nothing if no valid response
+- [`$awaitModalSubmit`](other/$awaitModalSubmit.md) — Awaits a modal submit, executing the code as the interaction context, returns bool depending on whether the interaction was received
+- [`$bar`](other/$bar.md) — Generates a progress bar
+- [`$generateBar`](other/$generateBar.md) — Alias of `$bar`
+- [`$c`](other/$c.md) — Marks any code inside as a comment
+- [`$callFunction`](other/$callFunction.md) — Calls a forge function made by the user
+- [`$callLocalFunction`](other/$callLocalFunction.md) — Calls a local function
+- [`$callFn`](other/$callFn.md) — Alias of `$callLocalFunction`
+- [`$debug`](other/$debug.md) — Returns the debug message
+- [`$disableConsoleErrors`](other/$disableConsoleErrors.md) — Disables possible outcoming errors that are output to console
+- [`$djsVersion`](other/$djsVersion.md) — Returns the discord.js version used
+- [`$enableConsoleErrors`](other/$enableConsoleErrors.md) — Enables possible outcoming errors that are output to console
+- [`$error`](other/$error.md) — Returns the error message
+- [`$escapeCode`](other/$escapeCode.md) — Code inside this function will not be executed
+- [`$esc`](other/$esc.md) — Alias of `$escapeCode`
+- [`$localFunction`](other/$localFunction.md) — Defines a new local function
+- [`$fn`](other/$fn.md) — Alias of `$localFunction`
+- [`$typeof`](other/$typeof.md) — Returns the type of the provided argument
+
+## poll (10)
+
+- [`$poll`](poll/$poll.md) — Creates a poll
+- [`$pollAnswer`](poll/$pollAnswer.md) — Add a poll answer
+- [`$pollAnswerEmoji`](poll/$pollAnswerEmoji.md) — Can only be used in poll events, returns the emoji of the poll answer
+- [`$pollAnswerID`](poll/$pollAnswerID.md) — Can only be used in poll events, returns the answer id used
+- [`$pollAnswerMessageID`](poll/$pollAnswerMessageID.md) — Can only be used in poll events, returns the message id of the poll answer
+- [`$pollAnswerText`](poll/$pollAnswerText.md) — Can only be used in poll events, returns the text of the poll answer
+- [`$pollAnswerVoteCount`](poll/$pollAnswerVoteCount.md) — Can only be used in poll events, returns the vote count of this poll answer
+- [`$pollAnswerVoterIDs`](poll/$pollAnswerVoterIDs.md) — Can only be used in poll events, returns the vote user ids of this poll answer
+- [`$pollAnswers`](poll/$pollAnswers.md) — Adds multiple poll answers
+- [`$pollEnd`](poll/$pollEnd.md) — Ends a poll
+- [`$endPoll`](poll/$endPoll.md) — Alias of `$pollEnd`
+
+## reaction (5)
+
+- [`$reactionAuthorID`](reaction/$reactionAuthorID.md) — Returns the reaction author id that reacted
+- [`$reactionCount`](reaction/$reactionCount.md) — Returns the count of reacted users
+- [`$reactionEmoji`](reaction/$reactionEmoji.md) — Returns the emoji that was used
+- [`$reactionEmojiID`](reaction/$reactionEmojiID.md) — Returns the reaction id that was used
+- [`$reactionMessageID`](reaction/$reactionMessageID.md) — Returns the message id of the reacted message
+
+## role (35)
+
+- [`$addRole`](role/$addRole.md) — Adds a role to a guild, returns role id if success
+- [`$cloneRole`](role/$cloneRole.md) — Clones an existing role of a guild, returns role id if success
+- [`$deleteRoles`](role/$deleteRoles.md) — Deletes given roles, returns the count of roles deleted
+- [`$editRole`](role/$editRole.md) — Edits a role on a guild, returns boolean
+- [`$editRoleColors`](role/$editRoleColors.md) — Edits a role's colors, returns boolean
+- [`$editRoleColor`](role/$editRoleColor.md) — Alias of `$editRoleColors`
+- [`$editRoleIcon`](role/$editRoleIcon.md) — Edits a role's icon, returns boolean
+- [`$editRoleName`](role/$editRoleName.md) — Edits a role's name, returns boolean
+- [`$editRolePerms`](role/$editRolePerms.md) — Edits a role's permissions, returns boolean
+- [`$modifyRolePerms`](role/$modifyRolePerms.md) — Alias of `$editRolePerms`
+- [`$editRolePosition`](role/$editRolePosition.md) — Edits a role's position, returns boolean
+- [`$editRoleUnicodeEmoji`](role/$editRoleUnicodeEmoji.md) — Edits a role's unicode emoji, returns boolean
+- [`$fetchRoles`](role/$fetchRoles.md) — Caches all roles of a guild
+- [`$fetchRole`](role/$fetchRole.md) — Alias of `$fetchRoles`
+- [`$randomRoleID`](role/$randomRoleID.md) — Returns a random role ID of a guild
+- [`$roleColor`](role/$roleColor.md) — Returns the color of a role
+- [`$roleCount`](role/$roleCount.md) — Returns the role count of all servers
+- [`$roleCreatedAt`](role/$roleCreatedAt.md) — Returns the role creation date
+- [`$roleEditable`](role/$roleEditable.md) — Returns whether the role is editable by the bot
+- [`$roleExists`](role/$roleExists.md) — Returns whether a role id exists
+- [`$roleFlags`](role/$roleFlags.md) — Returns the role flags
+- [`$roleHasAnyPerms`](role/$roleHasAnyPerms.md) — Returns whether the role has any of the specified perms
+- [`$hasRoleAnyPerms`](role/$hasRoleAnyPerms.md) — Alias of `$roleHasAnyPerms`
+- [`$roleHasPerms`](role/$roleHasPerms.md) — Returns whether the role has all specified perms
+- [`$hasRolePerms`](role/$hasRolePerms.md) — Alias of `$roleHasPerms`
+- [`$roleHoisted`](role/$roleHoisted.md) — Returns whether the role is hoisted
+- [`$roleID`](role/$roleID.md) — Returns a role id with given name
+- [`$roleIcon`](role/$roleIcon.md) — Returns the role icon
+- [`$roleIntColor`](role/$roleIntColor.md) — Returns the role color as int
+- [`$roleManageable`](role/$roleManageable.md) — Returns whether the role is managed by discord
+- [`$roleMembers`](role/$roleMembers.md) — Returns the role member ids
+- [`$roleMentionable`](role/$roleMentionable.md) — Returns whether the role is mentionable
+- [`$roleName`](role/$roleName.md) — Returns a role name with given id
+- [`$roleNames`](role/$roleNames.md) — Returns the role names of a guild
+- [`$rolePerms`](role/$rolePerms.md) — Returns the role perms
+- [`$rolePosition`](role/$rolePosition.md) — Returns the role position
+- [`$roleRawData`](role/$roleRawData.md) — Returns the raw data of a role
+- [`$roleRawPosition`](role/$roleRawPosition.md) — Returns the role raw position
+- [`$roleTags`](role/$roleTags.md) — Returns all role tags
+- [`$roleUnicodeEmoji`](role/$roleUnicodeEmoji.md) — Returns the unicode emoji used by the role
+
+## soundboard (13)
+
+- [`$createSoundboardSound`](soundboard/$createSoundboardSound.md) — Creates a new soundboard sound, returns sound id
+- [`$deleteSoundboardSounds`](soundboard/$deleteSoundboardSounds.md) — Deletes given soundboard sounds, returns the count of sounds deleted
+- [`$deleteSoundboardSound`](soundboard/$deleteSoundboardSound.md) — Alias of `$deleteSoundboardSounds`
+- [`$editSoundboardSound`](soundboard/$editSoundboardSound.md) — Edits given soundboard sound, returns bool
+- [`$getSoundboardSound`](soundboard/$getSoundboardSound.md) — Returns a soundboard sound of a guild
+- [`$soundAvailable`](soundboard/$soundAvailable.md) — Returns whether a sound is available
+- [`$soundCreatedAt`](soundboard/$soundCreatedAt.md) — Returns the creation timestamp of a sound
+- [`$soundEmoji`](soundboard/$soundEmoji.md) — Returns the emoji of a sound
+- [`$soundGuildID`](soundboard/$soundGuildID.md) — Returns the guild id of a sound
+- [`$soundID`](soundboard/$soundID.md) — Returns a sound id with given name
+- [`$soundName`](soundboard/$soundName.md) — Returns the name of a sound
+- [`$soundURL`](soundboard/$soundURL.md) — Returns the url of a sound
+- [`$soundUserID`](soundboard/$soundUserID.md) — Returns the user who created the sound
+- [`$soundVolume`](soundboard/$soundVolume.md) — Returns the volume of a sound
+
+## state (38)
+
+- [`$auditLog`](state/$auditLog.md) — Retrieves new data from an event whose context was an audit log instance
+- [`$bulk`](state/$bulk.md) — Retrieves data from an event whose context was a bulk delete event
+- [`$effect`](state/$effect.md) — Retrieves data from an event whose context was a voice channel effect event
+- [`$newAutomodRule`](state/$newAutomodRule.md) — Retrieves new data from an event whose context was an automod rule instance
+- [`$newChannel`](state/$newChannel.md) — Retrieves new data from an event whose context was a channel instance
+- [`$newEmoji`](state/$newEmoji.md) — Retrieves new data from an event whose context was an emoji instance
+- [`$newEntitlement`](state/$newEntitlement.md) — Retrieves new data from an event whose context was an entitlement instance
+- [`$newGuild`](state/$newGuild.md) — Retrieves new data from an event whose context was a guild instance
+- [`$newInvite`](state/$newInvite.md) — Retrieves new data from an event whose context was an invite instance
+- [`$newMember`](state/$newMember.md) — Retrieves new data from an event whose context was a guild member instance
+- [`$newMessage`](state/$newMessage.md) — Retrieves new data from an event whose context was a message instance
+- [`$newPresence`](state/$newPresence.md) — Retrieves new data from an event whose context was a presence instance
+- [`$newRole`](state/$newRole.md) — Retrieves new data from an event whose context was a role instance
+- [`$newScheduledEvent`](state/$newScheduledEvent.md) — Retrieves new data from an event whose context was a scheduled event instance
+- [`$newSound`](state/$newSound.md) — Retrieves new data from an event whose context was a soundboard sound instance
+- [`$newStage`](state/$newStage.md) — Retrieves new data from an event whose context was a stage instance
+- [`$newState`](state/$newState.md) — Retrieves new data from an event whose context was a voice state instance
+- [`$newSticker`](state/$newSticker.md) — Retrieves new data from an event whose context was a sticker instance
+- [`$newSubscription`](state/$newSubscription.md) — Retrieves new data from an event whose context was a subscription instance
+- [`$newUser`](state/$newUser.md) — Retrieves new data from an event whose context was a user instance
+- [`$oldAutomodRule`](state/$oldAutomodRule.md) — Retrieves old data from an event whose context was an automod rule instance
+- [`$oldChannel`](state/$oldChannel.md) — Retrieves old data from an event whose context was a channel instance
+- [`$oldEmoji`](state/$oldEmoji.md) — Retrieves old data from an event whose context was an emoji instance
+- [`$oldEntitlement`](state/$oldEntitlement.md) — Retrieves old data from an event whose context was an entitlement instance
+- [`$oldGuild`](state/$oldGuild.md) — Retrieves old data from an event whose context was a guild instance
+- [`$oldInvite`](state/$oldInvite.md) — Retrieves old data from an event whose context was an invite instance
+- [`$oldMember`](state/$oldMember.md) — Retrieves old data from an event whose context was a guild member instance
+- [`$oldMessage`](state/$oldMessage.md) — Retrieves old data from an event whose context was a message instance
+- [`$oldPresence`](state/$oldPresence.md) — Retrieves old data from an event whose context was a presence instance
+- [`$oldRole`](state/$oldRole.md) — Retrieves old data from an event whose context was a role instance
+- [`$oldScheduledEvent`](state/$oldScheduledEvent.md) — Retrieves old data from an event whose context was a scheduled event instance
+- [`$oldSound`](state/$oldSound.md) — Retrieves old data from an event whose context was a soundboard sound instance
+- [`$oldStage`](state/$oldStage.md) — Retrieves old data from an event whose context was a stage instance
+- [`$oldState`](state/$oldState.md) — Retrieves old data from an event whose context was a voice state instance
+- [`$oldSticker`](state/$oldSticker.md) — Retrieves old data from an event whose context was a sticker instance
+- [`$oldSubscription`](state/$oldSubscription.md) — Retrieves old data from an event whose context was a subscription instance
+- [`$oldUser`](state/$oldUser.md) — Retrieves old data from an event whose context was a user instance
+- [`$voiceServer`](state/$voiceServer.md) — Retrieves data from an event whose context was a voice server update event
+
+## statement (15)
+
+- [`$async`](statement/$async.md) — Runs code asynchronously, will not return any value
+- [`$break`](statement/$break.md) — Breaks the loop
+- [`$case`](statement/$case.md) — Adds a switch case
+- [`$continue`](statement/$continue.md) — Skips executing bottom code of the loop
+- [`$default`](statement/$default.md) — Returns right hand value if the left hand value is falsy
+- [`$else`](statement/$else.md) — Creates an else statement
+- [`$elseIf`](statement/$elseIf.md) — Creates an else if statement
+- [`$if`](statement/$if.md) — Creates an if statement
+- [`$ifx`](statement/$ifx.md) — WIP if statements
+- [`$loop`](statement/$loop.md) — Executes given code for N times
+- [`$return`](statement/$return.md) — Returns a value
+- [`$scope`](statement/$scope.md) — Runs functions in a cloned context
+- [`$switch`](statement/$switch.md) — Switch-case statement for javascript
+- [`$try`](statement/$try.md) — Handles a possible error from given code
+- [`$while`](statement/$while.md) — Executes code while a condition is true
+
+## sticker (20)
+
+- [`$addSticker`](sticker/$addSticker.md) — Adds a sticker to a guild, returns sticker id
+- [`$deleteStickers`](sticker/$deleteStickers.md) — Deletes given stickers, returns the count of stickers deleted
+- [`$editSticker`](sticker/$editSticker.md) — Edits a sticker on a guild, returns bool
+- [`$setStickerDescription`](sticker/$setStickerDescription.md) — Sets a sticker's description, returns bool
+- [`$setStickerName`](sticker/$setStickerName.md) — Sets a sticker's name, returns bool
+- [`$setStickerTags`](sticker/$setStickerTags.md) — Sets a sticker's tags, returns bool
+- [`$stickerAvailable`](sticker/$stickerAvailable.md) — Returns whether a sticker is available
+- [`$stickerCreatedAt`](sticker/$stickerCreatedAt.md) — Returns a sticker's creation timestamp
+- [`$stickerDescription`](sticker/$stickerDescription.md) — Returns a sticker's description
+- [`$stickerFormat`](sticker/$stickerFormat.md) — Returns a sticker's format
+- [`$stickerGuildID`](sticker/$stickerGuildID.md) — Returns a sticker's guild id
+- [`$stickerID`](sticker/$stickerID.md) — Returns the sticker id
+- [`$stickerName`](sticker/$stickerName.md) — Returns a sticker name
+- [`$stickerOwnerID`](sticker/$stickerOwnerID.md) — Returns the user who added the sticker
+- [`$stickerPackID`](sticker/$stickerPackID.md) — Returns a sticker's pack id
+- [`$stickerRawData`](sticker/$stickerRawData.md) — Returns the raw data of a sticker
+- [`$stickerSortValue`](sticker/$stickerSortValue.md) — Returns a sticker's sort value
+- [`$stickerTags`](sticker/$stickerTags.md) — Returns a sticker's tags
+- [`$stickerType`](sticker/$stickerType.md) — Returns the sticker's type
+- [`$stickerURL`](sticker/$stickerURL.md) — Returns a sticker url
+
+## string (32)
+
+- [`$advancedReplace`](string/$advancedReplace.md) — Replaces text in a string multiple times
+- [`$advancedReplaceText`](string/$advancedReplaceText.md) — Alias of `$advancedReplace`
+- [`$argCount`](string/$argCount.md) — Counts the number of args in a message
+- [`$argsCount`](string/$argsCount.md) — Alias of `$argCount`
+- [`$charCodeAt`](string/$charCodeAt.md) — Returns the char code at given index
+- [`$charCount`](string/$charCount.md) — Gets the char count of a text
+- [`$textLength`](string/$textLength.md) — Alias of `$charCount`
+- [`$checkContains`](string/$checkContains.md) — Checks whether a string contains a set of other strings
+- [`$includes`](string/$includes.md) — Alias of `$checkContains`
+- [`$cropArgs`](string/$cropArgs.md) — Crops given args
+- [`$cropText`](string/$cropText.md) — Crops given text
+- [`$endsWith`](string/$endsWith.md) — Checks whether given string ends with X string
+- [`$fromCharCode`](string/$fromCharCode.md) — Returns the characters from given codes
+- [`$localeCompare`](string/$localeCompare.md) — Compares two strings, returns their relative order
+- [`$padEnd`](string/$padEnd.md) — Pads a string at the end
+- [`$padStart`](string/$padStart.md) — Pads a string at the start
+- [`$randomString`](string/$randomString.md) — Creates a random string
+- [`$randomText`](string/$randomText.md) — Returns a random text (no cache)
+- [`$randomUUID`](string/$randomUUID.md) — Returns a random uuid
+- [`$repeat`](string/$repeat.md) — Repeats given text for x times
+- [`$repeatText`](string/$repeatText.md) — Alias of `$repeat`
+- [`$replace`](string/$replace.md) — Replace text in a string
+- [`$replaceText`](string/$replaceText.md) — Alias of `$replace`
+- [`$replaceRegex`](string/$replaceRegex.md) — Replace text in a string using regex
+- [`$reverseText`](string/$reverseText.md) — Reverses given text
+- [`$reverse`](string/$reverse.md) — Alias of `$reverseText`
+- [`$sliceText`](string/$sliceText.md) — Slices given text
+- [`$snowflake`](string/$snowflake.md) — Generates a snowflake, this value will never clash
+- [`$startsWith`](string/$startsWith.md) — Checks whether given string starts with X string
+- [`$toCamelCase`](string/$toCamelCase.md) — Converts a string to camel case
+- [`$toKebabCase`](string/$toKebabCase.md) — Converts a string to kebab case
+- [`$toLowerCase`](string/$toLowerCase.md) — Makes a string lowercase
+- [`$toSnakeCase`](string/$toSnakeCase.md) — Converts a string to snake case
+- [`$toTitleCase`](string/$toTitleCase.md) — Converts a string to title case
+- [`$toUpperCase`](string/$toUpperCase.md) — Makes a string uppercase
+- [`$trim`](string/$trim.md) — Trims a string
+- [`$trimSpace`](string/$trimSpace.md) — Alias of `$trim`
+- [`$trimEnd`](string/$trimEnd.md) — Trims at the end of a string
+- [`$trimLines`](string/$trimLines.md) — Trims empty lines from a string
+- [`$trimStart`](string/$trimStart.md) — Trims at the start of a string
+
+## system (12)
+
+- [`$cpu`](system/$cpu.md) — Returns the cpu usage of the host (not accurate)
+- [`$cpuUsage`](system/$cpuUsage.md) — Alias of `$cpu`
+- [`$cpuArch`](system/$cpuArch.md) — Returns the cpu architecture
+- [`$cpuCores`](system/$cpuCores.md) — Returns the amount of cpu cores
+- [`$cpuModel`](system/$cpuModel.md) — Returns the cpu model
+- [`$cpuSpeed`](system/$cpuSpeed.md) — Returns the cpu speed in MHz
+- [`$networkCardIPs`](system/$networkCardIPs.md) — Returns your network's card ips
+- [`$networkCardNames`](system/$networkCardNames.md) — Returns your network's card names
+- [`$nodeVersion`](system/$nodeVersion.md) — Returns the node version
+- [`$os`](system/$os.md) — Returns the operating system name
+- [`$osUptime`](system/$osUptime.md) — Returns the operating system uptime (seconds)
+- [`$ram`](system/$ram.md) — Returns the current ram usage in MB
+- [`$memory`](system/$memory.md) — Alias of `$ram`
+- [`$ramUsage`](system/$ramUsage.md) — Alias of `$ram`
+- [`$ramTotal`](system/$ramTotal.md) — Returns the maximum total ram capacity of the system in GB
+- [`$maxRam`](system/$maxRam.md) — Alias of `$ramTotal`
+- [`$memoryTotal`](system/$memoryTotal.md) — Alias of `$ramTotal`
+
+## time (26)
+
+- [`$calendarDay`](time/$calendarDay.md) — Returns the calendar day
+- [`$calendarWeek`](time/$calendarWeek.md) — Returns the calendar week
+- [`$clearInterval`](time/$clearInterval.md) — Clears an active interval, returns bool
+- [`$stopInterval`](time/$stopInterval.md) — Alias of `$clearInterval`
+- [`$clearTimeout`](time/$clearTimeout.md) — Clears an active timeout, returns bool
+- [`$stopTimeout`](time/$stopTimeout.md) — Alias of `$clearTimeout`
+- [`$day`](time/$day.md) — Returns current day of month
+- [`$dayOfMonth`](time/$dayOfMonth.md) — Alias of `$day`
+- [`$discordTimestamp`](time/$discordTimestamp.md) — Creates a discord timestamp
+- [`$executionTime`](time/$executionTime.md) — Returns current execution time
+- [`$getTimestamp`](time/$getTimestamp.md) — Gets the current timestamp
+- [`$hour`](time/$hour.md) — Returns current hour
+- [`$minute`](time/$minute.md) — Returns current minute
+- [`$month`](time/$month.md) — Returns current month
+- [`$parseDate`](time/$parseDate.md) — Parses valid ms to a date
+- [`$parseDigital`](time/$parseDigital.md) — Parses given ms to digital format
+- [`$parseMS`](time/$parseMS.md) — Parses valid ms to duration
+- [`$parseString`](time/$parseString.md) — Parses valid duration string to ms
+- [`$second`](time/$second.md) — Returns current second
+- [`$setCalendar`](time/$setCalendar.md) — Sets the calendar for time functions
+- [`$calendar`](time/$calendar.md) — Alias of `$setCalendar`
+- [`$setInterval`](time/$setInterval.md) — Executes code after given duration until canceled
+- [`$setTimeout`](time/$setTimeout.md) — Executes code after given duration
+- [`$setTimezone`](time/$setTimezone.md) — Sets the timezone for time functions
+- [`$timezone`](time/$timezone.md) — Alias of `$setTimezone`
+- [`$unparseDate`](time/$unparseDate.md) — Unparses given date to ms
+- [`$unparseDigital`](time/$unparseDigital.md) — Unparses given digital format to ms
+- [`$wait`](time/$wait.md) — Delays the code below for x milliseconds
+- [`$week`](time/$week.md) — Returns current week of month
+- [`$weekday`](time/$weekday.md) — Returns current day of week
+- [`$dayOfWeek`](time/$dayOfWeek.md) — Alias of `$weekday`
+- [`$year`](time/$year.md) — Returns current year
+
+## unsafe (16)
+
+- [`$api`](unsafe/$api.md) — Sends a discord api request, using a discord-api-types route
+- [`$discordAPI`](unsafe/$discordAPI.md) — Alias of `$api`
+- [`$coroutine`](unsafe/$coroutine.md) — Runs given code in a separate thread
+- [`$djsEval`](unsafe/$djsEval.md) — Evaluates JavaScript code
+- [`$js`](unsafe/$js.md) — Alias of `$djsEval`
+- [`$eval`](unsafe/$eval.md) — Evaluates given code
+- [`$exec`](unsafe/$exec.md) — Runs a command in console
+- [`$function`](unsafe/$function.md) — Runs a function
+- [`$gc`](unsafe/$gc.md) — Triggers JavaScript's garbage collector, only available if passed --expose-gc flag to node
+- [`$instanceName`](unsafe/$instanceName.md) — Returns the context's instance name
+- [`$contextInstance`](unsafe/$contextInstance.md) — Alias of `$instanceName`
+- [`$instance`](unsafe/$instance.md) — Alias of `$instanceName`
+- [`$loadChannelContext`](unsafe/$loadChannelContext.md) — Loads a channel instance to the current context, this is not reversible and is adviced to use with $scope
+- [`$asChannelContext`](unsafe/$asChannelContext.md) — Alias of `$loadChannelContext`
+- [`$useChannelContext`](unsafe/$useChannelContext.md) — Alias of `$loadChannelContext`
+- [`$loadEmojiContext`](unsafe/$loadEmojiContext.md) — Loads an emoji instance to the current context, this is not reversible and is adviced to use with $scope
+- [`$asEmojiContext`](unsafe/$asEmojiContext.md) — Alias of `$loadEmojiContext`
+- [`$useEmojiContext`](unsafe/$useEmojiContext.md) — Alias of `$loadEmojiContext`
+- [`$loadGuildContext`](unsafe/$loadGuildContext.md) — Loads a guild instance to the current context, this is not reversible and is adviced to use with $scope
+- [`$asGuildContext`](unsafe/$asGuildContext.md) — Alias of `$loadGuildContext`
+- [`$useGuildContext`](unsafe/$useGuildContext.md) — Alias of `$loadGuildContext`
+- [`$loadMemberContext`](unsafe/$loadMemberContext.md) — Loads a member instance to the current context, this is not reversible and is adviced to use with $scope
+- [`$asMemberContext`](unsafe/$asMemberContext.md) — Alias of `$loadMemberContext`
+- [`$useMemberContext`](unsafe/$useMemberContext.md) — Alias of `$loadMemberContext`
+- [`$loadMessageContext`](unsafe/$loadMessageContext.md) — Loads a message instance to the current context, this is not reversible and is adviced to use with $scope
+- [`$asMessageContext`](unsafe/$asMessageContext.md) — Alias of `$loadMessageContext`
+- [`$useMessageContext`](unsafe/$useMessageContext.md) — Alias of `$loadMessageContext`
+- [`$loadRoleContext`](unsafe/$loadRoleContext.md) — Loads a role instance to the current context, this is not reversible and is adviced to use with $scope
+- [`$asRoleContext`](unsafe/$asRoleContext.md) — Alias of `$loadRoleContext`
+- [`$useRoleContext`](unsafe/$useRoleContext.md) — Alias of `$loadRoleContext`
+- [`$loadStickerContext`](unsafe/$loadStickerContext.md) — Loads a sticker instance to the current context, this is not reversible and is adviced to use with $scope
+- [`$asStickerContext`](unsafe/$asStickerContext.md) — Alias of `$loadStickerContext`
+- [`$useStickerContext`](unsafe/$useStickerContext.md) — Alias of `$loadStickerContext`
+- [`$loadUserContext`](unsafe/$loadUserContext.md) — Loads a user instance to the current context, this is not reversible and is adviced to use with $scope
+- [`$asUserContext`](unsafe/$asUserContext.md) — Alias of `$loadUserContext`
+- [`$useUserContext`](unsafe/$useUserContext.md) — Alias of `$loadUserContext`
+
+## user (29)
+
+- [`$authorID`](user/$authorID.md) — Retrieves a user's id
+- [`$userID`](user/$userID.md) — Alias of `$authorID`
+- [`$deleteDM`](user/$deleteDM.md) — Deletes the DM channel between the client and a user
+- [`$discriminator`](user/$discriminator.md) — Returns the discriminator of a user
+- [`$isBot`](user/$isBot.md) — Returns whether the user is a bot
+- [`$isBotVerified`](user/$isBotVerified.md) — Returns whether the bot is verified
+- [`$isUserDMEnabled`](user/$isUserDMEnabled.md) — Checks whether the given user can be DMed
+- [`$randomUserID`](user/$randomUserID.md) — Returns a random user ID
+- [`$sendDM`](user/$sendDM.md) — Sends a DM to the user
+- [`$userAccentColor`](user/$userAccentColor.md) — Returns the accent color of a user
+- [`$userAvatar`](user/$userAvatar.md) — Returns the avatar of a user
+- [`$userAvatarDecoration`](user/$userAvatarDecoration.md) — Returns the avatar decoration of a user
+- [`$userBadges`](user/$userBadges.md) — Returns the public badges of a user
+- [`$userFlags`](user/$userFlags.md) — Alias of `$userBadges`
+- [`$userBanner`](user/$userBanner.md) — Returns the banner of a user
+- [`$userCount`](user/$userCount.md) — Returns the user count of the bot
+- [`$userCreatedAt`](user/$userCreatedAt.md) — Returns the timestamp this user created their account
+- [`$userDefaultAvatar`](user/$userDefaultAvatar.md) — Returns the default user avatar
+- [`$userDisplayName`](user/$userDisplayName.md) — Returns the display name of a user
+- [`$userExists`](user/$userExists.md) — Returns whether a user id exists
+- [`$userGlobalName`](user/$userGlobalName.md) — Returns the global name of a user
+- [`$userGuildBadge`](user/$userGuildBadge.md) — Returns the primary guild tag badge of a user
+- [`$userGuildEnabled`](user/$userGuildEnabled.md) — Returns whether the primary guild of a user is enabled
+- [`$userGuildID`](user/$userGuildID.md) — Returns the primary guild id of a user
+- [`$userGuildTag`](user/$userGuildTag.md) — Returns the primary guild tag name of a user
+- [`$userIDs`](user/$userIDs.md) — Returns all the users that are currently cached
+- [`$userRawData`](user/$userRawData.md) — Returns the raw data of a user
+- [`$userReferenceID`](user/$userReferenceID.md) — Returns the id of the user this message replies to
+- [`$userTag`](user/$userTag.md) — Returns the legacy tag of a user
+- [`$userURL`](user/$userURL.md) — Returns the url of a user
+- [`$username`](user/$username.md) — Returns the username of a user
+
+## variable (9)
+
+- [`$delete`](variable/$delete.md) — Deletes a keyword
+- [`$env`](variable/$env.md) — Retrieves an environment value
+- [`$jsonDump`](variable/$jsonDump.md) — Alias of `$env`
+- [`$get`](variable/$get.md) — Get a keyword value
+- [`$has`](variable/$has.md) — Checks whether a keyword exists
+- [`$let`](variable/$let.md) — Create a keyword
+- [`$letDivide`](variable/$letDivide.md) — Short-hand for $let[...;$divide[$get[...];...]]
+- [`$letMulti`](variable/$letMulti.md) — Short-hand for $let[...;$multi[$get[...];...]]
+- [`$letSub`](variable/$letSub.md) — Short-hand for $let[...;$sub[$get[...];...]]
+- [`$letSum`](variable/$letSum.md) — Short-hand for $let[...;$sum[$get[...];...]]
+
+## webhook (11)
+
+- [`$getWebhook`](webhook/$getWebhook.md) — Returns a webhook from a channel
+- [`$webhookCreate`](webhook/$webhookCreate.md) — Creates a webhook in a channel, returns the webhook id
+- [`$webhookDelete`](webhook/$webhookDelete.md) — Deletes webhook with given id
+- [`$webhookEdit`](webhook/$webhookEdit.md) — Edits webhook with given id, returns bool
+- [`$webhookEditMessage`](webhook/$webhookEditMessage.md) — Edits a webhook message, returns bool
+- [`$webhookExists`](webhook/$webhookExists.md) — Checks whether given webhook id exists
+- [`$webhookIsUserCreated`](webhook/$webhookIsUserCreated.md) — Checks whether given webhook is user created
+- [`$webhookSend`](webhook/$webhookSend.md) — Sends a message with a webhook
+- [`$webhookToken`](webhook/$webhookToken.md) — Returns the token of a webhook
+- [`$webhookType`](webhook/$webhookType.md) — Returns the type of a webhook
+- [`$webhookURL`](webhook/$webhookURL.md) — Returns the url of a webhook
+
+## websocket (5)
+
+- [`$ws`](websocket/$ws.md) — Creates a WebSocket connection to a server
+- [`$websocket`](websocket/$websocket.md) — Alias of `$ws`
+- [`$wsClose`](websocket/$wsClose.md) — Closes a websocket connection and removes all listeners of it
+- [`$websocketClose`](websocket/$websocketClose.md) — Alias of `$wsClose`
+- [`$wsOn`](websocket/$wsOn.md) — Attach a listener to a websocket
+- [`$websocketOn`](websocket/$websocketOn.md) — Alias of `$wsOn`
+- [`$wsSend`](websocket/$wsSend.md) — Sends a websocket message
+- [`$websocketSend`](websocket/$websocketSend.md) — Alias of `$wsSend`
+- [`$wsState`](websocket/$wsState.md) — Returns a websocket's connection state
+

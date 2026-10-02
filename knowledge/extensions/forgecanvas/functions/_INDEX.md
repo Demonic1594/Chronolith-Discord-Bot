@@ -1,0 +1,256 @@
+# ForgeCanvas functions — index
+
+- [`$GIFDecoderOption`]($GIFDecoderOption.md) — Sets or returns a GIF Frame option
+- [`$GIFDecoderProperty`]($GIFDecoderProperty.md) — Alias of `$GIFDecoderOption`
+- [`$decoderOption`]($decoderOption.md) — Alias of `$GIFDecoderOption`
+- [`$decoderProperty`]($decoderProperty.md) — Alias of `$GIFDecoderOption`
+- [`$GIFDecoderSize`]($GIFDecoderSize.md) — Returns the size of the GIF Decoder
+- [`$decoderSize`]($decoderSize.md) — Alias of `$GIFDecoderSize`
+- [`$GIFEncoderGlobalPalette`]($GIFEncoderGlobalPalette.md) — Gets the global palette of the GIF Encoder
+- [`$encoderGlobalPalette`]($encoderGlobalPalette.md) — Alias of `$GIFEncoderGlobalPalette`
+- [`$globalPalette`]($globalPalette.md) — Alias of `$GIFEncoderGlobalPalette`
+- [`$GIFEncoderSize`]($GIFEncoderSize.md) — Returns the size of the GIF Encoder
+- [`$encoderSize`]($encoderSize.md) — Alias of `$GIFEncoderSize`
+- [`$NQindexOf`]($NQindexOf.md) — Finds the best-matching index in the color map
+- [`$NQlookup`]($NQlookup.md) — Lookup pixel values for color at idx in the color map
+- [`$NQmapPixel`]($NQmapPixel.md) — Maps the rgba-pixel in-place to the best-matching color in the color map
+- [`$mapPixel`]($mapPixel.md) — Alias of `$NQmapPixel`
+- [`$addColorStop`]($addColorStop.md) — Adds a color stop to the gradient
+- [`$colorStop`]($colorStop.md) — Alias of `$addColorStop`
+- [`$addFrame`]($addFrame.md) — Adds a frame to the GIF
+- [`$arc`]($arc.md) — Draws a circular arc in the current path
+- [`$arcTo`]($arcTo.md) — Adds a circular arc in the current path
+- [`$attachCanvas`]($attachCanvas.md) — Creates a new canvas
+- [`$canvasRender`]($canvasRender.md) — Alias of `$attachCanvas`
+- [`$renderCanvas`]($renderCanvas.md) — Alias of `$attachCanvas`
+- [`$sendCanvas`]($sendCanvas.md) — Alias of `$attachCanvas`
+- [`$attachGIF`]($attachGIF.md) — Attaches the GIF
+- [`$gifRender`]($gifRender.md) — Alias of `$attachGIF`
+- [`$renderGIF`]($renderGIF.md) — Alias of `$attachGIF`
+- [`$sendGIF`]($sendGIF.md) — Alias of `$attachGIF`
+- [`$attachImage`]($attachImage.md) — Attaches the image
+- [`$imageRender`]($imageRender.md) — Alias of `$attachImage`
+- [`$renderImage`]($renderImage.md) — Alias of `$attachImage`
+- [`$sendImage`]($sendImage.md) — Alias of `$attachImage`
+- [`$barData`]($barData.md) — Adds data to the progress bar
+- [`$barOptions`]($barOptions.md) — Sets options for progress bars
+- [`$beginPath`]($beginPath.md) — Begins a new path
+- [`$pathStart`]($pathStart.md) — Alias of `$beginPath`
+- [`$startPath`]($startPath.md) — Alias of `$beginPath`
+- [`$bezierCurveTo`]($bezierCurveTo.md) — Draws a cubic Bézier curve in the current path
+- [`$bezierCurve`]($bezierCurve.md) — Alias of `$bezierCurveTo`
+- [`$bezierLineTo`]($bezierLineTo.md) — Alias of `$bezierCurveTo`
+- [`$canvasBuffer`]($canvasBuffer.md) — Stores the current canvas buffer
+- [`$canvasDataUrl`]($canvasDataUrl.md) — Returns buffer of a canvas
+- [`$canvasSize`]($canvasSize.md) — Returns the canvas size
+- [`$canvasDimensions`]($canvasDimensions.md) — Alias of `$canvasSize`
+- [`$canvasResolution`]($canvasResolution.md) — Alias of `$canvasSize`
+- [`$canvasVersion`]($canvasVersion.md) — Returns the forge.canvas version
+- [`$checkFrameConsistency`]($checkFrameConsistency.md) — Configure if frames must be within the screen descriptor
+- [`$checkFrame`]($checkFrame.md) — Alias of `$checkFrameConsistency`
+- [`$frameConsistency`]($frameConsistency.md) — Alias of `$checkFrameConsistency`
+- [`$checkLZWEndCode`]($checkLZWEndCode.md) — Configure if LZW encoded blocks must end with a marker end code
+- [`$clearCanvasCache`]($clearCanvasCache.md) — Clears all canvas caches
+- [`$clip`]($clip.md) — Turns the current path into the current clipping region
+- [`$canvasClip`]($canvasClip.md) — Alias of `$clip`
+- [`$clipCanvas`]($clipCanvas.md) — Alias of `$clip`
+- [`$closePath`]($closePath.md) — Adds a straight line from the current point to the start of the current path
+- [`$endPath`]($endPath.md) — Alias of `$closePath`
+- [`$colorMapRgb`]($colorMapRgb.md) — Returns the RGB color map calculated from the sample
+- [`$NQcolorMapRgb`]($NQcolorMapRgb.md) — Alias of `$colorMapRgb`
+- [`$colorMapRgba`]($colorMapRgba.md) — Returns the RGBA color map calculated from the sample
+- [`$NQcolorMapRgba`]($NQcolorMapRgba.md) — Alias of `$colorMapRgba`
+- [`$compositeOperation`]($compositeOperation.md) — Sets or returns the compositing operation in a canvas
+- [`$compositingOperation`]($compositingOperation.md) — Alias of `$compositeOperation`
+- [`$globalCompositeOperation`]($globalCompositeOperation.md) — Alias of `$compositeOperation`
+- [`$globalCompositingOperation`]($globalCompositingOperation.md) — Alias of `$compositeOperation`
+- [`$createCanvas`]($createCanvas.md) — Creates a new canvas
+- [`$canvas`]($canvas.md) — Alias of `$createCanvas`
+- [`$newCanvas`]($newCanvas.md) — Alias of `$createCanvas`
+- [`$createFrame`]($createFrame.md) — Creates a new GIF Frame
+- [`$createGIFFrame`]($createGIFFrame.md) — Alias of `$createFrame`
+- [`$newFrame`]($newFrame.md) — Alias of `$createFrame`
+- [`$newGIFFrame`]($newGIFFrame.md) — Alias of `$createFrame`
+- [`$cropCanvas`]($cropCanvas.md) — Crops a canvas
+- [`$canvasCrop`]($canvasCrop.md) — Alias of `$cropCanvas`
+- [`$canvasTrim`]($canvasTrim.md) — Alias of `$cropCanvas`
+- [`$trimCanvas`]($trimCanvas.md) — Alias of `$cropCanvas`
+- [`$decodeOptions`]($decodeOptions.md) — Creates new GIF Decode Options
+- [`$decoderOptions`]($decoderOptions.md) — Alias of `$decodeOptions`
+- [`$deleteCanvas`]($deleteCanvas.md) — Deletes the canvas
+- [`$removeCanvas`]($removeCanvas.md) — Alias of `$deleteCanvas`
+- [`$deleteDecoder`]($deleteDecoder.md) — Deletes the Decoder
+- [`$removeDecoder`]($removeDecoder.md) — Alias of `$deleteDecoder`
+- [`$deleteEncoder`]($deleteEncoder.md) — Deletes the Encoder
+- [`$removeEncoder`]($removeEncoder.md) — Alias of `$deleteEncoder`
+- [`$deleteFrame`]($deleteFrame.md) — Deletes the frame
+- [`$removeFrame`]($removeFrame.md) — Alias of `$deleteFrame`
+- [`$deleteImage`]($deleteImage.md) — Deletes the image
+- [`$removeImage`]($removeImage.md) — Alias of `$deleteImage`
+- [`$drawImage`]($drawImage.md) — Draws an image on a canvas
+- [`$placeImage`]($placeImage.md) — Alias of `$drawImage`
+- [`$drawImageArea`]($drawImageArea.md) — Draws a specific area of an image on the canvas
+- [`$drawImageRect`]($drawImageRect.md) — Alias of `$drawImageArea`
+- [`$drawImageRect`]($drawImageRect.md) — Alias of `$drawImageArea`
+- [`$placeImageArea`]($placeImageArea.md) — Alias of `$drawImageArea`
+- [`$drawProgressBar`]($drawProgressBar.md) — Creates and draws progress bars on a canvas
+- [`$drawRect`]($drawRect.md) — Draws a rectangle on a canvas
+- [`$placeRect`]($placeRect.md) — Alias of `$drawRect`
+- [`$rect`]($rect.md) — Alias of `$drawRect`
+- [`$rectangle`]($rectangle.md) — Alias of `$drawRect`
+- [`$drawText`]($drawText.md) — Draws a filled/stroked text on a canvas
+- [`$placeText`]($placeText.md) — Alias of `$drawText`
+- [`$text`]($text.md) — Alias of `$drawText`
+- [`$writeText`]($writeText.md) — Alias of `$drawText`
+- [`$ellipse`]($ellipse.md) — Draws a eliiptical arc in the current path
+- [`$elArc`]($elArc.md) — Alias of `$ellipse`
+- [`$fill`]($fill.md) — Fills the current path
+- [`$fillPath`]($fillPath.md) — Alias of `$fill`
+- [`$pathFill`]($pathFill.md) — Alias of `$fill`
+- [`$filter`]($filter.md) — Use filters in your canvas
+- [`$fontFamilies`]($fontFamilies.md) — Returns a list of the available fonts
+- [`$fontFam`]($fontFam.md) — Alias of `$fontFamilies`
+- [`$fontNames`]($fontNames.md) — Alias of `$fontFamilies`
+- [`$fonts`]($fonts.md) — Alias of `$fontFamilies`
+- [`$fontVariantCaps`]($fontVariantCaps.md) — Sets or returns the capitalization of the text
+- [`$fontCaps`]($fontCaps.md) — Alias of `$fontVariantCaps`
+- [`$frameOption`]($frameOption.md) — Sets or returns a GIF Frame option
+- [`$frameOpt`]($frameOpt.md) — Alias of `$frameOption`
+- [`$frameProp`]($frameProp.md) — Alias of `$frameOption`
+- [`$frameProperty`]($frameProperty.md) — Alias of `$frameOption`
+- [`$gifFrameOption`]($gifFrameOption.md) — Alias of `$frameOption`
+- [`$getPixels`]($getPixels.md) — Returns an array of pixels (their colors)
+- [`$getImageData`]($getImageData.md) — Alias of `$getPixels`
+- [`$getTransform`]($getTransform.md) — Returns the current transformation matrix
+- [`$hexToRgb`]($hexToRgb.md) — Converts HEX into RGB
+- [`$hexToRgba`]($hexToRgba.md) — Converts HEX into RGBA
+- [`$imageBuffer`]($imageBuffer.md) — Stores the image's buffer which can be accessed with $env
+- [`$imageSize`]($imageSize.md) — Returns the image's size
+- [`$imageDimensions`]($imageDimensions.md) — Alias of `$imageSize`
+- [`$imgSize`]($imgSize.md) — Alias of `$imageSize`
+- [`$imageSmoothing`]($imageSmoothing.md) — Sets or returns the image smoothing in a canvas
+- [`$imageSmooth`]($imageSmooth.md) — Alias of `$imageSmoothing`
+- [`$indexedToHex`]($indexedToHex.md) — Converts indexed pixels to HEX
+- [`$indexedToRgba`]($indexedToRgba.md) — Converts indexed pixels to RGBA
+- [`$letterSpacing`]($letterSpacing.md) — Sets or returns the spacing between letters when drawing text
+- [`$lineDash`]($lineDash.md) — Sets or returns the line dash segments in a canvas
+- [`$lineDashOffset`]($lineDashOffset.md) — Sets or returns the line dash offset in a canvas
+- [`$lineJoin`]($lineJoin.md) — Sets or returns the line join shape in a canvas
+- [`$lineTo`]($lineTo.md) — Draws a straight line in the current path
+- [`$drawLine`]($drawLine.md) — Alias of `$lineTo`
+- [`$lineWidth`]($lineWidth.md) — Sets or returns the line width in a canvas
+- [`$strokeWidth`]($strokeWidth.md) — Alias of `$lineWidth`
+- [`$loadImage`]($loadImage.md) — Loads an image from an URL, File path, SVG, or other data
+- [`$createImage`]($createImage.md) — Alias of `$loadImage`
+- [`$newImage`]($newImage.md) — Alias of `$loadImage`
+- [`$loadImageOptions`]($loadImageOptions.md) — Sets or returns the current load image options; Applies to $drawImage and other
+- [`$loadLottieAnimation`]($loadLottieAnimation.md) — Loads a lottie animation from an URL/File path or a JSON
+- [`$loadLottie`]($loadLottie.md) — Alias of `$loadLottieAnimation`
+- [`$lottie`]($lottie.md) — Alias of `$loadLottieAnimation`
+- [`$lottieAnimation`]($lottieAnimation.md) — Alias of `$loadLottieAnimation`
+- [`$lottieOption`]($lottieOption.md) — Returns an option of the lottie animation
+- [`$lottieAnimationOption`]($lottieAnimationOption.md) — Alias of `$lottieOption`
+- [`$lottieAnimationProperty`]($lottieAnimationProperty.md) — Alias of `$lottieOption`
+- [`$lottieOpt`]($lottieOpt.md) — Alias of `$lottieOption`
+- [`$lottieProperty`]($lottieProperty.md) — Alias of `$lottieOption`
+- [`$lottieRender`]($lottieRender.md) — Renders the current frame of a lottie animation on a canvas
+- [`$drawLottie`]($drawLottie.md) — Alias of `$lottieRender`
+- [`$drawLottieAnimation`]($drawLottieAnimation.md) — Alias of `$lottieRender`
+- [`$lottieAnimationRender`]($lottieAnimationRender.md) — Alias of `$lottieRender`
+- [`$renderLottie`]($renderLottie.md) — Alias of `$lottieRender`
+- [`$lottieSeek`]($lottieSeek.md) — Seeks to a specific position/frame/time in a lottie animation
+- [`$lottieTo`]($lottieTo.md) — Alias of `$lottieSeek`
+- [`$measureText`]($measureText.md) — Returns text metrics that contain information about the measured text (such as its width, for example)
+- [`$moveTo`]($moveTo.md) — Begins a new path at the point specified by the given (x, y) coordinates
+- [`$newConicGradient`]($newConicGradient.md) — Creates a conic gradient
+- [`$conicGradient`]($conicGradient.md) — Alias of `$newConicGradient`
+- [`$createConicGradient`]($createConicGradient.md) — Alias of `$newConicGradient`
+- [`$newGIFDecoder`]($newGIFDecoder.md) — Creates a new GIF Decoder
+- [`$GIFDecoder`]($GIFDecoder.md) — Alias of `$newGIFDecoder`
+- [`$createDecoder`]($createDecoder.md) — Alias of `$newGIFDecoder`
+- [`$createGIFDecoder`]($createGIFDecoder.md) — Alias of `$newGIFDecoder`
+- [`$newDecoder`]($newDecoder.md) — Alias of `$newGIFDecoder`
+- [`$newGIFEncoder`]($newGIFEncoder.md) — Creates a new GIF Encoder
+- [`$GIFEncoder`]($GIFEncoder.md) — Alias of `$newGIFEncoder`
+- [`$createEncoder`]($createEncoder.md) — Alias of `$newGIFEncoder`
+- [`$createGIFEncoder`]($createGIFEncoder.md) — Alias of `$newGIFEncoder`
+- [`$newEncoder`]($newEncoder.md) — Alias of `$newGIFEncoder`
+- [`$newLinearGradient`]($newLinearGradient.md) — Creates a linear gradient
+- [`$createLinearGradient`]($createLinearGradient.md) — Alias of `$newLinearGradient`
+- [`$linearGradient`]($linearGradient.md) — Alias of `$newLinearGradient`
+- [`$newNeuQuant`]($newNeuQuant.md) — Creates a new NeuQuant instance
+- [`$NeuQuant`]($NeuQuant.md) — Alias of `$newNeuQuant`
+- [`$createNeuQuant`]($createNeuQuant.md) — Alias of `$newNeuQuant`
+- [`$newRadialGradient`]($newRadialGradient.md) — Creates a radial gradient.
+- [`$createRadialGradient`]($createRadialGradient.md) — Alias of `$newRadialGradient`
+- [`$radialGradient`]($radialGradient.md) — Alias of `$newRadialGradient`
+- [`$nextFrameInfo`]($nextFrameInfo.md) — Reads and saves the next frame info (skipping the buffer) of the GIF Decoder into an env
+- [`$opacity`]($opacity.md) — Sets or returns the opacity in a canvas
+- [`$alpha`]($alpha.md) — Alias of `$opacity`
+- [`$globalAlpha`]($globalAlpha.md) — Alias of `$opacity`
+- [`$preloadImage`]($preloadImage.md) — Loads an image globally; Recommended for images that never change. Use preload://name to draw
+- [`$putPixels`]($putPixels.md) — Places pixels in the canvas
+- [`$putImageData`]($putImageData.md) — Alias of `$putPixels`
+- [`$setPixels`]($setPixels.md) — Alias of `$putPixels`
+- [`$quadraticCurveTo`]($quadraticCurveTo.md) — Draws a quadratic Bézier curve in the current path
+- [`$quadraticCurve`]($quadraticCurve.md) — Alias of `$quadraticCurveTo`
+- [`$quadraticLineTo`]($quadraticLineTo.md) — Alias of `$quadraticCurveTo`
+- [`$readNextFrame`]($readNextFrame.md) — Reads and saves the next frame (including the buffer) of the GIF Decoder into an env
+- [`$rectAlign`]($rectAlign.md) — Sets or returns the rect/image align
+- [`$alignImage`]($alignImage.md) — Alias of `$rectAlign`
+- [`$alignRect`]($alignRect.md) — Alias of `$rectAlign`
+- [`$imageAlign`]($imageAlign.md) — Alias of `$rectAlign`
+- [`$rectBaseline`]($rectBaseline.md) — Sets or returns the rect/image baseline
+- [`$imageBaseline`]($imageBaseline.md) — Alias of `$rectBaseline`
+- [`$registerFont`]($registerFont.md) — Registers a font
+- [`$registerFonts`]($registerFonts.md) — Alias of `$registerFont`
+- [`$renderCanvasComponent`]($renderCanvasComponent.md) — Renders a Canvas Component on the provided coordinates
+- [`$renderComponent`]($renderComponent.md) — Alias of `$renderCanvasComponent`
+- [`$resetTransform`]($resetTransform.md) — Resets the current transformation
+- [`$resizeCanvas`]($resizeCanvas.md) — Resizes a canvas
+- [`$canvasResize`]($canvasResize.md) — Alias of `$resizeCanvas`
+- [`$restore`]($restore.md) — Restores the most recently saved canvas state
+- [`$rgbToHex`]($rgbToHex.md) — Converts RGB into HEX
+- [`$rgbaToHex`]($rgbaToHex.md) — Converts RGBA into HEX
+- [`$rotate`]($rotate.md) — Sets the rotation in the canvas
+- [`$rotateCanvas`]($rotateCanvas.md) — Alias of `$rotate`
+- [`$rotation`]($rotation.md) — Alias of `$rotate`
+- [`$save`]($save.md) — Saves the entire state of the canvas
+- [`$saveCanvas`]($saveCanvas.md) — Saves a canvas to a file
+- [`$canvasDownload`]($canvasDownload.md) — Alias of `$saveCanvas`
+- [`$canvasSave`]($canvasSave.md) — Alias of `$saveCanvas`
+- [`$downloadCanvas`]($downloadCanvas.md) — Alias of `$saveCanvas`
+- [`$saveEncoder`]($saveEncoder.md) — Saves an Encoder GIF to a file
+- [`$downloadEncoder`]($downloadEncoder.md) — Alias of `$saveEncoder`
+- [`$downloadGIF`]($downloadGIF.md) — Alias of `$saveEncoder`
+- [`$encoderDownload`]($encoderDownload.md) — Alias of `$saveEncoder`
+- [`$encoderSave`]($encoderSave.md) — Alias of `$saveEncoder`
+- [`$gifDownload`]($gifDownload.md) — Alias of `$saveEncoder`
+- [`$gifSave`]($gifSave.md) — Alias of `$saveEncoder`
+- [`$saveGIF`]($saveGIF.md) — Alias of `$saveEncoder`
+- [`$scale`]($scale.md) — Adds a scaling transformation to the canvas
+- [`$setColorOutput`]($setColorOutput.md) — Configure the color output for the GIF Decoder
+- [`$setOutputColor`]($setOutputColor.md) — Alias of `$setColorOutput`
+- [`$setEncoderLoops`]($setEncoderLoops.md) — Sets the number of loops for the GIF Encoder
+- [`$setEncoderRepeat`]($setEncoderRepeat.md) — Alias of `$setEncoderLoops`
+- [`$setGIFEncoderLoops`]($setGIFEncoderLoops.md) — Alias of `$setEncoderLoops`
+- [`$setGIFEncoderRepeat`]($setGIFEncoderRepeat.md) — Alias of `$setEncoderLoops`
+- [`$setLoops`]($setLoops.md) — Alias of `$setEncoderLoops`
+- [`$setRepeat`]($setRepeat.md) — Alias of `$setEncoderLoops`
+- [`$setMemoryLimit`]($setMemoryLimit.md) — Configure the memory limit for the GIF Decoder
+- [`$setRAMLimit`]($setRAMLimit.md) — Alias of `$setMemoryLimit`
+- [`$setTransform`]($setTransform.md) — Sets the current transformation
+- [`$shadowOptions`]($shadowOptions.md) — Sets or returns the shadow options in a canvas
+- [`$shadowConfig`]($shadowConfig.md) — Alias of `$shadowOptions`
+- [`$skipFrameDecoding`]($skipFrameDecoding.md) — Configure whether to skip decoding frames
+- [`$skipFrameDecode`]($skipFrameDecode.md) — Alias of `$skipFrameDecoding`
+- [`$stroke`]($stroke.md) — Strokes (outlines) the current path
+- [`$pathStroke`]($pathStroke.md) — Alias of `$stroke`
+- [`$strokePath`]($strokePath.md) — Alias of `$stroke`
+- [`$textAlign`]($textAlign.md) — Sets or returns the text align
+- [`$alignText`]($alignText.md) — Alias of `$textAlign`
+- [`$textBaseline`]($textBaseline.md) — Sets or returns the text baseline
+- [`$transform`]($transform.md) — Multiplies the current transformation
+- [`$translate`]($translate.md) — Adds a translation transformation
+- [`$wordSpacing`]($wordSpacing.md) — Sets or returns the spacing between words when drawing text
+- [`$wordSpace`]($wordSpace.md) — Alias of `$wordSpacing`

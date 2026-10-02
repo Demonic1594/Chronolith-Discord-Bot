@@ -1,0 +1,70 @@
+{
+    "_comment": [
+        "--- All Regex are from these Source ---",
+        "Deepseek & ChatGPT",
+        "https://stackoverflow.com/a/27728417/29665155",
+        "https://stackoverflow.com/a/77178079/29665155",
+        "https://regex101.com/r/Mcd4kh/1",
+        "https://github.com/Cyberghxst/Sora/blob/main/constants.json"
+    ],
+    "youtube": [
+        "^(?:https?:\\/\\/)(?:(?:[a-z0-9-]+\\.)*youtube\\.com\\/(?:watch\\/|(?:w|v|vi|e|embed|shorts|live)\\/|source\\/(?=[A-Za-z0-9_-]{11}\\/shorts(?:[?#]|$)))|music\\.youtube\\.com\\/samples\\/|youtu\\.be\\/|(?:www\\.)?youtube-nocookie\\.com\\/embed\\/|(?:[a-z0-9-]+\\.)*youtube\\.com\\/(?:(?:watch|movie|watch_popup)\\/?)?\\?(?:[^&#?\\s]*&)*v(?:i)?=)([A-Za-z0-9_-]{11})(?:[?&#\\/].*)?$",
+        1
+    ],
+    "youtubeplaylist": [
+        "(?:^|[?&])list=([A-Za-z0-9_-]+)(?=$|[&#/])",
+        1
+    ],
+    "soundcloud": [
+        "(?:https?:\\/\\/)?(?:[a-z0-9-]+\\.)?(?:soundcloud\\.com|snd\\.sc)\\/((?:[A-Za-z0-9_-]+\\/(?:sets\\/[A-Za-z0-9_-]+|[A-Za-z0-9_-]+))|[A-Za-z0-9]+)(?=$|[?#])",
+        1
+    ],
+    "spotify": [
+        "^(?:https?:\\/\\/)?(?:open\\.spotify\\.com\\/|spotify:)((?:user|episode|playlist|track|album|artist)[\\/:][A-Za-z0-9]+)(?:\\?.*)?$",
+        1
+    ],
+    "applemusic": [
+        "^(?:https?:\/\/)?(?:[^\/]+\\.)?music\\.apple\\.com\/[^\/]+\/(?:song\/[^\/?#]*\/(\\d+)(?:[\/?#].*)?|album\/[^\/?#]*\/\\d+\\?(?:[^#&]+&)*i=(\\d+)(?:&[^#]*)?(?:#.*)?)$",
+        1,
+        2
+    ],
+    "tiktok": [
+        "^(?:https?:\\/\\/)?(?:(?:www\\.)?(?:m\\.)?tiktok\\.com\\/(?:(?:@[^\\/]*\\/video\\/)|v\\/)|t\\.tiktok\\.com\\/i18n\\/share\\/video\\/)(\\d{18,21})(?:\\.html)?(?:[\\/\\?#].*)?$",
+        1
+    ],
+    "tiktokmob": [
+        "^(?:https?:\\/\\/)?(?:(?:vt|vm)\\.tiktok\\.com\\/([A-Za-z0-9-]+)\\/?|(?:www\\.)?(?:m\\.)?tiktok\\.com\\/t\\/([A-Za-z0-9_-]+))(?:[\\/\\?#].*)?$",
+        1,
+        2
+    ],
+    "tiktokmusic": [
+        "tiktok\\.com\/music\/[^\/]*?(\\d{18,21})(?:$|[\/?])",
+        1
+    ],
+    "facebook": [
+        "^(?:https?:\\/\\/)?(?:www\\.|web\\.|m\\.)?facebook\\.com\\/(?:(?:[^\\/]+\\/posts\\/(?:[^\\/?#]*-)?|reel\\/|[^\\/]+\\/videos\\/(?:[^\\/]+\\/)?|watch\\/|share\\/[rvp]\\/)([A-Za-z0-9]+)(?:\\/)?|(?:photo\\/|photo\\.php|watch\\/|video\\.php|story\\.php)\\?(?:[^#]*?&)?(?:fbid|v|story_fbid)=(\\d+))(?:[?#\\/&].*)?$",
+        1,
+        2
+    ],
+    "instagram": [
+        "^(?:https?:\\/\\/)?(?:[a-z0-9-]*\\.)*[a-z0-9-]*instagram\\.com\\/((?:[^\\/?#]+\\/(?:p|reels?)\\/[A-Za-z0-9_-]+)|(?:(?:p|reels?)\\/[A-Za-z0-9_-]+))(?:[\\/?#].*)?$",
+        1
+    ],
+    "instagramaudio": [
+        "^(?:https?:\\/\\/)?(?:[a-z0-9-]*\\.)*[a-z0-9-]*instagram\\.com\\/reels\\/audio\\/([A-Za-z0-9_-]+)(?:[\\/?#].*)?$",
+        1
+    ],
+    "bandcamp": [
+        "^((?:https?:\\/\\/)?(?:[A-Za-z0-9-]+\\.)+bandcamp\\.com\\/track\\/[^\\/?#]+(?:[\\/?#].*)?)$",
+        1
+    ],
+    "twitter": [
+        "^(?:https?:\\/\\/)?(?:[A-Za-z0-9-]+\\.)?(?:x\\.com|twitter\\.com)\\/(?:(?:i\\/web\\/status)|(?:[^\\/]+\\/status))\\/(\\d{5,25})(?:\\/[^\\?#]*)?(?:[\\?#].*)?$",
+        1
+    ],
+    "threads": [
+        "^(?:https?:\\/\\/)?(?:www\\.)?threads\\.com\\/(?:\\/)?(?:(?:@[^\\/]*\\/)?(?:post|reel|t)\\/([A-Za-z0-9_-]+)|share\\/([A-Za-z0-9_-]+))(?:[\\/?#].*)?$",
+        1,
+        2
+    ]
+}

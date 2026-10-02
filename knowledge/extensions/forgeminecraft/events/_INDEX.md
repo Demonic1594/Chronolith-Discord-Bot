@@ -1,0 +1,23 @@
+# ForgeMinecraft events — index
+
+- [`allowListAdded`](allowListAdded.md) — This event is fired when a player was added to the allow list
+- [`allowListRemoved`](allowListRemoved.md) — This event is fired when a player was removed from the allow list
+- [`banAdded`](banAdded.md) — This event is fired when a player was banned
+- [`banRemoved`](banRemoved.md) — This event is fired when a player was unbanned
+- [`connected`](connected.md) — This event is fired when the management server has connected
+- [`disconnected`](disconnected.md) — This event is fired when the management server has disconnected
+- [`error`](error.md) — This event is fired when an error occurred
+- [`gameRuleUpdated`](gameRuleUpdated.md) — This event is fired when a game rule was updated
+- [`ipBanAdded`](ipBanAdded.md) — This event is fired when an IP was banned
+- [`ipBanRemoved`](ipBanRemoved.md) — This event is fired when an IP was unbanned
+- [`operatorAdded`](operatorAdded.md) — This event is fired when an operator was added
+- [`operatorRemoved`](operatorRemoved.md) — This event is fired when an operator was removed
+- [`playerJoined`](playerJoined.md) — This event is fired when a player has joined the server
+- [`playerLeft`](playerLeft.md) — This event is fired when a player has left the server
+- [`reconnecting`](reconnecting.md) — This event is fired when the management server is reconnecting
+- [`serverActivity`](serverActivity.md) — This event is fired when a network connection to the server has been initiated
+- [`serverSaved`](serverSaved.md) — This event is fired when the server was saved
+- [`serverSaving`](serverSaving.md) — This event is fired when the server is saving
+- [`serverStarted`](serverStarted.md) — This event is fired when the server has started
+- [`serverStatus`](serverStatus.md) — This event is fired when the server status was received
+- [`serverStopping`](serverStopping.md) — This event is fired when the server is stopping

@@ -1,0 +1,74 @@
+# $memberJoinPosition
+
+> Returns the position at which the member joined the guild
+
+| Package | Category | Since | Brackets | Unwrap | Output |
+|---|---|---|---|---|---|
+| ForgeScript | `member` | v1.5.0 | optional | yes | `Number` |
+
+## Signature
+
+```fs
+$memberJoinPosition[guild ID;user ID]
+```
+
+Arguments are separated by `;`. Optional (non-required) trailing arguments may be omitted entirely.
+
+## Parameters
+
+| # | Name | Type | Required | Rest | Description |
+|---|---|---|---|---|---|
+| 1 | `guild ID` | `Guild` | **yes** | no | The guild to pull member from |
+| 2 | `user ID` | `Member` | **yes** | no | The user to get its join position |
+
+### Per-parameter notes
+
+- **`guild ID`** (`Guild`, required): The guild to pull member from. Expects a guild ID. Taken from `client.guilds.cache` — the guild must be cached.
+- **`user ID`** (`Member`, required): The user to get its join position. Expects a member ID. Fetched from the guild resolved by the `pointer` argument (usually a leading guild/channel arg) or the context guild.
+  - This argument is resolved against a previously resolved argument (its "pointer") or the current context — order of arguments matters.
+
+## How it works
+
+Member functions operate on guild members — roles, timeouts, moderation actions, voice state, properties.
+
+`$memberJoinPosition` has `unwrap: true` — every argument is compiled and executed **before** the function body runs: nested `$functions` inside its brackets resolve first, then the resolved values are type-checked (see the parameter notes above) and handed to the implementation. If any argument fails to resolve or type-check, execution of this function stops with a ForgeError and the command aborts (unless the call was silenced with `$#function[...]` or wrapped in `$try[code;catchCode]`).
+
+## Examples
+
+**Basic usage**
+
+```fs
+$memberJoinPosition[123456789012345678;123456789012345678]
+```
+
+## Reference implementation (source)
+
+Taken from `src/native/member/memberJoinPosition.ts` in the `ForgeScript` repository — this is exactly what runs:
+
+```ts
+execute(...) {
+        guild ??= ctx.guild!
+        member ??= ctx.member!
+        return this.success(guild ? [...guild.members.cache.sort((a, b) => a.joinedTimestamp! - b.joinedTimestamp!).values()].findIndex(x => x.id === member?.id) + 1 : 0)
+}
+```
+
+## Quirks & gotchas
+
+1. Brackets are OPTIONAL — the function works with or without `[...]`.
+2. Discord entity arguments must be 16-23 digit snowflake IDs — usernames, mentions or full URLs are rejected. Resolve names first with the `lookup`-category functions.
+3. Universal prefixes apply: `!` to discard output (`$!fn[...]`), `#` to suppress the error alert (`$#fn[...]` — top-level calls only, and the run still aborts), `@[sep]` to return the count of separated output pieces (`$@[;;]fn[...]`).
+4. Errors abort the whole command — `$#fn[...]` only hides the alert (on nested calls `#` is ignored entirely); `$try[code;catchCode;errorVar]` is the only real recovery.
+
+## Related functions
+
+- [`$ban`]($ban.md)
+- [`$fetchMembers`]($fetchMembers.md)
+- [`$hasAnyPerms`]($hasAnyPerms.md)
+- [`$hasAnyRole`]($hasAnyRole.md)
+- [`$hasPerms`]($hasPerms.md)
+- [`$hasRoles`]($hasRoles.md)
+- [`$isBannable`]($isBannable.md)
+- [`$isBanned`]($isBanned.md)
+
+**Source:** [`src/native/member/memberJoinPosition.ts`](https://github.com/TryForge/ForgeScript/blob/main/src/native/member/memberJoinPosition.ts)

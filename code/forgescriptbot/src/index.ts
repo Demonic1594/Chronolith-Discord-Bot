@@ -1,0 +1,59 @@
+import { ForgeClient } from "@tryforge/forgescript"
+import { ForgeDB } from "@tryforge/forge.db"
+import { ForgeCanvas } from "@tryforge/forge.canvas"
+import { config } from "dotenv"
+
+config()
+
+const db = new ForgeDB({
+    type: "better-sqlite3",
+    events: [
+        "connect",
+        "variableCreate",
+        "variableUpdate",
+        "variableDelete",
+    ],
+})
+
+const client = new ForgeClient({
+    prefixes: [
+        ".",
+        "f!",
+        "<@$botID>",
+        "<@!$botID>",
+    ],
+    intents: [
+        "Guilds",
+        "GuildMessages",
+        "GuildMembers",
+        "MessageContent",
+        "DirectMessages",
+        "DirectMessageReactions",
+        "DirectMessageTyping",
+    ],
+    events: [
+        "clientReady",
+        "messageCreate",
+        "interactionCreate",
+    ],
+    extensions: [
+        db,
+        new ForgeCanvas()
+    ],
+})
+
+client.commands.add({
+    type: "clientReady",
+    code: `$logger[Info;Ready on client ForgeScriptBot!]`
+})
+
+ForgeDB.variables(require("../variables.json"))
+
+client.functions.load("dist/functions")
+
+// db.commands.load("dist/database")
+client.commands.load("dist/commands")
+client.applicationCommands.load("dist/slash")
+
+client.login(process.env.TOKEN)
+console.log("Logged in!")

@@ -1,0 +1,27 @@
+# QuorielDB functions — index
+
+- [`$activeDB`]($activeDB.md) — Returns a list of active databases
+- [`$closeDB`]($closeDB.md) — Closes the connection to one or more databases
+- [`$createBackup`]($createBackup.md) — Creates a backup of the specified database
+- [`$existsRecord`]($existsRecord.md) — Checks if a record exists for the key
+- [`$getRecord`]($getRecord.md) — Saves record data into an environment variable
+- [`$hold`]($hold.md) — Applies a hold timer to prevent repeated actions
+- [`$key`]($key.md) — Builds a composite key
+- [`$keysDB`]($keysDB.md) — Retrieves all keys from the database
+- [`$leaderBoard`]($leaderBoard.md) — Loads the entire sorted ranked list into the environment variable
+- [`$moveRecord`]($moveRecord.md) — Moves data from one record to another
+- [`$nearbyBoard`]($nearbyBoard.md) — Shows the count of competitors before and after the entity in the leaderboard
+- [`$openDB`]($openDB.md) — Opens a connection to one or more databases
+- [`$pageBoard`]($pageBoard.md) — Loads a paginated leaderboard slice into the environment variable
+- [`$pingDB`]($pingDB.md) — Checks the database response time
+- [`$positionBoard`]($positionBoard.md) — Returns the position of the specified entity in the ranked list
+- [`$prefetchDB`]($prefetchDB.md) — Prefetches database entries into memory to speed up future access
+- [`$putRecord`]($putRecord.md) — Sets new data for the key
+- [`$rangeDB`]($rangeDB.md) — Retrieves all records from the database
+- [`$reloadDB`]($reloadDB.md) — Reloads database configuration from file
+- [`$removeBackup`]($removeBackup.md) — Removes a backup of the specified data type
+- [`$removeRecord`]($removeRecord.md) — Deletes the record of the specified key
+- [`$restoreBackup`]($restoreBackup.md) — Restores database from backup if the database is not active
+- [`$searchDB`]($searchDB.md) — Searches the database with various filters
+- [`$valueRecord`]($valueRecord.md) — Gets a variable value from a record
+- [`$wipeDB`]($wipeDB.md) — Deletes one or more databases

@@ -1,0 +1,35 @@
+# ForgeGiveaways functions — index
+
+- [`$addRequiredRoles`]($addRequiredRoles.md) — Adds required roles to the current giveaway
+- [`$addRequiredRole`]($addRequiredRole.md) — Alias of `$addRequiredRoles`
+- [`$addRestrictedMembers`]($addRestrictedMembers.md) — Adds restricted members to the current giveaway
+- [`$addRestrictedMember`]($addRestrictedMember.md) — Alias of `$addRestrictedMembers`
+- [`$addRestrictedRoles`]($addRestrictedRoles.md) — Adds restricted roles to the current giveaway
+- [`$addRestrictedRole`]($addRestrictedRole.md) — Alias of `$addRestrictedRoles`
+- [`$deleteGiveaway`]($deleteGiveaway.md) — Deletes an existing giveaway from the database permanently, returns bool
+- [`$editGiveaway`]($editGiveaway.md) — Edits an existing giveaway on a guild, returns bool
+- [`$endGiveaway`]($endGiveaway.md) — Ends an existing giveaway on a guild, returns bool
+- [`$getAllGiveaways`]($getAllGiveaways.md) — Gets all existing giveaways from the database
+- [`$getGiveaway`]($getGiveaway.md) — Gets an existing giveaway from the database
+- [`$giveawayChannelID`]($giveawayChannelID.md) — Returns the channel id of a giveaway
+- [`$giveawayDuration`]($giveawayDuration.md) — Returns the duration of a giveaway in ms
+- [`$giveawayEntries`]($giveawayEntries.md) — Returns the entries of a giveaway
+- [`$giveawayExists`]($giveawayExists.md) — Returns whether a giveaway exists
+- [`$giveawayGuildID`]($giveawayGuildID.md) — Returns the guild id of a giveaway
+- [`$giveawayHasEnded`]($giveawayHasEnded.md) — Returns whether a giveaway has ended
+- [`$giveawayHostID`]($giveawayHostID.md) — Returns the host id of a giveaway
+- [`$giveawayID`]($giveawayID.md) — Returns the id of the current giveaway
+- [`$giveawayMessageID`]($giveawayMessageID.md) — Returns the message id of a giveaway
+- [`$giveawayPreviousWinners`]($giveawayPreviousWinners.md) — Returns the previous winners of a giveaway
+- [`$giveawayPrize`]($giveawayPrize.md) — Returns the prize of a giveaway
+- [`$giveawayRequiredRoles`]($giveawayRequiredRoles.md) — Returns the required roles for a giveaway
+- [`$giveawayRestrictedMembers`]($giveawayRestrictedMembers.md) — Returns the restricted members for a giveaway
+- [`$giveawayRestrictedRoles`]($giveawayRestrictedRoles.md) — Returns the restricted roles for a giveaway
+- [`$giveawayTimestamp`]($giveawayTimestamp.md) — Returns the created timestamp of a giveaway in ms
+- [`$giveawayWinners`]($giveawayWinners.md) — Returns the winners of a giveaway
+- [`$giveawayWinnersCount`]($giveawayWinnersCount.md) — Returns the winners count of a giveaway
+- [`$newGiveaway`]($newGiveaway.md) — Retrieves new data from an event whose context was a giveaway instance
+- [`$oldGiveaway`]($oldGiveaway.md) — Retrieves old data from an event whose context was a giveaway instance
+- [`$rerollGiveaway`]($rerollGiveaway.md) — Rerolls an existing giveaway on a guild, returns bool
+- [`$startGiveaway`]($startGiveaway.md) — Starts a new giveaway on a guild, returns giveaway id
+- [`$wipeGiveaways`]($wipeGiveaways.md) — Wipes all existing giveaways from the database permanently, use with caution

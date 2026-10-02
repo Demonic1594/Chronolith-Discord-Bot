@@ -1,0 +1,80 @@
+{
+    "_comment": [
+        "Here you can change the messages that happen.",
+        "Currently not all yet"
+    ],
+
+    "_inline|clientcheck": "---",
+
+    "config_errorJoin": "You must be in a voice channel.",
+    "config_errorClientPlayer": "Nothing is playing.",
+    "config_errorChannelPerm": "Can't join to voice channel.\nReason:",
+    "config_errorPerm": "Missing Permission,",
+    "config_errorIsSameVC": "You must same with {client} in",
+    "config_errorIsLimitVC": "Can't join this voice channel.",
+    "config_errorIsSameDJVC": "You must have {role} role to access this command.",
+    "config_infoDJUpdate": "Updating contents...",
+
+    "_inline|autocomplete": "---",
+
+    "config_errorAttemptSearch": "[WARNING] Execute this Application in Server.",
+    "config_errorAttemptSearchJoinVC": "[WARNING] You must be on voice channel to use this.",
+    "config_errorAttemptRadioPlayer": "[WARNING] Stop the current active player before switching player.",
+    "config_errorAttemptSearchFetchTitle": "[INFO] Can't find the title.",
+    "config_errorAttemptSearchSkipTrack": "[INFO] Can't find the track.",
+    "config_infoSearchFirst": "[INFO] What music you want to play?",
+
+    "_inline|clienterror": "---",
+
+    "config_errorNoResult": "No results found.",
+    "config_errorNoResultSearch": "No result.",
+    "config_errorNoResultLyrics": "No lyrics were available.",
+    "config_errorOverResultLyrics": "Unfortunately, i can't show rest of these.",
+    "config_errorNoResultLyricsTranslation": "Translation is not available.",
+    "config_errorPlayTrack": "Cannot process this.\nError:",
+    "config_errorPlayTrackEvents": "Cannot process this.",
+
+    "_inline|player": "---",
+
+    "config_errorNoQueue": "There's no active player.",
+    "config_errorNoQueueList": "Nothing here yet.",
+    "config_errorLiveBeforeSeek": "This track is LIVE.",
+    "config_errorPauseBeforeSeek": "You can't seek while it's paused.",
+    "config_errorProcessSeek": "It's still processing.",
+    "config_errorNoTrackBeforeSeek": "Nothing to skip track.",
+    "config_errorPlayerBeforeSeek": "Disable loop mode to skip.",
+    "config_errorPositionBeforeSeek": "Nothing to skip on position:",
+    "config_errorStopTrack": "Already disconnect.",
+    "config_errorSkipTrackInvalid": "Invalid position.",
+    "config_errorIntervalMessage": "Seems like the current message wasn't exist. This will be use to continue interval.",
+    "config_errorRadioPlayer": "Stop the current active player before switching player.",
+    "config_generalForceSkipTrack": "Attempting to Skip",
+    "config_generalSeekTrack": "Seek to",
+    "config_generalStopTrack": "OK",
+    "config_generalSkipTrack": "Skipped.",
+    "config_generalVolumeTrack": "Volume changed to:",
+    "config_errorAlreadyPaused": "Already paused.",
+    "config_errorNotPaused": "The track is not paused.",
+    "config_generalPauseTrack": "Paused.",
+    "config_generalResumeTrack": "Resumed.",
+    "config_generalIdleTrack": "Nothing is playing now.",
+    "config_generalRefreshYoutubeTrack": "Refreshing Extractor",
+    "config_generalLoadTrack": "Fetching",
+    "config_generalDynamicQueue": "Fetching Related Tracks",
+
+    "_inline|downloader": "---",
+
+    "config_generalInvalidLinkDownload": "Must be link.",
+    "config_generalInvalidProviderDownload": "Invalid provider or the url you inputed is not a expected",
+    "config_generalEmptyDownload": "Can't download this.",
+    "config_generalForbiddenDownload": "Can't access the file.",
+    "config_generalOverDownload": "This media exceeded size limit ({limit_size}).",
+
+    "_inline|playlistuser": "---",
+
+    "config_generalPlaylistExistsUser": "You already have this playlist.",
+    "config_generalPlaylistNotExistUser": "Can't find the playlist.",
+    "config_generalPlaylistErrorUser": "Can't access this playlist.",
+    "config_generalPlaylistTempNotExistUser": "Something just happened. Can't continue this process.",
+    "config_generalPlaylistOnGoingProcessing": "Someone's playlist is still on progress. Try again later."
+}

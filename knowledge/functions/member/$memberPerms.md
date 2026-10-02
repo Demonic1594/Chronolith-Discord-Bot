@@ -1,0 +1,86 @@
+# $memberPerms
+
+> Returns the member perms
+
+| Package | Category | Since | Brackets | Unwrap | Output |
+|---|---|---|---|---|---|
+| ForgeScript | `member` | v1.0.0 | optional | yes | `PermissionFlagsBits[]` |
+
+## Signature
+
+```fs
+$memberPerms[guild ID;user ID;separator;return int]
+```
+
+Arguments are separated by `;`. Optional (non-required) trailing arguments may be omitted entirely.
+
+## Parameters
+
+| # | Name | Type | Required | Rest | Description |
+|---|---|---|---|---|---|
+| 1 | `guild ID` | `Guild` | **yes** | no | The guild to pull the member from |
+| 2 | `user ID` | `Member` | **yes** | no | The member to return its perms |
+| 3 | `separator` | `String` | no | no | The separator to use for every perm |
+| 4 | `return int` | `Boolean` | no | no | Whether to return the perms as bitfield int |
+
+### Per-parameter notes
+
+- **`guild ID`** (`Guild`, required): The guild to pull the member from. Expects a guild ID. Taken from `client.guilds.cache` — the guild must be cached.
+- **`user ID`** (`Member`, required): The member to return its perms. Expects a member ID. Fetched from the guild resolved by the `pointer` argument (usually a leading guild/channel arg) or the context guild.
+  - This argument is resolved against a previously resolved argument (its "pointer") or the current context — order of arguments matters.
+- **`separator`** (`String`, optional): The separator to use for every perm. Expects plain text. Passed through as-is after inner `$functions` are resolved and `\` escapes are processed.
+- **`return int`** (`Boolean`, optional): Whether to return the perms as bitfield int. Expects `true` / `false`. Only the literal strings `true` and `false` are accepted (case-sensitive). `yes`, `1`, `on` are REJECTED with InvalidArgType.
+
+## How it works
+
+Member functions operate on guild members — roles, timeouts, moderation actions, voice state, properties.
+
+`$memberPerms` has `unwrap: true` — every argument is compiled and executed **before** the function body runs: nested `$functions` inside its brackets resolve first, then the resolved values are type-checked (see the parameter notes above) and handed to the implementation. If any argument fails to resolve or type-check, execution of this function stops with a ForgeError and the command aborts (unless the call was silenced with `$#function[...]` or wrapped in `$try[code;catchCode]`).
+
+## Examples
+
+**Basic usage**
+
+```fs
+$memberPerms[123456789012345678;123456789012345678]
+```
+
+**Full form (all arguments)**
+
+```fs
+$memberPerms[123456789012345678;123456789012345678;,;true]
+```
+
+## Reference implementation (source)
+
+Taken from `src/native/member/memberPerms.ts` in the `ForgeScript` repository — this is exactly what runs:
+
+```ts
+execute(...) {
+        const member = user ?? ctx.member ?? ctx.interaction?.member
+        const perms = new PermissionsBitField(member?.permissions)
+        return this.success(int ? perms.bitfield : perms.toArray().join(sep ?? ", "))
+}
+```
+
+## Quirks & gotchas
+
+1. Brackets are OPTIONAL — the function works with or without `[...]`.
+2. Optional arguments (`separator`, `return int`) resolve to `null` when left empty — the implementation decides what that means (usually a sensible default).
+3. Boolean arguments accept ONLY the literal `true`/`false` strings — `yes`/`no`/`1`/`0` are rejected.
+4. Discord entity arguments must be 16-23 digit snowflake IDs — usernames, mentions or full URLs are rejected. Resolve names first with the `lookup`-category functions.
+5. Universal prefixes apply: `!` to discard output (`$!fn[...]`), `#` to suppress the error alert (`$#fn[...]` — top-level calls only, and the run still aborts), `@[sep]` to return the count of separated output pieces (`$@[;;]fn[...]`).
+6. Errors abort the whole command — `$#fn[...]` only hides the alert (on nested calls `#` is ignored entirely); `$try[code;catchCode;errorVar]` is the only real recovery.
+
+## Related functions
+
+- [`$ban`]($ban.md)
+- [`$fetchMembers`]($fetchMembers.md)
+- [`$hasAnyPerms`]($hasAnyPerms.md)
+- [`$hasAnyRole`]($hasAnyRole.md)
+- [`$hasPerms`]($hasPerms.md)
+- [`$hasRoles`]($hasRoles.md)
+- [`$isBannable`]($isBannable.md)
+- [`$isBanned`]($isBanned.md)
+
+**Source:** [`src/native/member/memberPerms.ts`](https://github.com/TryForge/ForgeScript/blob/main/src/native/member/memberPerms.ts)

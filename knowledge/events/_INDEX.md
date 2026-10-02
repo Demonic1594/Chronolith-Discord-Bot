@@ -1,0 +1,81 @@
+# ForgeScript events — index
+
+- [`autoModerationActionExecution`](autoModerationActionExecution.md) — This event is fired when an automod is fired under a message
+- [`autoModerationRuleCreate`](autoModerationRuleCreate.md) — This event is fired when an automod rule is created
+- [`autoModerationRuleDelete`](autoModerationRuleDelete.md) — This event is fired when an automod rule is deleted
+- [`autoModerationRuleUpdate`](autoModerationRuleUpdate.md) — This event is fired when an automod rule is updated
+- [`channelCreate`](channelCreate.md) — This event is fired when a channel is created
+- [`channelDelete`](channelDelete.md) — This event is fired when a channel is deleted
+- [`channelPinsUpdate`](channelPinsUpdate.md) — This event is fired when a channel's pins are updated
+- [`channelUpdate`](channelUpdate.md) — This event is fired when a channel is updated
+- [`clientReady`](clientReady.md) — This event is fired when the bot becomes ready
+- [`debug`](debug.md) — This event is fired when discord.js sends out debug info
+- [`emojiCreate`](emojiCreate.md) — This event is fired when an emoji is created
+- [`emojiDelete`](emojiDelete.md) — This event is fired when an emoji is deleted
+- [`emojiUpdate`](emojiUpdate.md) — This event is fired when an emoji is updated
+- [`entitlementCreate`](entitlementCreate.md) — This event is fired when an entitlement is created
+- [`entitlementDelete`](entitlementDelete.md) — This event is fired when an entitlement is deleted
+- [`entitlementUpdate`](entitlementUpdate.md) — This event is fired when an entitlement is updated
+- [`error`](error.md) — This event is fired when an error happens on the client
+- [`guildAuditLogEntryCreate`](guildAuditLogEntryCreate.md) — This event is fired when a guild audit log entry is created
+- [`guildAvailable`](guildAvailable.md) — This event is fired when a guild becomes available
+- [`guildBanAdd`](guildBanAdd.md) — This event is fired when a member is banned from the guild
+- [`guildBanRemove`](guildBanRemove.md) — This event is fired when a member is unbanned from a guild
+- [`guildCreate`](guildCreate.md) — This event is fired when the bot is added to a guild
+- [`guildDelete`](guildDelete.md) — This event is fired when a guild is deleted
+- [`guildIntegrationsUpdate`](guildIntegrationsUpdate.md) — This event is fired when an integration is updated on a guild
+- [`guildMemberAdd`](guildMemberAdd.md) — This event is fired when a member joins the guild
+- [`guildMemberAvailable`](guildMemberAvailable.md) — This event is fired when a member of a guild becomes available
+- [`guildMemberRemove`](guildMemberRemove.md) — This event is fired when a member leaves, is kicked or banned from a guild
+- [`guildMemberUpdate`](guildMemberUpdate.md) — This event is fired when a member is updated in a guild
+- [`guildScheduledEventCreate`](guildScheduledEventCreate.md) — This event is called when a scheduled event is created
+- [`guildScheduledEventDelete`](guildScheduledEventDelete.md) — This event is called when a scheduled event is deleted
+- [`guildScheduledEventUpdate`](guildScheduledEventUpdate.md) — This event is called when a scheduled event is updated
+- [`guildScheduledEventUserAdd`](guildScheduledEventUserAdd.md) — This event is called when a user is added to a scheduled event
+- [`guildScheduledEventUserRemove`](guildScheduledEventUserRemove.md) — This event is called when a user is removed from a scheduled event
+- [`guildSoundboardSoundCreate`](guildSoundboardSoundCreate.md) — This event is fired when a soundboard sound is created
+- [`guildSoundboardSoundDelete`](guildSoundboardSoundDelete.md) — This event is fired when a soundboard sound is deleted
+- [`guildSoundboardSoundUpdate`](guildSoundboardSoundUpdate.md) — This event is fired when a soundboard sound is updated
+- [`guildUnavailable`](guildUnavailable.md) — This event is fired when a guild becomes unavailable
+- [`guildUpdate`](guildUpdate.md) — This event is fired when a guild updates their settings
+- [`interactionCreate`](interactionCreate.md) — This event is fired every time a user uses a slash command, context menu, button, etc
+- [`inviteCreate`](inviteCreate.md) — This event is fired when an invite is created
+- [`inviteDelete`](inviteDelete.md) — This event is fired when an invite is deleted
+- [`messageCreate`](messageCreate.md) — This event is fired when someone sends a message
+- [`messageDelete`](messageDelete.md) — This event is fired when a message is deleted
+- [`messageDeleteBulk`](messageDeleteBulk.md) — This event is fired when a row of messages is deleted
+- [`messagePollVoteAdd`](messagePollVoteAdd.md) — This event is fired when a poll vote is added
+- [`messagePollVoteRemove`](messagePollVoteRemove.md) — This event is fired when a poll vote is removed
+- [`messageReactionAdd`](messageReactionAdd.md) — This event is fired when a reaction is added
+- [`messageReactionRemove`](messageReactionRemove.md) — This event is fired when a user stops reacting
+- [`messageReactionRemoveAll`](messageReactionRemoveAll.md) — This event is fired when all emojis are removed from a message's reactions
+- [`messageReactionRemoveEmoji`](messageReactionRemoveEmoji.md) — This event is fired when an emoji is removed from a message's reactions
+- [`messageUpdate`](messageUpdate.md) — This event is fired when a message is updated
+- [`presenceUpdate`](presenceUpdate.md) — This event is fired when a presence is updated
+- [`roleCreate`](roleCreate.md) — This event is fired when a role is created
+- [`roleDelete`](roleDelete.md) — This event is fired when a role is deleted
+- [`roleUpdate`](roleUpdate.md) — This event is fired when a role is updated
+- [`shardDisconnect`](shardDisconnect.md) — This event is fired when a shard is disconnected
+- [`shardError`](shardError.md) — This event is fired when a shard throws an error
+- [`shardReady`](shardReady.md) — Event is executed when a shard of this bot becomes ready
+- [`shardReconnecting`](shardReconnecting.md) — This event is fired when a shard starts reconnecting
+- [`shardResume`](shardResume.md) — This event is fired when a shard starts resuming
+- [`stageInstanceCreate`](stageInstanceCreate.md) — This event is fired when a stage is created
+- [`stageInstanceDelete`](stageInstanceDelete.md) — This event is fired when a stage is deleted
+- [`stageInstanceUpdate`](stageInstanceUpdate.md) — This event is fired when a stage is updated
+- [`stickerCreate`](stickerCreate.md) — This event is fired when an sticker is created
+- [`stickerDelete`](stickerDelete.md) — This event is fired when an sticker is deleted
+- [`stickerUpdate`](stickerUpdate.md) — This event is fired when an sticker is updated
+- [`subscriptionCreate`](subscriptionCreate.md) — This event is fired when a subscription is created
+- [`subscriptionDelete`](subscriptionDelete.md) — This event is fired when a subscription is deleted
+- [`subscriptionUpdate`](subscriptionUpdate.md) — This event is fired when a subscription is updated
+- [`threadCreate`](threadCreate.md) — This event is fired when a thread is created
+- [`threadDelete`](threadDelete.md) — This event is fired when a thread is deleted
+- [`threadMemberUpdate`](threadMemberUpdate.md) — This event is fired when a thread member is updated in a guild
+- [`threadUpdate`](threadUpdate.md) — This event is fired when a thread is updated
+- [`typingStart`](typingStart.md) — This event is fired when a user starts typing in a channel
+- [`userUpdate`](userUpdate.md) — This event is fired when a user updates their profile
+- [`voiceChannelEffectSend`](voiceChannelEffectSend.md) — This event is fired when a user sends an effect in a voice channel
+- [`voiceServerUpdate`](voiceServerUpdate.md) — This event is fired when a voice server is updated
+- [`voiceStateUpdate`](voiceStateUpdate.md) — This event is fired when a user joins/leaves a voice channel
+- [`webhooksUpdate`](webhooksUpdate.md) — This event is fired when a webhook is updated

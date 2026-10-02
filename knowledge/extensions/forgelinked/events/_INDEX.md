@@ -1,0 +1,31 @@
+# ForgeLinked events — index
+
+- [`error`](error.md) — This event is called when an error occurs
+- [`linkedChapterStarted`](linkedChapterStarted.md) — Triggered when a specific chapter starts playing
+- [`linkedChaptersLoaded`](linkedChaptersLoaded.md) — Triggered when chapters are loaded for a track
+- [`linkedDebug`](linkedDebug.md) — Triggered for various debug logs and errors
+- [`linkedLyricsFound`](linkedLyricsFound.md) — Triggered when lyrics for a track are found
+- [`linkedLyricsLine`](linkedLyricsLine.md) — Triggered when a new lyrics line is received
+- [`linkedLyricsNotFound`](linkedLyricsNotFound.md) — Triggered when lyrics for a track are not found
+- [`linkedNodeConnect`](linkedNodeConnect.md) — Triggered when connects to a node
+- [`linkedPlayerCreate`](linkedPlayerCreate.md) — This event is called when a player is created
+- [`linkedPlayerDeafChange`](linkedPlayerDeafChange.md) — This event is called when a player deaf state changes
+- [`linkedPlayerDestroy`](linkedPlayerDestroy.md) — This event is called when a player is destroyed
+- [`linkedPlayerDisconnect`](linkedPlayerDisconnect.md) — This event is called when a player disconnects
+- [`linkedPlayerMove`](linkedPlayerMove.md) — This event is called when a player moves
+- [`linkedPlayerMuteChange`](linkedPlayerMuteChange.md) — This event is called when a player mute state changes
+- [`linkedPlayerQueueEmptyCancel`](linkedPlayerQueueEmptyCancel.md) — This event is called when the queue empty handler is cancelled (e.g., a new track was added)
+- [`linkedPlayerQueueEmptyEnd`](linkedPlayerQueueEmptyEnd.md) — This event is called when the queue empty handler finishes and destroys the player
+- [`linkedPlayerQueueEmptyStart`](linkedPlayerQueueEmptyStart.md) — This event is called when the queue empty handler starts (the timeout)
+- [`linkedPlayerSocketClosed`](linkedPlayerSocketClosed.md) — This event is called when a player socket is closed
+- [`linkedPlayerSuppressChange`](linkedPlayerSuppressChange.md) — This event is called when a player suppress state changes
+- [`linkedPlayerUpdate`](linkedPlayerUpdate.md) — This event is called when a player is updated
+- [`linkedPlayerVoiceJoin`](linkedPlayerVoiceJoin.md) — This event is called when a user joins the player voice channel while there is a player
+- [`linkedPlayerVoiceLeave`](linkedPlayerVoiceLeave.md) — This event is called when a user leaves (or switches away from) the player voice channel while there is a player
+- [`linkedQueueEnd`](linkedQueueEnd.md) — Triggered when the queue ends
+- [`linkedSegmentSkipped`](linkedSegmentSkipped.md) — Triggered when a specific segment is skipped
+- [`linkedSegmentsLoaded`](linkedSegmentsLoaded.md) — Triggered when segments are loaded for a track
+- [`linkedTrackEnd`](linkedTrackEnd.md) — Triggered when a track finishes playing
+- [`linkedTrackError`](linkedTrackError.md) — Triggered when an error occurs during track playback
+- [`linkedTrackStart`](linkedTrackStart.md) — Triggered when a track starts playing
+- [`linkedTrackStuck`](linkedTrackStuck.md) — Triggered when a track gets stuck (e.g., playback halts)

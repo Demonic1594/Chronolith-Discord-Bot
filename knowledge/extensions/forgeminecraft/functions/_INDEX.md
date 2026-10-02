@@ -1,0 +1,104 @@
+# ForgeMinecraft functions — index
+
+- [`$addAllowList`]($addAllowList.md) — Adds players to the server's allow list, returns bool
+- [`$addIPBan`]($addIPBan.md) — Adds an IP address to the server's ban list, returns bool
+- [`$addOperator`]($addOperator.md) — Adds a player to the server's operator list, returns bool
+- [`$addPlayerBan`]($addPlayerBan.md) — Adds a player to the server's ban list, returns bool
+- [`$bedrockEdition`]($bedrockEdition.md) — Returns the edition of a bedrock server
+- [`$bedrockEulaBlocked`]($bedrockEulaBlocked.md) — Returns whether a bedrock server has EULA blocked
+- [`$bedrockGameMode`]($bedrockGameMode.md) — Returns the game mode of a bedrock server
+- [`$bedrockHost`]($bedrockHost.md) — Returns the host name of the bedrock server
+- [`$bedrockIPAddress`]($bedrockIPAddress.md) — Returns the IP address of a bedrock server
+- [`$bedrockMOTD`]($bedrockMOTD.md) — Returns the message of the day (MOTD) from a bedrock server
+- [`$bedrockMaxPlayers`]($bedrockMaxPlayers.md) — Returns the maximum amount of allowed players on a bedrock server
+- [`$bedrockPlayerCount`]($bedrockPlayerCount.md) — Returns the online player count of a bedrock server
+- [`$bedrockPort`]($bedrockPort.md) — Returns the port of the bedrock server
+- [`$bedrockServerID`]($bedrockServerID.md) — Returns the server ID of a bedrock server
+- [`$bedrockServerOnline`]($bedrockServerOnline.md) — Returns whether a bedrock server is online
+- [`$bedrockVersion`]($bedrockVersion.md) — Returns the version of a bedrock server
+- [`$clearAllowList`]($clearAllowList.md) — Clears the server's allow list, returns bool
+- [`$clearIPBans`]($clearIPBans.md) — Clears the server's IP ban list, returns bool
+- [`$clearOperators`]($clearOperators.md) — Clears the server's operator list, returns bool
+- [`$clearPlayerBans`]($clearPlayerBans.md) — Clears the server's player ban list, returns bool
+- [`$gameRule`]($gameRule.md) — Retrieves data from an event whose context was a game rule event
+- [`$getAllowList`]($getAllowList.md) — Returns the server's allow list
+- [`$getConnectedPlayers`]($getConnectedPlayers.md) — Returns the server's currently connected players
+- [`$getGameRules`]($getGameRules.md) — Returns the server's game rules
+- [`$getIPBans`]($getIPBans.md) — Returns the server's IP ban list
+- [`$getOperators`]($getOperators.md) — Returns the server's operator list
+- [`$getPlayerBans`]($getPlayerBans.md) — Returns the server's player ban list
+- [`$getServerVersion`]($getServerVersion.md) — Returns current version of the minecraft server
+- [`$hasGameRulesRegistry`]($hasGameRulesRegistry.md) — Returns whether the server has the new game rules registry
+- [`$hasServerStarted`]($hasServerStarted.md) — Returns whether the server has fully started
+- [`$ipBan`]($ipBan.md) — Retrieves data from an event whose context was an IP ban event
+- [`$javaEulaBlocked`]($javaEulaBlocked.md) — Returns whether a java server has EULA blocked
+- [`$javaHost`]($javaHost.md) — Returns the host name of the java server
+- [`$javaIPAddress`]($javaIPAddress.md) — Returns the IP address of a java server
+- [`$javaIcon`]($javaIcon.md) — Returns the icon of a java server as attachment
+- [`$javaMOTD`]($javaMOTD.md) — Returns the message of the day (MOTD) from a java server
+- [`$javaMaxPlayers`]($javaMaxPlayers.md) — Returns the maximum amount of allowed players on a java server
+- [`$javaMods`]($javaMods.md) — Returns the mods of a java server
+- [`$javaPlayerCount`]($javaPlayerCount.md) — Returns the online player count of a java server
+- [`$javaPlayerList`]($javaPlayerList.md) — Returns the online player list of a java server
+- [`$javaPlugins`]($javaPlugins.md) — Returns the plugins of a java server
+- [`$javaPort`]($javaPort.md) — Returns the port of the java server
+- [`$javaServerOnline`]($javaServerOnline.md) — Returns whether a java server is online
+- [`$javaSoftware`]($javaSoftware.md) — Returns the software of a java server
+- [`$javaVersion`]($javaVersion.md) — Returns the version of a java server
+- [`$kickPlayers`]($kickPlayers.md) — Kicks players from the minecraft server, returns number of kicked players
+- [`$operator`]($operator.md) — Retrieves data from an event whose context was an operator event
+- [`$player`]($player.md) — Retrieves data from an event whose context was a player event
+- [`$playerBan`]($playerBan.md) — Retrieves data from an event whose context was a player ban event
+- [`$removeAllowList`]($removeAllowList.md) — Removes players from the server's allow list, returns bool
+- [`$removeIPBans`]($removeIPBans.md) — Removes IP addresses from the server's ban list, returns bool
+- [`$removeIPBan`]($removeIPBan.md) — Alias of `$removeIPBans`
+- [`$removeOperators`]($removeOperators.md) — Removes players from the server's operator list, returns bool
+- [`$removeOperator`]($removeOperator.md) — Alias of `$removeOperators`
+- [`$removePlayerBans`]($removePlayerBans.md) — Removes players from the server's ban list, returns bool
+- [`$removePlayerBan`]($removePlayerBan.md) — Alias of `$removePlayerBans`
+- [`$saveServer`]($saveServer.md) — Saves the minecraft server
+- [`$sendSystemMessage`]($sendSystemMessage.md) — Sends a system message to the minecraft server, returns bool
+- [`$serverAcceptTransfers`]($serverAcceptTransfers.md) — Returns whether the server accepts players transferred from other servers
+- [`$serverAllowFlight`]($serverAllowFlight.md) — Returns whether players are allowed to fly on the server
+- [`$serverAutoSave`]($serverAutoSave.md) — Returns whether the server automatically saves the world periodically
+- [`$serverDifficulty`]($serverDifficulty.md) — Returns the difficulty level of the server
+- [`$serverEnforceAllowList`]($serverEnforceAllowList.md) — Returns whether the server immediately kicks players when they are removed from the allow list
+- [`$serverEntityBroadcastRange`]($serverEntityBroadcastRange.md) — Returns the range in chunks around each player in which entities are updated to the player, in percentage
+- [`$serverForceGameMode`]($serverForceGameMode.md) — Returns whether players are forced to use the server's game mode when they join
+- [`$serverGameMode`]($serverGameMode.md) — Returns the default game mode for players when they join the server for the first time
+- [`$serverHideOnlinePlayers`]($serverHideOnlinePlayers.md) — Returns whether the server hides the list of online players from the server list
+- [`$serverMOTD`]($serverMOTD.md) — Returns the server's message of the day (MOTD)
+- [`$serverMaxPlayers`]($serverMaxPlayers.md) — Returns the maximum number of players that can join the server
+- [`$serverOperatorUserPermissionLevel`]($serverOperatorUserPermissionLevel.md) — Returns the permission level granted to new operators
+- [`$serverPauseWhenEmptySeconds`]($serverPauseWhenEmptySeconds.md) — Returns the number of seconds before pausing server when no players are online
+- [`$serverPlayerIdleTimeout`]($serverPlayerIdleTimeout.md) — Returns the number of minutes a player can be idle before being kicked
+- [`$serverSimulationDistance`]($serverSimulationDistance.md) — Returns the simulation distance of the server in chunks
+- [`$serverSpawnProtectionRadius`]($serverSpawnProtectionRadius.md) — Returns the radius around the world spawn point that is protected from non-operator players
+- [`$serverState`]($serverState.md) — Retrieves data from an event whose context was a server status event
+- [`$serverStatusHeartbeatInterval`]($serverStatusHeartbeatInterval.md) — Returns the interval in seconds between status heartbeats sent to server management clients
+- [`$serverStatusReplies`]($serverStatusReplies.md) — Returns whether the server responds to status requests in the multiplayer server list
+- [`$serverUseAllowList`]($serverUseAllowList.md) — Returns whether the server uses the allow list
+- [`$serverViewDistance`]($serverViewDistance.md) — Returns the view distance of the server in chunks
+- [`$setAcceptTransfers`]($setAcceptTransfers.md) — Sets whether the server accepts players transferred from other servers
+- [`$setAllowFlight`]($setAllowFlight.md) — Sets whether players are allowed to fly on the server
+- [`$setAllowList`]($setAllowList.md) — Overwrites the existing allow list with a set of players, returns bool
+- [`$setAutoSave`]($setAutoSave.md) — Sets whether the server automatically saves the world periodically
+- [`$setDifficulty`]($setDifficulty.md) — Sets the difficulty level of the world
+- [`$setEnforceAllowList`]($setEnforceAllowList.md) — Sets whether the server immediately kicks players when they are removed from the allow list
+- [`$setEntityBroadcastRange`]($setEntityBroadcastRange.md) — Sets the range in chunks around each player in which entities are updated to the players, in percentage
+- [`$setForceGameMode`]($setForceGameMode.md) — Sets whether players are forced to use the server's game mode when they join
+- [`$setGameMode`]($setGameMode.md) — Sets the default game mode for players when they join the server for the first time
+- [`$setHideOnlinePlayers`]($setHideOnlinePlayers.md) — Sets whether the server hides the list of online players from the server list
+- [`$setMOTD`]($setMOTD.md) — Sets the message of the day (MOTD) for this server
+- [`$setMaxPlayers`]($setMaxPlayers.md) — Sets the maximum number of players that can join the server
+- [`$setOperatorUserPermissionLevel`]($setOperatorUserPermissionLevel.md) — Sets the permission level granted to new operators
+- [`$setPauseWhenEmptySeconds`]($setPauseWhenEmptySeconds.md) — Sets the number of seconds before pausing server when no players are online
+- [`$setPlayerIdleTimeout`]($setPlayerIdleTimeout.md) — Sets the number of minutes a player can be idle before being kicked
+- [`$setSimulationDistance`]($setSimulationDistance.md) — Sets the simulation distance of the server in chunks
+- [`$setSpawnProtectionRadius`]($setSpawnProtectionRadius.md) — Sets the radius around the world spawn point that is protected from non-operator players
+- [`$setStatusHeartbeatInterval`]($setStatusHeartbeatInterval.md) — Sets the interval in seconds between status heartbeats sent to server management clients
+- [`$setStatusReplies`]($setStatusReplies.md) — Sets whether the server responds to status requests in the multiplayer server list
+- [`$setUseAllowList`]($setUseAllowList.md) — Sets whether the server uses the allow list
+- [`$setViewDistance`]($setViewDistance.md) — Sets the view distance of the server in chunks
+- [`$stopServer`]($stopServer.md) — Stops the minecraft server, returns bool
+- [`$updateGameRule`]($updateGameRule.md) — Updates a game rule of the minecraft server, returns bool

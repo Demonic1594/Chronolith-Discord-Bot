@@ -1,0 +1,46 @@
+# ForgeMusic functions — index
+
+- [`$clearQueue`]($clearQueue.md) — Clear the guild queue.
+- [`$clearQueueHistory`]($clearQueueHistory.md) — Clear the queue history.
+- [`$currentTrackTotalDuration`]($currentTrackTotalDuration.md) — Returns the total duration of the current audio track.
+- [`$deleteQueue`]($deleteQueue.md) — Deletes the queue of the current guild.
+- [`$disableAllFilters`]($disableAllFilters.md) — Disable the provided FFMPEG filters.
+- [`$enableAllFilters`]($enableAllFilters.md) — Enable the provided FFMPEG filters.
+- [`$getAvailableProviders`]($getAvailableProviders.md) — Get the available audio providers.
+- [`$getDisabledFilters`]($getDisabledFilters.md) — Return the disabled FFMPEG filters.
+- [`$getEnabledFilters`]($getEnabledFilters.md) — Return the enabled FFMPEG filters.
+- [`$getLoopMode`]($getLoopMode.md) — Returns the state of the loop mode.
+- [`$getVolume`]($getVolume.md) — Get the current volume of the music player.
+- [`$hasMusicNode`]($hasMusicNode.md) — Check whether the current guild has a music node created.
+- [`$isFilterEnabled`]($isFilterEnabled.md) — Check whether the provided filter is enabled.
+- [`$isPaused`]($isPaused.md) — Check whether the music player is paused.
+- [`$isPlaying`]($isPlaying.md) — Check whether the music player is playing a track.
+- [`$isQueueHistoryDisabled`]($isQueueHistoryDisabled.md) — Returns whether the queue history is disabled.
+- [`$isQueueHistoryEmpty`]($isQueueHistoryEmpty.md) — Returns whether the queue history is empty.
+- [`$leaveVoiceChannel`]($leaveVoiceChannel.md) — Destroys the current voice connection.
+- [`$moveTrack`]($moveTrack.md) — Moves the track to a new position.
+- [`$pauseTrack`]($pauseTrack.md) — Pauses the current track.
+- [`$playNext`]($playNext.md) — Play the next track in the queue, if any.
+- [`$playPrevious`]($playPrevious.md) — Play the previous track in the queue history, if any.
+- [`$playTrack`]($playTrack.md) — Play a track by query.
+- [`$playerElapsedTime`]($playerElapsedTime.md) — Returns the elapsed time of the current song in milliseconds.
+- [`$queue`]($queue.md) — Returns queue songs resolving the given text placeholders.
+- [`$queueEstimatedDuration`]($queueEstimatedDuration.md) — Returns the estimated duration of the current guild queue in milliseconds.
+- [`$queueHistory`]($queueHistory.md) — Returns queue history songs resolving the given text placeholders.
+- [`$queueHistoryLength`]($queueHistoryLength.md) — Returns the length of the tracks that were played.
+- [`$queueLength`]($queueLength.md) — Returns the length of the current guild queue.
+- [`$queuePing`]($queuePing.md) — Returns the latency of the current guild queue.
+- [`$removeTrack`]($removeTrack.md) — Removes the track that is located at the given position.
+- [`$resumeTrack`]($resumeTrack.md) — Resumes the current paused track.
+- [`$searchTrack`]($searchTrack.md) — Search for a track using the given query.
+- [`$seekTrack`]($seekTrack.md) — Seeks a track.
+- [`$setLoopMode`]($setLoopMode.md) — Set the loop mode of the music player.
+- [`$setVolume`]($setVolume.md) — Set the volume of the music player.
+- [`$shuffleQueue`]($shuffleQueue.md) — Shuffle the queue when the current track ends, unlike $shuffleTracks that can be undone, this function does not mutates the queue.
+- [`$shuffleTracks`]($shuffleTracks.md) — Shuffle the current guild queue.
+- [`$skipTo`]($skipTo.md) — Skip the current track to the given position.
+- [`$skipTrack`]($skipTrack.md) — Skip the current track.
+- [`$stopTrack`]($stopTrack.md) — Forces to stop the current track.
+- [`$toggleFilters`]($toggleFilters.md) — Toggle the provided FFMPEG filters.
+- [`$trackInfo`]($trackInfo.md) — Returns information of the current track.
+- [`$unshuffleQueue`]($unshuffleQueue.md) — Disable shuffle mode for the queue.

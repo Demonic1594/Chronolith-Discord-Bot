@@ -1,0 +1,58 @@
+# $serverGameMode
+
+> Returns the default game mode for players when they join the server for the first time
+
+| Package | Category | Since | Brackets | Unwrap | Output |
+|---|---|---|---|---|---|
+| ForgeMinecraft | `management` | v1.0.0 | none | no | `GameMode` |
+
+## Signature
+
+```fs
+$serverGameMode
+```
+
+## How it works
+
+See the function list below for exact signatures.
+
+`$serverGameMode` has `unwrap: false` — its arguments are passed as **raw code text** and are only compiled/executed when the implementation chooses to (this is what allows multi-statement bodies with `;` inside control-flow functions).
+
+This function takes no arguments (none).
+
+## Examples
+
+```fs
+$serverGameMode
+```
+
+## Reference implementation (source)
+
+Taken from `src/native/management/serverGameMode.ts` in the `ForgeMinecraft` repository — this is exactly what runs:
+
+```ts
+execute(...) {
+        const mode = await ctx.client.minecraft.server?.settings().getGameMode().catch(ctx.noop)
+        return this.success(mode ? convertEnum(GameMode, mode) : null)
+}
+```
+
+## Quirks & gotchas
+
+1. Arguments are raw code — nested `$functions` inside them are NOT resolved before this function runs.
+2. This function has no brackets — it is used bare.
+3. Universal prefixes apply: `!` to discard output (`$!fn[...]`), `#` to suppress the error alert (`$#fn[...]` — top-level calls only, and the run still aborts), `@[sep]` to return the count of separated output pieces (`$@[;;]fn[...]`).
+4. Errors abort the whole command — `$#fn[...]` only hides the alert (on nested calls `#` is ignored entirely); `$try[code;catchCode;errorVar]` is the only real recovery.
+
+## Related functions
+
+- [`$addAllowList`]($addAllowList.md)
+- [`$addIPBan`]($addIPBan.md)
+- [`$addOperator`]($addOperator.md)
+- [`$addPlayerBan`]($addPlayerBan.md)
+- [`$clearAllowList`]($clearAllowList.md)
+- [`$clearIPBans`]($clearIPBans.md)
+- [`$clearOperators`]($clearOperators.md)
+- [`$clearPlayerBans`]($clearPlayerBans.md)
+
+**Source:** [`src/native/management/serverGameMode.ts`](https://github.com/tryforge/ForgeMinecraft/blob/main/src/native/management/serverGameMode.ts)

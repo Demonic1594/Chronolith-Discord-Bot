@@ -1,0 +1,67 @@
+# ForgeColor functions — index
+
+- [`$averageColor`]($averageColor.md) — Calculates the average (mean) color from two or more input colors and returns it in the specified format.
+- [`$meanColor`]($meanColor.md) — Alias of `$averageColor`
+- [`$blendColors`]($blendColors.md) — Blends two colors using a blend mode like average, multiply, or gamma.
+- [`$blend`]($blend.md) — Alias of `$blendColors`
+- [`$mixColors`]($mixColors.md) — Alias of `$blendColors`
+- [`$colorContrastRatio`]($colorContrastRatio.md) — Calculates the WCAG contrast ratio between two colors (1.0–21.0). Higher = more contrast.
+- [`$contrastRatio`]($contrastRatio.md) — Alias of `$colorContrastRatio`
+- [`$colorDistance`]($colorDistance.md) — Calculates the distance between two colors using a specified formula. Defaults to cie76.
+- [`$colorDiff`]($colorDiff.md) — Alias of `$colorDistance`
+- [`$colorDifference`]($colorDifference.md) — Alias of `$colorDistance`
+- [`$colorSimilarity`]($colorSimilarity.md) — Alias of `$colorDistance`
+- [`$colorFormatType`]($colorFormatType.md) — Returns the format of a given color code (hex, rgb, rgba, hsl, etc).
+- [`$detectColorFormat`]($detectColorFormat.md) — Alias of `$colorFormatType`
+- [`$getColorFormat`]($getColorFormat.md) — Alias of `$colorFormatType`
+- [`$colorFromTemperature`]($colorFromTemperature.md) — Generates a color from a given color temperature (Kelvin).
+- [`$colorFromTemp`]($colorFromTemp.md) — Alias of `$colorFromTemperature`
+- [`$colorTemperatureToColor`]($colorTemperatureToColor.md) — Alias of `$colorFromTemperature`
+- [`$kelvinToColor`]($kelvinToColor.md) — Alias of `$colorFromTemperature`
+- [`$colorTemperature`]($colorTemperature.md) — Estimates the color temperature (Kelvin) from a given color.
+- [`$colorTemp`]($colorTemp.md) — Alias of `$colorTemperature`
+- [`$colorToTemperature`]($colorToTemperature.md) — Alias of `$colorTemperature`
+- [`$temperatureFromColor`]($temperatureFromColor.md) — Alias of `$colorTemperature`
+- [`$colorToCMYK`]($colorToCMYK.md) — Converts a color code from any supported format (hex, rgb, hsl, etc.) to a cmyk format.
+- [`$colorToHSL`]($colorToHSL.md) — Converts a color code from any supported format (hex, rgb, hsl, etc.) to a hsl format.
+- [`$colorToHex`]($colorToHex.md) — Converts a color code from any supported format (hex, rgb, hsl, etc.) to a hex format.
+- [`$colorToInt`]($colorToInt.md) — Converts a color code from any supported format (hex, rgb, hsl, etc.) to a int format.
+- [`$colorToRGB`]($colorToRGB.md) — Converts a color code from any supported format (hex, rgb, hsl, etc.) to a rgb/rgba format.
+- [`$colorToRGBA`]($colorToRGBA.md) — Alias of `$colorToRGB`
+- [`$convertColor`]($convertColor.md) — Converts a color code from any supported format (hex, rgb, hsl, etc.) to a target format.
+- [`$colorConvert`]($colorConvert.md) — Alias of `$convertColor`
+- [`$transformColor`]($transformColor.md) — Alias of `$convertColor`
+- [`$findClosestColorName`]($findClosestColorName.md) — Finds the closest named color(s) to a given color code, optionally returning multiple results.
+- [`$closestColorName`]($closestColorName.md) — Alias of `$findClosestColorName`
+- [`$nearestColor`]($nearestColor.md) — Alias of `$findClosestColorName`
+- [`$generateGradient`]($generateGradient.md) — Generates a gradient of color codes between two or more colors.
+- [`$getColorChannel`]($getColorChannel.md) — Extracts a specific channel (e.g. red, hue, saturation) from a color code.
+- [`$colorChannel`]($colorChannel.md) — Alias of `$getColorChannel`
+- [`$extractColorChannel`]($extractColorChannel.md) — Alias of `$getColorChannel`
+- [`$getColorFromName`]($getColorFromName.md) — Gets a color's code from named colors (case-insensitive).
+- [`$colorFromName`]($colorFromName.md) — Alias of `$getColorFromName`
+- [`$colorName`]($colorName.md) — Alias of `$getColorFromName`
+- [`$namedColor`]($namedColor.md) — Alias of `$getColorFromName`
+- [`$invertColor`]($invertColor.md) — Inverts a color's RGB channels and returns an new inverted color.
+- [`$colorInvert`]($colorInvert.md) — Alias of `$invertColor`
+- [`$inverseColor`]($inverseColor.md) — Alias of `$invertColor`
+- [`$isDarkColor`]($isDarkColor.md) — Checks if a color is dark based on luminance (returns true/false).
+- [`$isColorDark`]($isColorDark.md) — Alias of `$isDarkColor`
+- [`$isDark`]($isDark.md) — Alias of `$isDarkColor`
+- [`$isLightColor`]($isLightColor.md) — Checks if a color is light based on luminance (returns true/false).
+- [`$isColorLight`]($isColorLight.md) — Alias of `$isLightColor`
+- [`$isLight`]($isLight.md) — Alias of `$isLightColor`
+- [`$isNamedColor`]($isNamedColor.md) — Checks whether a given color name exists in the named color list.
+- [`$isColorName`]($isColorName.md) — Alias of `$isNamedColor`
+- [`$isValidColor`]($isValidColor.md) — Checks whether given color code is valid.
+- [`$parseColor`]($parseColor.md) — Parses and normalizes a color string to a structured object.
+- [`$colorObject`]($colorObject.md) — Alias of `$parseColor`
+- [`$prettifyColor`]($prettifyColor.md) — Returns a cleaner, standardized version of the given color string.
+- [`$formatColor`]($formatColor.md) — Alias of `$prettifyColor`
+- [`$normalizeColor`]($normalizeColor.md) — Alias of `$prettifyColor`
+- [`$randomColor`]($randomColor.md) — Generates a random color in the specified format (hex by default).
+- [`$searchColorName`]($searchColorName.md) — Finds named colors that contain a substring (case-insensitive).
+- [`$shade`]($shade.md) — Darkens a color by blending it with black.
+- [`$shadeColor`]($shadeColor.md) — Alias of `$shade`
+- [`$tint`]($tint.md) — Lightens a color by blending it with white.
+- [`$tintColor`]($tintColor.md) — Alias of `$tint`
