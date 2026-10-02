@@ -1,0 +1,28 @@
+{
+    "name": "chronolith-discord-bot",
+    "version": "1.0.0",
+    "description": "Chronolith — a full-featured Discord moderation bot built on ForgeScript.",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Demonic1594/Chronolith-Discord-Bot.git"
+    },
+    "keywords": [
+        "Chronolith",
+        "Discord",
+        "moderation",
+        "ForgeScript",
+        "BotForge"
+    ],
+    "author": "Demonic1594",
+    "license": "Apache-2.0",
+    "dependencies": {
+        "@tryforge/forge.db": "^2.1.0",
+        "@tryforge/forgescript": "^2.7.1",
+        "better-sqlite3": "^12.11.1",
+        "dotenv": "^16.4.5"
+    }
+}

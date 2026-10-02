@@ -1,0 +1,12 @@
+.env
+node_modules
+run.log
+test.log
+actor2.log
+bot.lock
+forge.db
+database/
+nohup.out
+tmp*/
+__pycache__/
+*.pyc
