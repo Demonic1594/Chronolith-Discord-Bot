@@ -41,7 +41,7 @@ module.exports = [
                 $sendMessage[$get[ch];
                     $author[Anti-nuke;$userAvatar[$botID;64;png]]
                     $title[⚠ Destructive action detected]
-                    $color[DA373C]
+                    $color[F23F24]
                     $description[<@$get[executor]> performed **$env[action]** (target: $env[targetID])]
                     $footer[Chronolith • Case #$get[n]]
                     $timestamp

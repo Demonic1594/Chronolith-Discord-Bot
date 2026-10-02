@@ -67,7 +67,7 @@ $jsonLoad[js;$get[rawjs]]
                 $sendMessage[$get[ch];
                     $author[Anti-raid;$userAvatar[$botID;64;png]]
                     $title[⚠ Possible raid detected]
-                    $color[DA373C]
+                    $color[F23F24]
                     $description[$math[$get[cnt]+1] members joined within $get[window] seconds.]
                     $footer[Chronolith • Verification]
                     $timestamp

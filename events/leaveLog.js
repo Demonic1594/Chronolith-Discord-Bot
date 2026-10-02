@@ -9,7 +9,7 @@ module.exports = {
         $if[$get[lch]!=;
             $sendMessage[$get[lch];
                 $author[➖ $userTag[$userID];$userAvatar[$userID;64;png]]
-                $color[DA373C]
+                $color[F23F24]
                 $thumbnail[$userAvatar[$userID;256;png]]
                 $description[<@$userID>
 -# ID: $userID]

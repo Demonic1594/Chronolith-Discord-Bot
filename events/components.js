@@ -65,6 +65,46 @@ module.exports = {
             ]
         ]
 
+        $if[$or[$get[verb]==mlogu;$get[verb]==mloga]==true;
+            $let[dir;$arrayAt[id;1]]
+            $let[arg;$arrayAt[id;2]]
+            $let[page;$arrayAt[id;3]]
+            $onlyIf[$isMod[$guildID;$authorID]==true;
+                $ephemeral
+                $interactionReply[⛔ Missing permissions to change the pages.]
+                $stop
+            ]
+            $if[$get[dir]==back;
+                $let[page;$max[$math[$get[page]-1];1]]
+            ;
+                $let[page;$math[$get[page]+1]]
+            ]
+            $if[$get[verb]==mlogu;
+                $let[pages;$modlogUserPages[$guildID;$get[arg]]]
+                $let[body;$modlogUserPage[$guildID;$get[arg];$get[page]]]
+                $let[head;$userTag[$get[arg]]]
+                $let[av;$userAvatar[$get[arg];64;png]]
+            ;
+                $let[pages;$modlogActionPages[$guildID;$get[arg]]]
+                $let[body;$modlogActionPage[$guildID;$get[arg];$get[page]]]
+                $let[head;$toUpperCase[$get[arg]]]
+                $let[av;$userAvatar[$botID;64;png]]
+            ]
+            $interactionUpdate[
+                $author[Modlog • $get[head];$get[av]]
+                $color[$if[$get[body]==;#4E5058;5865F2]]
+                $description[$if[$get[body]==;
+> No mod logs on this page.
+;
+$get[body]
+]]
+                $footer[Chronolith • Modlog • Page $get[page] of $get[pages] • %reason <case#> <text> to edit]
+                $timestamp
+                $addActionRow
+                $addButton[$get[verb]-back-$get[arg]-$get[page]-$authorID;◀;Primary]
+                $addButton[$get[verb]-fwd-$get[arg]-$get[page]-$authorID;▶;Primary]
+            ]
+        ]
         $if[$get[verb]==mlogs;
             $let[direction;$arrayAt[id;1]]
             $let[page;$arrayAt[id;2]]
@@ -79,21 +119,20 @@ module.exports = {
                 $let[page;$math[$get[page]+1]]
             ]
             $let[total;$getGuildVar[caseCount;$guildID;0]]
-            $let[hi;$math[$get[total]-[$math[$get[page]-1]*5]]]
+            $let[hi;$math[$get[total]-(($get[page]-1)*5)]]
             $interactionUpdate[
-                $author[Server Management]
-                $title[Server Moderation Logs]
-                $color[AA00E6]
+                $author[Chronolith • Modlog;$userAvatar[$botID;64;png]]
+                $color[$if[$get[hi]<1;#4E5058;5865F2]]
                 $description[$if[$get[hi]<1;
-> \`No Mod logs as of yet on this page.\`
+> No mod logs on this page.
 ;
 $modlogPage[$guildID;$get[hi]]
 ]]
-                $footer[To edit a reason, do %reason <caseID> <new reason> • Page $get[page]]
+                $footer[Chronolith • Modlog • Page $get[page] of $pageCount[$get[total]] • %reason <case#> <text> to edit]
                 $timestamp
                 $addActionRow
-                $addButton[mlogs-back-$get[page]-$authorID;;Secondary;⬅️]
-                $addButton[mlogs-fwd-$get[page]-$authorID;;Secondary;➡️]
+                $addButton[mlogs-back-$get[page]-$authorID;◀;Primary]
+                $addButton[mlogs-fwd-$get[page]-$authorID;▶;Primary]
             ]
         ]
         $if[$get[verb]==bunban;

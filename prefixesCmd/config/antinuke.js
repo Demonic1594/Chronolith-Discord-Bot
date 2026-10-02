@@ -19,7 +19,7 @@ $!jsonSet[cfg;antinuke;action;$if[$message[2]!=;$message[2];ban]]
 ]
 $!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $description[🛡️ Anti-nuke **$toLowerCase[$message[0]]**$if[$toLowerCase[$message[0]]==on; — $if[$message[1]!=;$message[1];3] dangerous actions in 20s → $if[$message[2]!=;$message[2];ban]]. Whitelist: mods.]
-$color[DA373C]
+$color[F23F24]
 $footer[Chronolith • Security]
     `
 };

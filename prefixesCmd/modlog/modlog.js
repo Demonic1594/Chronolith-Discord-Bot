@@ -30,51 +30,50 @@ $let[c;$if[$message[1]==off;;$replace[$replace[$message[1];<#;];>;] ]]
 $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $!jsonSet[cfg;modlog;$trim[$get[c]]]
 $!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
-$description[$if[$get[c]==;Modlog channel disabled.;Modlog channel set to <#$get[c]>.]]
+$author[Chronolith • Modlog;$userAvatar[$botID;64;png]]
+$description[$if[$get[c]==;> Modlog channel disabled.;> Modlog channel set to <#$get[c]>.]]
 $color[5865F2]
+$footer[Chronolith • Settings]
+$timestamp
 ;
 $if[$get[mode]==user;
-$!arrayLoad[cs;,;$get[uc]]
-$!arrayLoad[out;]
-$!arrayMap[cs;k;$jsonLoad[one;$getGuildVar[case_$env[k];$guildID;{}]]$return[-# **#$env[k]** $actionEmoji[$env[one;t]] · <@$env[one;m]> · $env[one;r]];out]
-$author[User logs • $userTag[$get[target]];$userAvatar[$get[target];64;png]]
+$author[Modlog • $userTag[$get[target]];$userAvatar[$get[target];64;png]]
 $color[5865F2]
-$description[$arrayJoin[out;
-]]
-$footer[Chronolith • $arrayLength[cs] case(s)];
+$description[$modlogUserPage[$guildID;$get[target];1]]
+$footer[Chronolith • Modlog • Page 1 of $modlogUserPages[$guildID;$get[target]] • %reason <case#> <text> to edit]
+$timestamp
+$addActionRow
+$addButton[mlogu-back-$get[target]-1-$authorID;◀;Primary]
+$addButton[mlogu-fwd-$get[target]-1-$authorID;▶;Primary]
+;
 $if[$get[mode]==action;
+$let[body;$modlogActionPage[$guildID;$get[atype];1]]
+$author[Modlog • $toUpperCase[$get[atype]];$userAvatar[$botID;64;png]]
+$color[$if[$get[body]==;#4E5058;5865F2]]
+$description[$if[$get[body]==;
+> No cases of that type in the last 200.
+;
+$get[body]
+]]
+$footer[Chronolith • Modlog • Page 1 of $modlogActionPages[$guildID;$get[atype]] • %reason <case#> <text> to edit]
+$timestamp
+$addActionRow
+$addButton[mloga-back-$get[atype]-1-$authorID;◀;Primary]
+$addButton[mloga-fwd-$get[atype]-1-$authorID;▶;Primary]
+;
 $let[total;$getGuildVar[caseCount;$guildID;0]]
-$let[ptr;$get[total]]
-$!arrayLoad[out;]
-$loop[200;
-$if[$or[$get[ptr]<1;$math[$get[total]-$get[ptr]]>=200];
-$break
-]
-$!jsonLoad[one;$getGuildVar[case_$get[ptr];$guildID;{}]]
-$if[$env[one;t]==$get[atype];
-$!arrayPush[out;-# **#$get[ptr]** · <@$env[one;u]> · $env[one;r]]
-]
-$let[ptr;$math[$get[ptr]-1]]
-]
-$author[Action logs • $get[atype];$userAvatar[$botID;64;png]]
-$color[5865F2]
-$description[$if[$arrayLength[out]==0;No cases of that type in the last 200.;$arrayJoin[out;
-]]]
-$footer[Chronolith • scanned up to 200];
-$let[total;$getGuildVar[caseCount;$guildID;0]]
-$author[Server Management]
-$title[Server Moderation Logs]
-$color[AA00E6]
+$author[Chronolith • Modlog;$userAvatar[$botID;64;png]]
+$color[$if[$get[total]==0;#4E5058;5865F2]]
 $description[$if[$get[total]==0;
-> \`No Mod logs as of yet.\`
+> No mod logs as of yet.
 ;
 $modlogPage[$guildID;$get[total]]
 ]]
-$footer[To edit a reason, do %reason <caseID> <new reason> • Page 1]
+$footer[Chronolith • Modlog • Page 1 of $pageCount[$get[total]] • %reason <case#> <text> to edit]
 $timestamp
 $addActionRow
-$addButton[mlogs-back-1-$authorID;;Secondary;⬅️]
-$addButton[mlogs-fwd-1-$authorID;;Secondary;➡️]
+$addButton[mlogs-back-1-$authorID;◀;Primary]
+$addButton[mlogs-fwd-1-$authorID;▶;Primary]
 ]
 ]
 ]

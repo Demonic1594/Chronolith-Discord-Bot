@@ -56,11 +56,11 @@ async function send(content) {
         ["claim usage shows [note] closed bracket", "%claim",
          ["[note]"]],
         ["close usage shows [note]", "%close", ["[note]"]],
-        ["modlog recent view", "%modlog recent", ["Recent logs", "case(s) total"]],
+        ["modlog recent view", "%modlog recent", ["Chronolith • Modlog", "Page 1 of"]],
         ["help footer page info", "%help", ["Chronolith • Page 1 of"]],
         ["config dashboard footer", "%config", ["Chronolith • Settings", "Modlog"]],
         ["ban reply: blockquote + danger color", `%ban <@${BOT}> danger visual` ,
-         ["🔨 Banned", "> danger visual", "DA373C", "Chronolith • Moderation"]],
+         ["The Ban Hammer has spoken!", "danger visual", "F23F24", "Rule breakers begone!"]],
         ["mute duration usage shows [reason]", "%mute <@1553804378475864156>",
          ["A duration is required", "[reason]"]],
     ];
