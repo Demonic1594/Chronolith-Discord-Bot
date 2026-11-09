@@ -16,3 +16,6 @@ actor.log
 testsynth.log
 chronolith.log
 __pycache__/
+
+# Python bytecode (tools/)
+__pycache__/
