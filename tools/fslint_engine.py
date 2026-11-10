@@ -523,11 +523,17 @@ class Linter:
                        f"$arrayIncludes parses {needle!r} as JSON (a number) but $arrayLoad stores strings: always false",
                        c.fields[1].start, c.fields[1].end, f'Quote the needle: "{needle}"')
             # $arrayLoad with empty values creates [""] [runtime]
-            # [runtime] $arrayLoad[a] -> [] ; $arrayLoad[a;,] and $arrayLoad[a;,;] -> [""]
-            if n == "$arrayload" and c.fields is not None and len(c.fields) >= 2 and (
-                    len(c.fields) < 3 or _literal(c.fields[2]) == ""):
-                _f(out, "warn", "phantom-element", "$arrayLoad with no values creates a one-element array [\"\"]",
-                   c.start, c.end, "Use $arrayCreate[name] for an empty array")
+            # [source: arrayLoad.ts] an empty separator is null -> []; otherwise values.join(";").split(sep)
+            if n == "$arrayload" and c.fields is not None and len(c.fields) >= 2:
+                sep = _literal(c.fields[1])
+                vals = c.fields[2:]
+                if sep and all(_literal(v) == "" for v in vals):
+                    _f(out, "warn", "phantom-element", f"$arrayLoad with separator {sep!r} and no values creates a one-element array [\"\"]",
+                       c.start, c.end, "Use $arrayLoad[name] (or an empty separator) for an empty array")
+                elif sep and len(vals) > 1 and sep != ";":
+                    _f(out, "warn", "arrayload-semicolons",
+                       f"$arrayLoad joins its values with ';' and then splits on {sep!r}: these {len(vals)} values become ONE element",
+                       c.start, c.end, f"Separate the values with {sep!r}, or escape ; as \\;")
             # $parseMS takes ms [runtime]
             if n == "$parsems" and c.fields:
                 v = _literal(c.fields[0])
@@ -564,24 +570,32 @@ class Linter:
             if n == "$cooldown" and c.fields and USER_INPUT.search(c.fields[0].raw if isinstance(c.fields[0], Field) else ""):
                 _f(out, "warn", "security", "$cooldown key built from user text: users can pick their own bucket", c.start, c.end)
         # relationships [source]
-        order = [(c.start, c.name.lower(), c) for c in calls]
-        order.sort()
-        seen = set()
-        for _, n, c in order:
-            if n in BUTTON_LIKE and "$addactionrow" not in seen and "$addsection" not in seen and "$addcontainer" not in seen:
-                _f(out, "warn", "component-order", f"{c.name} before any $addActionRow is silently dropped [source: addButton.ts]",
-                   c.start, c.name_end, "Put $addActionRow first")
+        # Order rules use what DEFINITELY ran before a call: arguments run before their call, siblings
+        # left to right; the fields of a control-flow (unwrap:false) function are alternatives, so a
+        # call in one $if branch is never "before" a call in another.
+        before = self._definitely_before(res)
+        for c in sorted(calls, key=lambda x: x.index):
+            n, seen = c.name.lower(), before.get(id(c), set())
+            if n in BUTTON_LIKE and not (seen & {"$addactionrow", "$addsection", "$addcontainer"}):
+                _f(out, "warn", "component-order", f"{c.name} with no $addActionRow run before it is silently dropped [source: addButton.ts]",
+                   c.start, c.name_end, "Put $addActionRow first (in the same branch)")
             if n == "$addoption" and not (seen & SELECT_MENUS):
-                _f(out, "warn", "component-order", "$addOption with no select menu before it is silently ignored [source]",
+                _f(out, "warn", "component-order", "$addOption with no select menu run before it is silently ignored [source]",
                    c.start, c.name_end)
             if n in SPLIT_READERS and not (seen & SPLIT_WRITERS):
                 _f(out, "warn", "split-order", f"{c.name} reads $textSplit's hidden store, but nothing filled it", c.start, c.name_end)
             if n == "$ephemeral" and ({"$defer", "$interactionreply"} & seen):
                 _f(out, "warn", "ephemeral-late", "$ephemeral after $defer/$interactionReply has no effect (read when the reply is sent)",
                    c.start, c.name_end)
-            seen.add(n)
         # [source] $nomention only disables the reply ping; these stop user/role pings
-        if re.search(r"<@[!&]?(\$|\d)", code) and not (
+        # only message CONTENT pings: top-level text and the content argument of send functions
+        # (mentions inside embeds never ping)
+        content_text = res.code + "".join(
+            f.raw for c in calls if c.name.lower() in ("$sendmessage", "$interactionreply", "$interactionfollowup",
+                                                       "$senddm", "$editmessage", "$interactionupdate")
+            for k, f in enumerate(c.fields or []) if isinstance(f, Field)
+            and "content" in ((_spec_for(_arg_specs(c), k) or {}).get("name") or ""))
+        if re.search(r"<@[!&]?(\$|\d|\[SYSTEM_FUNCTION\()", content_text) and not (
                 {"$disableallmentions", "$disablerolementions", "$disableusermentions"} & set(names)):
             _f(out, "info", "mention-ping",
                "This output contains a user/role mention that will ping; $nomention only disables the reply ping "
@@ -590,6 +604,34 @@ class Linter:
             _f(out, "warn", "dup-cooldown", "More than one $cooldown in one run: the second sees the first's fresh timer", 0, 1)
         if "$customid" in names and "$authorid" not in names and any(x in names for x in ("$interactionupdate", "$interactionreply")):
             _f(out, "info", "author-lock", "Component handler never compares the presser with $authorID: anyone can press it", 0, 1)
+
+    @staticmethod
+    def _definitely_before(res):
+        """id(call) -> lowercase names of calls that certainly executed before it."""
+        out = {}
+
+        def eager(c):
+            m = c.fn.meta or {}
+            return bool(m.get("unwrap")) or bool(m.get("custom"))
+
+        def run_list(calls, seen):
+            seen = set(seen)
+            for c in calls:
+                inner = set(seen)
+                if eager(c):
+                    for f in c.fields or []:
+                        inner = run_list(f.functions, inner)      # fields run in order, then the call
+                    out[id(c)] = inner
+                    seen = inner | {c.name.lower()}
+                else:
+                    out[id(c)] = set(seen)
+                    for f in c.fields or []:
+                        run_list(f.functions, seen)               # alternatives: nothing carries over
+                    seen = seen | {c.name.lower()}
+            return seen
+
+        run_list(res.functions, set())
+        return out
 
     def _nested(self, field):
         for c in field.functions:

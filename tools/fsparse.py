@@ -90,23 +90,30 @@ class Registry:
 
     @classmethod
     def load(cls, packages: Optional[List[str]] = None, path: Path = METADATA, custom: Optional[List[dict]] = None):
-        """packages: e.g. ["ForgeScript", "ForgeDB"]; None = every package in the snapshot.
+        """packages: e.g. ["ForgeDB", "ForgeScript"] (extensions in client order); None = every package.
         custom: custom functions [{"name": "myFn", "params": [...], "brackets": None, "firstParamCondition": False}]."""
         meta = json.loads(Path(path).read_text(encoding="utf-8"))
-        wanted = set(packages) if packages else None
-        seen, fns = set(), []
-        # FunctionManager.load: across providers the FIRST registration of a name wins (core loads first).
-        for m in meta["functions"]:
-            if wanted and m["package"] not in wanted:
-                continue
+        all_pkgs = [p["name"] for p in meta.get("packages", [])] or sorted({m["package"] for m in meta["functions"]})
+        order = [p for p in (packages or all_pkgs) if p != "ForgeScript"]
+        if not packages or "ForgeScript" in packages:
+            order.append("ForgeScript")
+        rank = {p: i for i, p in enumerate(order)}
+        # ForgeClient: extensions initialise first (in `extensions: [...]` order), then the native
+        # functions load; FunctionManager.load skips a name that is already registered.
+        by_pkg = sorted((m for m in meta["functions"] if m["package"] in rank), key=lambda m: rank[m["package"]])
+        seen, fns = {}, []
+        for m in by_pkg:
             if m["name"] in seen:
                 continue
-            seen.add(m["name"])
+            seen[m["name"]] = len(fns)
             fns.append(fn_from_metadata(m))
+        # Custom functions are added later with FunctionManager.add, which OVERWRITES.
         for c in custom or []:
             f = fn_from_custom(c)
-            if f.name not in seen:
-                seen.add(f.name)
+            if f.name in seen:
+                fns[seen[f.name]] = f
+            else:
+                seen[f.name] = len(fns)
                 fns.append(f)
         reg = cls(fns)
         reg.enums = meta.get("enums", {})

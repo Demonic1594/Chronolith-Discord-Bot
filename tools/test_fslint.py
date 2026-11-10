@@ -77,6 +77,8 @@ CASES = [
     ("$arrayLoad[a;,;]$arrayLength[a]", {"phantom-element"}, ("out", "1")),
     ("$arrayLoad[a;,]$arrayLength[a]", {"phantom-element"}, ("out", "1")),
     ("$arrayLoad[a]$arrayLength[a]", set(), ("out", "0")),
+    ("$arrayLoad[a;]$arrayLength[a]", set(), ("out", "0")),
+    ("$arrayLoad[a;,;x;y]$arrayLength[a]", {"arrayload-semicolons"}, ("out", "1")),
     ("$let[hi;$math[23-[$math[2-1]*5]]]hi=$get[hi]", {"bracket-in-arg"}, ("out", "]hi=")),
     ("$math[23-($math[2-1]*5)]", set(), ("out", "18")),
     ("$parseMS[10m]", {"parsems"}, ("error", "is not of type Number")),
@@ -89,11 +91,19 @@ CASES = [
     ('$jsonLoad[j;{"a":1}][$get[j]]', {"store-confusion"}, ("out", "[]")),
     ("$title[hi]$cooldown[k;10s;slow down]", {"gate-sends-container"}, None),
     ("$addOption[a;b;c]", {"component-order"}, None),
+    ("$interactionReply[$ephemeral Done]", set(), None),            # args run first: $ephemeral is in time
+    ("$defer $ephemeral", {"ephemeral-late"}, None),
+    ("Hi <@$authorID>", {"mention-ping"}, None),
+    ("$title[x]$description[<@$authorID>]", set(), None),                                     # embeds never ping
+    ("$if[$get[a]==1;$ephemeral$interactionReply[x];$interactionReply[y]]", set(), None),   # exclusive branches
+    ("$if[$get[a]==1;$interactionReply[x];$ephemeral$interactionReply[y]]", set(), None),
+    ("$addActionRow$if[$get[a]==1;$addButton[a;b;Primary]]", set(), None),                  # row ran before the $if
+    ("$if[$get[a]==1;$addActionRow;x]$addButton[a;b;Primary]", {"component-order"}, None),  # row only in one branch
     ("$splitText[0]", {"split-order"}, None),
     ("$loop[-1;$return[x]]", {"infinite-loop"}, None),
 ]
 
-IGNORED = {"experimental", "silent-flag", "deprecated"}
+IGNORED = {"experimental", "silent-flag", "deprecated"}  # mention-ping is tested explicitly below
 
 
 def run_runtime(codes):

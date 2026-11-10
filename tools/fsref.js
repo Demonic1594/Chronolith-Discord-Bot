@@ -18,18 +18,38 @@ const { Compiler, FunctionManager } = require(modPath)
 // --native-raw: print what ForgeScript itself registers (to check fs_metadata.json against it)
 if (process.argv.includes("--native-raw")) {
     FunctionManager.loadNative()
-    process.stdout.write(JSON.stringify(FunctionManager.raw) + "\n")
-    process.exit(0)
+    process.stdout.write(JSON.stringify(FunctionManager.raw) + "\n", () => process.exit(0))  // exit after the pipe drains
+    return
+}
+// --client-raw: build a real ForgeClient with the extensions in FS_EXTENSIONS
+// (e.g. "@tryforge/forge.db:ForgeDB") and print the function table it ends up with.
+if (process.argv.includes("--client-raw")) {
+    const { ForgeClient } = require(modPath)
+    const exts = (process.env.FS_EXTENSIONS || "").split(",").filter(Boolean).map((spec) => {
+        const [pkg, cls] = spec.split(":")
+        // look next to ForgeScript too (FS_MODULE=<dir>/node_modules/@tryforge/forgescript)
+        const nearFs = path.resolve(path.dirname(require.resolve(modPath)), "..", "..", "..")
+        const mod = require(require.resolve(pkg, { paths: [process.cwd(), nearFs] }))
+        return new mod[cls](cls === "ForgeDB" ? { type: "better-sqlite3" } : undefined)
+    })
+    const w = process.stdout.write.bind(process.stdout)
+    process.stdout.write = () => true
+    new ForgeClient({ intents: ["Guilds"], extensions: exts })
+    process.stdout.write = w
+    process.stdout.write(JSON.stringify(FunctionManager.raw) + "\n", () => process.exit(0))  // exit after the pipe drains
+    return
 }
 const meta = JSON.parse(fs.readFileSync(path.join(__dirname, "fs_metadata.json"), "utf8"))
-const wanted = process.env.FS_PACKAGES ? new Set(process.env.FS_PACKAGES.split(",")) : null
+const wanted = process.env.FS_PACKAGES ? new Set(process.env.FS_PACKAGES.split(",")) : null  // a Set keeps the given order
 
-// Same registration rules as ForgeScript's FunctionManager: across packages the first
-// name wins (core loads first); the compiler then maps every name and alias.
+// Same registration rules as ForgeClient: extensions initialise first (in the order given),
+// then the native functions; FunctionManager.load skips names already registered.
+const pkgOrder = (wanted ? [...wanted] : meta.packages.map((p) => p.name)).filter((p) => p !== "ForgeScript")
+if (!wanted || wanted.has("ForgeScript")) pkgOrder.push("ForgeScript")
+const rank = new Map(pkgOrder.map((p, i) => [p, i]))
 const seen = new Set()
 const raw = []
-for (const f of meta.functions) {
-    if (wanted && !wanted.has(f.package)) continue
+for (const f of meta.functions.filter((f) => rank.has(f.package)).sort((a, b) => rank.get(a.package) - rank.get(b.package))) {
     if (seen.has(f.name)) continue
     seen.add(f.name)
     raw.push({

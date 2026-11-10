@@ -130,15 +130,17 @@ PACKAGES = None  # set by main(): the packages the linted bot loads
 def load_signatures():
     """Every function and alias of the loaded packages, from tools/fs_metadata.json.
     Keys are lowercase names without '$'; aliases point at their function (alias_of)."""
+    import fsparse
     meta = _metadata()
-    wanted = set(PACKAGES) if PACKAGES else None
+    reg = fsparse.Registry.load(PACKAGES)   # same precedence as ForgeClient (extensions, then core)
+    winners = {f.name: f.package for f in reg.functions}
     sigs = {}
     for f in meta["functions"]:
-        if wanted and f["package"] not in wanted:
-            continue
+        if winners.get(f["name"]) != f["package"]:
+            continue  # not loaded, or overridden by an earlier registration
         base = f["name"].lstrip("$")
         if base.lower() in sigs:
-            continue  # first registration wins (core before extensions)
+            continue
         b = f.get("brackets")
         entry = {
             "name": base,
@@ -1064,10 +1066,14 @@ def mode_self_test():
         print(f"{'PASS' if want == got else 'FAIL'}  custom functions match Node ({len(want)} functions, {len(want ^ got)} differences)")
         ok &= want == got
     # 3. rule tests on the real interpreter, 4. parser differential test
-    for script, args in (("test_fslint.py", []), ("test_fsparse.py", ["--fuzz", "3000"])):
+    pk = [x for x in (PACKAGES or []) if x != "ForgeScript"] + ["ForgeScript"]
+    for script, args in (("test_fslint.py", []), ("test_fsparse.py", ["--fuzz", "3000", "--packages", ",".join(pk)])):
         p = subprocess.run([sys.executable, str(here / script), *args], capture_output=True, text=True)
-        last = (p.stdout.strip().splitlines() or ["(no output)"])[-1]
-        print(f"{'PASS' if p.returncode == 0 else 'FAIL'}  {script}: {last}")
+        lines = p.stdout.strip().splitlines() or ["(no output)"]
+        for extra in lines[:-1]:
+            if extra.startswith(("registry", "SKIP")):
+                print(f"      {extra}")
+        print(f"{'PASS' if p.returncode == 0 else 'FAIL'}  {script}: {lines[-1]}")
         ok &= p.returncode == 0
     return 0 if ok else 1
 

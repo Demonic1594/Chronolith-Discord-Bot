@@ -82,6 +82,27 @@ def run_reference(items, env):
     return res
 
 
+def check_registry(pkgs, env):
+    """The function table fsparse builds must equal a real ForgeClient's (names, aliases, fields)."""
+    npm = {"ForgeDB": "@tryforge/forge.db:ForgeDB"}
+    exts = [npm[p] for p in pkgs if p in npm]
+    if len(exts) != len([p for p in pkgs if p != "ForgeScript"]):
+        return None
+    p = subprocess.run(["node", str(HERE / "fsref.js"), "--client-raw"], capture_output=True, text=True,
+                       env={**env, "FS_EXTENSIONS": ",".join(exts)}, timeout=300)
+    if p.returncode:
+        if "Cannot find module" in p.stderr:
+            return "SKIP registry check: an extension package is not installed next to ForgeScript"
+        return f"could not build a client: {p.stderr.strip()[-300:]}"
+    norm = lambda a: None if a is None else (bool(a["required"]), [(bool(f.get("condition")), bool(f.get("rest"))) for f in a["fields"]])
+    real = {r["name"]: (sorted(r["aliases"] or []), norm(r["args"])) for r in json.loads(p.stdout)}
+    reg = fsparse.Registry.load(pkgs)
+    mine = {f.name: (sorted(f.aliases), None if not f.has_args else (f.required, [(x["condition"], x["rest"]) for x in f.fields]))
+            for f in reg.functions}
+    diff = sorted(set(real) ^ set(mine)) + [n for n in real if n in mine and real[n] != mine[n]]
+    return f"registry vs real client ({len(real)} functions): {len(diff)} differences {diff[:5]}"
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--corpus", action="append", default=[])
@@ -128,6 +149,12 @@ def main():
                 print(f"MISMATCH [{labels[i]}] {code!r}")
                 print("  real   :", json.dumps(ref[i], ensure_ascii=False)[:600])
                 print("  fsparse:", json.dumps(mine, ensure_ascii=False)[:600])
+    if pkgs:
+        msg = check_registry(pkgs, env)
+        if msg:
+            print(msg)
+            if " 0 differences" not in msg and not msg.startswith("SKIP"):
+                bad += 1
     print(f"{len(items) - bad}/{len(items)} identical "
           f"({len(EDGE_CASES)} edge cases, {a.fuzz} fuzz, {len(items) - len(EDGE_CASES) - a.fuzz} corpus; "
           f"{errors} were compile errors) packages={a.packages or 'all'}")
