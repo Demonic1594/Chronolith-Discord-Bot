@@ -41,7 +41,7 @@ replace core's), then core, then this bot's custom functions, which overwrite. O
 | `test_fslint.py` + `fsrun.js` | Each rule fires on its example, and the real interpreter does what the rule's message says. |
 | `fslint.py --self-test` | All of the above, plus JS string extraction and custom-function loading compared with Node (`fs_extract.js`). |
 
-CI (`.github/workflows/fslint.yml`) runs the validators, the lint and the self-test on every push.
+CI (`.github/workflows/fslint.yml`) runs the validators, the lint and the self-test on every pull request and on pushes to `main`.
 
 ## Writing ForgeScript in this repo: the rules that bite
 
