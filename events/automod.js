@@ -32,7 +32,7 @@ module.exports = {
         $let[vio;]
 
         $if[$env[cfg;automod;invites]==true;
-            $if[$or[$or[$checkContains[$get[low];discord.gg/],$checkContains[$get[low];discordapp.com/invite]];$or[$checkContains[$get[low];discord.com/invite];$checkContains[$get[low];dsc.gg]]]==true;
+            $if[$or[$or[$checkContains[$get[low];discord.gg/];$checkContains[$get[low];discordapp.com/invite]];$or[$checkContains[$get[low];discord.com/invite];$checkContains[$get[low];dsc.gg]]]==true;
                 $let[vio;Invite links]
             ]
         ]
@@ -108,7 +108,7 @@ module.exports = {
                     $sendMessage[$channelID;
                         $author[Automod;$userAvatar[$botID;64;png]]
                         $description[<@$authorID> muted 10m — **message flooding**.]
-                        $color[F0B232]
+                        $color[#F0B232]
                         $footer[Chronolith • Automod]
                             $timestamp
                     ;false]
@@ -125,7 +125,7 @@ module.exports = {
             $sendMessage[$channelID;
                 $author[Automod;$userAvatar[$botID;64;png]]
                 $description[<@$authorID> message removed — **$get[vio]**.]
-                $color[F0B232]
+                $color[#F0B232]
                 $footer[Chronolith • Automod]
                     $timestamp
             ;false]

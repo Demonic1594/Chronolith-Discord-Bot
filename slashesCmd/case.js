@@ -24,7 +24,7 @@ $stop
 $!jsonLoad[c;$get[raw]]
 $interactionReply[
 $description[Case #$option[number] — $toUpperCase[$env[c;t]]]
-$color[5865F2]
+$color[#5865F2]
 $addField[User;<@$env[c;u]>;true]
 $addField[Moderator;<@$env[c;m]>;true]
 $addField[Duration;$if[$env[c;d]==;n/a;$env[c;d]];true]

@@ -26,7 +26,7 @@ $addField[Bans;\`$default[$env[st;ban];0]\`;true]
 $addField[Hardbans;\`$default[$env[st;hardban];0]\`;true]
 $addField[Mutes;\`$default[$env[st;mute];0]\`;true]
 $addField[Softbans;\`$default[$env[st;softban];0]\`;true]
-$color[5865F2]
+$color[#5865F2]
 $footer[Chronolith • Stats]
 ]
     `

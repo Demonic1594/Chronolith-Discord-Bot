@@ -6,7 +6,7 @@ module.exports = {
         $if[$get[lch]!=;
             $sendMessage[$get[lch];
                 $title[Channel created]
-                $color[248046]
+                $color[#248046]
                 $timestamp
             ;false]
         ]

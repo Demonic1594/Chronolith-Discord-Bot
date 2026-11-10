@@ -10,7 +10,7 @@ module.exports = {
 $nomention
 $onlyIf[$guildID!=;Server only.]
 $description[$guildName[$guildID]]
-$color[5865F2]
+$color[#5865F2]
 $addField[Owner;<@$guildOwnerID>;true]
 $addField[Members;$guildMemberCount[$guildID];true]
 $addField[Channels;$arrayLength[$arrayLoad[chs;,;$channelIDs]];true]

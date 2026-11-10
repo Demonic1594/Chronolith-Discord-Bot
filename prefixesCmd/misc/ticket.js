@@ -21,7 +21,7 @@ $sendMessage[$get[tch];
 $title[Ticket for $userTag[$authorID]]
 $description[Explain your issue here. A moderator will respond.
 When resolved, press Close — the channel locks for review.]
-$color[248046]
+$color[#248046]
 $footer[Opened from <#$channelID>]
 $addActionRow
 $addButton[tkclose-$authorID;Close;Danger]

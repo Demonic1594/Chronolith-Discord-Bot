@@ -16,7 +16,7 @@ $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $ephemeral
 $interactionReply[
 $author[Chronolith • Settings;$userAvatar[$botID;64;png]]
-$color[5865F2]
+$color[#5865F2]
 $addField[Modlog;$if[$env[cfg;modlog]==;*not set*;<#$env[cfg;modlog]>];true]
 $addField[Mod roles;$if[$env[cfg;modroles]==;*ManageServer by default*;<@&$replace[$env[cfg;modroles];,;>, <@&>]>];true]
 $addField[Warn escalation;$if[$env[cfg;warns;threshold]==;*off*;$env[cfg;warns;threshold] warns → $env[cfg;warns;action]];true]

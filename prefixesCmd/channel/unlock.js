@@ -47,7 +47,7 @@ $if[$get[n]>0;
 $description[**$get[n]** channel(s) unlocked
 
 > $get[reason]]
-$color[248046]
+$color[#248046]
 ;
 $description[🔓 No channels were locked.]
 $color[#4E5058]

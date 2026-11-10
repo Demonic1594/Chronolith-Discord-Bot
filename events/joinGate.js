@@ -27,7 +27,7 @@ module.exports = {
             $try[$sendDM[$userID;
                 $author[Welcome to $guildName[$guildID];$userAvatar[$botID;64;png]]
                 $description[Press the button below to verify and unlock the server.]
-                $color[5865F2]
+                $color[#5865F2]
                 $footer[Chronolith • Verification]
                     $timestamp
                 $addActionRow
@@ -67,7 +67,7 @@ $jsonLoad[js;$get[rawjs]]
                 $sendMessage[$get[ch];
                     $author[Anti-raid;$userAvatar[$botID;64;png]]
                     $title[⚠ Possible raid detected]
-                    $color[DA373C]
+                    $color[#DA373C]
                     $description[$math[$get[cnt]+1] members joined within $get[window] seconds.]
                     $footer[Chronolith • Verification]
                     $timestamp
@@ -82,7 +82,7 @@ $jsonLoad[js;$get[rawjs]]
         $if[$get[lch]!=;
             $sendMessage[$get[lch];
                 $author[➕ $userTag[$userID];$userAvatar[$userID;64;png]]
-                $color[248046]
+                $color[#248046]
                 $thumbnail[$userAvatar[$userID;256;png]]
                 $description[<@$userID> — member **#$guildMemberCount[$guildID]**
 -# ID: $userID]

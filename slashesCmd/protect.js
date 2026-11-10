@@ -15,7 +15,7 @@ $onlyIf[$isMod[$guildID;$authorID]==true;$ephemeral ⛔ You need moderator permi
 $ephemeral
 $interactionReply[
 $description[Use the prefix command: %protect <role|user> <add|remove> <target>]
-$color[5865F2]
+$color[#5865F2]
 ]
     `
 };

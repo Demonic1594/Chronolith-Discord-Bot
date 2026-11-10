@@ -12,7 +12,7 @@ module.exports = {
     code: `
 $interactionReply[
 $author[Chronolith;$userAvatar[$botID;64;png]]
-$color[5865F2]
+$color[#5865F2]
 $addField[Uptime;$parseMS[$uptime];true]
 $addField[Ping;$ping ms;true]
 $addField[Guilds;$guildCount;true]

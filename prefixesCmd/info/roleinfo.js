@@ -11,9 +11,9 @@ $onlyIf[$guildID!=;Server only.]
 $let[r;$replace[$replace[$message[0];<@&;];>;]]
 $onlyIf[$get[r]!=;Usage: roleinfo <role>]
 $description[@$roleName[$guildID;$get[r]]]
-$color[5865F2]
+$color[#5865F2]
 $addField[ID;$get[r];true]
-$addField[Position;$rolePosition[$guildID;$get[r];true] of $roleCount[$guildID];true]
+$addField[Position;$rolePosition[$guildID;$get[r];true] of $guildRoleCount[$guildID];true]
 $addField[Mention;<@&$get[r]>;true]
     `
 };

@@ -16,7 +16,7 @@ module.exports = {
 $let[target;$default[$option[user];$authorID]]
 $interactionReply[
 $author[$userTag[$get[target]];$userAvatar[$get[target];32;png]]
-$color[5865F2]
+$color[#5865F2]
 $thumbnail[$userAvatar[$get[target];128;png]]
 $description[-# $get[target]]
 $addField[Created;$discordTimestamp[$userCreatedAt[$get[target]];RelativeTime];true]

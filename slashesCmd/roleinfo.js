@@ -15,7 +15,7 @@ module.exports = {
     code: `
 $interactionReply[
 $description[@$roleName[$guildID;$option[role]]]
-$color[5865F2]
+$color[#5865F2]
 $addField[ID;$option[role];true]
 $addField[Position;$rolePosition[$guildID;$option[role];true];true]
 $addField[Mention;<@&$option[role]>;true]

@@ -31,14 +31,14 @@ $!jsonLoad[cfg;$getGuildVar[cfg;$guildID;{}]]
 $!jsonSet[cfg;modlog;$trim[$get[c]]]
 $!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $description[$if[$get[c]==;Modlog channel disabled.;Modlog channel set to <#$get[c]>.]]
-$color[5865F2]
+$color[#5865F2]
 ;
 $if[$get[mode]==user;
 $!arrayLoad[cs;,;$get[uc]]
 $!arrayLoad[out;]
 $!arrayMap[cs;k;$jsonLoad[one;$getGuildVar[case_$env[k];$guildID;{}]]$return[-# **#$env[k]** $actionEmoji[$env[one;t]] · <@$env[one;m]> · $env[one;r]];out]
 $author[User logs • $userTag[$get[target]];$userAvatar[$get[target];64;png]]
-$color[5865F2]
+$color[#5865F2]
 $description[$arrayJoin[out;
 ]]
 $footer[Chronolith • $arrayLength[cs] case(s)];
@@ -57,14 +57,14 @@ $!arrayPush[out;-# **#$get[ptr]** · <@$env[one;u]> · $env[one;r]]
 $let[ptr;$math[$get[ptr]-1]]
 ]
 $author[Action logs • $get[atype];$userAvatar[$botID;64;png]]
-$color[5865F2]
+$color[#5865F2]
 $description[$if[$arrayLength[out]==0;No cases of that type in the last 200.;$arrayJoin[out;
 ]]]
 $footer[Chronolith • scanned up to 200];
 $let[total;$getGuildVar[caseCount;$guildID;0]]
 $author[Server Management]
 $title[Server Moderation Logs]
-$color[AA00E6]
+$color[#AA00E6]
 $description[$if[$get[total]==0;
 > \`No Mod logs as of yet.\`
 ;

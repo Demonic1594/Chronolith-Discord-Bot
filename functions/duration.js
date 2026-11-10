@@ -11,6 +11,11 @@
  * on failure — KB-verified on 2.7.1), but it rejects decimal amounts
  * ("1.5h" fails) and has no week unit; this fn supports both deliberately.
  * Do not "simplify" this away without checking those two behaviors.
+ *
+ * The JavaScript below is escaped twice: once for ForgeScript (\\ ; [ ] $ get a
+ * backslash, or the first ] would end $djsEval's argument) and once for this
+ * template literal (each backslash doubled). Edit the plain JS and regenerate
+ * it with fsextract.fs_escape + js_template_escape (tools/fslint.py --escape).
  */
 
 module.exports = [
@@ -18,16 +23,15 @@ module.exports = [
         name: "durationToMs",
         params: ["text"],
         code: `
-            $arrayLoad[chars; ;$replace[$replace[$replace[$replace[$env[text];s; S ];m; M ];h; H ];d; D ]]
             $let[result;$djsEval[
                 (() => {
-                    const text = ctx.getEnvironmentKey("text")\\;
+                    const text = String(ctx.getEnvironmentKey("text") ?? "")\\;
                     let total = 0, match\\;
-                    const re = /(\\d+(?:\\.\\d+)?)\\s*([smhdw])/gi\\;
+                    const re = /(\\\\d+(?:\\\\.\\\\d+)?)\\\\s*(\\[smhdw\\])/gi\\;
                     while ((match = re.exec(text)) !== null) {
-                        const n = parseFloat(match[1])\\;
-                        const unit = match[2].toLowerCase()\\;
-                        const ms = { s: 1000, m: 60000, h: 3600000, d: 86400000, w: 604800000 }[unit] || 0\\;
+                        const n = parseFloat(match\\[1\\])\\;
+                        const unit = match\\[2\\].toLowerCase()\\;
+                        const ms = { s: 1000, m: 60000, h: 3600000, d: 86400000, w: 604800000 }\\[unit\\] || 0\\;
                         total += n * ms\\;
                     }
                     return String(Math.floor(total))\\;
