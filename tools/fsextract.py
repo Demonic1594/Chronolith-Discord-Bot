@@ -152,3 +152,15 @@ def line_col(text: str, offset: int):
     line = text.count("\n", 0, offset) + 1
     col = offset - (text.rfind("\n", 0, offset) + 1) + 1
     return line, col
+
+
+def fs_escape(text: str) -> str:
+    """Escape text so ForgeScript passes it through an argument unchanged: \\ ; [ ] $ get a
+    backslash (inside an argument, ForgeScript turns \\x into x). Use it for code handed to
+    $djsEval and for literal text containing those characters."""
+    return "".join("\\" + ch if ch in "\\;[]$" else ch for ch in text)
+
+
+def js_template_escape(text: str) -> str:
+    """Escape text for a JavaScript template literal so the string value equals `text`."""
+    return text.replace("\\", "\\\\").replace("`", "\\`").replace("${", "\\${")

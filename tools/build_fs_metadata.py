@@ -127,7 +127,11 @@ def main():
         packages.append({"name": name, "npm": pkg["npm"], "functions": len(fns)})
         print(f"{name}: {len(fns)} functions", file=sys.stderr)
 
-    out = {"packages": packages, "functions": functions, "enums": enums, "events": events}
+    try:  # the ForgeScript release this snapshot describes (CI installs it for the parser tests)
+        fs_version = fetch_json("https://registry.npmjs.org/@tryforge%2fforgescript")["dist-tags"]["latest"]
+    except Exception:
+        fs_version = None
+    out = {"forgescript": fs_version, "packages": packages, "functions": functions, "enums": enums, "events": events}
     OUT.write_text(json.dumps(out, separators=(",", ":"), ensure_ascii=False), encoding="utf-8")
     print(f"-> {OUT} ({len(functions)} functions, {len(enums)} enums, {OUT.stat().st_size // 1024} KB)", file=sys.stderr)
 

@@ -1,0 +1,52 @@
+name: fslint
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint:
+    name: ForgeScript lint + load validation + parser tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install the bot's dependencies (lockfile)
+        run: npm ci
+
+      # Every command file must load: this is ForgeScript's own compile + 2.8.0 property
+      # validation, with ForgeDB and the custom functions loaded like index.js does.
+      - name: Command files load (installed ForgeScript)
+        run: node tools/fs_validate_commands.js
+
+      # Also force-compiles every custom function body (those compile lazily at runtime).
+      - name: Compile every definition, custom function bodies included
+        run: node validate.js
+
+      - name: Lint (fails on errors)
+        run: python3 tools/fslint.py
+
+      # The parser and rule tests compare against the ForgeScript release that
+      # tools/fs_metadata.json describes, installed separately so the bot's lockfile stays as is.
+      - name: Install the ForgeScript release the metadata snapshot describes
+        run: |
+          VERSION=$(python3 -c "import json;print(json.load(open('tools/fs_metadata.json'))['forgescript'])")
+          mkdir -p "$RUNNER_TEMP/fs" && cd "$RUNNER_TEMP/fs"
+          npm init -y > /dev/null
+          npm i "@tryforge/forgescript@$VERSION" @tryforge/forge.db better-sqlite3
+          echo "FS_MODULE=$RUNNER_TEMP/fs/node_modules/@tryforge/forgescript" >> "$GITHUB_ENV"
+
+      - name: Command files load (snapshot ForgeScript)
+        run: node tools/fs_validate_commands.js
+
+      - name: Self-test (extraction vs Node, rule tests on the real interpreter, parser vs real compiler)
+        run: python3 tools/fslint.py --self-test

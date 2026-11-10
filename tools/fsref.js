@@ -29,7 +29,7 @@ if (process.argv.includes("--client-raw")) {
         const [pkg, cls] = spec.split(":")
         // look next to ForgeScript too (FS_MODULE=<dir>/node_modules/@tryforge/forgescript)
         const nearFs = path.resolve(path.dirname(require.resolve(modPath)), "..", "..", "..")
-        const mod = require(require.resolve(pkg, { paths: [process.cwd(), nearFs] }))
+        const mod = require(require.resolve(pkg, { paths: [nearFs, process.cwd()] }))
         return new mod[cls](cls === "ForgeDB" ? { type: "better-sqlite3" } : undefined)
     })
     const w = process.stdout.write.bind(process.stdout)

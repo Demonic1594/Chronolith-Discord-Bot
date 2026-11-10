@@ -43,8 +43,11 @@ function cook(raw) {
 
 for (const dir of dirs) {
     if (mode === "js") {
-        for (const file of walk(path.resolve(dir), ".js")) {
+        const root = path.resolve(dir)
+        for (const file of walk(root, ".js")) {
             if (file.includes(`${path.sep}tools${path.sep}`)) continue
+            // never require top-level entry points (index.js would start the bot and log in)
+            if (path.dirname(file) === root) continue
             try {
                 collect(require(file), path.relative(process.cwd(), file))
             } catch (e) {

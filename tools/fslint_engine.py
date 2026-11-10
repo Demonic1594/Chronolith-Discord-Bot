@@ -402,7 +402,8 @@ class Linter:
                 if not f.lhs.functions and not lhs_txt.strip():
                     _f(out, "warn", "condition", f"{c.name}: the left side of {f.op} is empty", f.start, f.end)
                 rhs_lit = "".join(ch for _, ch, esc in _field_text_spans(code, f.rhs) if not esc)
-                for op in ("==", "!=", "<=", ">=", "<", ">"):
+                comma_case = c.name.lower() in ("$and", "$or") and "," in rhs_lit   # reported by and-or-comma
+                for op in (() if comma_case else ("==", "!=", "<=", ">=", "<", ">")):
                     if op in rhs_lit:
                         _f(out, "warn", "condition",
                            f"{c.name}: only the first operator counts; the right side is the text {f.rhs.raw!r}",
@@ -417,8 +418,14 @@ class Linter:
                     _f(out, "warn", "condition",
                        f"{c.name}: {lit!r} has no comparison operator, so it is only true when it equals the text 'true'",
                        f.start, f.end)
-            if c.name.lower() in ("$and", "$or") and f.op == fsparse.OP_NONE and "," in (f.lhs.raw or "") and not f.lhs.functions:
-                _f(out, "warn", "condition", f"{c.name} separates conditions with ; not ,", f.start, f.end)
+            if c.name.lower() in ("$and", "$or"):
+                lits = [ch for part in ([f.lhs] + ([f.rhs] if f.rhs else []))
+                        for _, ch, esc in _field_text_spans(code, part) if not esc]
+                if "," in lits:
+                    _f(out, "error", "and-or-comma",
+                       f"{c.name} takes conditions separated by ; and a comma is just text: this field is ONE condition "
+                       f"({f.lhs.raw!r} {f.op if f.op != fsparse.OP_NONE else ''} {f.rhs.raw if f.rhs else ''!r}), so the result is wrong "
+                       f"[runtime]", f.start, f.end, f"Use {c.name}[a==b;c==d]")
 
     # -- [compiler] escapes and the renderer
     def escapes(self, code, res, calls, out):
@@ -566,7 +573,17 @@ class Linter:
                        f"together with its message", c.start, c.name_end, f"Move {c.name} above the embed/component functions")
             # unsafe eval with user input [heuristic]
             if n in UNSAFE and USER_INPUT.search(code[c.start:c.end]):
-                _f(out, "error", "security", f"{c.name} runs code that includes user input", c.start, c.end)
+                # [source: onlyForUsers.ts] a top-level owner gate before it stops everyone else
+                gated = any(g.index < c.index and (
+                    (g.name.lower() == "$onlyforusers" and re.search(r"\$botOwnerID|\d{16,23}", code[g.start:g.end], re.I))
+                    or (g.name.lower() == "$onlyif" and re.search(r"\$botOwnerID", code[g.start:g.end], re.I)))
+                    for g in res.functions)
+                if gated:
+                    _f(out, "info", "security", f"{c.name} runs user input, behind an owner-only gate (keep that gate first)",
+                       c.start, c.end)
+                else:
+                    _f(out, "error", "security", f"{c.name} runs code that includes user input, with no owner-only gate before it",
+                       c.start, c.end, "Start the command with $onlyForUsers[;$botOwnerID]")
             if n == "$cooldown" and c.fields and USER_INPUT.search(c.fields[0].raw if isinstance(c.fields[0], Field) else ""):
                 _f(out, "warn", "security", "$cooldown key built from user text: users can pick their own bucket", c.start, c.end)
         # relationships [source]

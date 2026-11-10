@@ -87,12 +87,17 @@ CASES = [
     ("$if[yes;a;b]", {"condition"}, ("out", "b")),
     ("$if[a==b==c;x;y]", {"condition"}, ("out", "y")),
     ("$checkCondition[1==1&&2==2]", {"condition"}, ("out", "false")),
+    ("$let[mode;bot]$or[$get[mode]==all,$get[mode]==bot]", {"and-or-comma"}, ("out", "false")),
+    ("$let[mode;bot]$or[$get[mode]==all;$get[mode]==bot]", set(), ("out", "true")),
+    ("$let[s;99999]$and[$get[s]!=,$get[s]>=0,$get[s]<=21600]", {"and-or-comma"}, ("out", "true")),
     ("$let[x;v][$env[x]]", {"store-confusion"}, ("out", "[]")),
     ('$jsonLoad[j;{"a":1}][$get[j]]', {"store-confusion"}, ("out", "[]")),
     ("$title[hi]$cooldown[k;10s;slow down]", {"gate-sends-container"}, None),
     ("$addOption[a;b;c]", {"component-order"}, None),
     ("$interactionReply[$ephemeral Done]", set(), None),            # args run first: $ephemeral is in time
     ("$defer $ephemeral", {"ephemeral-late"}, None),
+    ("$eval[$message;false]", {"security"}, None),
+    ("$onlyForUsers[;$botOwnerID]$eval[$message;false]", {"security"}, None),          # info-level, still reported
     ("Hi <@$authorID>", {"mention-ping"}, None),
     ("$title[x]$description[<@$authorID>]", set(), None),                                     # embeds never ping
     ("$if[$get[a]==1;$ephemeral$interactionReply[x];$interactionReply[y]]", set(), None),   # exclusive branches

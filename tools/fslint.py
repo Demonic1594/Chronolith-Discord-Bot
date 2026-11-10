@@ -29,6 +29,8 @@ Usage:
   python3 tools/fslint.py --js-snippet '...'    # lint text as written inside a JS template literal
   python3 tools/fslint.py --parse '$code'       # exact compiler tree, output text, errors
   python3 tools/fslint.py --sim '$code'         # execution order (eager vs lazy fields)
+  python3 tools/fslint.py --escape file.js      # escape text/JS so ForgeScript passes it through unchanged
+                                                #   (e.g. a $djsEval body); prints both escape layers
   python3 tools/fslint.py --run '$code'         # run on the real interpreter, offline (needs Node +
                                                 #   @tryforge/forgescript; FS_MODULE to point at it)
   python3 tools/fslint.py --self-test           # extractor/loader vs Node, rule tests, parser diff
@@ -1110,6 +1112,17 @@ def main():
         print("Error: no function metadata. Run tools/build_fs_metadata.py.")
         return 1
 
+    if "--escape" in sys.argv:
+        # text (e.g. JavaScript for $djsEval) -> ForgeScript-safe -> JS-template-literal-safe
+        import fsextract
+        src = arg_after_flag("--escape")
+        text = Path(src).read_text(encoding="utf-8") if Path(src).is_file() else src
+        fs_text = fsextract.fs_escape(text)
+        print(f"{C.DIM}ForgeScript text (what the argument must contain):{C.RESET}")
+        print(fs_text)
+        print(f"{C.DIM}Inside a JS template literal (paste into code: `...`):{C.RESET}")
+        print(fsextract.js_template_escape(fs_text))
+        return 0
     if "--parse" in sys.argv:
         return mode_parse(arg_after_flag("--parse"), custom)
     if "--run" in sys.argv:
