@@ -10,7 +10,7 @@ $nomention
 $onlyIf[$guildID!=;Server only.]
 $author[Chronolith;$userAvatar[$botID;32;png]]
 $description[$helpPage[0]]
-$color[5865F2]
+$color[#5865F2]
 $thumbnail[$userAvatar[$botID;128;png]]
 $footer[Chronolith • Page 1 of $helpPages]
 $addActionRow

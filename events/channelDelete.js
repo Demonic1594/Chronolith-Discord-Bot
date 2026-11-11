@@ -6,7 +6,7 @@ module.exports = {
         $if[$get[lch]!=;
             $sendMessage[$get[lch];
                 $title[Channel deleted]
-                $color[DA373C]
+                $color[#DA373C]
                 $timestamp
             ;false]
         ]

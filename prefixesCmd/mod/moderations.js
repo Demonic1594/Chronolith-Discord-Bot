@@ -52,7 +52,7 @@ $color[#4E5058];
 $addField[Hardbans / timed bans;$if[$get[bl]==;*none*;$get[bl]];false]
 $addField[Timeouts;$if[$get[ol]==;*none*;$get[ol]];false]
 $addField[Lockdowns;$if[$get[ll]==;*none*;$get[ll]];false]
-$color[5865F2]
+$color[#5865F2]
 ]
 $author[Active Moderations;$userAvatar[$botID;32;png]]
 $footer[Chronolith • Moderation]

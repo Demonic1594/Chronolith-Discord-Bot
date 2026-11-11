@@ -12,7 +12,7 @@ module.exports = {
     code: `
 $interactionReply[
 $author[Chronolith;$userAvatar[$botID;32;png]]
-$color[5865F2]
+$color[#5865F2]
 $description[**Gateway** $ping ms
 **Uptime** $parseMS[$uptime]
 **Servers** $guildCount]

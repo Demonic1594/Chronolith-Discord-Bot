@@ -20,7 +20,7 @@ $onlyIf[$hasPerms[$guildID;$botID;ManageChannels]==true;⛔ I am missing the Man
 $let[n;$unlockAll[$guildID]]
 $interactionReply[
 $description[🔓 \`$get[n]\` channel(s) unlocked.]
-$color[248046]
+$color[#248046]
 $footer[Chronolith • Lockdown]
 ]
     `

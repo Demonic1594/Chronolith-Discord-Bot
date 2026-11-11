@@ -23,7 +23,7 @@ $!setGuildVar[cfg;$jsonStringify[cfg];$guildID]
 $interactionReply[
 $author[Chronolith • Reports;$userAvatar[$botID;64;png]]
 $description[Report channel set to <#$get[c]>.]
-$color[5865F2]
+$color[#5865F2]
 $footer[Chronolith • Reports]
 ]
     `

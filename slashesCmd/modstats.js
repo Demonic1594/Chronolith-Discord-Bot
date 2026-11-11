@@ -29,7 +29,7 @@ $addField[Warns;\`$default[$env[st;warn];0]\`;true]
 $addField[Kicks;\`$default[$env[st;kick];0]\`;true]
 $addField[Bans;\`$default[$env[st;ban];0]\`;true]
 $addField[Mutes;\`$default[$env[st;mute];0]\`;true]
-$color[5865F2]
+$color[#5865F2]
 ]
     `
 };

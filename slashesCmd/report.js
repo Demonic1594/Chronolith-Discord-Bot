@@ -16,7 +16,7 @@ module.exports = {
     code: `
 $onlyIf[$option[reason]!=;$ephemeral A reason is required.]
 $!jsonLoad[rcfg;$getGuildVar[cfg;$guildID;{}]]
-$let[ch;$env[rcfg;reports]]
+$let[ch;$if[$channelExists[$env[rcfg;reports]]==true;$env[rcfg;reports]]]
 $if[$get[ch]==;
 $ephemeral
 $interactionReply[Reports are not configured here.]
@@ -25,7 +25,7 @@ $stop
 $let[id;$reportNew[$guildID;$authorID;$option[user];$option[reason]]]
 $sendMessage[$get[ch];
 $author[Report #$get[id];$userAvatar[$authorID;32;png]]
-$color[F23F24]
+$color[#F23F24]
 $description[> $option[reason]]
 $addField[Reported user;<@$option[user]>
 -# $option[user];true]

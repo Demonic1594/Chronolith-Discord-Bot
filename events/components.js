@@ -30,7 +30,7 @@ module.exports = {
             $ephemeral
             $interactionReply[
                 $description[You are verified — welcome to **$guildName[$get[vg]]**.]
-                $color[248046]
+                $color[#248046]
                 $footer[Chronolith • Verification]
                     $timestamp
             ]
@@ -57,7 +57,7 @@ module.exports = {
             $interactionUpdate[
                 $author[Chronolith;$userAvatar[$botID;32;png]]
                 $description[$helpPage[$get[page]]]
-                $color[5865F2]
+                $color[#5865F2]
                 $footer[Chronolith • Page $math[$get[page]+1] of $helpPages]
                 $addActionRow
                 $addButton[help-$math[$get[page]-1]-$get[owner];◀;Primary]
@@ -79,11 +79,11 @@ module.exports = {
                 $let[page;$math[$get[page]+1]]
             ]
             $let[total;$getGuildVar[caseCount;$guildID;0]]
-            $let[hi;$math[$get[total]-[$math[$get[page]-1]*5]]]
+            $let[hi;$math[$get[total]-($get[page]-1)*5]]
             $interactionUpdate[
                 $author[Server Management]
                 $title[Server Moderation Logs]
-                $color[AA00E6]
+                $color[#AA00E6]
                 $description[$if[$get[hi]<1;
 > \`No Mod logs as of yet on this page.\`
 ;
@@ -160,7 +160,7 @@ $modlogPage[$guildID;$get[hi]]
             $interactionUpdate[
                 $author[Ticket;$userAvatar[$botID;64;png]]
                 $title[Ticket closed]
-                $color[F23F24]
+                $color[#F23F24]
                 $description[Closed by <@$authorID>. The channel is now read-only — a moderator may delete it after review.]
                 $footer[Chronolith • Tickets]
                     $timestamp

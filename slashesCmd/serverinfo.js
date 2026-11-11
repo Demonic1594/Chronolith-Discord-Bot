@@ -12,7 +12,7 @@ module.exports = {
     code: `
 $interactionReply[
 $description[$guildName[$guildID]]
-$color[5865F2]
+$color[#5865F2]
 $addField[Owner;<@$guildOwnerID>;true]
 $addField[Members;$guildMemberCount[$guildID];true]
 $addField[Created;$discordTimestamp[$guildCreatedAt;RelativeTime];true]

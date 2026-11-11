@@ -19,10 +19,12 @@ const client = new ForgeClient({
               "MessageContent", "GuildInvites", "GuildWebhooks",
               "AutoModerationConfiguration", "AutoModerationExecution"],
     prefixes: ["c!"],
-    events: ["clientReady", "messageCreate", "messageDelete", "messageUpdate",
-             "interactionCreate", "guildMemberAdd", "guildMemberRemove",
-             "guildBanAdd", "guildBanRemove", "channelCreate", "channelDelete",
-             "roleCreate", "roleDelete"]
+    events: [ // same list as index.js, so no handler is reported as unheard
+             "clientReady", "messageCreate", "messageDelete", "messageUpdate", 
+             "interactionCreate", "guildMemberAdd", "guildMemberRemove", "guildMemberUpdate", 
+             "guildBanAdd", "guildBanRemove", "guildAuditLogEntryCreate", "channelCreate", 
+             "channelDelete", "channelUpdate", "roleCreate", "roleDelete", 
+             "roleUpdate"]
 });
 
 let fail = 0, ok = 0;

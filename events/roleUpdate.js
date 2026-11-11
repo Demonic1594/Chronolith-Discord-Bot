@@ -6,7 +6,7 @@ module.exports = {
         $if[$get[lch]!=;
             $sendMessage[$get[lch];
                 $title[Role updated]
-                $color[5865F2]
+                $color[#5865F2]
                 $timestamp
             ;false]
         ]

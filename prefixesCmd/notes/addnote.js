@@ -16,7 +16,7 @@ $onlyIf[$get[target]!=;Could not resolve that user.]
 $onlyIf[$message[1;999]!=;Note content is required.]
 $let[n;$addNote[$guildID;$get[target];$authorID;$message[1;999]]]
 $author[Note #$get[n];$userAvatar[$get[target];32;png]]
-$color[5865F2]
+$color[#5865F2]
 $description[<@$get[target]> — $userTag[$get[target]]
 
 > $message[1;999]]

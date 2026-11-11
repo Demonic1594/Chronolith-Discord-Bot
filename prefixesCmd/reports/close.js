@@ -15,7 +15,7 @@ $let[r;$reportUpdate[$guildID;$message[0];resolved;$authorID;$message[1;999]]]
 $onlyIf[$get[r]==1;Report not found.]
 $onlyIf[$get[r]!=-1;Invalid transition for that report.]
 $description[✅ Report #$message[0] marked **resolved**.]
-$color[248046]
+$color[#248046]
 $footer[Chronolith • Reports]
     `
 };

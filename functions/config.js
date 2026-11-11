@@ -24,11 +24,15 @@
 
 module.exports = [
     {
+        // Both channel getters return nothing when the saved channel no longer exists.
+        // A Channel argument given a deleted channel's ID makes ForgeScript throw a raw
+        // DiscordAPIError: the whole command stops and a try block cannot catch it (2.8.0).
         name: "modlogChannel",
         params: ["guild"],
         code: `
             $jsonLoad[cfg;$getGuildVar[cfg;$env[guild];{}]]
-            $return[$env[cfg;modlog]]
+            $let[id;$env[cfg;modlog]]
+            $return[$if[$channelExists[$get[id]]==true;$get[id]]]
         `
     },
     {
@@ -36,7 +40,8 @@ module.exports = [
         params: ["guild", "kind"],
         code: `
             $jsonLoad[cfg;$getGuildVar[cfg;$env[guild];{}]]
-            $return[$env[cfg;logs;$env[kind]]]
+            $let[id;$env[cfg;logs;$env[kind]]]
+            $return[$if[$channelExists[$get[id]]==true;$get[id]]]
         `
     },
     {

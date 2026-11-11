@@ -25,7 +25,7 @@ $letSum[cleared;1]
 ]
 ]
 $description[🧼 Cleared \`$get[cleared]\` note(s).]
-$color[248046]
+$color[#248046]
 $footer[Chronolith • Notes]
     `
 };

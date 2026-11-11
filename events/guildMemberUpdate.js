@@ -5,8 +5,8 @@ module.exports = {
     type: "guildMemberUpdate",
     code: `
         $nomention
-        $try[$let[on;$oldMember[nick]];$let[on;]]
-        $try[$let[nn;$newMember[nick]];$let[nn;]]
+        $try[$let[on;$oldMember[nickname]];$let[on;]]
+        $try[$let[nn;$newMember[nickname]];$let[nn;]]
         $if[$get[on]!=$get[nn];
             $let[lch;$logChannel[$guildID;serverlogs]]
             $if[$get[lch]!=;

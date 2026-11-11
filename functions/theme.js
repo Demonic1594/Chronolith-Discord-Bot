@@ -15,7 +15,12 @@
  *   warning  F0B232  amber    — warnings, automod triggers
  *   success  248046  green    — success confirmations, unbans, joins
  *   mute     9B59B6  purple   — mutes, timeouts, quarantine
- *   subtle   4E5058  slate    — utility, notes, case detail views
+ *   subtle   4E5058  slate, utility, notes, case detail views
+ *
+ * Every color is written with a leading # on purpose. ForgeScript's color
+ * resolver reads anything JavaScript can parse as a number as a DECIMAL
+ * number first, so 248046 would render as #03C8EE and 4E5058 (scientific
+ * notation) as Infinity, which crashes. tools/fslint.py checks this.
  */
 
 module.exports = [
@@ -24,21 +29,21 @@ module.exports = [
         params: ["role"],
         code: `
             $if[$env[role]==danger;
-                $return[F23F24]
+                $return[#F23F24]
             ]
             $if[$env[role]==warning;
-                $return[F0B232]
+                $return[#F0B232]
             ]
             $if[$env[role]==success;
-                $return[248046]
+                $return[#248046]
             ]
             $if[$env[role]==mute;
-                $return[9B59B6]
+                $return[#9B59B6]
             ]
             $if[$env[role]==subtle;
                 $return[#4E5058]
             ]
-            $return[5865F2]
+            $return[#5865F2]
         `
     },
     {
@@ -46,48 +51,48 @@ module.exports = [
         params: ["action"],
         code: `
             $if[$env[action]==ban;
-                $return[F23F24]
+                $return[#F23F24]
             ]
             $if[$env[action]==softban;
-                $return[F23F24]
+                $return[#F23F24]
             ]
             $if[$env[action]==hardban;
-                $return[F23F24]
+                $return[#F23F24]
             ]
             $if[$env[action]==kick;
-                $return[F23F24]
+                $return[#F23F24]
             ]
             $if[$env[action]==nuke;
-                $return[F23F24]
+                $return[#F23F24]
             ]
             $if[$env[action]==gate;
-                $return[F23F24]
+                $return[#F23F24]
             ]
             $if[$env[action]==warn;
-                $return[F0B232]
+                $return[#F0B232]
             ]
             $if[$env[action]==automod;
-                $return[F0B232]
+                $return[#F0B232]
             ]
             $if[$env[action]==raid;
-                $return[F0B232]
+                $return[#F0B232]
             ]
             $if[$env[action]==mute;
-                $return[9B59B6]
+                $return[#9B59B6]
             ]
             $if[$env[action]==unmute;
-                $return[9B59B6]
+                $return[#9B59B6]
             ]
             $if[$env[action]==quarantine;
-                $return[9B59B6]
+                $return[#9B59B6]
             ]
             $if[$env[action]==unquarantine;
-                $return[9B59B6]
+                $return[#9B59B6]
             ]
             $if[$env[action]==unban;
-                $return[248046]
+                $return[#248046]
             ]
-            $return[5865F2]
+            $return[#5865F2]
         `
     },
     {
