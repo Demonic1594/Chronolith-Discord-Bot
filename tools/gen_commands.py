@@ -636,7 +636,7 @@ cmd("reports", "report", [], "Report a user to the moderators (reason required)"
 $onlyIf[$get[target]!=;Usage: report <user> <reason>]
 $onlyIf[$message[1;999]!=;A reason is required.]
 $jsonLoad[rcfg;$getGuildVar[cfg;$guildID;{}]]
-$let[ch;$env[rcfg;reports]]
+$let[ch;$if[$channelExists[$env[rcfg;reports]]==true;$env[rcfg;reports]]]
 $onlyIf[$get[ch]!=;Reports are not configured here (mods: %setreportchannel).]
 $let[id;$reportNew[$guildID;$authorID;$get[target];$message[1;999]]]
 $sendMessage[$get[ch];
@@ -655,7 +655,7 @@ $description[✅ Report **#$get[id]** filed.]
 $deleteIn[10s]""",
     """$onlyIf[$option[reason]!=;$ephemeral A reason is required.]
 $jsonLoad[rcfg;$getGuildVar[cfg;$guildID;{}]]
-$let[ch;$env[rcfg;reports]]
+$let[ch;$if[$channelExists[$env[rcfg;reports]]==true;$env[rcfg;reports]]]
 $if[$get[ch]==;
 $ephemeral
 $interactionReply[Reports are not configured here.]

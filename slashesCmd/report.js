@@ -16,7 +16,7 @@ module.exports = {
     code: `
 $onlyIf[$option[reason]!=;$ephemeral A reason is required.]
 $!jsonLoad[rcfg;$getGuildVar[cfg;$guildID;{}]]
-$let[ch;$env[rcfg;reports]]
+$let[ch;$if[$channelExists[$env[rcfg;reports]]==true;$env[rcfg;reports]]]
 $if[$get[ch]==;
 $ephemeral
 $interactionReply[Reports are not configured here.]
