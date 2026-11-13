@@ -1,9 +1,11 @@
 import { ArgType, NativeFunction } from "@tryforge/forgescript"
+import { requirements } from "../../functions/builder"
+import { parseSnowflake } from "../../utils"
 
 export default new NativeFunction({
     name: "$addRestrictedRoles",
     version: "1.0.0",
-    description: "Adds restricted roles to the current giveaway",
+    description: "Adds restricted roles to the giveaway being started or edited, accepts role IDs or mentions",
     aliases: ["$addRestrictedRole"],
     unwrap: true,
     brackets: true,
@@ -17,12 +19,14 @@ export default new NativeFunction({
         },
     ],
     execute(ctx, [roles]) {
-        ctx.requirements ??= {}
-        
-        const set = new Set(ctx.requirements.restrictedRoles)
-        for (const role of roles) set.add(role)
-
-        ctx.requirements.restrictedRoles = [...set]
+        const req = requirements(ctx)
+        const set = new Set(req.restrictedRoles)
+        for (const role of roles) {
+            const id = parseSnowflake(role)
+            if (!id) return this.customError(`Invalid role ID: ${role}`)
+            set.add(id)
+        }
+        req.restrictedRoles = [...set]
         return this.success()
     }
 })

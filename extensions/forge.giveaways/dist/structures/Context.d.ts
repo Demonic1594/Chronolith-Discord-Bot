@@ -1,19 +1,22 @@
 import { Context as BaseContext, IContextCache } from "@tryforge/forgescript";
 import { ExtendedStates, IExtendedRunnable } from "../types";
-import { Snowflake } from "discord.js";
-import { Giveaway, MongoGiveaway } from "./Giveaway";
+import { Giveaway, IGiveawayBonusEntry, IGiveawayDisplay, IGiveawayRequirements } from "./Giveaway";
+export type { IGiveawayRequirements } from "./Giveaway";
 export interface IExtendedContextCache extends IContextCache {
-    giveaway: Giveaway | MongoGiveaway | null;
+    giveaway: Giveaway | null;
 }
-export interface IGiveawayRequirements {
-    requiredRoles?: Snowflake[];
-    restrictedRoles?: Snowflake[];
-    restrictedMembers?: Snowflake[];
+/**
+ * Options collected by builder functions (`$addBonusEntries`, `$setMaxEntries`,
+ * `$setGiveawayDescription`, ...) before `$startGiveaway`/`$editGiveaway`.
+ */
+export interface IGiveawayBuilder {
+    bonusEntries?: IGiveawayBonusEntry[];
+    maxEntries?: number | null;
+    display?: IGiveawayDisplay;
 }
 export declare class Context extends BaseContext {
     #private;
     readonly runtime: IExtendedRunnable;
-    requirements: Partial<IGiveawayRequirements>;
     constructor(runtime: IExtendedRunnable);
     get obj(): import("../types").ExtendedSendable;
     get extendedStates(): ExtendedStates | undefined;
@@ -21,9 +24,10 @@ export declare class Context extends BaseContext {
 }
 declare module "@tryforge/forgescript" {
     interface Context {
-        giveaway: Giveaway | MongoGiveaway | null;
+        giveaway: Giveaway | null;
         extendedStates?: ExtendedStates;
         requirements?: Partial<IGiveawayRequirements>;
+        giveawayBuilder?: IGiveawayBuilder;
     }
 }
 //# sourceMappingURL=Context.d.ts.map

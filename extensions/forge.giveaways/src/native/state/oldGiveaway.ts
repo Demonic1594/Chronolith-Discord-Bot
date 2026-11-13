@@ -12,7 +12,6 @@ export default new NativeFunction({
             name: "property",
             description: "The property of the giveaway to return",
             rest: false,
-            required: true,
             type: ArgType.Enum,
             enum: GiveawayProperty
         },

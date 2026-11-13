@@ -1,15 +1,14 @@
 import { ForgeClient } from "@tryforge/forgescript";
+/**
+ * Handles reaction based entries. Reacting joins, removing the reaction
+ * leaves. Members who don't meet the requirements get their reaction removed.
+ */
 export declare class GiveawaysReactionHandler {
     private readonly client;
-    private readonly emitter;
     constructor(client: ForgeClient);
-    private _register;
-    /**
-     * Finds an existing giveaway.
-     * @param channelID The id of the channel the message is located at.
-     * @param messageID The id of the message to get the giveaway from.
-     * @returns
-     */
-    private _find;
+    private get ext();
+    private matches;
+    private add;
+    private remove;
 }
 //# sourceMappingURL=GiveawaysReactionHandler.d.ts.map

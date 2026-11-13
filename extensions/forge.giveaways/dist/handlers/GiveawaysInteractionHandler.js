@@ -7,62 +7,58 @@ exports.GiveawaysInteractionHandler = void 0;
 const discord_js_1 = require("discord.js");
 const __1 = require("..");
 const structures_1 = require("../structures");
+const messages_1 = require("../structures/messages");
 const error_1 = require("../functions/error");
 const noop_1 = __importDefault(require("../functions/noop"));
+/**
+ * Handles clicks on the giveaway entry button (custom id `giveawayEntry`,
+ * optionally followed by `-anything`). Clicking toggles the entry.
+ */
 class GiveawaysInteractionHandler {
     client;
     constructor(client) {
         this.client = client;
-        this._register();
-    }
-    async _register() {
-        this.client.on("interactionCreate", async (interaction) => {
+        this.client.on("interactionCreate", (interaction) => {
             if (!interaction.isButton() || !interaction.inGuild())
                 return;
-            const { customId, channelId, message, member } = interaction;
-            const [action] = customId.split("-");
-            if (action !== "giveawayEntry")
+            const [action] = interaction.customId.split("-");
+            if (action !== structures_1.ENTRY_BUTTON_ID)
                 return;
-            const client = this.client.getExtension(__1.ForgeGiveaways, true);
-            const giveaway = await structures_1.Database.find({ channelID: channelId, messageID: message.id }, 1).then((x) => x[0]);
-            if (!giveaway) {
-                (0, error_1.throwGiveawaysError)(error_1.GiveawaysErrorType.UnknownGiveaway, message.id);
-                return;
-            }
-            if (giveaway.hasEnded) {
-                (0, error_1.throwGiveawaysError)(error_1.GiveawaysErrorType.GiveawayNotActive, giveaway.id);
-                return;
-            }
-            const user = member.user;
-            if (!giveaway.canEnter(member)) {
-                client.emitter.emit("giveawayEntryRevoke", giveaway, interaction, user);
-                if (client.options.useDefault) {
-                    await interaction.reply({
-                        content: `❌ You do not meet the requirements to enter this giveaway!`,
-                        flags: discord_js_1.MessageFlags.Ephemeral,
-                    }).catch(noop_1.default);
-                }
-                return;
-            }
-            const oldGiveaway = giveaway.clone();
-            const entered = giveaway.hasEntered(member.user.id);
-            if (entered) {
-                giveaway.removeEntry(member.user.id);
-                await structures_1.Database.set(giveaway).catch(noop_1.default);
-                client.emitter.emit("giveawayEntryRemove", oldGiveaway, giveaway, interaction, user);
-            }
-            else {
-                giveaway.addEntry(member.user.id);
-                await structures_1.Database.set(giveaway).catch(noop_1.default);
-                client.emitter.emit("giveawayEntryAdd", oldGiveaway, giveaway, interaction, user);
-            }
-            if (client.options.useDefault) {
-                await interaction.reply({
-                    content: `✅ You have successfully ${entered ? "left" : "joined"} this giveaway.`,
-                    flags: discord_js_1.MessageFlags.Ephemeral,
-                }).catch(noop_1.default);
-            }
+            this.handle(interaction).catch(noop_1.default);
         });
+    }
+    async handle(interaction) {
+        const ext = this.client.getExtension(__1.ForgeGiveaways, true);
+        const { useDefault } = ext.options;
+        const m = ext.options.messages;
+        const reply = (content) => useDefault
+            ? interaction.reply({ content, flags: discord_js_1.MessageFlags.Ephemeral, allowedMentions: { parse: [] } }).catch(noop_1.default)
+            : undefined;
+        if (!structures_1.Database.ready)
+            return reply(m.notReady);
+        const giveaway = await structures_1.Database.getByMessage(interaction.message.id, interaction.channelId);
+        if (!giveaway) {
+            (0, error_1.throwGiveawaysError)(error_1.GiveawaysErrorType.UnknownGiveaway, interaction.message.id);
+            return reply(m.unknown);
+        }
+        if (giveaway.hasEnded)
+            return reply(m.ended);
+        if (giveaway.isPaused())
+            return reply(m.paused);
+        const user = interaction.user;
+        const result = await ext.giveawaysManager.toggleEntry(giveaway.id, interaction.member, interaction, user);
+        if (!result)
+            return reply(m.unknown);
+        switch (result.action) {
+            case "added": {
+                const w = result.giveaway.weightOf(user.id);
+                return reply((0, messages_1.format)(m.joined, { prize: result.giveaway.prize, tickets: w > 1 ? ` (${w} entries)` : "" }));
+            }
+            case "removed":
+                return reply((0, messages_1.format)(m.left, { prize: result.giveaway.prize }));
+            case "denied":
+                return reply((0, messages_1.format)(m.denied, { reason: (0, messages_1.denyReasonText)(m, result.reason) }));
+        }
     }
 }
 exports.GiveawaysInteractionHandler = GiveawaysInteractionHandler;

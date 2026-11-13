@@ -7,13 +7,13 @@ export enum GiveawaysErrorType {
     MissingStartEvent = `The giveawayStart event must be defined to start giveaways, but none was detected`,
     MultipleStartEvents = `Detected multiple giveawayStart events, only one is allowed per client instance`,
     GiveawayNotActive = `Giveaway with ID "$1" has already ended and can no longer be entered`,
+    WrongGuild = `Giveaway with ID "$1" belongs to another guild, refusing to modify it`,
 }
 
 /**
- * Throws a giveaways error in the console.
+ * Logs a giveaways error in the console.
  * @param type The type of error to log.
  * @param value The value to provide in the error message.
- * @returns
  */
 export function throwGiveawaysError(type: GiveawaysErrorType, value?: string) {
     const key = Object.keys(GiveawaysErrorType).find((x) => GiveawaysErrorType[x as keyof typeof GiveawaysErrorType] === type)

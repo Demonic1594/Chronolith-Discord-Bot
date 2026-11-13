@@ -5,6 +5,11 @@ declare const _default: NativeFunction<[{
     rest: false;
     required: true;
     type: ArgType.String;
+}, {
+    name: string;
+    description: string;
+    rest: false;
+    type: ArgType.Guild;
 }], true>;
 export default _default;
 //# sourceMappingURL=endGiveaway.d.ts.map

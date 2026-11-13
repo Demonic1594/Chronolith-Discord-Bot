@@ -2,10 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const forgescript_1 = require("@tryforge/forgescript");
 const __1 = require("../..");
+const scope_1 = require("../../functions/scope");
 exports.default = new forgescript_1.NativeFunction({
     name: "$editGiveaway",
     version: "1.1.0",
-    description: "Edits an existing giveaway on a guild, returns bool",
+    description: "Edits a running giveaway, returns bool. Requirements, bonus entries and display options set before this call are applied too",
     unwrap: true,
     brackets: true,
     args: [
@@ -44,13 +45,23 @@ exports.default = new forgescript_1.NativeFunction({
         }
     ],
     output: forgescript_1.ArgType.Boolean,
-    async execute(ctx, [id, , host, prize, winners]) {
+    async execute(ctx, [id, guild, host, prize, winners]) {
+        if (winners != null && !(Number.isInteger(winners) && winners >= 1))
+            return this.customError("Winners must be a whole number of at least 1");
+        // The guild argument used to only resolve the host; it now also has
+        // to match the giveaway, so one guild can't edit another's giveaway.
+        if (!(await (0, scope_1.scopedGiveaway)(ctx, id, guild)))
+            return this.success(false);
         const client = ctx.client.getExtension(__1.ForgeGiveaways, true);
+        const b = ctx.giveawayBuilder;
         const giveaway = await client.giveawaysManager.edit(id, {
             hostID: host?.id,
             prize: prize || undefined,
-            winnersCount: winners || undefined,
-            requirements: ctx.requirements
+            winnersCount: winners ?? undefined,
+            requirements: ctx.requirements,
+            bonusEntries: b?.bonusEntries,
+            maxEntries: b?.maxEntries,
+            display: b?.display,
         }).catch(ctx.noop);
         return this.success(!!giveaway);
     }

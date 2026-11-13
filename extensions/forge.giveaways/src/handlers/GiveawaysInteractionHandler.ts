@@ -1,67 +1,56 @@
 import { ForgeClient } from "@tryforge/forgescript"
-import { MessageFlags, User } from "discord.js"
+import { ButtonInteraction, MessageFlags, User } from "discord.js"
 import { ForgeGiveaways } from ".."
-import { Database } from "../structures"
+import { Database, ENTRY_BUTTON_ID } from "../structures"
+import { denyReasonText, format, GiveawayMessages } from "../structures/messages"
 import { GiveawaysErrorType, throwGiveawaysError } from "../functions/error"
 import noop from "../functions/noop"
 
+/**
+ * Handles clicks on the giveaway entry button (custom id `giveawayEntry`,
+ * optionally followed by `-anything`). Clicking toggles the entry.
+ */
 export class GiveawaysInteractionHandler {
     public constructor(private readonly client: ForgeClient) {
-        this._register()
+        this.client.on("interactionCreate", (interaction) => {
+            if (!interaction.isButton() || !interaction.inGuild()) return
+            const [action] = interaction.customId.split("-")
+            if (action !== ENTRY_BUTTON_ID) return
+            this.handle(interaction).catch(noop)
+        })
     }
 
-    private async _register() {
-        this.client.on("interactionCreate", async (interaction) => {
-            if (!interaction.isButton() || !interaction.inGuild()) return
-            const { customId, channelId, message, member } = interaction
+    private async handle(interaction: ButtonInteraction<"cached" | "raw">) {
+        const ext = this.client.getExtension(ForgeGiveaways, true)
+        const { useDefault } = ext.options
+        const m = ext.options.messages as GiveawayMessages
+        const reply = (content: string) => useDefault
+            ? interaction.reply({ content, flags: MessageFlags.Ephemeral, allowedMentions: { parse: [] } }).catch(noop)
+            : undefined
 
-            const [action] = customId.split("-")
-            if (action !== "giveawayEntry") return
+        if (!Database.ready) return reply(m.notReady)
 
-            const client = this.client.getExtension(ForgeGiveaways, true)
-            const giveaway = await Database.find({ channelID: channelId, messageID: message.id }, 1).then((x) => x[0])
+        const giveaway = await Database.getByMessage(interaction.message.id, interaction.channelId)
+        if (!giveaway) {
+            throwGiveawaysError(GiveawaysErrorType.UnknownGiveaway, interaction.message.id)
+            return reply(m.unknown)
+        }
+        if (giveaway.hasEnded) return reply(m.ended)
+        if (giveaway.isPaused()) return reply(m.paused)
 
-            if (!giveaway) {
-                throwGiveawaysError(GiveawaysErrorType.UnknownGiveaway, message.id)
-                return
+        const user = interaction.user as User
+        const result = await ext.giveawaysManager.toggleEntry(giveaway.id, interaction.member, interaction, user)
+        if (!result) return reply(m.unknown)
+
+        switch (result.action) {
+            case "added": {
+                const w = result.giveaway.weightOf(user.id)
+                return reply(format(m.joined, { prize: result.giveaway.prize, tickets: w > 1 ? ` (${w} entries)` : "" }))
             }
-
-            if (giveaway.hasEnded) {
-                throwGiveawaysError(GiveawaysErrorType.GiveawayNotActive, giveaway.id)
-                return
-            }
-            const user = member.user as User
-
-            if (!giveaway.canEnter(member)) {
-                client.emitter.emit("giveawayEntryRevoke", giveaway, interaction, user)
-                if (client.options.useDefault) {
-                    await interaction.reply({
-                        content: `❌ You do not meet the requirements to enter this giveaway!`,
-                        flags: MessageFlags.Ephemeral,
-                    }).catch(noop)
-                }
-                return
-            }
-
-            const oldGiveaway = giveaway.clone()
-            const entered = giveaway.hasEntered(member.user.id)
-
-            if (entered) {
-                giveaway.removeEntry(member.user.id)
-                await Database.set(giveaway).catch(noop)
-                client.emitter.emit("giveawayEntryRemove", oldGiveaway, giveaway, interaction, user)
-            } else {
-                giveaway.addEntry(member.user.id)
-                await Database.set(giveaway).catch(noop)
-                client.emitter.emit("giveawayEntryAdd", oldGiveaway, giveaway, interaction, user)
-            }
-
-            if (client.options.useDefault) {
-                await interaction.reply({
-                    content: `✅ You have successfully ${entered ? "left" : "joined"} this giveaway.`,
-                    flags: MessageFlags.Ephemeral,
-                }).catch(noop)
-            }
-        })
+            case "removed":
+                return reply(format(m.left, { prize: result.giveaway.prize }))
+            case "denied":
+                return reply(format(m.denied, { reason: denyReasonText(m, result.reason!) }))
+        }
     }
 }

@@ -1,1 +1,1 @@
-{"version":3,"file":"pullGiveaway.d.ts","sourceRoot":"","sources":["../../src/functions/pullGiveaway.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,uBAAuB,CAAA;AAG/C,yBAA8B,GAAG,EAAE,OAAO,EAAE,EAAE,CAAC,EAAE,MAAM,GAAG,IAAI,gEAE7D"}
+{"version":3,"file":"pullGiveaway.d.ts","sourceRoot":"","sources":["../../src/functions/pullGiveaway.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,uBAAuB,CAAA;AAG/C,mEAAmE;AACnE,yBAA+B,GAAG,EAAE,OAAO,EAAE,EAAE,CAAC,EAAE,MAAM,GAAG,IAAI,oDAE9D"}

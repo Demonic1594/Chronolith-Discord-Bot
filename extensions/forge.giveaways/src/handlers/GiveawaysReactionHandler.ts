@@ -1,72 +1,65 @@
-import { ForgeClient } from "@tryforge/forgescript"
+import { ForgeClient, Logger } from "@tryforge/forgescript"
+import { MessageReaction, PartialMessageReaction, PartialUser, Partials, User } from "discord.js"
+import { ForgeGiveaways } from ".."
 import { Database } from "../structures"
-import { Snowflake, User } from "discord.js"
-import { ForgeGiveaways, IGiveawayEvents } from ".."
-import { TypedEmitter } from "tiny-typed-emitter"
-import { TransformEvents } from "@tryforge/forge.db"
 import noop from "../functions/noop"
 
+/**
+ * Handles reaction based entries. Reacting joins, removing the reaction
+ * leaves. Members who don't meet the requirements get their reaction removed.
+ */
 export class GiveawaysReactionHandler {
-    private readonly emitter: TypedEmitter<TransformEvents<IGiveawayEvents>>
-
     public constructor(private readonly client: ForgeClient) {
-        this.emitter = client.getExtension(ForgeGiveaways, true).emitter
-        this._register()
+        const partials = client.options.partials ?? []
+        if (!partials.includes(Partials.Message) || !partials.includes(Partials.Reaction)) {
+            Logger.warn(`[ForgeGiveaways] Enable the "Message" and "Reaction" partials so reactions on giveaway messages sent before a restart are seen`)
+        }
+
+        client.on("messageReactionAdd", (r, u) => void this.add(r, u).catch(noop))
+        client.on("messageReactionRemove", (r, u) => void this.remove(r, u).catch(noop))
     }
 
-    private async _register() {
-        // Add Entry
-        this.client.on("messageReactionAdd", async (reaction, user) => {
-            if (user.bot) return
-
-            const { message, users, emoji } = reaction
-            if (emoji.name !== "🎉") return
-
-            const giveaway = await this._find(message.channelId, message.id)
-            if (!giveaway || giveaway.hasEnded) return
-
-            const members = this.client.guilds.cache.get(giveaway.guildID)?.members
-            const member = members?.cache.get(user.id) ?? await members?.fetch(user.id).catch(noop)
-            user = user as User
-
-            if (!member || !giveaway.canEnter(member)) {
-                users.remove(user.id).catch(noop)
-                this.emitter.emit("giveawayEntryRevoke", giveaway, reaction, user)
-                return
-            }
-
-            const oldGiveaway = giveaway.clone()
-
-            giveaway.addEntry(user.id)
-            await Database.set(giveaway).catch(noop)
-            this.emitter.emit("giveawayEntryAdd", oldGiveaway, giveaway, reaction, user)
-        })
-
-        // Remove Entry
-        this.client.on("messageReactionRemove", async (reaction, user) => {
-            if (user.bot) return
-
-            const { message, emoji } = reaction
-            if (emoji.name !== "🎉") return
-
-            const giveaway = await this._find(message.channelId, message.id)
-            if (!giveaway || giveaway.hasEnded) return
-
-            const oldGiveaway = giveaway.clone()
-
-            giveaway.removeEntry(user.id)
-            await Database.set(giveaway).catch(noop)
-            this.emitter.emit("giveawayEntryRemove", oldGiveaway, giveaway, reaction, user as User)
-        })
+    private get ext() {
+        return this.client.getExtension(ForgeGiveaways, true)
     }
 
-    /**
-     * Finds an existing giveaway.
-     * @param channelID The id of the channel the message is located at.
-     * @param messageID The id of the message to get the giveaway from.
-     * @returns 
-     */
-    private async _find(channelID: Snowflake, messageID: Snowflake) {
-        return await Database.find({ channelID, messageID }, 1).then((x) => x[0])
+    private matches(reaction: MessageReaction | PartialMessageReaction) {
+        const want = this.ext.options.emoji!
+        const { emoji } = reaction
+        return emoji.name === want || emoji.id === want || emoji.toString() === want
+    }
+
+    private async add(reaction: MessageReaction | PartialMessageReaction, user: User | PartialUser) {
+        if (user.bot || !Database.ready || !this.matches(reaction)) return
+
+        const giveaway = await Database.getByMessage(reaction.message.id, reaction.message.channelId)
+        if (!giveaway) return
+        if (!giveaway.isActive()) {
+            reaction.users.remove(user.id).catch(noop)
+            return
+        }
+
+        const guild = this.client.guilds.cache.get(giveaway.guildID)
+        const member = guild?.members.cache.get(user.id) ?? (await guild?.members.fetch(user.id).catch(() => null))
+        const full = user.partial ? await user.fetch().catch(() => null) : user
+        if (!member || !full) {
+            reaction.users.remove(user.id).catch(noop)
+            return
+        }
+
+        const result = await this.ext.giveawaysManager.join(giveaway.id, member, reaction, full)
+        if (result?.action === "denied") reaction.users.remove(user.id).catch(noop)
+    }
+
+    private async remove(reaction: MessageReaction | PartialMessageReaction, user: User | PartialUser) {
+        if (user.bot || !Database.ready || !this.matches(reaction)) return
+
+        const giveaway = await Database.getByMessage(reaction.message.id, reaction.message.channelId)
+        // Only real participants leave: our own removal of a denied reaction
+        // must not fire giveawayEntryRemove for somebody who never entered.
+        if (!giveaway || !giveaway.isActive() || !giveaway.hasEntered(user.id)) return
+
+        const full = user.partial ? await user.fetch().catch(() => null) : user
+        await this.ext.giveawaysManager.leave(giveaway.id, user.id, reaction, full ?? undefined)
     }
 }

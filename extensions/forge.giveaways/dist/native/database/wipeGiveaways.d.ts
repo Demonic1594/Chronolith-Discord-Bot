@@ -1,4 +1,9 @@
-import { NativeFunction } from "@tryforge/forgescript";
-declare const _default: NativeFunction<import("@tryforge/forgescript").IArg<import("@tryforge/forgescript").ArgType, boolean, boolean, import("@tryforge/forgescript").EnumLike<any>>[], false>;
+import { ArgType, NativeFunction } from "@tryforge/forgescript";
+declare const _default: NativeFunction<[{
+    name: string;
+    description: string;
+    rest: false;
+    type: ArgType.Guild;
+}], true>;
 export default _default;
 //# sourceMappingURL=wipeGiveaways.d.ts.map

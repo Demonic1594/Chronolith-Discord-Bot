@@ -6,7 +6,6 @@ const Giveaway_1 = require("./Giveaway");
 class Context extends forgescript_1.Context {
     runtime;
     #cache = {};
-    requirements = {};
     constructor(runtime) {
         super(runtime);
         this.runtime = runtime;

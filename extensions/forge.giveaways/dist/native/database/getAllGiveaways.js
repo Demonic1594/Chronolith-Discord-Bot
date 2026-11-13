@@ -18,7 +18,6 @@ exports.default = new forgescript_1.NativeFunction({
             name: "property",
             description: "The property of the giveaways to return",
             rest: false,
-            required: true,
             type: forgescript_1.ArgType.Enum,
             enum: giveaway_1.GiveawayProperty
         },
